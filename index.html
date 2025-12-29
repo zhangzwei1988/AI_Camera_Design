@@ -384,6 +384,67 @@
       pointer-events: auto;
     }
 
+    /* 导出模式：非活动页面完全隐藏 */
+    body.export-mode .page {
+      display: none !important;
+      opacity: 0 !important;
+    }
+    body.export-mode .page.active {
+      display: block !important;
+      opacity: 1 !important;
+    }
+    
+    /* 导出模式：隐藏所有弹窗/浮层（除非显示） */
+    body.export-mode .ai-overlay,
+    body.export-mode .ptt-overlay,
+    body.export-mode .settings-sheet-overlay,
+    body.export-mode .wifi-password-modal,
+    body.export-mode .levelup-modal-overlay,
+    body.export-mode .badge-modal-overlay,
+    body.export-mode .share-card-overlay,
+    body.export-mode .xp-float,
+    body.export-mode .share-success-toast,
+    body.export-mode .volume-indicator,
+    body.export-mode .screen-off-overlay,
+    body.export-mode .xp-detail-overlay {
+      display: none !important;
+      opacity: 0 !important;
+    }
+    body.export-mode .ai-overlay.show,
+    body.export-mode .ptt-overlay.show,
+    body.export-mode .settings-sheet-overlay.show,
+    body.export-mode .wifi-password-modal.show,
+    body.export-mode .levelup-modal-overlay.show,
+    body.export-mode .badge-modal-overlay.show,
+    body.export-mode .share-card-overlay.show,
+    body.export-mode .xp-detail-overlay.show {
+      display: flex !important;
+      opacity: 1 !important;
+    }
+
+    /* 导出模式开关样式 */
+    .export-mode-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: linear-gradient(135deg, #10B981, #059669);
+      color: white;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+    .export-mode-toggle input {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+    .export-mode-toggle.active {
+      background: linear-gradient(135deg, #EF4444, #DC2626);
+    }
+
     /* 二级三级页面通用模糊背景(除相机和地图外) */
     .page-blur-bg {
       background: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80') center/cover no-repeat;
@@ -8257,6 +8318,12 @@
 
     <!-- 导航菜单区 -->
     <div class="nav-area">
+      <!-- 导出模式开关 -->
+      <label class="export-mode-toggle" id="export-mode-toggle">
+        <input type="checkbox" id="export-mode-checkbox" onchange="toggleExportMode()">
+        <span>🎯 导出模式 (Figma切图用)</span>
+      </label>
+
       <!-- 主页面 -->
       <div class="nav-section">
         <div class="nav-section-title">📱 主页面</div>
@@ -8364,6 +8431,21 @@
   </div>
 
   <script>
+    // ============ V8 导出模式 ============
+    let exportMode = false;
+
+    function toggleExportMode() {
+      exportMode = !exportMode;
+      document.body.classList.toggle('export-mode', exportMode);
+      document.getElementById('export-mode-toggle').classList.toggle('active', exportMode);
+      
+      if (exportMode) {
+        console.log('🎯 导出模式已开启 - 非活动页面已隐藏');
+      } else {
+        console.log('📱 导出模式已关闭 - 恢复正常预览');
+      }
+    }
+
     // ============ V8 URL Hash 导航 ============
     let currentState = { page: 'home-page', modal: null };
 
@@ -8482,6 +8564,12 @@
     function loadFromHash() {
       const hash = window.location.hash.slice(1);
       if (hash) {
+        // 如果有hash，自动开启导出模式
+        if (!exportMode) {
+          document.getElementById('export-mode-checkbox').checked = true;
+          toggleExportMode();
+        }
+        
         const parts = hash.split('/');
         const pageId = parts[0];
         const modal = parts[1] || null;
