@@ -445,6 +445,21 @@
       background: linear-gradient(135deg, #EF4444, #DC2626);
     }
 
+    /* 导出模式：强制显示可见卡片的标签 */
+    body.export-mode .card.pos-left .card-label,
+    body.export-mode .card.pos-center .card-label,
+    body.export-mode .card.pos-right .card-label {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transition: none !important;
+    }
+    
+    /* 导出模式：移除所有动画效果 */
+    body.export-mode * {
+      animation: none !important;
+      transition: none !important;
+    }
+
     /* 二级三级页面通用模糊背景(除相机和地图外) */
     .page-blur-bg {
       background: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80') center/cover no-repeat;
@@ -6176,27 +6191,27 @@
           </div>
 
           <div class="carousel-container" id="carousel">
-            <div class="card" data-page="settings-page" onclick="handleCardClick(0)">
+            <div class="card pos-left" data-page="settings-page" onclick="handleCardClick(0)">
               <div class="card-icon"><img src="icons/Settings.png" alt="Settings"></div>
               <div class="card-label">Settings</div>
             </div>
-            <div class="card" data-page="camera-page" onclick="handleCardClick(1)">
+            <div class="card pos-center" data-page="camera-page" onclick="handleCardClick(1)">
               <div class="card-icon"><img src="icons/Camera.png" alt="Camera"></div>
               <div class="card-label">Camera</div>
             </div>
-            <div class="card" data-page="map-page" onclick="handleCardClick(2)">
+            <div class="card pos-right" data-page="map-page" onclick="handleCardClick(2)">
               <div class="card-icon"><img src="icons/Map.png" alt="Map"></div>
               <div class="card-label">Map</div>
             </div>
-            <div class="card" data-page="workshop-page" onclick="handleCardClick(3)">
+            <div class="card pos-far-right" data-page="workshop-page" onclick="handleCardClick(3)">
               <div class="card-icon"><img src="icons/Workshop.png" alt="Workshop"></div>
               <div class="card-label">Workshop</div>
             </div>
-            <div class="card" data-page="backpack-page" onclick="handleCardClick(4)">
+            <div class="card pos-hidden" data-page="backpack-page" onclick="handleCardClick(4)">
               <div class="card-icon"><img src="icons/Backpack.png" alt="Backpack"></div>
               <div class="card-label">Backpack</div>
             </div>
-            <div class="card" data-page="explorer-page" onclick="handleCardClick(5)">
+            <div class="card pos-far-left" data-page="explorer-page" onclick="handleCardClick(5)">
               <div class="card-icon"><img src="icons/Explorer.png" alt="Explorer"></div>
               <div class="card-label">Explorer</div>
             </div>
@@ -8433,6 +8448,7 @@
   <script>
     // ============ V8 导出模式 ============
     let exportMode = false;
+    let hiddenElements = []; // 存储被移除的元素
 
     function toggleExportMode() {
       exportMode = !exportMode;
@@ -8440,9 +8456,73 @@
       document.getElementById('export-mode-toggle').classList.toggle('active', exportMode);
       
       if (exportMode) {
-        console.log('🎯 导出模式已开启 - 非活动页面已隐藏');
+        // 开启导出模式：移除非活动页面和隐藏的弹窗
+        removeInactiveElements();
+        console.log('🎯 导出模式已开启 - 非活动元素已移除');
       } else {
-        console.log('📱 导出模式已关闭 - 恢复正常预览');
+        // 关闭导出模式：恢复被移除的元素
+        restoreElements();
+        console.log('📱 导出模式已关闭 - 元素已恢复');
+      }
+    }
+
+    // 移除非活动元素
+    function removeInactiveElements() {
+      hiddenElements = [];
+      
+      // 移除非活动页面
+      document.querySelectorAll('.page:not(.active)').forEach(el => {
+        hiddenElements.push({ element: el, parent: el.parentNode, nextSibling: el.nextSibling });
+        el.remove();
+      });
+      
+      // 移除隐藏的carousel卡片
+      document.querySelectorAll('.card.pos-hidden, .card.pos-far-left, .card.pos-far-right').forEach(el => {
+        hiddenElements.push({ element: el, parent: el.parentNode, nextSibling: el.nextSibling });
+        el.remove();
+      });
+      
+      // 移除未显示的弹窗
+      const overlaySelectors = [
+        '.ai-overlay:not(.show)',
+        '.ptt-overlay:not(.show)',
+        '.settings-sheet-overlay:not(.show)',
+        '.wifi-password-modal:not(.show)',
+        '.levelup-modal-overlay:not(.show)',
+        '.badge-modal-overlay:not(.show)',
+        '.share-card-overlay:not(.show)',
+        '.xp-detail-overlay:not(.show)',
+        '.volume-indicator:not(.show)',
+        '.screen-off-overlay:not(.active)',
+        '.xp-float',
+        '.share-success-toast'
+      ];
+      
+      overlaySelectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(el => {
+          hiddenElements.push({ element: el, parent: el.parentNode, nextSibling: el.nextSibling });
+          el.remove();
+        });
+      });
+    }
+
+    // 恢复被移除的元素
+    function restoreElements() {
+      hiddenElements.reverse().forEach(item => {
+        if (item.nextSibling) {
+          item.parent.insertBefore(item.element, item.nextSibling);
+        } else {
+          item.parent.appendChild(item.element);
+        }
+      });
+      hiddenElements = [];
+    }
+
+    // 切换页面时更新导出模式
+    function updateExportMode() {
+      if (exportMode) {
+        restoreElements();
+        removeInactiveElements();
       }
     }
 
@@ -8460,6 +8540,11 @@
         window.location.hash = pageId;
       }
       
+      // 如果是导出模式，先恢复元素再导航
+      if (exportMode) {
+        restoreElements();
+      }
+      
       // 导航到页面
       navigateTo(pageId);
       
@@ -8470,6 +8555,11 @@
       
       // 更新导航高亮
       updateNavHighlight(pageId, modal);
+      
+      // 如果是导出模式，重新移除非活动元素
+      if (exportMode) {
+        setTimeout(() => removeInactiveElements(), 150);
+      }
     }
 
     // 处理弹窗/状态
