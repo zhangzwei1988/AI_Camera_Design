@@ -42,6 +42,7 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      position: relative;
     }
 
     /* ============ 模拟按钮区(横向排列) ============ */
@@ -9923,7 +9924,7 @@
           <div class="ai-card-body" style="text-align: center; padding: 20px 0;">
             <div style="font-size: 48px; margin-bottom: 12px;">☀️</div>
             <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">No quests yet today!</div>
-            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">New quests arrive at 8:00 AM every morning</div>
+            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">New quests arrive at 5:00 AM every morning</div>
             <div style="background: #f0f9ff; border-radius: 12px; padding: 14px;">
               <div style="font-size: 12px; font-weight: 600; color: #0369a1; margin-bottom: 4px;">💡 While you wait:</div>
               <div style="font-size: 13px; color: #555;">Try free exploration! 📷</div>
@@ -10291,7 +10292,7 @@
             <div style="font-size: 48px; margin-bottom: 12px;">🎉</div>
             <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">All quests completed!</div>
             <div style="font-size: 14px; color: #888; margin-bottom: 4px;">Amazing work today!</div>
-            <div style="font-size: 13px; color: #666;">New quests arrive tomorrow at 8:00 AM ☀️</div>
+            <div style="font-size: 13px; color: #666;">New quests arrive tomorrow at 5:00 AM ☀️</div>
           </div>
           <div class="ai-card-footer">
             <button class="ai-card-btn primary" onclick="showAICard('exploreTips');">Check Explore Tips 💡</button>
@@ -10719,6 +10720,12 @@
     }
 
     function togglePTT() {
+      // 相机页面禁用语音
+      if (currentPage === 'camera-page') {
+        showToast('🎤 拍照期间语音不可用');
+        return;
+      }
+      
       // 如果在聊天页面,触发页面内录音而不是全局浮层
       if (currentPage === 'chat-page') {
         const btn = document.getElementById('chat-speak-btn');
@@ -10746,6 +10753,26 @@
         resetPTTToRecording();
         simulateVoiceRecognition();
       }
+    }
+    
+    // Toast 提示
+    function showToast(message) {
+      let toast = document.getElementById('global-toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'global-toast';
+        toast.style.cssText = 'position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.85); color: white; padding: 12px 24px; border-radius: 8px; font-size: 14px; z-index: 9999; opacity: 0; transition: opacity 0.3s; pointer-events: none;';
+        // 添加到screen-area内
+        const screenArea = document.querySelector('.screen-area');
+        if (screenArea) {
+          screenArea.appendChild(toast);
+        } else {
+          document.body.appendChild(toast);
+        }
+      }
+      toast.textContent = message;
+      toast.style.opacity = '1';
+      setTimeout(() => { toast.style.opacity = '0'; }, 2000);
     }
 
     function hidePTT() {
