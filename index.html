@@ -387,39 +387,26 @@
     /* 导出模式：非活动页面完全隐藏 */
     body.export-mode .page {
       display: none !important;
-      opacity: 0 !important;
     }
     body.export-mode .page.active {
       display: block !important;
-      opacity: 1 !important;
     }
     
-    /* 导出模式：隐藏所有弹窗/浮层（除非显示） */
-    body.export-mode .ai-overlay,
-    body.export-mode .ptt-overlay,
-    body.export-mode .settings-sheet-overlay,
-    body.export-mode .wifi-password-modal,
-    body.export-mode .levelup-modal-overlay,
-    body.export-mode .badge-modal-overlay,
-    body.export-mode .share-card-overlay,
+    /* 导出模式：隐藏未显示的弹窗（用visibility而非display，保留DOM） */
+    body.export-mode .ai-overlay:not(.show),
+    body.export-mode .ptt-overlay:not(.show),
+    body.export-mode .settings-sheet-overlay:not(.show),
+    body.export-mode .wifi-password-modal:not(.show),
+    body.export-mode .xp-detail-overlay:not(.show),
+    body.export-mode .levelup-modal-overlay:not(.show),
+    body.export-mode .badge-modal-overlay:not(.show),
+    body.export-mode .share-card-overlay:not(.show),
+    body.export-mode .volume-indicator:not(.show),
+    body.export-mode .screen-off-overlay:not(.active),
     body.export-mode .xp-float,
-    body.export-mode .share-success-toast,
-    body.export-mode .volume-indicator,
-    body.export-mode .screen-off-overlay,
-    body.export-mode .xp-detail-overlay {
-      display: none !important;
-      opacity: 0 !important;
-    }
-    body.export-mode .ai-overlay.show,
-    body.export-mode .ptt-overlay.show,
-    body.export-mode .settings-sheet-overlay.show,
-    body.export-mode .wifi-password-modal.show,
-    body.export-mode .levelup-modal-overlay.show,
-    body.export-mode .badge-modal-overlay.show,
-    body.export-mode .share-card-overlay.show,
-    body.export-mode .xp-detail-overlay.show {
-      display: flex !important;
-      opacity: 1 !important;
+    body.export-mode .share-success-toast {
+      visibility: hidden !important;
+      pointer-events: none !important;
     }
 
     /* 导出模式开关样式 */
@@ -8456,9 +8443,7 @@
       document.getElementById('export-mode-toggle').classList.toggle('active', exportMode);
       
       if (exportMode) {
-        // 开启导出模式：移除非活动页面和隐藏的弹窗
-        removeInactiveElements();
-        console.log('🎯 导出模式已开启 - 非活动元素已移除');
+        console.log('🎯 导出模式已开启 - 请点击导航项来显示目标页面');
       } else {
         // 关闭导出模式：恢复被移除的元素
         restoreElements();
@@ -8466,11 +8451,15 @@
       }
     }
 
-    // 移除非活动元素
+    // 移除非活动元素（只移除页面，不移除弹窗）
     function removeInactiveElements() {
+      // 先恢复之前移除的元素
+      if (hiddenElements.length > 0) {
+        restoreElements();
+      }
       hiddenElements = [];
       
-      // 移除非活动页面
+      // 只移除非活动页面
       document.querySelectorAll('.page:not(.active)').forEach(el => {
         hiddenElements.push({ element: el, parent: el.parentNode, nextSibling: el.nextSibling });
         el.remove();
@@ -8482,93 +8471,149 @@
         el.remove();
       });
       
-      // 移除未显示的弹窗
-      const overlaySelectors = [
-        '.ai-overlay:not(.show)',
-        '.ptt-overlay:not(.show)',
-        '.settings-sheet-overlay:not(.show)',
-        '.wifi-password-modal:not(.show)',
-        '.levelup-modal-overlay:not(.show)',
-        '.badge-modal-overlay:not(.show)',
-        '.share-card-overlay:not(.show)',
-        '.xp-detail-overlay:not(.show)',
-        '.volume-indicator:not(.show)',
-        '.screen-off-overlay:not(.active)',
-        '.xp-float',
-        '.share-success-toast'
-      ];
-      
-      overlaySelectors.forEach(selector => {
-        document.querySelectorAll(selector).forEach(el => {
-          hiddenElements.push({ element: el, parent: el.parentNode, nextSibling: el.nextSibling });
-          el.remove();
-        });
-      });
+      console.log('🧹 已移除', hiddenElements.length, '个非活动页面/卡片');
     }
 
     // 恢复被移除的元素
     function restoreElements() {
+      if (hiddenElements.length === 0) return;
+      
       hiddenElements.reverse().forEach(item => {
-        if (item.nextSibling) {
-          item.parent.insertBefore(item.element, item.nextSibling);
-        } else {
-          item.parent.appendChild(item.element);
+        if (item.parent) {
+          if (item.nextSibling && item.nextSibling.parentNode === item.parent) {
+            item.parent.insertBefore(item.element, item.nextSibling);
+          } else {
+            item.parent.appendChild(item.element);
+          }
         }
       });
+      console.log('♻️ 已恢复', hiddenElements.length, '个元素');
       hiddenElements = [];
-    }
-
-    // 切换页面时更新导出模式
-    function updateExportMode() {
-      if (exportMode) {
-        restoreElements();
-        removeInactiveElements();
-      }
     }
 
     // ============ V8 URL Hash 导航 ============
     let currentState = { page: 'home-page', modal: null };
+    let goToTimeout = null; // 防抖
 
     // 主导航函数 - 支持URL hash
     function goTo(pageId, modal = null) {
-      currentState = { page: pageId, modal: modal };
-      
-      // 更新URL hash
-      if (modal) {
-        window.location.hash = `${pageId}/${modal}`;
-      } else {
-        window.location.hash = pageId;
+      // 防抖：清除之前的延迟移除
+      if (goToTimeout) {
+        clearTimeout(goToTimeout);
+        goToTimeout = null;
       }
       
-      // 如果是导出模式，先恢复元素再导航
-      if (exportMode) {
+      console.log('📍 goTo:', pageId, modal);
+      currentState = { page: pageId, modal: modal };
+      
+      // 更新URL hash（不触发hashchange）
+      const newHash = modal ? `${pageId}/${modal}` : pageId;
+      if (window.location.hash !== '#' + newHash) {
+        history.replaceState(null, '', '#' + newHash);
+      }
+      
+      // 如果是导出模式，先恢复所有元素
+      if (exportMode && hiddenElements.length > 0) {
+        console.log('♻️ 恢复元素...');
         restoreElements();
       }
       
-      // 导航到页面
-      navigateTo(pageId);
+      // 隐藏所有弹窗
+      document.querySelectorAll('.ai-overlay, .ptt-overlay, .settings-sheet-overlay, .wifi-password-modal, .xp-detail-overlay').forEach(el => {
+        el.classList.remove('show');
+      });
       
-      // 处理弹窗/状态
+      // 导航到页面
+      document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+      const targetPage = document.getElementById(pageId);
+      if (targetPage) {
+        targetPage.classList.add('active');
+      }
+      currentPage = pageId;
+      
+      // 控制状态栏
+      const statusBar = document.querySelector('.status-bar');
+      if (statusBar) {
+        statusBar.style.display = (pageId === 'home-page') ? 'flex' : 'none';
+      }
+      
+      // 显示目标弹窗
       if (modal) {
-        setTimeout(() => handleModal(pageId, modal), 100);
+        console.log('🎯 显示弹窗:', modal);
+        if (modal === 'ai-menu') {
+          const overlay = document.getElementById('ai-overlay');
+          if (overlay) {
+            overlay.classList.add('show');
+            updateAIMenu();
+            console.log('✅ AI菜单已显示');
+          }
+        } else if (modal === 'ptt') {
+          const ptt = document.getElementById('ptt-overlay');
+          if (ptt) {
+            ptt.classList.add('show');
+            console.log('✅ PTT已显示');
+          }
+        } else {
+          handleModal(pageId, modal);
+        }
       }
       
       // 更新导航高亮
       updateNavHighlight(pageId, modal);
       
-      // 如果是导出模式，重新移除非活动元素
+      // 如果是导出模式，延迟移除非活动元素
       if (exportMode) {
-        setTimeout(() => removeInactiveElements(), 150);
+        console.log('⏳ 300ms后移除非活动页面...');
+        goToTimeout = setTimeout(() => {
+          console.log('🧹 开始移除...');
+          removeInactiveElements();
+        }, 300);
       }
+    }
+    
+    // 纯页面切换（不隐藏弹窗）
+    function navigateToPage(pageId) {
+      document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+      });
+      
+      const targetPage = document.getElementById(pageId);
+      if (targetPage) {
+        targetPage.classList.add('active');
+      } else {
+        document.getElementById('home-page').classList.add('active');
+      }
+      
+      currentPage = pageId;
+      
+      // 控制状态栏显示
+      const statusBar = document.querySelector('.status-bar');
+      if (statusBar) {
+        statusBar.style.display = (pageId === 'home-page') ? 'flex' : 'none';
+      }
+    }
+    
+    // 隐藏所有设置弹窗
+    function hideAllSheets() {
+      document.querySelectorAll('.settings-sheet-overlay').forEach(el => {
+        el.classList.remove('show');
+      });
+      const wifiModal = document.querySelector('.wifi-password-modal');
+      if (wifiModal) wifiModal.classList.remove('show');
+      const xpDetail = document.querySelector('.xp-detail-overlay');
+      if (xpDetail) xpDetail.classList.remove('show');
     }
 
     // 处理弹窗/状态
     function handleModal(pageId, modal) {
+      console.log('🎯 handleModal 被调用:', pageId, modal);
       switch(modal) {
         case 'ai-menu':
+          console.log('📦 准备调用 showAI()...');
           showAI();
           break;
         case 'ptt':
+          console.log('📦 准备调用 showPTT()...');
           showPTT();
           break;
         case 'ai-voice':
@@ -8592,6 +8637,8 @@
         case 'available':
           simulateUpdateAvailable();
           break;
+        default:
+          console.log('⚠️ 未知的 modal 类型:', modal);
       }
     }
 
@@ -8616,17 +8663,31 @@
 
     // 显示AI菜单
     function showAI() {
-      hidePTT();
+      const pttOverlay = document.getElementById('ptt-overlay');
+      if (pttOverlay) pttOverlay.classList.remove('show');
+      
       const overlay = document.getElementById('ai-overlay');
-      overlay.classList.add('show');
-      updateAIMenu();
+      if (overlay) {
+        overlay.classList.add('show');
+        updateAIMenu();
+        console.log('✨ AI菜单已显示');
+      } else {
+        console.error('❌ 找不到ai-overlay元素');
+      }
     }
 
     // 显示PTT浮窗
     function showPTT() {
-      hideAI();
+      const aiOverlay = document.getElementById('ai-overlay');
+      if (aiOverlay) aiOverlay.classList.remove('show');
+      
       const ptt = document.getElementById('ptt-overlay');
-      ptt.classList.add('show');
+      if (ptt) {
+        ptt.classList.add('show');
+        console.log('🎤 PTT已显示');
+      } else {
+        console.error('❌ 找不到ptt-overlay元素');
+      }
     }
 
     // 更新导航高亮
@@ -8654,16 +8715,20 @@
     function loadFromHash() {
       const hash = window.location.hash.slice(1);
       if (hash) {
-        // 如果有hash，自动开启导出模式
-        if (!exportMode) {
-          document.getElementById('export-mode-checkbox').checked = true;
-          toggleExportMode();
-        }
-        
         const parts = hash.split('/');
         const pageId = parts[0];
         const modal = parts[1] || null;
-        goTo(pageId, modal);
+        
+        // 自动开启导出模式
+        if (!exportMode) {
+          exportMode = true;
+          document.body.classList.add('export-mode');
+          document.getElementById('export-mode-checkbox').checked = true;
+          document.getElementById('export-mode-toggle').classList.add('active');
+        }
+        
+        // 延迟执行goTo，确保页面完全加载
+        setTimeout(() => goTo(pageId, modal), 50);
       }
     }
 
@@ -9428,7 +9493,8 @@
     }
 
     function hideAI() {
-      document.getElementById('ai-overlay').classList.remove('show');
+      const overlay = document.getElementById('ai-overlay');
+      if (overlay) overlay.classList.remove('show');
     }
 
     // AI菜单配置 - 按v5版本
@@ -10654,8 +10720,11 @@
     }
 
     function hidePTT() {
-      document.getElementById('ptt-overlay').classList.remove('show');
-      resetPTTToRecording();
+      const overlay = document.getElementById('ptt-overlay');
+      if (overlay) {
+        overlay.classList.remove('show');
+        resetPTTToRecording();
+      }
     }
 
     function resetPTTToRecording() {
