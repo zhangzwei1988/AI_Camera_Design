@@ -9512,8 +9512,7 @@
         context: { icon: '📷', label: 'Camera Mode' },
         menu: [
           { icon: '🔍', label: 'Identify This', color: 'purple', action: 'identifyThis' },
-          { icon: '💡', label: 'Photo Tips', color: 'blue', action: 'photoTips' },
-          { icon: '🎨', label: 'Add Effect', color: 'pink', action: 'addEffect' }
+          { icon: '💡', label: 'Photo Tips', color: 'blue', action: 'photoTips' }
         ]
       },
       'photo-preview-page': {
@@ -9681,7 +9680,7 @@
     function nextQuizQuestion() {
       quizQuestion++;
       // 简化版：显示下一题（实际应从题库随机）
-      const cardBody = document.querySelector('.ai-card-overlay .ai-card-body');
+      const cardBody = document.querySelector('#ai-card .ai-card-body');
       if (cardBody) {
         const questions = [
           { q: 'What do butterflies taste with?', a: 'B', opts: ['A) Their tongue', 'B) Their feet', 'C) Their wings'] },
@@ -9700,28 +9699,27 @@
           <div id="quiz-feedback" style="margin-top: 12px; display: none;"></div>
         `;
       }
-      document.getElementById('quiz-footer').style.display = 'none';
+      const footer = document.getElementById('quiz-footer');
+      if (footer) footer.style.display = 'none';
     }
     
     function showQuizResult() {
-      const overlay = document.querySelector('.ai-card-overlay');
-      if (overlay) {
-        overlay.innerHTML = `
-          <div class="ai-card">
-            <div class="ai-card-header">
-              <div class="ai-card-title"><span class="ai-card-title-icon">🏆</span>Quiz Complete!</div>
-              <button class="ai-card-close" onclick="hideAICard(); quizScore=0; quizQuestion=1;">✕</button>
-            </div>
-            <div class="ai-card-body" style="text-align: center; padding: 20px 0;">
-              <div style="font-size: 64px; margin-bottom: 16px;">${quizScore === 3 ? '🎉' : quizScore >= 2 ? '👏' : '💪'}</div>
-              <div style="font-size: 24px; font-weight: 700; color: #333; margin-bottom: 8px;">${quizScore}/3 Correct!</div>
-              <div style="font-size: 18px; color: #F59E0B; font-weight: 600; margin-bottom: 16px;">+${quizScore * 2} XP earned</div>
-              <div style="font-size: 14px; color: #888;">${quizScore === 3 ? 'Perfect score! You\'re amazing!' : quizScore >= 2 ? 'Great job! Keep learning!' : 'Good try! Practice makes perfect!'}</div>
-            </div>
-            <div class="ai-card-footer">
-              <button class="ai-card-btn secondary" onclick="hideAICard(); quizScore=0; quizQuestion=1;">Done</button>
-              <button class="ai-card-btn primary" onclick="quizScore=0; quizQuestion=1; showAICard('quizChallenge');">Try Again 🔄</button>
-            </div>
+      const card = document.getElementById('ai-card');
+      if (card) {
+        card.innerHTML = `
+          <div class="ai-card-header">
+            <div class="ai-card-title"><span class="ai-card-title-icon">🏆</span>Quiz Complete!</div>
+            <button class="ai-card-close" onclick="hideAICard(); quizScore=0; quizQuestion=1;">✕</button>
+          </div>
+          <div class="ai-card-body" style="text-align: center; padding: 20px 0;">
+            <div style="font-size: 64px; margin-bottom: 16px;">${quizScore === 3 ? '🎉' : quizScore >= 2 ? '👏' : '💪'}</div>
+            <div style="font-size: 24px; font-weight: 700; color: #333; margin-bottom: 8px;">${quizScore}/3 Correct!</div>
+            <div style="font-size: 18px; color: #F59E0B; font-weight: 600; margin-bottom: 16px;">+${quizScore * 2} XP earned</div>
+            <div style="font-size: 14px; color: #888;">${quizScore === 3 ? 'Perfect score! You\'re amazing!' : quizScore >= 2 ? 'Great job! Keep learning!' : 'Good try! Practice makes perfect!'}</div>
+          </div>
+          <div class="ai-card-footer">
+            <button class="ai-card-btn secondary" onclick="hideAICard(); quizScore=0; quizQuestion=1;">Done</button>
+            <button class="ai-card-btn primary" onclick="quizScore=0; quizQuestion=1; showAICard('quizChallenge');">Try Again 🔄</button>
           </div>
         `;
       }
@@ -9855,7 +9853,8 @@
     }
     
     function hideAICard() {
-      document.getElementById('ai-card-overlay').classList.remove('show');
+      const overlay = document.getElementById('ai-card-overlay');
+      if (overlay) overlay.classList.remove('show');
       // 重置Quiz状态
       quizScore = 0;
       quizQuestion = 1;
@@ -9867,8 +9866,14 @@
         alert('AI Action: ' + action);
         return;
       }
-      document.getElementById('ai-card').innerHTML = cardContent;
-      document.getElementById('ai-card-overlay').classList.add('show');
+      const card = document.getElementById('ai-card');
+      const overlay = document.getElementById('ai-card-overlay');
+      if (card && overlay) {
+        card.innerHTML = cardContent;
+        overlay.classList.add('show');
+      } else {
+        console.error('❌ ai-card or ai-card-overlay not found');
+      }
     }
     
     function getCardContent(action) {
@@ -10154,12 +10159,19 @@
         'quizChallenge': `
           <div class="ai-card-header">
             <div class="ai-card-title"><span class="ai-card-title-icon">🎯</span>Quiz Challenge</div>
-            <button class="ai-card-close" onclick="hideAICard()">✕</button>
+            <button class="ai-card-close" onclick="hideAICard(); quizScore=0; quizQuestion=1;">✕</button>
           </div>
           <div class="ai-card-body">
+            <div style="background: #FEF3C7; border-radius: 10px; padding: 10px 12px; margin-bottom: 14px; font-size: 12px; color: #92400E;">
+              🎲 3 questions from your discovered species!
+            </div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
               <span style="font-size: 12px; color: #888;">Question 1 of 3</span>
               <span style="font-size: 12px; color: #F59E0B; font-weight: 600;">🏆 +2 XP each</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+              <span style="font-size: 24px;">🐞</span>
+              <span style="font-size: 12px; color: #888;">About: Ladybug</span>
             </div>
             <div style="font-size: 15px; font-weight: 600; color: #333; margin-bottom: 14px;">How many spots does a ladybug usually have?</div>
             <div class="quiz-option" onclick="selectQuizAnswer(this, false)">A) Exactly 7 spots</div>
@@ -10637,14 +10649,31 @@
         
         'quizMe': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">🎯</span>Quiz Time!</div>
-            <button class="ai-card-close" onclick="hideAICard()">✕</button>
+            <div class="ai-card-title"><span class="ai-card-title-icon">🎯</span>Quiz Me</div>
+            <button class="ai-card-close" onclick="hideAICard(); quizScore=0; quizQuestion=1;">✕</button>
           </div>
           <div class="ai-card-body">
-            <div style="font-size: 14px; font-weight: 600; color: #333; margin-bottom: 12px;">How many legs does a ladybug have?</div>
-            <div class="quiz-option">A) 4 legs</div>
-            <div class="quiz-option correct">B) 6 legs ✓</div>
-            <div class="quiz-option">C) 8 legs</div>
+            <div style="background: #E0E7FF; border-radius: 10px; padding: 10px 12px; margin-bottom: 14px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 28px;">🦋</span>
+                <div>
+                  <div style="font-size: 13px; font-weight: 600; color: #4338CA;">Monarch Butterfly</div>
+                  <div style="font-size: 11px; color: #6366F1;">3 deep-dive questions</div>
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="font-size: 12px; color: #888;">Question 1 of 3</span>
+              <span style="font-size: 12px; color: #F59E0B; font-weight: 600;">🏆 +2 XP each</span>
+            </div>
+            <div style="font-size: 15px; font-weight: 600; color: #333; margin-bottom: 14px;">How far do Monarch butterflies migrate each year?</div>
+            <div class="quiz-option" onclick="selectQuizAnswer(this, false)">A) About 100 miles</div>
+            <div class="quiz-option" onclick="selectQuizAnswer(this, true)">B) Up to 3,000 miles</div>
+            <div class="quiz-option" onclick="selectQuizAnswer(this, false)">C) They don't migrate</div>
+            <div id="quiz-feedback" style="margin-top: 12px; display: none;"></div>
+          </div>
+          <div class="ai-card-footer" id="quiz-footer" style="display: none;">
+            <button class="ai-card-btn primary" onclick="nextQuizQuestion()">Next Question →</button>
           </div>
         `
       };
