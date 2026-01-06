@@ -9637,7 +9637,7 @@
 
     // 知识挑战 交互
     let quizScore = 0;
-    let quiz第= 1;
+    let quizQuestion= 1;
     
     function selectQuizAnswer(element, isCorrect) {
       // 禁用所有选项
@@ -9672,7 +9672,7 @@
       const footer = document.getElementById('quiz-footer');
       if (footer) {
         footer.style.display = 'flex';
-        if (quiz第>= 3) {
+        if (quizQuestion>= 3) {
           footer.innerHTML = `<button class="ai-card-btn primary" onclick="showQuizResult()">查看结果 🏆</button>`;
         }
       }
@@ -9680,6 +9680,13 @@
     
     function nextQuizQuestion() {
       quizQuestion++;
+      
+      // 如果已经是第4题（已回答完3题），直接显示结果
+      if (quizQuestion > 3) {
+        showQuizResult();
+        return;
+      }
+      
       // 简化版：显示下一题（实际应从题库随机）
       const cardBody = document.querySelector('#ai-card .ai-card-body');
       if (cardBody) {
@@ -9687,11 +9694,15 @@
           { q: '蝴蝶用什么来品尝味道？', a: 'B', opts: ['A) 它们的舌头', 'B) 它们的脚', 'C) 它们的翅膀'] },
           { q: '章鱼有几颗心脏？', a: 'C', opts: ['A) 一颗', 'B) 两颗', 'C) 三颗'] }
         ];
-        const qData = questions[quiz第- 2] || questions[0];
+        const qData = questions[quizQuestion - 2];
+        if (!qData) {
+          showQuizResult();
+          return;
+        }
         cardBody.innerHTML = `
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
             <span style="font-size: 12px; color: #888;">第${quizQuestion}题（共3题）</span>
-            <span style="font-size: 12px; color: #F59E0B; font-weight: 600;">🏆 得分: ${quizScore * 2} XP</span>
+            <span style="font-size: 12px; color: #F59E0B; font-weight: 600;">🏆 得分: ${quizScore * 2} 经验</span>
           </div>
           <div style="font-size: 15px; font-weight: 600; color: #333; margin-bottom: 14px;">${qData.q}</div>
           <div class="quiz-option" onclick="selectQuizAnswer(this, ${qData.a === 'A'})">${qData.opts[0]}</div>
@@ -9716,7 +9727,7 @@
             <div style="font-size: 64px; margin-bottom: 16px;">${quizScore === 3 ? '🎉' : quizScore >= 2 ? '👏' : '💪'}</div>
             <div style="font-size: 24px; font-weight: 700; color: #333; margin-bottom: 8px;">${quizScore}/3 正确！</div>
             <div style="font-size: 18px; color: #F59E0B; font-weight: 600; margin-bottom: 16px;">+${quizScore * 2} 经验获得</div>
-            <div style="font-size: 14px; color: #888;">${quizScore === 3 ? 'Perfect score! You\'re amazing!' : quizScore >= 2 ? '做得好！继续学习！' : '不错的尝试！熟能生巧！'}</div>
+            <div style="font-size: 14px; color: #888;">${quizScore === 3 ? '满分！你太棒了！' : quizScore >= 2 ? '做得好！继续学习！' : '不错的尝试！熟能生巧！'}</div>
           </div>
           <div class="ai-card-footer">
             <button class="ai-card-btn secondary" onclick="hideAICard(); quizScore=0; quizQuestion=1;">完成</button>
@@ -9858,7 +9869,7 @@
       if (overlay) overlay.classList.remove('show');
       // 重置Quiz状态
       quizScore = 0;
-      quiz第= 1;
+      quizQuestion= 1;
     }
     
     function showAICard(action) {
@@ -10112,14 +10123,22 @@
         
         'tellStory': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">📖</span>Create a Story</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">📖</span>创作故事</div>
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
-          <div class="ai-card-body">
-            <div style="font-size: 14px; color: #555; margin-bottom: 12px;">Let's make a story about your discovery!</div>
-            <div class="story-option" onclick="hideAICard(); hideAI(); navigateTo('story-page');"><div class="story-option-icon adventure">🦸</div><div class="story-option-content"><div class="story-option-title">冒险故事</div><div class="story-option-desc">一场精彩的冒险！</div></div></div>
-            <div class="story-option" onclick="hideAICard(); hideAI(); navigateTo('story-page');"><div class="story-option-icon bedtime">😴</div><div class="story-option-content"><div class="story-option-title">睡前故事</div><div class="story-option-desc">温馨安静</div></div></div>
-            <div class="story-option" onclick="hideAICard(); hideAI(); navigateTo('story-page');"><div class="story-option-icon funny">😂</div><div class="story-option-content"><div class="story-option-title">Funny Story</div><div class="story-option-desc">Silly and giggly!</div></div></div>
+          <div class="ai-card-body" style="text-align: center; padding: 16px 0;">
+            <div style="font-size: 48px; margin-bottom: 12px;">✨📖</div>
+            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 8px;">让我用你的发现编个故事！</div>
+            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">AI 将根据你拍摄的照片创作一个有趣的故事</div>
+            <div style="display: flex; justify-content: center; gap: 12px;">
+              <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #fef3c7, #fde68a); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">🦸</div>
+              <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #dbeafe, #bfdbfe); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">😴</div>
+              <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #dcfce7, #bbf7d0); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">😂</div>
+            </div>
+            <div style="font-size: 11px; color: #888; margin-top: 8px;">冒险 · 睡前 · 搞笑</div>
+          </div>
+          <div class="ai-card-footer">
+            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('story-page');">开始创作 ✨</button>
           </div>
         `,
         
@@ -10168,7 +10187,7 @@
             </div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
               <span style="font-size: 12px; color: #888;">第1题（共3题）</span>
-              <span style="font-size: 12px; color: #F59E0B; font-weight: 600;">🏆 +2 经验 each</span>
+              <span style="font-size: 12px; color: #F59E0B; font-weight: 600;">🏆 每题 +2 经验</span>
             </div>
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
               <span style="font-size: 24px;">🐞</span>
@@ -10182,6 +10201,26 @@
           </div>
           <div class="ai-card-footer" id="quiz-footer" style="display: none;">
             <button class="ai-card-btn primary" onclick="nextQuizQuestion()">下一题 →</button>
+          </div>
+        `,
+        
+        'quizChallengeEmpty': `
+          <div class="ai-card-header">
+            <div class="ai-card-title"><span class="ai-card-title-icon">🎯</span>知识挑战</div>
+            <button class="ai-card-close" onclick="hideAICard()">✕</button>
+          </div>
+          <div class="ai-card-body" style="text-align: center; padding: 20px 0;">
+            <div style="font-size: 48px; margin-bottom: 12px;">🎓</div>
+            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">还没有可测验的物种</div>
+            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">发现并识别物种后，即可解锁专属测验！</div>
+            <div style="display: flex; justify-content: center; gap: 8px;">
+              <span style="font-size: 28px; opacity: 0.4;">🐞</span>
+              <span style="font-size: 28px; opacity: 0.4;">🦋</span>
+              <span style="font-size: 28px; opacity: 0.4;">🌻</span>
+            </div>
+          </div>
+          <div class="ai-card-footer">
+            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">开始探索 📷</button>
           </div>
         `,
         
@@ -10305,7 +10344,7 @@
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body">
-            <div class="surprise-combo"><div class="surprise-photo">🌻</div><div class="surprise-plus">+</div><div class="surprise-style">🏔️ Ghibli</div></div>
+            <div class="surprise-combo"><div class="surprise-photo">🌻</div><div class="surprise-plus">+</div><div class="surprise-style">🏔️ 吉卜力</div></div>
             <div class="surprise-hint">🎲 为你随机挑选！</div>
           </div>
           <div class="ai-card-footer">
@@ -10314,9 +10353,29 @@
           </div>
         `,
         
+        'surpriseMeEmpty': `
+          <div class="ai-card-header">
+            <div class="ai-card-title"><span class="ai-card-title-icon">✨</span>随机惊喜</div>
+            <button class="ai-card-close" onclick="hideAICard()">✕</button>
+          </div>
+          <div class="ai-card-body" style="text-align: center; padding: 16px 0;">
+            <div style="font-size: 48px; margin-bottom: 12px;">📷</div>
+            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">还没有照片</div>
+            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">先去拍几张照片，再来随机创作吧！</div>
+            <div style="display: flex; justify-content: center; gap: 12px;">
+              <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #e0e7ff, #c7d2fe); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; opacity: 0.5;">🌻</div>
+              <div style="font-size: 24px; color: #ccc;">+</div>
+              <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #dbeafe, #bfdbfe); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; opacity: 0.5;">🏔️</div>
+            </div>
+          </div>
+          <div class="ai-card-footer">
+            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">去拍照 📷</button>
+          </div>
+        `,
+        
         'myCreations': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">🖼️</span>My Creations</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">🖼️</span>我的作品</div>
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body">
@@ -10346,78 +10405,93 @@
                 <div style="position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.5); border-radius: 4px; padding: 2px 4px; font-size: 8px; color: white;">🎨</div>
               </div>
             </div>
-            <div style="text-align: center; font-size: 12px; color: #888;">12 creations total</div>
+            <div style="text-align: center; font-size: 12px; color: #888;">共 12 件作品</div>
           </div>
           <div class="ai-card-footer">
-            <button class="ai-card-btn primary" onclick="viewAllCreations()">View All →</button>
+            <button class="ai-card-btn primary" onclick="viewAllCreations()">查看全部 →</button>
           </div>
         `,
         
         'myCreationsEmpty': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">🖼️</span>My Creations</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">🖼️</span>我的作品</div>
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body" style="text-align: center; padding: 16px 0;">
             <div style="font-size: 48px; margin-bottom: 12px;">✨</div>
-            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">No creations yet!</div>
-            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">Turn your photos into amazing AI art 🎨</div>
+            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">还没有作品</div>
+            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">把你的照片变成神奇的 AI 艺术品 🎨</div>
             <div style="display: flex; justify-content: center; gap: 12px;">
               <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #bfdbfe, #93c5fd); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">🏔️</div>
               <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #c7d2fe, #a5b4fc); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">👾</div>
               <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #fbcfe8, #f9a8d4); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">🎨</div>
             </div>
-            <div style="font-size: 11px; color: #888; margin-top: 8px;">Ghibli · Pixel · Oil Paint</div>
+            <div style="font-size: 11px; color: #888; margin-top: 8px;">吉卜力 · 像素风 · 油画</div>
           </div>
           <div class="ai-card-footer">
-            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('workshop-page');">Create First Art ✨</button>
+            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('workshop-page');">创作第一件作品 ✨</button>
           </div>
         `,
         
         'getIdeas': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">💡</span>Creation Ideas</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">💡</span>创作灵感</div>
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body">
-            <div class="guide-speech"><div class="guide-avatar">🎨</div><div class="guide-text">"Try turning your bug photos into pixel art! 👾"</div></div>
+            <div class="guide-speech"><div class="guide-avatar">🎨</div><div class="guide-text">"试着把你的昆虫照片变成像素艺术！👾"</div></div>
           </div>
           <div class="ai-card-footer">
-            <button class="ai-card-btn secondary">🔄 Another Idea</button>
-            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('photo-effect-page');">Try This! ✨</button>
+            <button class="ai-card-btn secondary">🔄 换个灵感</button>
+            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); selectStyle('像素风', '👾'); navigateTo('workshop-photo-page');">试试看 ✨</button>
+          </div>
+        `,
+        
+        'getIdeasEmpty': `
+          <div class="ai-card-header">
+            <div class="ai-card-title"><span class="ai-card-title-icon">💡</span>创作灵感</div>
+            <button class="ai-card-close" onclick="hideAICard()">✕</button>
+          </div>
+          <div class="ai-card-body" style="text-align: center; padding: 16px 0;">
+            <div style="font-size: 48px; margin-bottom: 12px;">📷</div>
+            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">还没有照片</div>
+            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">先去拍几张照片，获取专属创作灵感！</div>
+          </div>
+          <div class="ai-card-footer">
+            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">去拍照 📷</button>
           </div>
         `,
         
         'highlights': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">⭐</span>This Week's Highlights</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">⭐</span>本周精彩</div>
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body">
             <div style="margin-bottom: 10px;">
-              <div style="font-size: 11px; color: #888; text-transform: uppercase; margin-bottom: 4px;">🏆 Biggest Discovery</div>
+              <div style="font-size: 11px; color: #888; text-transform: uppercase; margin-bottom: 4px;">🏆 最大发现</div>
               <div style="background: linear-gradient(135deg, #FEF3C7, #FDE68A); border-radius: 10px; padding: 10px; display: flex; align-items: center; gap: 10px;">
                 <span style="font-size: 24px;">🦋</span>
                 <div>
                   <div style="font-size: 13px; font-weight: 600; color: #92400E;">帝王蝶</div>
-                  <div style="font-size: 10px; color: #B45309;">First rare find! ⭐⭐⭐</div>
+                  <div style="font-size: 10px; color: #B45309;">首次稀有发现！⭐⭐⭐</div>
                 </div>
               </div>
             </div>
             <div style="margin-bottom: 10px;">
-              <div style="font-size: 11px; color: #888; text-transform: uppercase; margin-bottom: 4px;">📸 Best Shot</div>
+              <div style="font-size: 11px; color: #888; text-transform: uppercase; margin-bottom: 4px;">📸 最佳照片</div>
               <div style="background: #f0f9ff; border-radius: 10px; padding: 10px; display: flex; align-items: center; gap: 10px;">
                 <div style="width: 40px; height: 40px; background: #dbeafe; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px;">🐞</div>
-                <div style="font-size: 12px; color: #0369a1;">Used in 3 AI creations!</div>
+                <div style="font-size: 12px; color: #0369a1;">被用于3件AI作品！</div>
               </div>
             </div>
             <div>
-              <div style="font-size: 11px; color: #888; text-transform: uppercase; margin-bottom: 4px;">🔥 Streak Record</div>
+              <div style="font-size: 11px; color: #888; text-transform: uppercase; margin-bottom: 4px;">🔥 连续记录</div>
               <div style="background: #fef2f2; border-radius: 10px; padding: 10px; display: flex; align-items: center; gap: 10px;">
                 <span style="font-size: 24px;">🔥</span>
                 <div>
-                  <div style="font-size: 13px; font-weight: 600; color: #991B1B;">7 days in a row!</div>
-                  <div style="font-size: 10px; color: #B91C1C;">Your longest streak! 🎉</div>
+                  <div style="font-size: 13px; font-weight: 600; color: #991B1B;">连续7天！</div>
+                  <div style="font-size: 10px; color: #B91C1C;">你的最长连续记录！🎉</div>
                 </div>
               </div>
             </div>
@@ -10429,65 +10503,85 @@
         
         'highlightsEmpty': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">⭐</span>This Week's Highlights</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">⭐</span>本周精彩</div>
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body" style="text-align: center; padding: 16px 0;">
             <div style="font-size: 48px; margin-bottom: 12px;">🌱</div>
-            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">Your week is just starting!</div>
-            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">Go explore and create some highlights ✨</div>
+            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">你的一周才刚开始！</div>
+            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">去探索，创造一些精彩瞬间吧 ✨</div>
             <div style="background: #f0f9ff; border-radius: 12px; padding: 14px; text-align: left;">
-              <div style="font-size: 12px; font-weight: 600; color: #0369a1; margin-bottom: 8px;">💡 Ideas to try:</div>
+              <div style="font-size: 12px; font-weight: 600; color: #0369a1; margin-bottom: 8px;">💡 可以试试：</div>
               <div style="font-size: 13px; color: #555; line-height: 1.8;">
-                • Take 3 photos<br>
-                • Discover a new species<br>
-                • Create AI art
+                • 拍摄3张照片<br>
+                • 发现一个新物种<br>
+                • 创作AI艺术
               </div>
             </div>
           </div>
           <div class="ai-card-footer">
-            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">Let's Go! 🚀</button>
+            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">出发！🚀</button>
           </div>
         `,
         
         'stats': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">📊</span>My Explorer Stats</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">📊</span>我的探索统计</div>
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body">
             <div class="stats-row">
-              <div class="stat-item"><div class="stat-number">156</div><div class="stat-label">📷 photos</div></div>
-              <div class="stat-item"><div class="stat-number">28</div><div class="stat-label">🦋 species</div></div>
-              <div class="stat-item"><div class="stat-number">42</div><div class="stat-label">🎯 quests</div></div>
+              <div class="stat-item"><div class="stat-number">156</div><div class="stat-label">📷 照片</div></div>
+              <div class="stat-item"><div class="stat-number">28</div><div class="stat-label">🦋 物种</div></div>
+              <div class="stat-item"><div class="stat-number">42</div><div class="stat-label">🎯 任务</div></div>
             </div>
             <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #eee;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                <span style="font-size: 12px; color: #555;">🏅 Badges: 8/15</span>
+                <span style="font-size: 12px; color: #555;">🏅 徽章: 8/15</span>
                 <span style="font-size: 11px; color: #888;">53%</span>
               </div>
               <div style="background: #e5e7eb; border-radius: 8px; height: 6px; overflow: hidden;">
                 <div style="background: linear-gradient(90deg, #F59E0B, #FBBF24); width: 53%; height: 100%; border-radius: 8px;"></div>
               </div>
-              <div style="font-size: 10px; color: #888; margin-top: 3px;">Next: 🔬 Scientist (2 more!)</div>
+              <div style="font-size: 10px; color: #888; margin-top: 3px;">下一个: 🔬 小科学家 (还差2个!)</div>
             </div>
             <div style="display: flex; justify-content: space-between; margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee;">
-              <div><span style="font-size: 12px; color: #555;">✨ Creations:</span> <span style="font-weight: 600;">24</span></div>
-              <div style="font-size: 11px; color: #888;">🎨 Ghibli</div>
+              <div><span style="font-size: 12px; color: #555;">✨ 作品:</span> <span style="font-weight: 600;">24</span></div>
+              <div style="font-size: 11px; color: #888;">🎨 吉卜力最多</div>
             </div>
             <div style="display: flex; justify-content: space-between; margin-top: 8px;">
-              <div><span style="font-size: 12px; color: #555;">🔥 Streak:</span> <span style="font-weight: 600;">7 days</span></div>
-              <div style="font-size: 11px; color: #888;">📅 Best: 12</div>
+              <div><span style="font-size: 12px; color: #555;">🔥 连续:</span> <span style="font-weight: 600;">7 天</span></div>
+              <div style="font-size: 11px; color: #888;">📅 最高: 12天</div>
             </div>
             <div style="background: #f0fdf4; border-radius: 10px; padding: 10px; margin-top: 10px; text-align: center;">
-              <div style="font-size: 11px; color: #166534;">🚀 Explorer since Mar 2024 · 127 days!</div>
+              <div style="font-size: 11px; color: #166534;">🚀 探索者身份始于2024年3月 · 已探索127天！</div>
             </div>
+          </div>
+        `,
+        
+        'statsEmpty': `
+          <div class="ai-card-header">
+            <div class="ai-card-title"><span class="ai-card-title-icon">📊</span>我的探索统计</div>
+            <button class="ai-card-close" onclick="hideAICard()">✕</button>
+          </div>
+          <div class="ai-card-body" style="text-align: center; padding: 16px 0;">
+            <div style="font-size: 48px; margin-bottom: 12px;">📊</div>
+            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">还没有数据</div>
+            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">开始探索后，这里会显示你的统计数据</div>
+            <div class="stats-row" style="opacity: 0.4;">
+              <div class="stat-item"><div class="stat-number">0</div><div class="stat-label">📷 照片</div></div>
+              <div class="stat-item"><div class="stat-number">0</div><div class="stat-label">🦋 物种</div></div>
+              <div class="stat-item"><div class="stat-number">0</div><div class="stat-label">🎯 任务</div></div>
+            </div>
+          </div>
+          <div class="ai-card-footer">
+            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">开始探索 🚀</button>
           </div>
         `,
         
         'nextGoal': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">🎯</span>Next Goal</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">🎯</span>下一目标</div>
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body">
@@ -10498,12 +10592,12 @@
               <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
                 <div style="width: 40px; height: 40px; background: rgba(255,255,255,0.6); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">🔬</div>
                 <div>
-                  <div style="font-size: 14px; font-weight: 700; color: #92400E;">Scientist Badge</div>
-                  <div style="font-size: 11px; color: #B45309;">Discover 2 more insects</div>
+                  <div style="font-size: 14px; font-weight: 700; color: #92400E;">小科学家徽章</div>
+                  <div style="font-size: 11px; color: #B45309;">再发现2种昆虫</div>
                 </div>
               </div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                <span style="font-size: 11px; color: #92400E;">Progress: 8/10</span>
+                <span style="font-size: 11px; color: #92400E;">进度: 8/10</span>
                 <span style="font-size: 11px; color: #B45309;">80%</span>
               </div>
               <div style="background: rgba(255,255,255,0.5); border-radius: 6px; height: 6px; overflow: hidden;">
@@ -10514,48 +10608,71 @@
             <!-- 提示 -->
             <div style="background: #f0f9ff; border-radius: 10px; padding: 10px; display: flex; align-items: center; gap: 8px;">
               <span style="font-size: 16px;">💡</span>
-              <div style="font-size: 12px; color: #0369a1;">Tip: Look under rocks and leaves for insects!</div>
+              <div style="font-size: 12px; color: #0369a1;">提示：在石头和落叶下面找昆虫！</div>
             </div>
           </div>
           <div class="ai-card-footer">
-            <button class="ai-card-btn secondary" onclick="hideAICard();">Got it 👍</button>
-            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">Let's Hunt! 📷</button>
+            <button class="ai-card-btn secondary" onclick="hideAICard();">知道了 👍</button>
+            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">去寻找！📷</button>
+          </div>
+        `,
+        
+        'nextGoalEmpty': `
+          <div class="ai-card-header">
+            <div class="ai-card-title"><span class="ai-card-title-icon">🎯</span>下一目标</div>
+            <button class="ai-card-close" onclick="hideAICard()">✕</button>
+          </div>
+          <div class="ai-card-body" style="text-align: center; padding: 16px 0;">
+            <div style="font-size: 48px; margin-bottom: 12px;">🎯</div>
+            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">开始你的探索旅程！</div>
+            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">拍摄照片、发现物种后，会为你推荐目标</div>
+            <div style="background: #f0f9ff; border-radius: 12px; padding: 14px; text-align: left;">
+              <div style="font-size: 12px; font-weight: 600; color: #0369a1; margin-bottom: 8px;">🌟 初始目标：</div>
+              <div style="font-size: 13px; color: #555; line-height: 1.8;">
+                • 拍摄第一张照片<br>
+                • 发现第一个物种<br>
+                • 完成第一个任务
+              </div>
+            </div>
+          </div>
+          <div class="ai-card-footer">
+            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">开始探索 🚀</button>
           </div>
         `,
         
         'randomChallenge': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">🎲</span>Random Challenge</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">🎲</span>随机挑战</div>
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body">
             <div style="text-align: center; margin-bottom: 16px;">
               <div style="font-size: 48px; margin-bottom: 8px;">🐞</div>
-              <div style="font-size: 15px; font-weight: 600; color: #333;">You found Ladybug before!</div>
+              <div style="font-size: 15px; font-weight: 600; color: #333;">你之前发现过瓢虫！</div>
             </div>
             <div style="background: #f9f9f9; border-radius: 12px; padding: 14px; margin-bottom: 12px;">
-              <div style="font-size: 14px; color: #555; font-weight: 600; margin-bottom: 6px;">🎯 Challenge:</div>
+              <div style="font-size: 14px; color: #555; font-weight: 600; margin-bottom: 6px;">🎯 挑战：</div>
               <div style="font-size: 13px; color: #666;">今天你能再找一只来比较一下斑点吗？</div>
             </div>
             <div style="background: linear-gradient(135deg, #FEF3C7, #FDE68A); border-radius: 12px; padding: 12px; text-align: center;">
-              <div style="font-size: 13px; font-weight: 600; color: #92400E;">🎯 Reward: +10 经验 if you do!</div>
+              <div style="font-size: 13px; font-weight: 600; color: #92400E;">🎯 奖励：完成可获 +10 经验！</div>
             </div>
           </div>
           <div class="ai-card-footer">
-            <button class="ai-card-btn secondary">🔄 Different One</button>
-            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">接受 🎯</button>
+            <button class="ai-card-btn secondary">🔄 换一个</button>
+            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">接受挑战 🎯</button>
           </div>
         `,
         
         'randomChallengeEmpty': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">🎲</span>Random Challenge</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">🎲</span>随机挑战</div>
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body" style="text-align: center; padding: 20px 0;">
             <div style="font-size: 48px; margin-bottom: 12px;">🔍</div>
-            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">Discover something first!</div>
-            <div style="font-size: 14px; color: #888;">Take a photo and identify it to unlock challenges 🎯</div>
+            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">先发现点东西！</div>
+            <div style="font-size: 14px; color: #888;">拍摄照片并识别后即可解锁挑战 🎯</div>
           </div>
           <div class="ai-card-footer">
             <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">开始探索 📷</button>
@@ -10564,24 +10681,39 @@
         
         'funFact': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">💡</span>Fun Fact</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">💡</span>趣味知识</div>
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body">
             <div class="fact-card">
               <div class="fact-icon">🌻</div>
-              <div class="fact-text">Sunflowers always face the sun! ☀️</div>
+              <div class="fact-text">向日葵总是朝着太阳生长！☀️</div>
             </div>
           </div>
           <div class="ai-card-footer">
-            <button class="ai-card-btn secondary">🔄 Another</button>
-            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('chat-page');">💬 Ask More</button>
+            <button class="ai-card-btn secondary">🔄 换一个</button>
+            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('chat-page');">💬 问更多</button>
+          </div>
+        `,
+        
+        'funFactEmpty': `
+          <div class="ai-card-header">
+            <div class="ai-card-title"><span class="ai-card-title-icon">💡</span>趣味知识</div>
+            <button class="ai-card-close" onclick="hideAICard()">✕</button>
+          </div>
+          <div class="ai-card-body" style="text-align: center; padding: 20px 0;">
+            <div style="font-size: 48px; margin-bottom: 12px;">📚</div>
+            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">还没有图鉴记录</div>
+            <div style="font-size: 14px; color: #888;">发现物种后，会为你展示相关的趣味知识</div>
+          </div>
+          <div class="ai-card-footer">
+            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">开始探索 📷</button>
           </div>
         `,
         
         'moreFacts': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">💡</span>More Facts</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">💡</span>更多知识</div>
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body">
@@ -10595,11 +10727,11 @@
         
         'related': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">🔗</span>Related Species</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">🔗</span>相关物种</div>
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body">
-            <div style="font-size: 13px; color: #888; margin-bottom: 10px;">Other Insects you've found:</div>
+            <div style="font-size: 13px; color: #888; margin-bottom: 10px;">你发现的其他昆虫：</div>
             <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 16px;">
               <div style="text-align: center;">
                 <div style="width: 50px; height: 50px; background: #f0f9f0; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 4px;">🦋</div>
@@ -10611,27 +10743,27 @@
               </div>
               <div style="text-align: center;">
                 <div style="width: 50px; height: 50px; background: #f0f5f9; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 4px;">🦗</div>
-                <div style="font-size: 10px; color: #555;">Cricket</div>
+                <div style="font-size: 10px; color: #555;">蟋蟀</div>
               </div>
             </div>
-            <div style="font-size: 13px; color: #888; margin-bottom: 8px;">Other Insects to discover:</div>
+            <div style="font-size: 13px; color: #888; margin-bottom: 8px;">待发现的其他昆虫：</div>
             <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-              <span style="background: #f5f5f5; padding: 4px 10px; border-radius: 12px; font-size: 12px; color: #888;">🐜 Ant</span>
-              <span style="background: #f5f5f5; padding: 4px 10px; border-radius: 12px; font-size: 12px; color: #888;">🪲 Beetle</span>
-              <span style="background: #f5f5f5; padding: 4px 10px; border-radius: 12px; font-size: 12px; color: #888;">🦟 Mosquito</span>
+              <span style="background: #f5f5f5; padding: 4px 10px; border-radius: 12px; font-size: 12px; color: #888;">🐜 蚂蚁</span>
+              <span style="background: #f5f5f5; padding: 4px 10px; border-radius: 12px; font-size: 12px; color: #888;">🪲 甲虫</span>
+              <span style="background: #f5f5f5; padding: 4px 10px; border-radius: 12px; font-size: 12px; color: #888;">🦟 蚊子</span>
             </div>
           </div>
         `,
         
         'relatedEmpty': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">🔗</span>Related Species</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">🔗</span>相关物种</div>
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body">
-            <div style="font-size: 14px; color: #555; margin-bottom: 16px;">You only found 🐞 so far!</div>
+            <div style="font-size: 14px; color: #555; margin-bottom: 16px;">你目前只发现了 🐞 哦！</div>
             <div style="background: #f0f9ff; border-radius: 12px; padding: 14px; margin-bottom: 12px;">
-              <div style="font-size: 12px; font-weight: 600; color: #0369a1; margin-bottom: 8px;">💡 More Insects to discover:</div>
+              <div style="font-size: 12px; font-weight: 600; color: #0369a1; margin-bottom: 8px;">💡 更多昆虫等你发现：</div>
               <div style="display: flex; flex-wrap: wrap; gap: 8px;">
                 <span style="font-size: 20px;">🦋</span>
                 <span style="font-size: 20px;">🐝</span>
@@ -10641,16 +10773,16 @@
                 <span style="font-size: 20px;">🦟</span>
               </div>
             </div>
-            <div style="font-size: 13px; color: #888; text-align: center;">Keep exploring to find more!</div>
+            <div style="font-size: 13px; color: #888; text-align: center;">继续探索，发现更多！</div>
           </div>
           <div class="ai-card-footer">
-            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">Hunt for Insects 🔍</button>
+            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">寻找昆虫 🔍</button>
           </div>
         `,
         
         'quizMe': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">🎯</span>Quiz Me</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">🎯</span>考考我</div>
             <button class="ai-card-close" onclick="hideAICard(); quizScore=0; quizQuestion=1;">✕</button>
           </div>
           <div class="ai-card-body">
@@ -10665,7 +10797,7 @@
             </div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
               <span style="font-size: 12px; color: #888;">第1题（共3题）</span>
-              <span style="font-size: 12px; color: #F59E0B; font-weight: 600;">🏆 +2 经验 each</span>
+              <span style="font-size: 12px; color: #F59E0B; font-weight: 600;">🏆 每题 +2 经验</span>
             </div>
             <div style="font-size: 15px; font-weight: 600; color: #333; margin-bottom: 14px;">帝王蝶每年迁徙多远？</div>
             <div class="quiz-option" onclick="selectQuizAnswer(this, false)">A) 大约100英里</div>
@@ -10675,6 +10807,21 @@
           </div>
           <div class="ai-card-footer" id="quiz-footer" style="display: none;">
             <button class="ai-card-btn primary" onclick="nextQuizQuestion()">下一题 →</button>
+          </div>
+        `,
+        
+        'quizMeEmpty': `
+          <div class="ai-card-header">
+            <div class="ai-card-title"><span class="ai-card-title-icon">🎯</span>考考我</div>
+            <button class="ai-card-close" onclick="hideAICard()">✕</button>
+          </div>
+          <div class="ai-card-body" style="text-align: center; padding: 20px 0;">
+            <div style="font-size: 48px; margin-bottom: 12px;">🎓</div>
+            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">还没有可测验的物种</div>
+            <div style="font-size: 14px; color: #888;">发现并识别物种后，即可解锁专属测验！</div>
+          </div>
+          <div class="ai-card-footer">
+            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">开始探索 📷</button>
           </div>
         `
       };
