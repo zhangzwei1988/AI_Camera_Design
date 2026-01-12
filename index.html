@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI 探索者 - V9 中文版</title>
+  <title>AI 探索者 - V10 中文版</title>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -131,11 +131,6 @@
       padding-left: 20px;
       font-size: 12px;
       color: #666;
-    }
-
-    .nav-item.demo-item {
-      background: linear-gradient(135deg, #FEF3C7, #FDE68A);
-      border-color: #F59E0B;
     }
 
     /* ============ 设备屏幕 ============ */
@@ -3850,11 +3845,11 @@
     .badge-grid .badge-item.locked .badge-name { color: #444; }
 
     /* ============ Species List 图鉴列表页 ============ */
-    #species-list-page {
+    #subcategory-list-page {
       /* 使用page-blur-bg统一背景 */
     }
 
-    .species-list-container {
+    .subcategory-list-container {
       width: 100%;
       height: 100%;
       display: flex;
@@ -3863,7 +3858,7 @@
       position: relative;
     }
 
-    .species-list-back-btn {
+    .subcategory-list-back-btn {
       position: absolute;
       top: 14px;
       left: 20px;
@@ -3883,7 +3878,7 @@
     }
 
     /* 列表头部 */
-    .species-list-header {
+    .subcategory-list-header {
       background: linear-gradient(180deg, #FFFEF8 0%, #F5F0E6 100%);
       border-radius: 16px;
       padding: 14px 18px;
@@ -3894,7 +3889,7 @@
       box-shadow: 0 4px 14px rgba(0,0,0,0.1);
     }
 
-    .species-list-icon {
+    .subcategory-list-icon {
       width: 48px;
       height: 48px;
       background: linear-gradient(135deg, #4ADE80 0%, #22C55E 100%);
@@ -3905,13 +3900,13 @@
       font-size: 24px;
     }
 
-    .species-list-title {
+    .subcategory-list-title {
       font-size: 17px;
       font-weight: 700;
       color: #5D4E3A;
     }
 
-    .species-list-count {
+    .subcategory-list-count {
       font-size: 12px;
       color: #888;
     }
@@ -3963,12 +3958,12 @@
       color: #888;
     }
 
-    /* ============ 物种详情 图鉴详情页 ============ */
-    #species-detail-page {
+    /* ============ 小类详情页 (照片墙+知识栏分屏) ============ */
+    #subcategory-detail-page {
       /* 使用page-blur-bg统一背景 */
     }
 
-    .species-detail-container {
+    .subcategory-detail-container {
       width: 100%;
       height: 100%;
       display: flex;
@@ -3977,7 +3972,7 @@
       position: relative;
     }
 
-    .species-detail-back-btn {
+    .subcategory-detail-back-btn {
       position: absolute;
       top: 12px;
       left: 14px;
@@ -3996,113 +3991,312 @@
       z-index: 20;
     }
 
-    /* 左侧照片 */
-    .species-detail-photo {
+    .subcategory-detail-title {
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 18px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 20;
+    }
+
+    /* 左侧照片墙 */
+    .photo-gallery {
       width: 45%;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      padding-right: 8px;
+    }
+
+    .photo-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .photo-gallery-item {
+      aspect-ratio: 1;
+      background: linear-gradient(180deg, #FFFEF8 0%, #F8F6F0 100%);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: all 0.2s;
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-
-    .species-photo-frame {
-      background: linear-gradient(180deg, #FFFEF8 0%, #F8F6F0 100%);
-      padding: 10px 10px 28px 10px;
-      border-radius: 4px;
-      box-shadow: 0 10px 32px rgba(0,0,0,0.2);
-      transform: rotate(-2deg);
-      position: relative;
+    .photo-gallery-item:hover { transform: scale(1.03); }
+    .photo-gallery-item.selected {
+      box-shadow: 0 0 0 3px #4ADE80, 0 6px 16px rgba(74, 222, 128, 0.3);
     }
 
-    .species-photo-frame img {
-      width: 200px;
-      height: 150px;
+    .photo-gallery-item img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      border-radius: 2px;
-      display: block;
     }
 
-    .species-photo-tape {
+    .photo-species-tag {
       position: absolute;
-      top: -6px;
-      left: 50%;
-      transform: translateX(-50%) rotate(2deg);
-      width: 50px;
-      height: 18px;
-      background: linear-gradient(180deg, rgba(255, 245, 190, 0.9) 0%, rgba(245, 225, 150, 0.85) 100%);
+      bottom: 6px;
+      left: 6px;
+      right: 6px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 6px;
+      padding: 4px 6px;
+      font-size: 10px;
+      color: white;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    /* 右侧信息 */
-    .species-detail-info {
+    /* 右侧知识栏 */
+    .species-knowledge-panel {
       width: 55%;
       display: flex;
       flex-direction: column;
       overflow-y: auto;
+      gap: 12px;
     }
 
     .species-info-card {
       background: linear-gradient(180deg, #FFFEF8 0%, #F5F0E6 100%);
-      border-radius: 20px;
-      padding: 16px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
     }
 
     .species-info-header {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 14px;
-      padding-bottom: 12px;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
       border-bottom: 2px solid rgba(0,0,0,0.06);
     }
 
     .species-info-icon {
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
       background: linear-gradient(135deg, #4ADE80 0%, #22C55E 100%);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
+      font-size: 20px;
     }
 
     .species-info-name {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
       color: #5D4E3A;
     }
 
     .species-info-latin {
-      font-size: 11px;
+      font-size: 10px;
       color: #888;
       font-style: italic;
     }
 
+    /* 区块标题 */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #5D4E3A;
+      margin-bottom: 10px;
+    }
+
     /* 趣味知识 */
+    .fun-facts-section {
+      margin-bottom: 0;
+    }
+
     .species-fun-facts {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
     .fun-fact {
       display: flex;
       align-items: flex-start;
-      gap: 10px;
-      padding: 10px;
+      gap: 8px;
+      padding: 8px 10px;
       background: rgba(255, 255, 255, 0.6);
-      border-radius: 12px;
+      border-radius: 10px;
     }
 
     .fun-fact-icon {
-      font-size: 18px;
+      font-size: 16px;
       flex-shrink: 0;
     }
 
     .fun-fact-text {
-      font-size: 12px;
+      font-size: 11px;
       color: #555;
-      line-height: 1.45;
+      line-height: 1.4;
+    }
+
+    /* 科学小档案 */
+    .science-section {
+      background: linear-gradient(180deg, #F0F7FF 0%, #E8F4FD 100%);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+
+    .science-table {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .science-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .science-label {
+      width: 50px;
+      font-size: 11px;
+      color: #888;
+      flex-shrink: 0;
+    }
+
+    .science-value {
+      font-size: 11px;
+      color: #444;
+      flex: 1;
+    }
+
+    /* 我的发现 */
+    .discovery-section {
+      background: linear-gradient(180deg, #FFF9E6 0%, #FFF5D6 100%);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+
+    .discovery-stats {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+
+    .discovery-stat {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: #666;
+    }
+
+    /* 全屏预览弹窗 */
+    .photo-viewer-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-viewer-overlay.show {
+      display: flex;
+    }
+
+    .photo-viewer-back {
+      position: absolute;
+      top: 12px;
+      left: 14px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      border-radius: 18px;
+      padding: 8px 14px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      z-index: 20;
+    }
+
+    .photo-viewer-main {
+      width: 85%;
+      max-height: 70%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-viewer-main img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .photo-viewer-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-viewer-nav.prev { left: 10px; }
+    .photo-viewer-nav.next { right: 10px; }
+    .photo-viewer-nav:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    .photo-viewer-info {
+      position: absolute;
+      bottom: 20px;
+      text-align: center;
+      color: white;
+    }
+
+    .photo-viewer-species {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .photo-viewer-counter {
+      font-size: 12px;
+      opacity: 0.7;
     }
 
     /* ============ Explorer 探险家中心页 ============ */
@@ -6777,32 +6971,32 @@
 
               <!-- 图鉴分类 -->
               <div class="guide-grid" id="guide-content" style="display: none;">
-                <div class="guide-item" onclick="navigateTo('species-list-page')">
+                <div class="guide-item" onclick="navigateTo('subcategory-list-page')">
                   <div class="guide-icon">🌸</div>
                   <div class="guide-name">花卉</div>
                   <div class="guide-count">5 种</div>
                 </div>
-                <div class="guide-item" onclick="navigateTo('species-list-page')">
+                <div class="guide-item" onclick="navigateTo('subcategory-list-page')">
                   <div class="guide-icon">🦋</div>
                   <div class="guide-name">昆虫</div>
                   <div class="guide-count">3 种</div>
                 </div>
-                <div class="guide-item" onclick="navigateTo('species-list-page')">
+                <div class="guide-item" onclick="navigateTo('subcategory-list-page')">
                   <div class="guide-icon">🪨</div>
                   <div class="guide-name">岩石</div>
                   <div class="guide-count">2 种</div>
                 </div>
-                <div class="guide-item" onclick="navigateTo('species-list-page')">
+                <div class="guide-item" onclick="navigateTo('subcategory-list-page')">
                   <div class="guide-icon">🍂</div>
                   <div class="guide-name">落叶</div>
                   <div class="guide-count">4 种</div>
                 </div>
-                <div class="guide-item" onclick="navigateTo('species-list-page')">
+                <div class="guide-item" onclick="navigateTo('subcategory-list-page')">
                   <div class="guide-icon">🐿️</div>
                   <div class="guide-name">动物</div>
                   <div class="guide-count">1 种</div>
                 </div>
-                <div class="guide-item" onclick="navigateTo('species-list-page')">
+                <div class="guide-item" onclick="navigateTo('subcategory-list-page')">
                   <div class="guide-icon">🍄</div>
                   <div class="guide-name">蘑菇</div>
                   <div class="guide-count">2 种</div>
@@ -6841,53 +7035,53 @@
         </div>
 
         <!-- ========== Species List 图鉴列表页 ========== -->
-        <div id="species-list-page" class="page page-blur-bg">
-          <div class="species-list-container">
-            <button class="species-list-back-btn" onclick="navigateTo('backpack-page')">
+        <div id="subcategory-list-page" class="page page-blur-bg">
+          <div class="subcategory-list-container">
+            <button class="subcategory-list-back-btn" onclick="navigateTo('backpack-page')">
               <span>←</span>
               <span>返回</span>
             </button>
 
             <!-- 头部 -->
-            <div class="species-list-header">
-              <div class="species-list-icon">🌸</div>
+            <div class="subcategory-list-header">
+              <div class="subcategory-list-icon">🌸</div>
               <div>
-                <div class="species-list-title">花卉</div>
-                <div class="species-list-count">已发现 5 种</div>
+                <div class="subcategory-list-title">花卉</div>
+                <div class="subcategory-list-count">已发现 15 种 · 5 个小类</div>
               </div>
             </div>
 
             <!-- 物种网格 -->
             <div class="species-grid">
-              <div class="species-card" onclick="navigateTo('species-detail-page')">
+              <div class="species-card" onclick="navigateTo('subcategory-detail-page')">
                 <div class="species-card-img">🌸</div>
                 <div class="species-card-info">
                   <div class="species-card-name">樱花</div>
                   <div class="species-card-date">5月15日</div>
                 </div>
               </div>
-              <div class="species-card" onclick="navigateTo('species-detail-page')">
+              <div class="species-card" onclick="navigateTo('subcategory-detail-page')">
                 <div class="species-card-img">🌻</div>
                 <div class="species-card-info">
                   <div class="species-card-name">向日葵</div>
                   <div class="species-card-date">May 20</div>
                 </div>
               </div>
-              <div class="species-card" onclick="navigateTo('species-detail-page')">
+              <div class="species-card" onclick="navigateTo('subcategory-detail-page')">
                 <div class="species-card-img">🌺</div>
                 <div class="species-card-info">
                   <div class="species-card-name">木槿花</div>
                   <div class="species-card-date">May 22</div>
                 </div>
               </div>
-              <div class="species-card" onclick="navigateTo('species-detail-page')">
+              <div class="species-card" onclick="navigateTo('subcategory-detail-page')">
                 <div class="species-card-img">🌷</div>
                 <div class="species-card-info">
                   <div class="species-card-name">郁金香</div>
                   <div class="species-card-date">May 25</div>
                 </div>
               </div>
-              <div class="species-card" onclick="navigateTo('species-detail-page')">
+              <div class="species-card" onclick="navigateTo('subcategory-detail-page')">
                 <div class="species-card-img">🌼</div>
                 <div class="species-card-info">
                   <div class="species-card-name">雏菊</div>
@@ -6898,50 +7092,134 @@
           </div>
         </div>
 
-        <!-- ========== 物种详情 图鉴详情页 ========== -->
-        <div id="species-detail-page" class="page page-blur-bg">
-          <div class="species-detail-container">
-            <button class="species-detail-back-btn" onclick="navigateTo('species-list-page')">
+        <!-- ========== 小类详情页 (照片墙+知识栏) ========== -->
+        <div id="subcategory-detail-page" class="page page-blur-bg">
+          <div class="subcategory-detail-container">
+            <button class="subcategory-detail-back-btn" onclick="navigateTo('subcategory-list-page')">
               <span>←</span>
               <span>返回</span>
             </button>
+            
+            <div class="subcategory-detail-title">
+              <span>🌼</span>
+              <span>野花</span>
+            </div>
 
-            <!-- 左侧照片 -->
-            <div class="species-detail-photo">
-              <div class="species-photo-frame">
-                <div class="species-photo-tape"></div>
-                <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?w=300&h=225&fit=crop" alt="Cherry Blossom">
+            <!-- 左侧照片墙 (所有照片) -->
+            <div class="photo-gallery">
+              <div class="photo-gallery-grid">
+                <div class="photo-gallery-item selected" onclick="selectPhoto(this, 0)">
+                  <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=200&h=200&fit=crop" alt="蒲公英">
+                  <div class="photo-species-tag">蒲公英</div>
+                </div>
+                <div class="photo-gallery-item" onclick="selectPhoto(this, 1)">
+                  <img src="https://images.unsplash.com/photo-1557128928-66e3009291b5?w=200&h=200&fit=crop" alt="蒲公英">
+                  <div class="photo-species-tag">蒲公英</div>
+                </div>
+                <div class="photo-gallery-item" onclick="selectPhoto(this, 2)">
+                  <img src="https://images.unsplash.com/photo-1606041008023-472dfb5e530f?w=200&h=200&fit=crop" alt="雏菊">
+                  <div class="photo-species-tag">雏菊</div>
+                </div>
+                <div class="photo-gallery-item" onclick="selectPhoto(this, 3)">
+                  <img src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=200&h=200&fit=crop" alt="三叶草">
+                  <div class="photo-species-tag">三叶草</div>
+                </div>
+                <div class="photo-gallery-item" onclick="selectPhoto(this, 4)">
+                  <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=200&h=200&fit=crop" alt="野菊">
+                  <div class="photo-species-tag">野菊</div>
+                </div>
+                <div class="photo-gallery-item" onclick="selectPhoto(this, 5)">
+                  <img src="https://images.unsplash.com/photo-1455659817273-f96807779a8a?w=200&h=200&fit=crop" alt="紫罗兰">
+                  <div class="photo-species-tag">紫罗兰</div>
+                </div>
               </div>
             </div>
 
-            <!-- 右侧信息 -->
-            <div class="species-detail-info">
-              <div class="species-info-card">
+            <!-- 右侧知识栏 (三段式) -->
+            <div class="species-knowledge-panel">
+              <!-- 物种头部 + 趣味知识 -->
+              <div class="species-info-card fun-facts-section">
                 <div class="species-info-header">
-                  <div class="species-info-icon">🌸</div>
+                  <div class="species-info-icon">🌼</div>
                   <div>
-                    <div class="species-info-name">樱花</div>
-                    <div class="species-info-latin">Prunus serrulata</div>
+                    <div class="species-info-name">蒲公英</div>
+                    <div class="species-info-latin">Taraxacum mongolicum</div>
                   </div>
                 </div>
+                <div class="section-title">🎈 趣味知识</div>
                 <div class="species-fun-facts">
                   <div class="fun-fact">
-                    <div class="fun-fact-icon">🌍</div>
-                    <div class="fun-fact-text">Cherry blossoms come from Japan, where they're called "Sakura"!</div>
-                  </div>
-                  <div class="fun-fact">
-                    <div class="fun-fact-icon">⏰</div>
-                    <div class="fun-fact-text">Each flower only blooms for about 2 weeks!</div>
+                    <div class="fun-fact-icon">🌬️</div>
+                    <div class="fun-fact-text">种子像小降落伞，风一吹就能飞到很远的地方！</div>
                   </div>
                   <div class="fun-fact">
                     <div class="fun-fact-icon">🍃</div>
-                    <div class="fun-fact-text">The petals are edible! Japanese people make treats with them.</div>
+                    <div class="fun-fact-text">叶子可以吃，有点苦但很健康！</div>
                   </div>
                   <div class="fun-fact">
-                    <div class="fun-fact-icon">🐝</div>
-                    <div class="fun-fact-text">蜜蜂喜欢它们是因为里面有甜甜的花蜜！</div>
+                    <div class="fun-fact-icon">☀️</div>
+                    <div class="fun-fact-text">花会跟着太阳转动，晚上还会闭合！</div>
                   </div>
                 </div>
+              </div>
+
+              <!-- 科学小档案 -->
+              <div class="science-section">
+                <div class="section-title">📖 科学小档案</div>
+                <div class="science-table">
+                  <div class="science-row">
+                    <div class="science-label">分类</div>
+                    <div class="science-value">菊科 · 蒲公英属</div>
+                  </div>
+                  <div class="science-row">
+                    <div class="science-label">花期</div>
+                    <div class="science-value">3-5月</div>
+                  </div>
+                  <div class="science-row">
+                    <div class="science-label">果期</div>
+                    <div class="science-value">6-8月</div>
+                  </div>
+                  <div class="science-row">
+                    <div class="science-label">分布</div>
+                    <div class="science-value">全球温带地区</div>
+                  </div>
+                  <div class="science-row">
+                    <div class="science-label">环境</div>
+                    <div class="science-value">路边、草地、田野</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 我的发现 -->
+              <div class="discovery-section">
+                <div class="section-title">📷 我的发现</div>
+                <div class="discovery-stats">
+                  <div class="discovery-stat">
+                    <span>📅</span>
+                    <span>首次发现：1月5日</span>
+                  </div>
+                  <div class="discovery-stat">
+                    <span>🖼️</span>
+                    <span>共拍摄：2 张</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 全屏预览弹窗 -->
+            <div class="photo-viewer-overlay" id="photo-viewer">
+              <button class="photo-viewer-back" onclick="closePhotoViewer()">
+                <span>←</span>
+                <span>返回</span>
+              </button>
+              <button class="photo-viewer-nav prev" onclick="slidePhoto(-1)">‹</button>
+              <div class="photo-viewer-main">
+                <img id="photo-viewer-img" src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800&fit=crop" alt="">
+              </div>
+              <button class="photo-viewer-nav next" onclick="slidePhoto(1)">›</button>
+              <div class="photo-viewer-info">
+                <div class="photo-viewer-species" id="photo-viewer-species">蒲公英</div>
+                <div class="photo-viewer-counter" id="photo-viewer-counter">1 / 6</div>
               </div>
             </div>
           </div>
@@ -8360,8 +8638,8 @@
           <div class="nav-item sub" onclick="goTo('explorer-page', 'xp-detail')"><span class="icon">📊</span><span>今日XP</span></div>
           <div class="nav-item" onclick="goTo('backpack-page')"><span class="icon">🎒</span><span>背包</span></div>
           <div class="nav-item" onclick="goTo('level-guide-page')"><span class="icon">📈</span><span>等级说明</span></div>
-          <div class="nav-item" onclick="goTo('species-list-page')"><span class="icon">📖</span><span>图鉴</span></div>
-          <div class="nav-item" onclick="goTo('species-detail-page')"><span class="icon">🔍</span><span>物种详情</span></div>
+          <div class="nav-item" onclick="goTo('subcategory-list-page')"><span class="icon">📖</span><span>图鉴</span></div>
+          <div class="nav-item" onclick="goTo('subcategory-detail-page')"><span class="icon">🔍</span><span>物种详情</span></div>
         </div>
       </div>
 
@@ -8497,6 +8775,71 @@
     let goToTimeout = null; // 防抖
 
     // 主导航函数 - 支持URL hash
+    
+    // ========== 照片墙 & 全屏预览 ==========
+    
+    // 照片数据
+    const galleryPhotos = [
+      { src: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800&fit=crop', species: '蒲公英', speciesId: 'dandelion' },
+      { src: 'https://images.unsplash.com/photo-1557128928-66e3009291b5?w=800&fit=crop', species: '蒲公英', speciesId: 'dandelion' },
+      { src: 'https://images.unsplash.com/photo-1606041008023-472dfb5e530f?w=800&fit=crop', species: '雏菊', speciesId: 'daisy' },
+      { src: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=800&fit=crop', species: '三叶草', speciesId: 'clover' },
+      { src: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&fit=crop', species: '野菊', speciesId: 'wildflower' },
+      { src: 'https://images.unsplash.com/photo-1455659817273-f96807779a8a?w=800&fit=crop', species: '紫罗兰', speciesId: 'violet' },
+    ];
+    
+    let currentPhotoIndex = 0;
+
+    // 选择照片 (更新选中状态 + 打开全屏)
+    function selectPhoto(element, index) {
+      // 移除其他选中状态
+      document.querySelectorAll('.photo-gallery-item').forEach(item => {
+        item.classList.remove('selected');
+      });
+      // 添加选中状态
+      element.classList.add('selected');
+      
+      // 打开全屏预览
+      openPhotoViewer(index);
+      
+      // TODO: 根据物种更新右侧知识栏
+      console.log('Selected photo:', index, galleryPhotos[index]?.species);
+    }
+
+    // 打开全屏预览
+    function openPhotoViewer(index) {
+      currentPhotoIndex = index;
+      updatePhotoViewer();
+      document.getElementById('photo-viewer').classList.add('show');
+    }
+
+    // 关闭全屏预览
+    function closePhotoViewer() {
+      document.getElementById('photo-viewer').classList.remove('show');
+    }
+
+    // 切换照片
+    function slidePhoto(direction) {
+      currentPhotoIndex += direction;
+      if (currentPhotoIndex < 0) currentPhotoIndex = 0;
+      if (currentPhotoIndex >= galleryPhotos.length) currentPhotoIndex = galleryPhotos.length - 1;
+      updatePhotoViewer();
+    }
+
+    // 更新预览内容
+    function updatePhotoViewer() {
+      const photo = galleryPhotos[currentPhotoIndex];
+      if (!photo) return;
+      
+      document.getElementById('photo-viewer-img').src = photo.src;
+      document.getElementById('photo-viewer-species').textContent = photo.species;
+      document.getElementById('photo-viewer-counter').textContent = (currentPhotoIndex + 1) + ' / ' + galleryPhotos.length;
+      
+      // 更新导航按钮状态
+      document.querySelector('.photo-viewer-nav.prev').disabled = currentPhotoIndex === 0;
+      document.querySelector('.photo-viewer-nav.next').disabled = currentPhotoIndex === galleryPhotos.length - 1;
+    }
+
     function goTo(pageId, modal = null) {
       // 防抖：清除之前的延迟移除
       if (goToTimeout) {
@@ -8510,7 +8853,11 @@
       // 更新URL hash（不触发hashchange）
       const newHash = modal ? `${pageId}/${modal}` : pageId;
       if (window.location.hash !== '#' + newHash) {
-        history.replaceState(null, '', '#' + newHash);
+        try {
+          history.replaceState(null, '', '#' + newHash);
+        } catch(e) {
+          // iframe跨域限制，忽略此错误
+        }
       }
       
       // 如果是导出模式，先恢复所有元素
