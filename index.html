@@ -176,6 +176,44 @@
       background: linear-gradient(135deg, #818CF8 0%, #6366F1 100%);
     }
 
+    /* 返回键 */
+    .btn-back {
+      background: linear-gradient(180deg, #9CA3AF 0%, #6B7280 100%);
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    /* AI/PTT 合一键 */
+    .btn-ai-ptt {
+      background: linear-gradient(135deg, #818CF8 0%, #6366F1 100%);
+      position: relative;
+      transition: all 0.15s ease;
+    }
+    .btn-ai-ptt.pressing {
+      background: linear-gradient(180deg, #FFE135 0%, #FFD700 100%);
+      transform: scale(0.95);
+    }
+    .btn-ai-ptt::after {
+      content: '🎤';
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      font-size: 10px;
+      background: #FFD700;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* 禁用默认hover效果 */
+    .btn-ai-ptt:hover {
+      transform: none;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+    }
+
     .btn-vol-up, .btn-vol-down {
       background: linear-gradient(180deg, #E5E5E5 0%, #CCCCCC 100%);
       font-size: 18px;
@@ -711,118 +749,92 @@
       background: linear-gradient(180deg, rgba(30,40,80,0.92) 0%, rgba(20,30,60,0.98) 100%);
       backdrop-filter: blur(20px);
       border-radius: 20px 20px 0 0;
-      padding: 12px 16px 14px;
+      padding: 16px 16px 18px;
       transform: translateY(100%);
       transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
       z-index: 200;
       display: flex;
-      align-items: center;
-      gap: 14px;
+      flex-direction: column;
+      gap: 12px;
     }
     .ai-overlay.show {
       transform: translateY(0);
     }
 
-    /* 左侧:标题+badge上下排列 */
-    .ai-left-section {
+    /* 顶部栏：上下文 + 关闭 */
+    .ai-header {
       display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .ai-title-group {
-      display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 8px;
-    }
-
-    .ai-icon {
-      width: 28px;
-      height: 28px;
-      background: linear-gradient(135deg, #A78BFA 0%, #8B5CF6 100%);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-    }
-
-    .ai-title {
-      color: white;
-      font-size: 14px;
-      font-weight: 600;
     }
 
     .ai-context-badge {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      background: rgba(255,255,255,0.12);
+      gap: 6px;
+      background: rgba(255,255,255,0.1);
       padding: 6px 12px;
       border-radius: 12px;
-      font-size: 11px;
-      color: rgba(255,255,255,0.9);
-      white-space: nowrap;
-      width: fit-content;
+      font-size: 12px;
+      color: rgba(255,255,255,0.8);
     }
 
-    /* 中间:菜单项 */
+    .ai-close {
+      width: 28px;
+      height: 28px;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      border-radius: 50%;
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .ai-close:hover {
+      background: rgba(255,255,255,0.2);
+      color: white;
+    }
+
+    /* 菜单项网格 - 大图标为主 */
     .ai-menu-grid {
-      flex: 1;
       display: flex;
       justify-content: center;
-      align-items: center;
-      gap: 10px;
+      align-items: stretch;
+      gap: 12px;
     }
 
     .ai-menu-item {
-      min-width: 72px;
-      padding: 10px 14px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 14px;
+      flex: 1;
+      max-width: 100px;
+      padding: 14px 10px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 8px;
       cursor: pointer;
       transition: all 0.2s;
     }
 
     .ai-menu-item:hover {
-      background: rgba(255,255,255,0.18);
-    }
-
-    /* 右侧:关闭按钮 */
-    .ai-close {
-      width: 24px;
-      height: 24px;
       background: rgba(255,255,255,0.15);
-      border: none;
-      border-radius: 50%;
-      color: white;
-      font-size: 12px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    /* 移除旧的header样式 */
-    .ai-header {
-      display: contents;
+      transform: translateY(-2px);
     }
 
     .ai-menu-icon {
-      width: 32px;
-      height: 32px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 15px;
-      flex-shrink: 0;
+      font-size: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
     .ai-menu-icon.purple { background: linear-gradient(135deg, #A78BFA 0%, #8B5CF6 100%); }
@@ -835,23 +847,37 @@
     .ai-menu-icon.cyan { background: linear-gradient(135deg, #22D3EE 0%, #06B6D4 100%); }
 
     .ai-menu-label {
-      font-size: 11px;
-      color: white;
+      font-size: 12px;
+      color: rgba(255,255,255,0.9);
       font-weight: 500;
       white-space: nowrap;
       text-align: center;
     }
 
-    /* ============ PTT 浮层 ============ */
+    /* ============ AI 语音对话浮层（简化版 V2）============ */
+    .ptt-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 199;
+      pointer-events: none;
+    }
+    .ptt-backdrop.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
     .ptt-overlay {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.95) 100%);
+      background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.95) 100%);
       backdrop-filter: blur(20px);
-      border-radius: 20px 20px 0 0;
-      padding: 14px 16px 16px;
+      border-radius: 24px 24px 0 0;
+      padding: 20px 16px;
       transform: translateY(100%);
       transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
       z-index: 200;
@@ -860,236 +886,223 @@
       transform: translateY(0);
     }
 
-    .ptt-header {
+    /* 主内容区 - 角色居中垂直布局 */
+    .ptt-main {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
-      margin-bottom: 10px;
+      gap: 14px;
+      padding: 8px 0;
     }
 
-    .ptt-status {
+    /* 角色选择区 - 水平居中 */
+    .ptt-character-area {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .ptt-char-nav {
+      width: 32px;
+      height: 32px;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      border-radius: 50%;
+      color: rgba(255,255,255,0.5);
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .ptt-char-nav:hover {
+      background: rgba(255,255,255,0.2);
+      color: white;
+    }
+
+    .ptt-avatar-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ptt-avatar {
+      width: 88px;
+      height: 88px;
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+      box-shadow: 0 4px 20px rgba(255,165,0,0.5);
+      position: relative;
+      transition: transform 0.2s;
+    }
+
+    .ptt-avatar-name {
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    /* 状态指示环 - 动态光晕 */
+    .ptt-avatar::after {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      transition: all 0.3s;
+    }
+
+    .ptt-avatar.listening::after {
+      border-color: #4ADE80;
+      box-shadow: 0 0 20px rgba(74, 222, 128, 0.4);
+      animation: pulse-ring 1.5s infinite;
+    }
+
+    .ptt-avatar.thinking::after {
+      border-color: #FBBF24;
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+      animation: pulse-ring 2s infinite;
+    }
+
+    .ptt-avatar.speaking::after {
+      border-color: #60A5FA;
+      box-shadow: 0 0 20px rgba(96, 165, 250, 0.4);
+      animation: pulse-ring 1s infinite;
+    }
+
+    @keyframes pulse-ring {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.06); }
+    }
+
+    /* 状态区 - 紧凑水平排列 */
+    .ptt-status-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ptt-status-row {
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
     .ptt-status-dot {
-      width: 8px;
-      height: 8px;
-      background: #EF4444;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
-      animation: pulse 1s infinite;
+      background: #4ADE80;
     }
 
+    .ptt-status-dot.listening { background: #4ADE80; }
     .ptt-status-dot.thinking { background: #FBBF24; }
-    .ptt-status-dot.done { background: #4ADE80; animation: none; }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.7; transform: scale(1.1); }
-    }
+    .ptt-status-dot.speaking { background: #60A5FA; }
 
     .ptt-status-text {
-      color: white;
-      font-size: 11px;
+      color: rgba(255,255,255,0.7);
+      font-size: 13px;
     }
 
-    .ptt-close {
-      width: 24px;
-      height: 24px;
-      background: rgba(255,255,255,0.15);
-      border: none;
-      border-radius: 50%;
-      color: white;
-      font-size: 12px;
-      cursor: pointer;
-    }
-
-    .ptt-content {
-      display: flex;
-      gap: 14px;
-      align-items: center;
-    }
-
-    .ptt-character-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .ptt-character {
-      width: 48px;
-      height: 48px;
-      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      box-shadow: 0 4px 12px rgba(255,165,0,0.4);
-    }
-
-    .ptt-character-switch {
-      display: flex;
-      gap: 4px;
-    }
-
-    .ptt-char-btn {
-      width: 24px;
-      height: 24px;
-      background: rgba(255,255,255,0.1);
-      border: 2px solid transparent;
-      border-radius: 50%;
-      font-size: 12px;
-      cursor: pointer;
-    }
-
-    .ptt-char-btn.进行中 {
-      background: rgba(255,255,255,0.25);
-      border-color: #FFD700;
-    }
-
-    .ptt-voice-section {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
+    /* 迷你波形 - 仅作为状态辅助 */
     .ptt-waveform {
-      height: 32px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 8px;
+      height: 16px;
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 2px;
-      padding: 0 10px;
     }
 
     .ptt-wave-bar {
-      width: 3px;
-      background: linear-gradient(180deg, #4ADE80 0%, #22C55E 100%);
-      border-radius: 2px;
-      animation: wave 0.5s ease-in-out infinite;
+      width: 2px;
+      background: #4ADE80;
+      border-radius: 1px;
+      animation: wave 0.6s ease-in-out infinite;
+    }
+
+    .ptt-waveform.listening .ptt-wave-bar {
+      background: #4ADE80;
+    }
+
+    .ptt-waveform.speaking .ptt-wave-bar {
+      background: #60A5FA;
+    }
+
+    .ptt-waveform.thinking .ptt-wave-bar {
+      background: #FBBF24;
+      animation: none;
+      transform: scaleY(0.3);
     }
 
     @keyframes wave {
-      0%, 100% { transform: scaleY(0.5); }
+      0%, 100% { transform: scaleY(0.4); }
       50% { transform: scaleY(1); }
     }
 
-    .ptt-wave-bar:nth-child(1) { height: 10px; animation-delay: 0s; }
-    .ptt-wave-bar:nth-child(2) { height: 18px; animation-delay: 0.1s; }
-    .ptt-wave-bar:nth-child(3) { height: 24px; animation-delay: 0.2s; }
-    .ptt-wave-bar:nth-child(4) { height: 14px; animation-delay: 0.15s; }
-    .ptt-wave-bar:nth-child(5) { height: 20px; animation-delay: 0.25s; }
-    .ptt-wave-bar:nth-child(6) { height: 28px; animation-delay: 0.1s; }
-    .ptt-wave-bar:nth-child(7) { height: 16px; animation-delay: 0.2s; }
-    .ptt-wave-bar:nth-child(8) { height: 22px; animation-delay: 0.05s; }
+    .ptt-wave-bar:nth-child(1) { height: 6px; animation-delay: 0s; }
+    .ptt-wave-bar:nth-child(2) { height: 10px; animation-delay: 0.08s; }
+    .ptt-wave-bar:nth-child(3) { height: 14px; animation-delay: 0.16s; }
+    .ptt-wave-bar:nth-child(4) { height: 8px; animation-delay: 0.12s; }
+    .ptt-wave-bar:nth-child(5) { height: 12px; animation-delay: 0.2s; }
+    .ptt-wave-bar:nth-child(6) { height: 16px; animation-delay: 0.1s; }
 
-    .ptt-transcript {
-      background: rgba(255,255,255,0.1);
-      border-radius: 10px;
-      padding: 8px 12px;
-      color: white;
-      font-size: 13px;
-      min-height: 32px;
-    }
-
-    .ptt-hint {
-      text-align: center;
-      color: rgba(255,255,255,0.5);
-      font-size: 10px;
-      margin-top: 6px;
-    }
-
-    /* PTT 回复状态 */
-    .ptt-response-section {
-      display: none;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .ptt-user-msg {
-      background: rgba(74, 144, 217, 0.2);
-      border: 1px solid rgba(74, 144, 217, 0.3);
-      border-radius: 10px;
-      padding: 8px 12px;
-    }
-
-    .ptt-msg-label {
-      font-size: 9px;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 3px;
-    }
-
-    .ptt-msg-text {
-      color: white;
-      font-size: 13px;
-    }
-
-    .ptt-ai-msg {
+    /* 底部提示区（居中） */
+    .ptt-footer {
       display: flex;
-      gap: 10px;
-      align-items: flex-start;
+      justify-content: center;
+      align-items: center;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
 
-    .ptt-ai-avatar {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-      border-radius: 50%;
+    /* 顶部区域 */
+    .ptt-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .ptt-history-btn {
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
-    }
-
-    .ptt-ai-content {
-      flex: 1;
+      gap: 6px;
       background: rgba(255,255,255,0.1);
-      border-radius: 10px;
-      padding: 10px 12px;
-    }
-
-    .ptt-ai-text {
-      color: white;
-      font-size: 13px;
-      line-height: 1.4;
-    }
-
-    .ptt-actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 4px;
-    }
-
-    .ptt-action-btn {
-      flex: 1;
-      padding: 10px 14px;
       border: none;
-      border-radius: 10px;
+      border-radius: 20px;
+      padding: 8px 14px;
+      color: rgba(255,255,255,0.7);
       font-size: 12px;
-      font-weight: 600;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
+      transition: all 0.2s;
     }
 
-    .ptt-ask-more {
+    .ptt-history-btn:hover {
       background: rgba(255,255,255,0.15);
       color: white;
     }
 
-    .ptt-continue-chat {
-      background: linear-gradient(135deg, #818CF8 0%, #6366F1 100%);
+    .ptt-history-badge {
+      background: #6366F1;
       color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-weight: 600;
     }
+
+    .ptt-hint {
+      color: rgba(255,255,255,0.5);
+      font-size: 12px;
+    }
+
 
     /* ============ 二级卡片浮层 ============ */
     .ai-card-overlay {
@@ -1694,91 +1707,189 @@
       font-style: italic;
     }
 
-    /* 右侧对话区域 - 55% */
+    /* 右侧AI形象区域 - 55% (MVP版本) */
     .chat-conversation-section {
       width: 55%;
       height: 100%;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      justify-content: center;
       padding: 50px 20px 16px 8px;
     }
 
-    /* 消息列表 */
-    .chat-messages {
+    /* MVP: AI形象容器 */
+    .chat-ai-persona {
       flex: 1;
-      overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      padding-right: 6px;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
     }
 
-    .chat-messages::-webkit-scrollbar {
-      width: 4px;
-    }
-    .chat-messages::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .chat-messages::-webkit-scrollbar-thumb {
-      background: rgba(0,0,0,0.15);
-      border-radius: 2px;
-    }
-
-    /* 单条消息 */
-    .chat-message {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      max-width: 95%;
-    }
-
-    .chat-message.ai { align-self: flex-start; }
-    .chat-message.user { align-self: flex-end; flex-direction: row-reverse; }
-
-    .chat-avatar {
-      width: 32px;
-      height: 32px;
+    /* MVP: 查看对话记录按钮 */
+    .chat-transcript-btn {
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 16px;
-      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      transition: all 0.2s;
+      z-index: 20;
+    }
+    .chat-transcript-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
     }
 
-    .chat-avatar.ai-avatar {
-      background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    /* MVP: 上下角色切换按钮 */
+    .chat-char-switch {
+      width: 36px;
+      height: 28px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.85);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #666;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s;
     }
-
-    .chat-avatar.user-avatar {
-      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-
-    .chat-bubble {
-      padding: 10px 14px;
-      border-radius: 16px;
-      font-size: 13px;
-      line-height: 1.45;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-
-    .chat-message.ai .chat-bubble {
-      background: linear-gradient(180deg, #FFFFFF 0%, #F9FAFB 100%);
+    .chat-char-switch:hover {
+      background: rgba(255, 255, 255, 1);
       color: #333;
-      border-bottom-left-radius: 4px;
+      transform: scale(1.1);
+    }
+    .chat-char-switch:active {
+      transform: scale(0.95);
     }
 
-    .chat-message.user .chat-bubble {
-      background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
-      color: white;
-      border-bottom-right-radius: 4px;
+    /* MVP: AI大头像 */
+    .chat-ai-avatar-large {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .chat-ai-avatar-large.speaking {
+      animation: avatar-pulse 1.5s ease-in-out infinite;
+    }
+
+    .chat-ai-avatar-large.thinking {
+      animation: avatar-think 2s ease-in-out infinite;
+    }
+
+    @keyframes avatar-pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15); }
+      50% { transform: scale(1.05); box-shadow: 0 12px 40px rgba(59, 130, 246, 0.3); }
+    }
+
+    @keyframes avatar-think {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      25% { transform: scale(1.02) rotate(-2deg); }
+      75% { transform: scale(1.02) rotate(2deg); }
+    }
+
+    /* MVP: 状态指示器 */
+    .chat-status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .chat-status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #10B981;
+    }
+
+    .chat-status-dot.listening {
+      background: #EF4444;
+      animation: status-blink 0.8s ease-in-out infinite;
+    }
+
+    .chat-status-dot.thinking {
+      background: #F59E0B;
+      animation: status-blink 1.2s ease-in-out infinite;
+    }
+
+    .chat-status-dot.speaking {
+      background: #3B82F6;
+      animation: status-blink 0.6s ease-in-out infinite;
+    }
+
+    @keyframes status-blink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+
+    .chat-status-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    /* MVP: 声波动画 */
+    .chat-sound-wave {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 24px;
+    }
+
+    .chat-sound-wave .wave-bar {
+      width: 4px;
+      height: 8px;
+      background: #3B82F6;
+      border-radius: 2px;
+      animation: wave-bar 0.8s ease-in-out infinite;
+    }
+
+    .chat-sound-wave .wave-bar:nth-child(1) { animation-delay: 0s; }
+    .chat-sound-wave .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+    .chat-sound-wave .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+    .chat-sound-wave .wave-bar:nth-child(4) { animation-delay: 0.3s; }
+    .chat-sound-wave .wave-bar:nth-child(5) { animation-delay: 0.4s; }
+
+    @keyframes wave-bar {
+      0%, 100% { height: 8px; }
+      50% { height: 20px; }
+    }
+
+    .chat-sound-wave.hidden {
+      display: none;
     }
 
     /* 底部输入区 */
     .chat-input-area {
       margin-top: 12px;
+      width: 100%;
     }
 
     .chat-speak-btn {
@@ -1817,7 +1928,7 @@
       50% { transform: scale(1.2); }
     }
 
-    /* ============ 通用聊天 通用聊天页 ============ */
+    /* ============ 通用聊天 通用聊天页 (MVP版本) ============ */
     #general-chat-page {
       /* 使用page-blur-bg统一背景 */
     }
@@ -1827,6 +1938,8 @@
       height: 100%;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      justify-content: center;
       padding: 50px 24px 16px;
       position: relative;
     }
@@ -1854,32 +1967,174 @@
     }
     .general-chat-back-btn:hover { background: rgba(0, 0, 0, 0.55); }
 
-    /* 消息列表 */
-    .general-chat-messages {
+    /* MVP: AI形象容器 (通用聊天) */
+    .general-chat-ai-persona {
       flex: 1;
-      overflow-y: auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    /* MVP: 左右角色切换按钮 (通用聊天) */
+    .general-char-switch {
+      width: 40px;
+      height: 48px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #666;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      transition: all 0.2s;
+    }
+    .general-char-switch:hover {
+      background: rgba(255, 255, 255, 1);
+      color: #333;
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+    }
+    .general-char-switch:active {
+      transform: scale(0.95);
+    }
+
+    /* MVP: 查看对话记录按钮 (通用聊天) */
+    .general-chat-transcript-btn {
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      padding: 8px 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      color: #555;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s;
+      z-index: 20;
+    }
+    .general-chat-transcript-btn:hover {
+      background: rgba(255, 255, 255, 1);
+      color: #333;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    }
+
+    /* MVP: 通用聊天内部布局调整 */
+    .general-chat-ai-inner {
       display: flex;
       flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* MVP: AI大头像 (通用聊天 - 更大) */
+    .general-chat-ai-avatar-large {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.18);
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .general-chat-ai-avatar-large.speaking {
+      animation: avatar-pulse 1.5s ease-in-out infinite;
+    }
+
+    .general-chat-ai-avatar-large.thinking {
+      animation: avatar-think 2s ease-in-out infinite;
+    }
+
+    .general-chat-ai-avatar-large.listening {
+      box-shadow: 0 12px 48px rgba(239, 68, 68, 0.3);
+    }
+
+    /* MVP: 状态指示器 (通用聊天 - 更大) */
+    .general-chat-status-indicator {
+      display: flex;
+      align-items: center;
       gap: 12px;
-      padding: 8px 4px;
+      padding: 12px 24px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
     }
 
-    .general-chat-messages::-webkit-scrollbar {
-      width: 4px;
-    }
-    .general-chat-messages::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .general-chat-messages::-webkit-scrollbar-thumb {
-      background: rgba(0,0,0,0.15);
-      border-radius: 2px;
+    .general-chat-status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #10B981;
     }
 
-    /* 通用聊天气泡样式复用 chat-message */
+    .general-chat-status-dot.listening {
+      background: #EF4444;
+      animation: status-blink 0.8s ease-in-out infinite;
+    }
+
+    .general-chat-status-dot.thinking {
+      background: #F59E0B;
+      animation: status-blink 1.2s ease-in-out infinite;
+    }
+
+    .general-chat-status-dot.speaking {
+      background: #3B82F6;
+      animation: status-blink 0.6s ease-in-out infinite;
+    }
+
+    .general-chat-status-text {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    /* MVP: 声波动画 (通用聊天) */
+    .general-chat-sound-wave {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      height: 32px;
+    }
+
+    .general-chat-sound-wave .wave-bar {
+      width: 5px;
+      height: 10px;
+      background: #3B82F6;
+      border-radius: 3px;
+      animation: wave-bar 0.8s ease-in-out infinite;
+    }
+
+    .general-chat-sound-wave .wave-bar:nth-child(1) { animation-delay: 0s; }
+    .general-chat-sound-wave .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+    .general-chat-sound-wave .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+    .general-chat-sound-wave .wave-bar:nth-child(4) { animation-delay: 0.3s; }
+    .general-chat-sound-wave .wave-bar:nth-child(5) { animation-delay: 0.4s; }
+
+    .general-chat-sound-wave.hidden {
+      display: none;
+    }
 
     /* 底部输入区 */
     .general-chat-input-area {
       margin-top: 12px;
+      width: 100%;
+      max-width: 400px;
     }
 
     .general-chat-speak-btn {
@@ -2059,7 +2314,7 @@
     /* 指南针 */
     .map-compass {
       position: absolute;
-      bottom: 20px;
+      bottom: 100px;
       right: 20px;
       width: 52px;
       height: 52px;
@@ -2070,6 +2325,11 @@
       justify-content: center;
       box-shadow: 0 4px 14px rgba(0,0,0,0.2);
       z-index: 20;
+      transition: bottom 0.25s ease;
+    }
+    /* 浮层显示时指南针上移 */
+    #map-page:has(.map-ai-overlay:not(.hidden)) .map-compass {
+      bottom: 100px;
     }
 
     .compass-arrow {
@@ -2201,6 +2461,301 @@
       background: #DDD8CE;
     }
 
+    /* ============ 地图页AI浮层 - 图片为主 ============ */
+    .map-ai-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(30, 32, 44, 0.96);
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      z-index: 50;
+      transition: all 0.25s ease;
+      border-radius: 16px 16px 0 0;
+    }
+    .map-ai-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(100%);
+    }
+
+    /* 内容区域 */
+    .ai-overlay-body {
+      padding: 16px 16px 12px;
+      position: relative;
+    }
+    .ai-body-content {
+      display: none;
+    }
+    .ai-body-content.active {
+      display: block;
+      animation: fadeIn 0.2s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* ===== 底部栏右侧控制区 ===== */
+    .ai-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    
+    .ai-replay-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .ai-replay-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    }
+    .ai-replay-btn.speaking {
+      animation: speakingPulse 0.8s ease infinite;
+    }
+    @keyframes speakingPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(99, 102, 241, 0); }
+    }
+    .replay-icon { font-size: 16px; }
+
+    /* ===== 任务卡片 - 可点击 ===== */
+    .ai-task-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .ai-task-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 8px 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.15s;
+      position: relative;
+    }
+    .ai-task-card:hover { 
+      background: rgba(255, 255, 255, 0.15); 
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .ai-task-card.completed { opacity: 0.6; cursor: default; }
+    .ai-task-card.completed:hover { transform: none; box-shadow: none; }
+    
+    /* 可点击箭头指示 */
+    .ai-task-card::after {
+      content: '›';
+      position: absolute;
+      bottom: 8px;
+      right: 10px;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.4);
+      font-weight: bold;
+      transition: all 0.15s;
+    }
+    .ai-task-card:hover::after {
+      color: rgba(255, 255, 255, 0.8);
+      transform: translateX(2px);
+    }
+    .ai-task-card.completed::after {
+      display: none;
+    }
+    
+    .card-image {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
+    .card-image.flower { background: linear-gradient(135deg, #FECDD3 0%, #FDA4AF 100%); }
+    .card-image.butterfly { background: linear-gradient(135deg, #A5F3FC 0%, #67E8F9 100%); }
+    .card-image.rock { background: linear-gradient(135deg, #D4D4D8 0%, #A1A1AA 100%); }
+    .card-image.leaf { background: linear-gradient(135deg, #BBF7D0 0%, #86EFAC 100%); }
+    
+    .ai-task-card .card-name { font-size: 12px; color: rgba(255, 255, 255, 0.9); text-align: center; }
+    .ai-task-card .card-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      background: #FEE2E2;
+      color: #DC2626;
+    }
+    
+    .card-done-mark {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 22px;
+      height: 22px;
+      background: #22C55E;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    /* ===== 小贴士 - 纯展示 ===== */
+    .ai-tips-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .ai-tip-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 8px 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 14px;
+      cursor: default;
+    }
+    .tip-image {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #FEF08A 0%, #FDE047 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
+    .ai-tip-card .tip-text { font-size: 12px; color: rgba(255, 255, 255, 0.7); text-align: center; }
+
+    /* ===== 奖励 - 纯展示 ===== */
+    .ai-reward-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+    .ai-reward-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 6px 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 12px;
+      cursor: default;
+    }
+    .ai-reward-card.completed { opacity: 0.6; }
+    .ai-reward-card.bonus { background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(245, 158, 11, 0.15) 100%); }
+    
+    .reward-image {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .ai-reward-card .reward-name { font-size: 10px; color: rgba(255, 255, 255, 0.65); text-align: center; }
+    .reward-stars { font-size: 12px; }
+
+    /* ===== 底部菜单栏 ===== */
+    .ai-overlay-bar {
+      display: flex;
+      align-items: center;
+      padding: 10px 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .ai-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 120px;
+    }
+    .ai-bar-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #818CF8 0%, #6366F1 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .ai-bar-context {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+    }
+    
+    .ai-bar-tabs {
+      display: flex;
+      gap: 8px;
+      flex: 1;
+      justify-content: center;
+    }
+    .ai-bar-tab {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.08);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .ai-bar-tab:hover { background: rgba(255, 255, 255, 0.15); }
+    .ai-bar-tab.active {
+      background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+    }
+    .ai-bar-tab .tab-icon { font-size: 16px; }
+    .ai-bar-tab .tab-text { font-size: 12px; color: rgba(255, 255, 255, 0.9); font-weight: 500; }
+    .ai-bar-tab.active .tab-text { color: white; }
+
+    .ai-bar-close {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .ai-bar-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+    }
+
     /* ============ Workshop 工坊入口页 ============ */
     #workshop-page {
       /* 使用page-blur-bg统一背景 */
@@ -2237,7 +2792,1006 @@
     }
     .workshop-back-btn:hover { background: rgba(0, 0, 0, 0.55); }
 
-    /* 风格卡片滚动容器 */
+    /* ===== 工坊AI浮层 ===== */
+    .workshop-ai-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(30, 32, 44, 0.96);
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      z-index: 50;
+      transition: all 0.25s ease;
+      border-radius: 16px 16px 0 0;
+    }
+    .workshop-ai-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(100%);
+    }
+
+    /* 随机惊喜内容 - 照片+风格组合 */
+    .workshop-surprise-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 0;
+    }
+    .surprise-combo {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .surprise-photo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .surprise-photo img {
+      width: 64px;
+      height: 64px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+    }
+    .surprise-label {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .surprise-plus {
+      font-size: 24px;
+      animation: sparkle 1.5s ease infinite;
+    }
+    @keyframes sparkle {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.8; }
+    }
+    .surprise-style-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .surprise-preview {
+      width: 64px;
+      height: 64px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+    }
+    .surprise-go-btn {
+      background: linear-gradient(135deg, #F472B6 0%, #EC4899 100%);
+      border: none;
+      border-radius: 24px;
+      padding: 12px 32px;
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+    }
+    .surprise-go-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4);
+    }
+
+    /* 我的作品 - 横向一行 */
+    .workshop-creations-row {
+      display: flex;
+      align-items: stretch;
+      gap: 12px;
+    }
+    .creation-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .creation-card:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-2px);
+    }
+    .creation-thumb {
+      width: 56px;
+      height: 56px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+    .creation-name {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.8);
+      text-align: center;
+    }
+    /* 查看全部按钮 */
+    .creation-view-all {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 12px 8px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 2px solid rgba(99, 102, 241, 0.3);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .creation-view-all:hover {
+      background: rgba(99, 102, 241, 0.25);
+      border-color: rgba(99, 102, 241, 0.5);
+    }
+    .view-all-icon {
+      font-size: 24px;
+    }
+    .view-all-text {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 500;
+    }
+    .view-all-arrow {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* 灵感网格 */
+    .workshop-ideas-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .idea-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 14px;
+    }
+    .idea-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #FEF08A 0%, #FDE047 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+    }
+    .idea-text {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.7);
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    /* ===== 首页AI浮层 ===== */
+    .home-ai-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(30, 32, 44, 0.96);
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      z-index: 50;
+      transition: all 0.25s ease;
+      border-radius: 16px 16px 0 0;
+    }
+    .home-ai-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(100%);
+    }
+
+    /* 今日任务 */
+    .home-quest-content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .quest-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quest-card:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .quest-card.completed {
+      opacity: 0.6;
+    }
+    .quest-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+    .quest-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .quest-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: white;
+    }
+    .quest-desc {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .quest-badge {
+      font-size: 10px;
+      padding: 4px 8px;
+      background: rgba(99, 102, 241, 0.3);
+      color: #A5B4FC;
+      border-radius: 6px;
+    }
+    .quest-done {
+      width: 24px;
+      height: 24px;
+      background: #22C55E;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    /* 学知识 */
+    .home-learn-content {
+      display: flex;
+      gap: 10px;
+    }
+    .learn-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 10px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .learn-card:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-2px);
+    }
+    .learn-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #A5F3FC 0%, #67E8F9 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .learn-text {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.8);
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    /* 我的进度 */
+    .home-progress-content {
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0;
+    }
+    .progress-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .stat-num {
+      font-size: 24px;
+      font-weight: 700;
+      color: white;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* ===== 相机AI浮层 ===== */
+    .camera-ai-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(30, 32, 44, 0.96);
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      z-index: 50;
+      transition: all 0.25s ease;
+      border-radius: 16px 16px 0 0;
+    }
+    .camera-ai-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(100%);
+    }
+
+    /* 识别提示 */
+    .camera-identify-content {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .identify-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+    }
+    .identify-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .identify-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .identify-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+    }
+    .identify-desc {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .identify-examples {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .example-tag {
+      padding: 6px 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* 拍摄技巧 */
+    .camera-tips-content {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .tip-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+    }
+    .tip-icon {
+      font-size: 20px;
+    }
+    .tip-text {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* 帮助 */
+    .camera-help-content {
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0;
+    }
+    .help-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .help-key {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: white;
+      font-weight: 600;
+    }
+    .help-action {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* ===== 背包AI浮层 ===== */
+    .backpack-ai-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(30, 32, 44, 0.96);
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      z-index: 50;
+      transition: all 0.25s ease;
+      border-radius: 16px 16px 0 0;
+    }
+    .backpack-ai-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(100%);
+    }
+
+    /* 精彩回顾 */
+    .backpack-highlights-content {
+      display: flex;
+      gap: 10px;
+    }
+    .highlight-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 10px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+    }
+    .highlight-emoji {
+      font-size: 28px;
+    }
+    .highlight-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .highlight-label {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .highlight-value {
+      font-size: 12px;
+      color: white;
+      font-weight: 600;
+    }
+
+    /* 统计 */
+    .backpack-stats-content {
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0;
+    }
+    .backpack-stats-content .stat-item {
+      flex: none;
+      background: transparent;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 0;
+    }
+    .backpack-stats-content .stat-icon {
+      font-size: 20px;
+    }
+    .backpack-stats-content .stat-number {
+      font-size: 20px;
+      font-weight: 700;
+      color: white;
+    }
+    .backpack-stats-content .stat-name {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* 下个目标 */
+    .backpack-goal-content {
+      padding: 4px 0;
+    }
+    .goal-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+    }
+    .goal-card > div:first-child {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .goal-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+    .goal-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .goal-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+    }
+    .goal-desc {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .goal-progress {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .goal-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #FBBF24, #F59E0B);
+      border-radius: 3px;
+    }
+
+    /* ===== 照片预览AI浮层 ===== */
+    .preview-ai-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(30, 32, 44, 0.96);
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      z-index: 50;
+      transition: all 0.25s ease;
+      border-radius: 16px 16px 0 0;
+    }
+    .preview-ai-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(100%);
+    }
+
+    /* 这是什么 - 识别结果 */
+    .preview-identify-content {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .identify-result-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+    }
+    .identify-result-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #A78BFA 0%, #8B5CF6 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+    }
+    .identify-result-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .identify-result-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: white;
+    }
+    .identify-result-sci {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
+      font-style: italic;
+    }
+    .identify-confidence {
+      padding: 4px 10px;
+      background: rgba(34, 197, 94, 0.2);
+      color: #86EFAC;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .identify-learn-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px;
+      background: linear-gradient(135deg, #A78BFA 0%, #8B5CF6 100%);
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .identify-learn-btn:hover {
+      transform: scale(1.02);
+    }
+
+    /* 聊聊它 */
+    .preview-chat-content {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .chat-prompt-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .chat-prompt-card:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .prompt-icon {
+      font-size: 18px;
+    }
+    .prompt-text {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* 魔法创作 */
+    .preview-magic-content {
+      padding: 4px 0;
+    }
+    .magic-style-row {
+      display: flex;
+      justify-content: space-around;
+    }
+    .magic-style-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .magic-style-item:hover {
+      transform: scale(1.05);
+    }
+    .magic-style-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+    .magic-style-item span {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* ===== 物种列表AI浮层 ===== */
+    .species-list-ai-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(30, 32, 44, 0.96);
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      z-index: 50;
+      transition: all 0.25s ease;
+      border-radius: 16px 16px 0 0;
+    }
+    .species-list-ai-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(100%);
+    }
+
+    /* 随机挑战 */
+    .species-challenge-content {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .challenge-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+    }
+    .challenge-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #F472B6 0%, #EC4899 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .challenge-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .challenge-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+    }
+    .challenge-desc {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .challenge-start-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px;
+      background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .challenge-start-btn:hover {
+      transform: scale(1.02);
+    }
+
+    /* 趣味知识 */
+    .species-funfact-content {
+      padding: 4px 0;
+    }
+    .funfact-card {
+      display: flex;
+      gap: 14px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+    }
+    .funfact-icon {
+      font-size: 28px;
+    }
+    .funfact-text {
+      flex: 1;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.5;
+    }
+
+    /* 小测验 */
+    .species-quiz-content {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .quiz-question {
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+      text-align: center;
+      padding: 8px 0;
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .quiz-option {
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quiz-option:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .quiz-option.correct {
+      background: rgba(34, 197, 94, 0.3);
+      border: 2px solid #22C55E;
+    }
+    .quiz-option.wrong {
+      background: rgba(239, 68, 68, 0.3);
+      border: 2px solid #EF4444;
+    }
+
+    /* ===== 物种详情AI浮层 ===== */
+    .species-detail-ai-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(30, 32, 44, 0.96);
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      z-index: 50;
+      transition: all 0.25s ease;
+      border-radius: 16px 16px 0 0;
+    }
+    .species-detail-ai-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(100%);
+    }
+
+    /* 更多知识 */
+    .detail-morefacts-content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .morefact-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+    }
+    .morefact-icon {
+      font-size: 20px;
+    }
+    .morefact-text {
+      flex: 1;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+    .learn-more-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px;
+      background: linear-gradient(135deg, #818CF8 0%, #6366F1 100%);
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .learn-more-btn:hover {
+      transform: scale(1.02);
+    }
+
+    /* 相关物种 */
+    .detail-related-content {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+    .related-species-row {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+    .related-species-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .related-species-item:hover {
+      transform: scale(1.05);
+    }
+    .related-species-item.locked {
+      opacity: 0.5;
+    }
+    .related-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+    }
+    .related-species-item span {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    .related-hint {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      font-style: italic;
+    }
+
+    /* 考考我 */
+    .detail-quiz-content {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
     .style-cards-container {
       flex: 1;
       display: flex;
@@ -6398,9 +7952,102 @@
               <div class="card-label">探险家</div>
             </div>
           </div>
-        </div>
 
-        <!-- ========== Camera 相机页 ========== -->
+          <!-- 首页AI浮层 -->
+          <div class="home-ai-overlay hidden" id="home-ai-overlay">
+            <!-- 内容区域 -->
+            <div class="ai-overlay-body">
+              <!-- 内容1: 今日任务 -->
+              <div class="ai-body-content active" data-content="0">
+                <div class="home-quest-content">
+                  <div class="quest-card">
+                    <div class="quest-icon">🌸</div>
+                    <div class="quest-info">
+                      <span class="quest-title">寻找春天的花朵</span>
+                      <span class="quest-desc">拍摄3种不同的花</span>
+                    </div>
+                    <span class="quest-badge">进行中</span>
+                  </div>
+                  <div class="quest-card completed">
+                    <div class="quest-icon">🦋</div>
+                    <div class="quest-info">
+                      <span class="quest-title">发现蝴蝶</span>
+                      <span class="quest-desc">拍摄1只蝴蝶</span>
+                    </div>
+                    <span class="quest-done">✓</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 内容2: 学知识 -->
+              <div class="ai-body-content" data-content="1">
+                <div class="home-learn-content">
+                  <div class="learn-card" onclick="hideHomeAIOverlay(); navigateTo('chat-page');">
+                    <div class="learn-icon">🐝</div>
+                    <span class="learn-text">蜜蜂为什么会跳舞？</span>
+                  </div>
+                  <div class="learn-card" onclick="hideHomeAIOverlay(); navigateTo('chat-page');">
+                    <div class="learn-icon">🌻</div>
+                    <span class="learn-text">向日葵真的会转吗？</span>
+                  </div>
+                  <div class="learn-card" onclick="hideHomeAIOverlay(); navigateTo('chat-page');">
+                    <div class="learn-icon">🍄</div>
+                    <span class="learn-text">蘑菇是植物吗？</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 内容3: 我的进度 -->
+              <div class="ai-body-content" data-content="2">
+                <div class="home-progress-content">
+                  <div class="progress-stat">
+                    <span class="stat-num">12</span>
+                    <span class="stat-label">发现物种</span>
+                  </div>
+                  <div class="progress-stat">
+                    <span class="stat-num">5</span>
+                    <span class="stat-label">完成任务</span>
+                  </div>
+                  <div class="progress-stat">
+                    <span class="stat-num">3</span>
+                    <span class="stat-label">获得徽章</span>
+                  </div>
+                  <div class="progress-stat">
+                    <span class="stat-num">🔥7</span>
+                    <span class="stat-label">连续天数</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 底部菜单栏 -->
+            <div class="ai-overlay-bar">
+              <div class="ai-bar-left">
+                <div class="ai-bar-avatar" style="background: linear-gradient(135deg, #818CF8 0%, #6366F1 100%);">🏠</div>
+                <span class="ai-bar-context">首页</span>
+              </div>
+              <div class="ai-bar-tabs">
+                <div class="ai-bar-tab active" data-tab="0" onclick="switchHomeAITab(0)">
+                  <span class="tab-icon">🎯</span>
+                  <span class="tab-text">今日任务</span>
+                </div>
+                <div class="ai-bar-tab" data-tab="1" onclick="switchHomeAITab(1)">
+                  <span class="tab-icon">📖</span>
+                  <span class="tab-text">学知识</span>
+                </div>
+                <div class="ai-bar-tab" data-tab="2" onclick="switchHomeAITab(2)">
+                  <span class="tab-icon">🏆</span>
+                  <span class="tab-text">我的进度</span>
+                </div>
+              </div>
+              <div class="ai-bar-right">
+                <button class="ai-replay-btn" onclick="replayHomeAIVoice()">
+                  <span class="replay-icon">🔊</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
         <div id="camera-page" class="page">
           <div class="camera-container">
             <!-- 复古取景框四角 -->
@@ -6445,10 +8092,98 @@
             
             <!-- 闪光效果 -->
             <div class="camera-flash" id="camera-flash"></div>
+            
+            <!-- 相机AI浮层 -->
+            <div class="camera-ai-overlay hidden" id="camera-ai-overlay">
+              <div class="ai-overlay-body">
+                <!-- 内容1: 识别提示 -->
+                <div class="ai-body-content active" data-content="0">
+                  <div class="camera-identify-content">
+                    <div class="identify-card">
+                      <div class="identify-icon">🔍</div>
+                      <div class="identify-text">
+                        <span class="identify-title">拍照识别</span>
+                        <span class="identify-desc">对准想了解的东西，按快门拍照</span>
+                      </div>
+                    </div>
+                    <div class="identify-examples">
+                      <span class="example-tag">🌸 花朵</span>
+                      <span class="example-tag">🦋 昆虫</span>
+                      <span class="example-tag">🪨 岩石</span>
+                      <span class="example-tag">🍄 蘑菇</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 内容2: 拍摄技巧 -->
+                <div class="ai-body-content" data-content="1">
+                  <div class="camera-tips-content">
+                    <div class="tip-card">
+                      <span class="tip-icon">☀️</span>
+                      <span class="tip-text">光线充足时效果最好</span>
+                    </div>
+                    <div class="tip-card">
+                      <span class="tip-icon">📏</span>
+                      <span class="tip-text">靠近一点，拍得更清楚</span>
+                    </div>
+                    <div class="tip-card">
+                      <span class="tip-icon">✋</span>
+                      <span class="tip-text">拿稳相机，不要晃动</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 内容3: 帮助 -->
+                <div class="ai-body-content" data-content="2">
+                  <div class="camera-help-content">
+                    <div class="help-item">
+                      <span class="help-key">快门</span>
+                      <span class="help-action">拍照</span>
+                    </div>
+                    <div class="help-item">
+                      <span class="help-key">⚡</span>
+                      <span class="help-action">闪光灯</span>
+                    </div>
+                    <div class="help-item">
+                      <span class="help-key">1×</span>
+                      <span class="help-action">缩放</span>
+                    </div>
+                    <div class="help-item">
+                      <span class="help-key">⊞</span>
+                      <span class="help-action">网格线</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="ai-overlay-bar">
+                <div class="ai-bar-left">
+                  <div class="ai-bar-avatar" style="background: linear-gradient(135deg, #34D399 0%, #10B981 100%);">📷</div>
+                  <span class="ai-bar-context">相机</span>
+                </div>
+                <div class="ai-bar-tabs">
+                  <div class="ai-bar-tab active" data-tab="0" onclick="switchCameraAITab(0)">
+                    <span class="tab-icon">🔍</span>
+                    <span class="tab-text">识别</span>
+                  </div>
+                  <div class="ai-bar-tab" data-tab="1" onclick="switchCameraAITab(1)">
+                    <span class="tab-icon">💡</span>
+                    <span class="tab-text">拍摄技巧</span>
+                  </div>
+                  <div class="ai-bar-tab" data-tab="2" onclick="switchCameraAITab(2)">
+                    <span class="tab-icon">❓</span>
+                    <span class="tab-text">帮助</span>
+                  </div>
+                </div>
+                <div class="ai-bar-right">
+                  <button class="ai-replay-btn" onclick="replayCameraAIVoice()">
+                    <span class="replay-icon">🔊</span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-        <!-- ========== 照片预览 照片预览页 ========== -->
         <div id="photo-preview-page" class="page page-blur-bg">
           <div class="preview-container">
             <!-- 返回按钮 -->
@@ -6468,10 +8203,99 @@
 
             <!-- AI提示 -->
             <div class="preview-ai-hint">✨ Press AI to explore</div>
+            
+            <!-- 照片预览AI浮层 -->
+            <div class="preview-ai-overlay hidden" id="preview-ai-overlay">
+              <div class="ai-overlay-body">
+                <!-- 内容1: 这是什么 -->
+                <div class="ai-body-content active" data-content="0">
+                  <div class="preview-identify-content">
+                    <div class="identify-result-card">
+                      <div class="identify-result-icon">🦋</div>
+                      <div class="identify-result-info">
+                        <span class="identify-result-name">凤蝶</span>
+                        <span class="identify-result-sci">Papilionidae</span>
+                      </div>
+                      <span class="identify-confidence">98%</span>
+                    </div>
+                    <button class="identify-learn-btn" onclick="hidePreviewAIOverlay(); navigateTo('chat-page');">
+                      <span>了解更多</span>
+                      <span>→</span>
+                    </button>
+                  </div>
+                </div>
+                
+                <!-- 内容2: 聊聊它 -->
+                <div class="ai-body-content" data-content="1">
+                  <div class="preview-chat-content">
+                    <div class="chat-prompt-card" onclick="hidePreviewAIOverlay(); navigateTo('chat-page');">
+                      <span class="prompt-icon">💬</span>
+                      <span class="prompt-text">这只蝴蝶吃什么？</span>
+                    </div>
+                    <div class="chat-prompt-card" onclick="hidePreviewAIOverlay(); navigateTo('chat-page');">
+                      <span class="prompt-icon">🏠</span>
+                      <span class="prompt-text">它住在哪里？</span>
+                    </div>
+                    <div class="chat-prompt-card" onclick="hidePreviewAIOverlay(); navigateTo('chat-page');">
+                      <span class="prompt-icon">🎭</span>
+                      <span class="prompt-text">给我讲个故事</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 内容3: 魔法创作 -->
+                <div class="ai-body-content" data-content="2">
+                  <div class="preview-magic-content">
+                    <div class="magic-style-row">
+                      <div class="magic-style-item" onclick="hidePreviewAIOverlay(); navigateTo('workshop-page');">
+                        <div class="magic-style-icon style-ghibli">🏔️</div>
+                        <span>吉卜力</span>
+                      </div>
+                      <div class="magic-style-item" onclick="hidePreviewAIOverlay(); navigateTo('workshop-page');">
+                        <div class="magic-style-icon style-pixel">👾</div>
+                        <span>像素风</span>
+                      </div>
+                      <div class="magic-style-item" onclick="hidePreviewAIOverlay(); navigateTo('workshop-page');">
+                        <div class="magic-style-icon style-watercolor">🎨</div>
+                        <span>水彩画</span>
+                      </div>
+                      <div class="magic-style-item" onclick="hidePreviewAIOverlay(); navigateTo('workshop-page');">
+                        <div class="magic-style-icon style-cartoon">🎬</div>
+                        <span>卡通风</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="ai-overlay-bar">
+                <div class="ai-bar-left">
+                  <div class="ai-bar-avatar" style="background: linear-gradient(135deg, #A78BFA 0%, #8B5CF6 100%);">🖼️</div>
+                  <span class="ai-bar-context">照片</span>
+                </div>
+                <div class="ai-bar-tabs">
+                  <div class="ai-bar-tab active" data-tab="0" onclick="switchPreviewAITab(0)">
+                    <span class="tab-icon">🔍</span>
+                    <span class="tab-text">这是什么</span>
+                  </div>
+                  <div class="ai-bar-tab" data-tab="1" onclick="switchPreviewAITab(1)">
+                    <span class="tab-icon">💬</span>
+                    <span class="tab-text">聊聊它</span>
+                  </div>
+                  <div class="ai-bar-tab" data-tab="2" onclick="switchPreviewAITab(2)">
+                    <span class="tab-icon">✨</span>
+                    <span class="tab-text">魔法创作</span>
+                  </div>
+                </div>
+                <div class="ai-bar-right">
+                  <button class="ai-replay-btn" onclick="replayPreviewAIVoice()">
+                    <span class="replay-icon">🔊</span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-        <!-- ========== Chat 照片聊天页 ========== -->
         <div id="chat-page" class="page page-blur-bg">
           <div class="chat-container">
             <!-- 返回按钮 -->
@@ -6490,34 +8314,48 @@
               </div>
             </div>
 
-            <!-- 右侧对话 -->
+            <!-- 右侧AI形象 (MVP版本) -->
             <div class="chat-conversation-section">
-              <div class="chat-messages">
-                <div class="chat-message ai">
-                  <div class="chat-avatar ai-avatar">🤖</div>
-                  <div class="chat-bubble">Wow, look at this! I can see a beautiful ladybug. Do you know why they have spots? 🐞</div>
+              <!-- 查看对话记录入口 -->
+              <button class="chat-transcript-btn" onclick="showComingSoon('对话记录')">
+                <span>📝</span>
+              </button>
+
+              <div class="chat-ai-persona">
+                <!-- 上切换按钮 -->
+                <button class="chat-char-switch chat-char-up" onclick="switchChatCharacter('chat', -1)">
+                  <span>▲</span>
+                </button>
+                
+                <!-- AI大头像 -->
+                <div class="chat-ai-avatar-large speaking" id="chat-ai-avatar">
+                  🤖
                 </div>
-                <div class="chat-message user">
-                  <div class="chat-avatar user-avatar">👦</div>
-                  <div class="chat-bubble">They are red and black!</div>
+                
+                <!-- 下切换按钮 -->
+                <button class="chat-char-switch chat-char-down" onclick="switchChatCharacter('chat', 1)">
+                  <span>▼</span>
+                </button>
+                
+                <!-- 声波动画 (说话时显示) -->
+                <div class="chat-sound-wave" id="chat-sound-wave">
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
                 </div>
-                <div class="chat-message ai">
-                  <div class="chat-avatar ai-avatar">🤖</div>
-                  <div class="chat-bubble">Great observation! The bright colors warn birds: "Don't eat me, I taste yucky!" 🙅‍♂️</div>
-                </div>
-                <div class="chat-message user">
-                  <div class="chat-avatar user-avatar">👦</div>
-                  <div class="chat-bubble">That's so cool!</div>
-                </div>
-                <div class="chat-message ai">
-                  <div class="chat-avatar ai-avatar">🤖</div>
-                  <div class="chat-bubble">Did you know ladybugs can eat up to 50 tiny bugs called aphids every day? They're like tiny garden superheroes! 🦸</div>
+                
+                <!-- 状态指示器 -->
+                <div class="chat-status-indicator">
+                  <div class="chat-status-dot speaking" id="chat-status-dot"></div>
+                  <span class="chat-status-text" id="chat-status-text">正在回答...</span>
                 </div>
               </div>
 
               <!-- 底部输入 -->
               <div class="chat-input-area">
-                <button class="chat-speak-btn" id="chat-speak-btn" onmousedown="startChatRecording('chat')" onmouseup="stopChatRecording('chat')" ontouchstart="startChatRecording('chat')" ontouchend="stopChatRecording('chat')">
+                <button class="chat-speak-btn" id="chat-speak-btn" onmousedown="startChatRecordingMVP('chat')" onmouseup="stopChatRecordingMVP('chat')" ontouchstart="startChatRecordingMVP('chat')" ontouchend="stopChatRecordingMVP('chat')">
                   <span class="chat-speak-icon">🎤</span>
                   <span class="chat-speak-text">按住说话</span>
                 </button>
@@ -6526,7 +8364,7 @@
           </div>
         </div>
 
-        <!-- ========== 通用聊天 通用聊天页 ========== -->
+        <!-- ========== 通用聊天 通用聊天页 (MVP版本) ========== -->
         <div id="general-chat-page" class="page page-blur-bg">
           <div class="general-chat-container">
             <!-- 返回按钮 -->
@@ -6535,33 +8373,51 @@
               <span>返回</span>
             </button>
 
-            <!-- 消息列表 -->
-            <div class="general-chat-messages">
-              <div class="chat-message ai">
-                <div class="chat-avatar ai-avatar">🤖</div>
-                <div class="chat-bubble">Hi there, little explorer! 👋 What would you like to discover today?</div>
+            <!-- AI形象区域 (MVP版本) -->
+            <div class="general-chat-ai-persona">
+              <!-- 左切换按钮 -->
+              <button class="general-char-switch general-char-left" onclick="switchChatCharacter('general', -1)">
+                <span>◀</span>
+              </button>
+              
+              <!-- 中间AI区域 -->
+              <div class="general-chat-ai-inner">
+                <!-- AI大头像 -->
+                <div class="general-chat-ai-avatar-large" id="general-chat-ai-avatar">
+                  🤖
+                </div>
+                
+                <!-- 声波动画 (说话时显示) -->
+                <div class="general-chat-sound-wave hidden" id="general-chat-sound-wave">
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                </div>
+                
+                <!-- 状态指示器 -->
+                <div class="general-chat-status-indicator">
+                  <div class="general-chat-status-dot" id="general-chat-status-dot"></div>
+                  <span class="general-chat-status-text" id="general-chat-status-text">等待中</span>
+                </div>
               </div>
-              <div class="chat-message user">
-                <div class="chat-avatar user-avatar">👦</div>
-                <div class="chat-bubble">Tell me about butterflies!</div>
-              </div>
-              <div class="chat-message ai">
-                <div class="chat-avatar ai-avatar">🤖</div>
-                <div class="chat-bubble">蝴蝶真是太神奇了！🦋 它们从小毛毛虫开始，然后把自己包在舒适的茧里，最后展翅飞出，拥有美丽的翅膀！</div>
-              </div>
-              <div class="chat-message user">
-                <div class="chat-avatar user-avatar">👦</div>
-                <div class="chat-bubble">How do they fly?</div>
-              </div>
-              <div class="chat-message ai">
-                <div class="chat-avatar ai-avatar">🤖</div>
-                <div class="chat-bubble">Great question! Their wings are covered with tiny scales that catch the air. They flap about 5-12 times per second - much slower than bees! That's why they look so graceful. 🌸</div>
-              </div>
+              
+              <!-- 右切换按钮 -->
+              <button class="general-char-switch general-char-right" onclick="switchChatCharacter('general', 1)">
+                <span>▶</span>
+              </button>
             </div>
+            
+            <!-- 查看对话记录入口 -->
+            <button class="general-chat-transcript-btn" onclick="showComingSoon('对话记录')">
+              <span>📝</span>
+              <span>对话记录</span>
+            </button>
 
             <!-- 底部输入 -->
             <div class="general-chat-input-area">
-              <button class="general-chat-speak-btn" id="general-chat-speak-btn" onmousedown="startChatRecording('general')" onmouseup="stopChatRecording('general')" ontouchstart="startChatRecording('general')" ontouchend="stopChatRecording('general')">
+              <button class="general-chat-speak-btn" id="general-chat-speak-btn" onmousedown="startChatRecordingMVP('general')" onmouseup="stopChatRecordingMVP('general')" ontouchstart="startChatRecordingMVP('general')" ontouchend="stopChatRecordingMVP('general')">
                 <span class="chat-speak-icon">🎤</span>
                 <span class="chat-speak-text">按住说话</span>
               </button>
@@ -6638,6 +8494,116 @@
                 <div class="task-modal-actions">
                   <button class="task-btn task-btn-decline" onclick="hideTaskModal()">稍后再说</button>
                   <button class="task-btn task-btn-accept" onclick="acceptTask()">出发！🚀</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- AI浮层 - 菜单和内容同时显示 -->
+            <div class="map-ai-overlay hidden" id="map-ai-overlay">
+              <!-- 内容区域 -->
+              <div class="ai-overlay-body">
+                <!-- 内容1: 带我探索 -->
+                <div class="ai-body-content active" data-content="0">
+                  <div class="ai-task-grid">
+                    <div class="ai-task-card" onclick="showTaskModal('flower'); hideMapAIOverlay();">
+                      <div class="card-image flower">🌸</div>
+                      <span class="card-name">寻找花朵</span>
+                      <span class="card-badge new">新</span>
+                    </div>
+                    <div class="ai-task-card" onclick="showTaskModal('butterfly'); hideMapAIOverlay();">
+                      <div class="card-image butterfly">🦋</div>
+                      <span class="card-name">发现蝴蝶</span>
+                    </div>
+                    <div class="ai-task-card completed">
+                      <div class="card-image rock">🪨</div>
+                      <span class="card-name">探索岩石</span>
+                      <div class="card-done-mark">✓</div>
+                    </div>
+                    <div class="ai-task-card" onclick="showTaskModal('leaf'); hideMapAIOverlay();">
+                      <div class="card-image leaf">🍂</div>
+                      <span class="card-name">收集落叶</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 内容2: 探索小贴士 -->
+                <div class="ai-body-content" data-content="1">
+                  <div class="ai-tips-grid">
+                    <div class="ai-tip-card">
+                      <div class="tip-image">🌅</div>
+                      <span class="tip-text">早晨观察昆虫</span>
+                    </div>
+                    <div class="ai-tip-card">
+                      <div class="tip-image">🔍</div>
+                      <span class="tip-text">蹲下仔细看</span>
+                    </div>
+                    <div class="ai-tip-card">
+                      <div class="tip-image">📸</div>
+                      <span class="tip-text">安静拍照</span>
+                    </div>
+                    <div class="ai-tip-card">
+                      <div class="tip-image">📝</div>
+                      <span class="tip-text">记录发现</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 内容3: 奖励 -->
+                <div class="ai-body-content" data-content="2">
+                  <div class="ai-reward-grid">
+                    <div class="ai-reward-card">
+                      <div class="reward-image">🌸</div>
+                      <span class="reward-name">寻找花朵</span>
+                      <div class="reward-stars">⭐</div>
+                    </div>
+                    <div class="ai-reward-card">
+                      <div class="reward-image">🦋</div>
+                      <span class="reward-name">发现蝴蝶</span>
+                      <div class="reward-stars">⭐⭐</div>
+                    </div>
+                    <div class="ai-reward-card completed">
+                      <div class="reward-image">🪨</div>
+                      <span class="reward-name">探索岩石</span>
+                      <div class="reward-stars done">✅</div>
+                    </div>
+                    <div class="ai-reward-card">
+                      <div class="reward-image">🍂</div>
+                      <span class="reward-name">收集落叶</span>
+                      <div class="reward-stars">⭐</div>
+                    </div>
+                    <div class="ai-reward-card bonus">
+                      <div class="reward-image">🎁</div>
+                      <span class="reward-name">全部完成</span>
+                      <div class="reward-stars">⭐⭐⭐</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 底部菜单栏 -->
+              <div class="ai-overlay-bar">
+                <div class="ai-bar-left">
+                  <div class="ai-bar-avatar">⭐</div>
+                  <span class="ai-bar-context">探索地图</span>
+                </div>
+                <div class="ai-bar-tabs">
+                  <div class="ai-bar-tab active" data-tab="0" onclick="switchAITab(0)">
+                    <span class="tab-icon">🧭</span>
+                    <span class="tab-text">带我探索</span>
+                  </div>
+                  <div class="ai-bar-tab" data-tab="1" onclick="switchAITab(1)">
+                    <span class="tab-icon">💡</span>
+                    <span class="tab-text">小贴士</span>
+                  </div>
+                  <div class="ai-bar-tab" data-tab="2" onclick="switchAITab(2)">
+                    <span class="tab-icon">🏅</span>
+                    <span class="tab-text">奖励</span>
+                  </div>
+                </div>
+                <div class="ai-bar-right">
+                  <button class="ai-replay-btn" onclick="replayAIVoice()">
+                    <span class="replay-icon">🔊</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -6743,6 +8709,105 @@
                 <div class="style-info">
                   <div class="style-name">卡通风</div>
                   <button class="style-try-btn">试试看 →</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 工坊AI浮层 -->
+            <div class="workshop-ai-overlay hidden" id="workshop-ai-overlay">
+              <!-- 内容区域 -->
+              <div class="ai-overlay-body">
+                <!-- 内容1: 随机惊喜 -->
+                <div class="ai-body-content active" data-content="0">
+                  <div class="workshop-surprise-content">
+                    <div class="surprise-combo">
+                      <div class="surprise-photo">
+                        <img src="https://picsum.photos/80/80?random=5" alt="随机照片" id="surprise-photo-img">
+                        <span class="surprise-label">你的照片</span>
+                      </div>
+                      <div class="surprise-plus">✨</div>
+                      <div class="surprise-style-box" id="surprise-style-box">
+                        <div class="surprise-preview style-pixel">👾</div>
+                        <span class="surprise-label" id="surprise-style-name">像素风</span>
+                      </div>
+                    </div>
+                    <button class="surprise-go-btn" onclick="startRandomCreation()">
+                      <span>开始创作</span>
+                      <span>🚀</span>
+                    </button>
+                  </div>
+                </div>
+                
+                <!-- 内容2: 我的作品 -->
+                <div class="ai-body-content" data-content="1">
+                  <div class="workshop-creations-row">
+                    <div class="creation-card" onclick="hideWorkshopAIOverlay();">
+                      <div class="creation-thumb">🎨</div>
+                      <span class="creation-name">蝴蝶水彩</span>
+                    </div>
+                    <div class="creation-card" onclick="hideWorkshopAIOverlay();">
+                      <div class="creation-thumb">👾</div>
+                      <span class="creation-name">像素花朵</span>
+                    </div>
+                    <div class="creation-card" onclick="hideWorkshopAIOverlay();">
+                      <div class="creation-thumb">🏔️</div>
+                      <span class="creation-name">吉卜力风</span>
+                    </div>
+                    <div class="creation-view-all" onclick="hideWorkshopAIOverlay(); navigateTo('backpack-page');">
+                      <span class="view-all-icon">📁</span>
+                      <span class="view-all-text">查看全部</span>
+                      <span class="view-all-arrow">›</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 内容3: 灵感 -->
+                <div class="ai-body-content" data-content="2">
+                  <div class="workshop-ideas-grid">
+                    <div class="idea-card">
+                      <div class="idea-icon">🌸</div>
+                      <span class="idea-text">把花朵变成水彩画</span>
+                    </div>
+                    <div class="idea-card">
+                      <div class="idea-icon">🐛</div>
+                      <span class="idea-text">昆虫的像素世界</span>
+                    </div>
+                    <div class="idea-card">
+                      <div class="idea-icon">🍂</div>
+                      <span class="idea-text">落叶吉卜力风格</span>
+                    </div>
+                    <div class="idea-card">
+                      <div class="idea-icon">🌈</div>
+                      <span class="idea-text">彩虹卡通画</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 底部菜单栏 -->
+              <div class="ai-overlay-bar">
+                <div class="ai-bar-left">
+                  <div class="ai-bar-avatar" style="background: linear-gradient(135deg, #F472B6 0%, #EC4899 100%);">🎨</div>
+                  <span class="ai-bar-context">创作工坊</span>
+                </div>
+                <div class="ai-bar-tabs">
+                  <div class="ai-bar-tab active" data-tab="0" onclick="switchWorkshopAITab(0)">
+                    <span class="tab-icon">✨</span>
+                    <span class="tab-text">随机惊喜</span>
+                  </div>
+                  <div class="ai-bar-tab" data-tab="1" onclick="switchWorkshopAITab(1)">
+                    <span class="tab-icon">🖼️</span>
+                    <span class="tab-text">我的作品</span>
+                  </div>
+                  <div class="ai-bar-tab" data-tab="2" onclick="switchWorkshopAITab(2)">
+                    <span class="tab-icon">💡</span>
+                    <span class="tab-text">灵感</span>
+                  </div>
+                </div>
+                <div class="ai-bar-right">
+                  <button class="ai-replay-btn" onclick="replayWorkshopAIVoice()">
+                    <span class="replay-icon">🔊</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -7031,6 +9096,111 @@
                 </div>
               </div>
             </div>
+            
+            <!-- 背包AI浮层 -->
+            <div class="backpack-ai-overlay hidden" id="backpack-ai-overlay">
+              <div class="ai-overlay-body">
+                <!-- 内容1: 精彩回顾 -->
+                <div class="ai-body-content active" data-content="0">
+                  <div class="backpack-highlights-content">
+                    <div class="highlight-card">
+                      <span class="highlight-emoji">📸</span>
+                      <div class="highlight-info">
+                        <span class="highlight-label">最佳照片</span>
+                        <span class="highlight-value">蝴蝶特写</span>
+                      </div>
+                    </div>
+                    <div class="highlight-card">
+                      <span class="highlight-emoji">🔥</span>
+                      <div class="highlight-info">
+                        <span class="highlight-label">连续探索</span>
+                        <span class="highlight-value">7 天</span>
+                      </div>
+                    </div>
+                    <div class="highlight-card">
+                      <span class="highlight-emoji">🎉</span>
+                      <div class="highlight-info">
+                        <span class="highlight-label">新发现</span>
+                        <span class="highlight-value">蘑菇</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 内容2: 统计 -->
+                <div class="ai-body-content" data-content="1">
+                  <div class="backpack-stats-content">
+                    <div class="stat-item">
+                      <span class="stat-icon">📷</span>
+                      <span class="stat-number">28</span>
+                      <span class="stat-name">照片</span>
+                    </div>
+                    <div class="stat-item">
+                      <span class="stat-icon">🦋</span>
+                      <span class="stat-number">12</span>
+                      <span class="stat-name">物种</span>
+                    </div>
+                    <div class="stat-item">
+                      <span class="stat-icon">✅</span>
+                      <span class="stat-number">5</span>
+                      <span class="stat-name">任务</span>
+                    </div>
+                    <div class="stat-item">
+                      <span class="stat-icon">🎨</span>
+                      <span class="stat-number">8</span>
+                      <span class="stat-name">作品</span>
+                    </div>
+                    <div class="stat-item">
+                      <span class="stat-icon">🏅</span>
+                      <span class="stat-number">3</span>
+                      <span class="stat-name">徽章</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 内容3: 下个目标 -->
+                <div class="ai-body-content" data-content="2">
+                  <div class="backpack-goal-content">
+                    <div class="goal-card">
+                      <div class="goal-icon">🎯</div>
+                      <div class="goal-info">
+                        <span class="goal-title">发现更多昆虫</span>
+                        <span class="goal-desc">再发现3种昆虫，获得「昆虫专家」徽章</span>
+                      </div>
+                      <div class="goal-progress">
+                        <div class="goal-bar" style="width: 60%;"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="ai-overlay-bar">
+                <div class="ai-bar-left">
+                  <div class="ai-bar-avatar" style="background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);">🎒</div>
+                  <span class="ai-bar-context">背包</span>
+                </div>
+                <div class="ai-bar-tabs">
+                  <div class="ai-bar-tab active" data-tab="0" onclick="switchBackpackAITab(0)">
+                    <span class="tab-icon">⭐</span>
+                    <span class="tab-text">精彩回顾</span>
+                  </div>
+                  <div class="ai-bar-tab" data-tab="1" onclick="switchBackpackAITab(1)">
+                    <span class="tab-icon">📊</span>
+                    <span class="tab-text">统计</span>
+                  </div>
+                  <div class="ai-bar-tab" data-tab="2" onclick="switchBackpackAITab(2)">
+                    <span class="tab-icon">🎯</span>
+                    <span class="tab-text">下个目标</span>
+                  </div>
+                </div>
+                <div class="ai-bar-right">
+                  <button class="ai-replay-btn" onclick="replayBackpackAIVoice()">
+                    <span class="replay-icon">🔊</span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -7086,6 +9256,76 @@
                 <div class="species-card-info">
                   <div class="species-card-name">雏菊</div>
                   <div class="species-card-date">May 28</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 物种列表AI浮层 -->
+            <div class="species-list-ai-overlay hidden" id="species-list-ai-overlay">
+              <div class="ai-overlay-body">
+                <!-- 内容1: 随机挑战 -->
+                <div class="ai-body-content active" data-content="0">
+                  <div class="species-challenge-content">
+                    <div class="challenge-card">
+                      <div class="challenge-icon">🎲</div>
+                      <div class="challenge-info">
+                        <span class="challenge-title">寻找雏菊</span>
+                        <span class="challenge-desc">去户外找一朵真正的雏菊拍照吧！</span>
+                      </div>
+                    </div>
+                    <button class="challenge-start-btn" onclick="hideSpeciesListAIOverlay(); navigateTo('camera-page');">
+                      <span>接受挑战</span>
+                      <span>📷</span>
+                    </button>
+                  </div>
+                </div>
+                
+                <!-- 内容2: 趣味知识 -->
+                <div class="ai-body-content" data-content="1">
+                  <div class="species-funfact-content">
+                    <div class="funfact-card">
+                      <div class="funfact-icon">💡</div>
+                      <div class="funfact-text">向日葵其实不是一朵花，而是由成千上万朵小花组成的！中间的小圆点都是独立的小花哦。</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 内容3: 小测验 -->
+                <div class="ai-body-content" data-content="2">
+                  <div class="species-quiz-content">
+                    <div class="quiz-question">哪种花会跟着太阳转？</div>
+                    <div class="quiz-options">
+                      <div class="quiz-option" onclick="selectQuizOption(this, false)">🌸 樱花</div>
+                      <div class="quiz-option" onclick="selectQuizOption(this, true)">🌻 向日葵</div>
+                      <div class="quiz-option" onclick="selectQuizOption(this, false)">🌷 郁金香</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="ai-overlay-bar">
+                <div class="ai-bar-left">
+                  <div class="ai-bar-avatar" style="background: linear-gradient(135deg, #34D399 0%, #10B981 100%);">📚</div>
+                  <span class="ai-bar-context">图鉴</span>
+                </div>
+                <div class="ai-bar-tabs">
+                  <div class="ai-bar-tab active" data-tab="0" onclick="switchSpeciesListAITab(0)">
+                    <span class="tab-icon">🎲</span>
+                    <span class="tab-text">随机挑战</span>
+                  </div>
+                  <div class="ai-bar-tab" data-tab="1" onclick="switchSpeciesListAITab(1)">
+                    <span class="tab-icon">💡</span>
+                    <span class="tab-text">趣味知识</span>
+                  </div>
+                  <div class="ai-bar-tab" data-tab="2" onclick="switchSpeciesListAITab(2)">
+                    <span class="tab-icon">🎯</span>
+                    <span class="tab-text">小测验</span>
+                  </div>
+                </div>
+                <div class="ai-bar-right">
+                  <button class="ai-replay-btn" onclick="replaySpeciesListAIVoice()">
+                    <span class="replay-icon">🔊</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -7220,6 +9460,92 @@
               <div class="photo-viewer-info">
                 <div class="photo-viewer-species" id="photo-viewer-species">蒲公英</div>
                 <div class="photo-viewer-counter" id="photo-viewer-counter">1 / 6</div>
+              </div>
+            </div>
+            
+            <!-- 物种详情AI浮层 -->
+            <div class="species-detail-ai-overlay hidden" id="species-detail-ai-overlay">
+              <div class="ai-overlay-body">
+                <!-- 内容1: 更多知识 -->
+                <div class="ai-body-content active" data-content="0">
+                  <div class="detail-morefacts-content">
+                    <div class="morefact-card">
+                      <span class="morefact-icon">🔬</span>
+                      <span class="morefact-text">蒲公英的种子可以飞行几公里远！</span>
+                    </div>
+                    <div class="morefact-card">
+                      <span class="morefact-icon">💊</span>
+                      <span class="morefact-text">它是一种中草药，可以清热解毒。</span>
+                    </div>
+                    <button class="learn-more-btn" onclick="hideSpeciesDetailAIOverlay(); navigateTo('chat-page');">
+                      <span>问AI更多问题</span>
+                      <span>💬</span>
+                    </button>
+                  </div>
+                </div>
+                
+                <!-- 内容2: 相关物种 -->
+                <div class="ai-body-content" data-content="1">
+                  <div class="detail-related-content">
+                    <div class="related-species-row">
+                      <div class="related-species-item" onclick="showToast('🌼 查看雏菊');">
+                        <div class="related-icon">🌼</div>
+                        <span>雏菊</span>
+                      </div>
+                      <div class="related-species-item" onclick="showToast('🌻 查看向日葵');">
+                        <div class="related-icon">🌻</div>
+                        <span>向日葵</span>
+                      </div>
+                      <div class="related-species-item" onclick="showToast('💐 查看菊花');">
+                        <div class="related-icon">💐</div>
+                        <span>菊花</span>
+                      </div>
+                      <div class="related-species-item locked" onclick="showToast('🔒 还未发现');">
+                        <div class="related-icon">❓</div>
+                        <span>???</span>
+                      </div>
+                    </div>
+                    <div class="related-hint">都是菊科植物哦！</div>
+                  </div>
+                </div>
+                
+                <!-- 内容3: 考考我 -->
+                <div class="ai-body-content" data-content="2">
+                  <div class="detail-quiz-content">
+                    <div class="quiz-question">蒲公英的种子靠什么传播？</div>
+                    <div class="quiz-options">
+                      <div class="quiz-option" onclick="selectDetailQuizOption(this, false)">🐝 蜜蜂</div>
+                      <div class="quiz-option" onclick="selectDetailQuizOption(this, true)">🌬️ 风</div>
+                      <div class="quiz-option" onclick="selectDetailQuizOption(this, false)">💧 水</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="ai-overlay-bar">
+                <div class="ai-bar-left">
+                  <div class="ai-bar-avatar" style="background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);">🦋</div>
+                  <span class="ai-bar-context">物种</span>
+                </div>
+                <div class="ai-bar-tabs">
+                  <div class="ai-bar-tab active" data-tab="0" onclick="switchSpeciesDetailAITab(0)">
+                    <span class="tab-icon">💡</span>
+                    <span class="tab-text">更多知识</span>
+                  </div>
+                  <div class="ai-bar-tab" data-tab="1" onclick="switchSpeciesDetailAITab(1)">
+                    <span class="tab-icon">🔗</span>
+                    <span class="tab-text">相关物种</span>
+                  </div>
+                  <div class="ai-bar-tab" data-tab="2" onclick="switchSpeciesDetailAITab(2)">
+                    <span class="tab-icon">🎯</span>
+                    <span class="tab-text">考考我</span>
+                  </div>
+                </div>
+                <div class="ai-bar-right">
+                  <button class="ai-replay-btn" onclick="replaySpeciesDetailAIVoice()">
+                    <span class="replay-icon">🔊</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -8232,13 +10558,12 @@
 
         <!-- ========== AI 菜单浮层 ========== -->
         <div class="ai-overlay" id="ai-overlay">
-          <div class="ai-left-section">
-            <div class="ai-title-group">
-              <div class="ai-icon">✨</div>
-              <span class="ai-title">AI Assistant</span>
-            </div>
-            <div class="ai-context-badge" id="ai-context-badge">🏠 Home</div>
+          <!-- 顶部栏 -->
+          <div class="ai-header">
+            <div class="ai-context-badge" id="ai-context-badge">🏠 首页</div>
+            <button class="ai-close" onclick="hideAI()">✕</button>
           </div>
+          <!-- 菜单网格 -->
           <div class="ai-menu-grid" id="ai-menu-grid">
             <div class="ai-menu-item" onclick="handleAIAction('dailyQuest')">
               <div class="ai-menu-icon purple">🎯</div>
@@ -8246,18 +10571,17 @@
             </div>
             <div class="ai-menu-item" onclick="handleAIAction('learnSomething')">
               <div class="ai-menu-icon blue">📖</div>
-              <div class="ai-menu-label">学习</div>
+              <div class="ai-menu-label">学知识</div>
             </div>
             <div class="ai-menu-item" onclick="handleAIAction('myProgress')">
               <div class="ai-menu-icon yellow">🏆</div>
-              <div class="ai-menu-label">进度</div>
+              <div class="ai-menu-label">我的进度</div>
             </div>
             <div class="ai-menu-item" onclick="handleAIAction('help')">
               <div class="ai-menu-icon green">❓</div>
               <div class="ai-menu-label">帮助</div>
             </div>
           </div>
-          <button class="ai-close" onclick="hideAI()">✕</button>
         </div>
 
         <!-- ========== 全局AIGC生成弹窗 ========== -->
@@ -8485,30 +10809,37 @@
           </div>
         </div>
 
-        <!-- ========== PTT 浮层 ========== -->
-        <div class="ptt-overlay" id="ptt-overlay">
+        <!-- ========== AI 语音对话浮层（简化版 V2）========== -->
+        <div class="ptt-backdrop" id="ptt-backdrop" onclick="hidePTT()"></div>
+        <div class="ptt-overlay" id="ptt-overlay" onclick="event.stopPropagation()">
+          <!-- 顶部：聊天记录按钮（右上角） -->
           <div class="ptt-header">
-            <div class="ptt-status">
-              <div class="ptt-status-dot" id="ptt-status-dot"></div>
-              <span class="ptt-status-text" id="ptt-status-text">聆听中...</span>
-            </div>
-            <button class="ptt-close" onclick="hidePTT()">✕</button>
+            <div></div>
+            <button class="ptt-history-btn" onclick="openChatHistory()">
+              💬 聊天记录
+              <span class="ptt-history-badge" id="ptt-history-count">3</span>
+            </button>
           </div>
           
-          <!-- 录音状态 -->
-          <div class="ptt-content" id="ptt-recording-section">
-            <div class="ptt-character-section">
-              <div class="ptt-character" id="ptt-character">🤖</div>
-              <div class="ptt-character-switch">
-                <button class="ptt-char-btn active" onclick="switchCharacter('🤖', this)">🤖</button>
-                <button class="ptt-char-btn" onclick="switchCharacter('🧙', this)">🧙</button>
-                <button class="ptt-char-btn" onclick="switchCharacter('🦊', this)">🦊</button>
+          <!-- 主内容区 -->
+          <div class="ptt-main">
+            <!-- 角色选择区（居中） -->
+            <div class="ptt-character-area">
+              <button class="ptt-char-nav" onclick="switchPTTCharacter(-1)">◀</button>
+              <div class="ptt-avatar-wrapper">
+                <div class="ptt-avatar listening" id="ptt-avatar">🦉</div>
+                <div class="ptt-avatar-name" id="ptt-avatar-name">咕咕</div>
               </div>
+              <button class="ptt-char-nav" onclick="switchPTTCharacter(1)">▶</button>
             </div>
-            <div class="ptt-voice-section">
-              <div class="ptt-waveform">
-                <div class="ptt-wave-bar"></div>
-                <div class="ptt-wave-bar"></div>
+            
+            <!-- 状态区（角色下方） -->
+            <div class="ptt-status-area">
+              <div class="ptt-status-row">
+                <div class="ptt-status-dot" id="ptt-status-dot"></div>
+                <span class="ptt-status-text" id="ptt-status-text">正在听...</span>
+              </div>
+              <div class="ptt-waveform listening" id="ptt-waveform">
                 <div class="ptt-wave-bar"></div>
                 <div class="ptt-wave-bar"></div>
                 <div class="ptt-wave-bar"></div>
@@ -8516,30 +10847,15 @@
                 <div class="ptt-wave-bar"></div>
                 <div class="ptt-wave-bar"></div>
               </div>
-              <div class="ptt-transcript" id="ptt-transcript">这是什么虫子？</div>
             </div>
           </div>
-
-          <!-- 回复状态 -->
-          <div class="ptt-response-section" id="ptt-response-section">
-            <div class="ptt-user-msg">
-              <div class="ptt-msg-label">你问的是：</div>
-              <div class="ptt-msg-text" id="ptt-user-text">这是什么虫子？</div>
-            </div>
-            <div class="ptt-ai-msg">
-              <div class="ptt-ai-avatar" id="ptt-ai-avatar">🤖</div>
-              <div class="ptt-ai-content">
-                <div class="ptt-ai-text" id="ptt-ai-text">这是瓢虫！它们是身上有斑点的小甲虫，会吃蚜虫，帮助花园成长！🐞</div>
-              </div>
-            </div>
-            <div class="ptt-actions">
-              <button class="ptt-action-btn ptt-ask-more" onclick="pttAskMore()">🎤 继续问</button>
-              <button class="ptt-action-btn ptt-continue-chat" onclick="pttContinueChat()">💬 继续聊</button>
-            </div>
+          
+          <!-- 底部提示（居中） -->
+          <div class="ptt-footer">
+            <div class="ptt-hint" id="ptt-hint">按住说话 · 松开发送</div>
           </div>
-
-          <div class="ptt-hint" id="ptt-hint">松开发送 • 按住继续说话</div>
         </div>
+
 
         <!-- ========== 二级卡片浮层 ========== -->
         <div class="ai-card-overlay" id="ai-card-overlay" onclick="hideAICard()">
@@ -8566,16 +10882,21 @@
     <!-- 模拟按钮区(横向) -->
     <div class="buttons-row">
       <div class="button-group">
+        <button class="device-button btn-back" onclick="goBack()">←</button>
+        <div class="button-label">返回</div>
+      </div>
+      <div class="button-group">
         <button class="device-button btn-shutter" onclick="pressShutter()">📷</button>
         <div class="button-label">快门</div>
       </div>
       <div class="button-group">
-        <button class="device-button btn-ptt" onclick="togglePTT()">🎤</button>
-        <div class="button-label">语音</div>
-      </div>
-      <div class="button-group">
-        <button class="device-button btn-ai" onclick="toggleAI()">✨</button>
-        <div class="button-label">AI</div>
+        <button class="device-button btn-ai-ptt" 
+                onmousedown="startAIPTTPress()" 
+                onmouseup="endAIPTTPress()"
+                onmouseleave="cancelAIPTTPress()"
+                ontouchstart="startAIPTTPress()" 
+                ontouchend="endAIPTTPress()">✨</button>
+        <div class="button-label">AI/语音</div>
       </div>
       
       <div class="button-divider"></div>
@@ -8879,7 +11200,7 @@
       }
       currentPage = pageId;
       
-      // 控制状态栏
+      // 控制状态栏 - 只有首页显示
       const statusBar = document.querySelector('.status-bar');
       if (statusBar) {
         statusBar.style.display = (pageId === 'home-page') ? 'flex' : 'none';
@@ -8896,8 +11217,10 @@
             console.log('✅ AI菜单已显示');
           }
         } else if (modal === 'ptt') {
+          const backdrop = document.getElementById('ptt-backdrop');
           const ptt = document.getElementById('ptt-overlay');
           if (ptt) {
+            if (backdrop) backdrop.classList.add('show');
             ptt.classList.add('show');
             console.log('✅ PTT已显示');
           }
@@ -8934,7 +11257,7 @@
       
       currentPage = pageId;
       
-      // 控制状态栏显示
+      // 控制状态栏显示 - 只有首页显示
       const statusBar = document.querySelector('.status-bar');
       if (statusBar) {
         statusBar.style.display = (pageId === 'home-page') ? 'flex' : 'none';
@@ -9029,8 +11352,10 @@
       const aiOverlay = document.getElementById('ai-overlay');
       if (aiOverlay) aiOverlay.classList.remove('show');
       
+      const backdrop = document.getElementById('ptt-backdrop');
       const ptt = document.getElementById('ptt-overlay');
       if (ptt) {
+        if (backdrop) backdrop.classList.add('show');
         ptt.classList.add('show');
         console.log('🎤 PTT已显示');
       } else {
@@ -9810,6 +12135,14 @@
       currentPage = pageId;
       hideAI();
       hidePTT();
+      if (typeof hideMapAIOverlay === 'function') hideMapAIOverlay(); // 关闭地图AI浮层
+      if (typeof hideWorkshopAIOverlay === 'function') hideWorkshopAIOverlay(); // 关闭工坊AI浮层
+      if (typeof hideHomeAIOverlay === 'function') hideHomeAIOverlay(); // 关闭首页AI浮层
+      if (typeof hideCameraAIOverlay === 'function') hideCameraAIOverlay(); // 关闭相机AI浮层
+      if (typeof hideBackpackAIOverlay === 'function') hideBackpackAIOverlay(); // 关闭背包AI浮层
+      if (typeof hidePreviewAIOverlay === 'function') hidePreviewAIOverlay(); // 关闭照片预览AI浮层
+      if (typeof hideSpeciesListAIOverlay === 'function') hideSpeciesListAIOverlay(); // 关闭物种列表AI浮层
+      if (typeof hideSpeciesDetailAIOverlay === 'function') hideSpeciesDetailAIOverlay(); // 关闭物种详情AI浮层
       
       // 进入story-page时重置页码，离开时停止朗读
       if (pageId === 'story-page') {
@@ -9821,7 +12154,7 @@
         }
       }
       
-      // 控制状态栏显示:只有首页显示状态栏
+      // 控制状态栏显示 - 只有首页显示
       const statusBar = document.querySelector('.status-bar');
       if (statusBar) {
         statusBar.style.display = (pageId === 'home-page') ? 'flex' : 'none';
@@ -9830,10 +12163,17 @@
 
     // AI 菜单
     function toggleAI() {
+      console.log('🎯 toggleAI called, currentPage:', currentPage);
       const overlay = document.getElementById('ai-overlay');
+      if (!overlay) {
+        console.error('❌ ai-overlay not found!');
+        return;
+      }
       if (overlay.classList.contains('show')) {
+        console.log('🔽 Hiding AI menu');
         hideAI();
       } else {
+        console.log('🔼 Showing AI menu');
         hidePTT();
         overlay.classList.add('show');
         updateAIMenu();
@@ -9845,83 +12185,84 @@
       if (overlay) overlay.classList.remove('show');
     }
 
-    // AI菜单配置 - 按v5版本
+    // AI菜单配置 - 图标为主，文字简短
     const pageConfigs = {
       'home-page': {
-        context: null,
+        context: { icon: '🏠', label: '首页' },
         menu: [
           { icon: '🎯', label: '今日任务', color: 'purple', action: 'dailyQuest' },
-          { icon: '📖', label: '学点知识', color: 'blue', action: 'learnSomething' },
+          { icon: '📖', label: '学知识', color: 'blue', action: 'learnSomething' },
           { icon: '🏆', label: '我的进度', color: 'yellow', action: 'myProgress' },
           { icon: '❓', label: '帮助', color: 'green', action: 'help' }
         ]
       },
       'camera-page': {
-        context: { icon: '📷', label: '相机模式' },
+        context: { icon: '📷', label: '相机' },
         menu: [
-          { icon: '🔍', label: '识别这个', color: 'purple', action: 'identifyThis' },
-          { icon: '💡', label: '拍摄技巧', color: 'blue', action: 'photoTips' }
+          { icon: '🔍', label: '识别', color: 'purple', action: 'identifyThis' },
+          { icon: '💡', label: '拍摄技巧', color: 'blue', action: 'photoTips' },
+          { icon: '❓', label: '帮助', color: 'green', action: 'help' }
         ]
       },
       'photo-preview-page': {
-        context: { icon: '🖼️', label: '照片预览' },
+        context: { icon: '🖼️', label: '照片' },
         menu: [
-          { icon: '🔍', label: '这是什么？', color: 'purple', action: 'whatIsThis' },
+          { icon: '🔍', label: '这是什么', color: 'purple', action: 'whatIsThis' },
           { icon: '💬', label: '聊聊它', color: 'blue', action: 'talkAboutIt' },
           { icon: '✨', label: '魔法创作', color: 'pink', action: 'magicArt' },
           { icon: '📖', label: '编故事', color: 'green', action: 'tellStory' }
         ]
       },
       'chat-page': {
-        context: { icon: '💬', label: '照片聊天' },
+        context: { icon: '💬', label: '聊天' },
         menu: [
-          { icon: '🔄', label: '换个话题', color: 'purple', action: 'newTopic' },
+          { icon: '🔄', label: '换话题', color: 'purple', action: 'newTopic' },
           { icon: '📖', label: '编故事', color: 'blue', action: 'tellStory' },
-          { icon: '🎯', label: '知识挑战', color: 'orange', action: 'quizChallenge' }
+          { icon: '🎯', label: '挑战', color: 'orange', action: 'quizChallenge' }
         ]
       },
       'general-chat-page': {
         context: { icon: '💬', label: '聊天' },
         menu: [
-          { icon: '🔄', label: '换个话题', color: 'purple', action: 'newTopic' },
-          { icon: '💡', label: '探索想法', color: 'blue', action: 'exploreIdeas' },
-          { icon: '🎯', label: '知识挑战', color: 'orange', action: 'quizChallenge' }
+          { icon: '🔄', label: '换话题', color: 'purple', action: 'newTopic' },
+          { icon: '💡', label: '探索', color: 'blue', action: 'exploreIdeas' },
+          { icon: '🎯', label: '挑战', color: 'orange', action: 'quizChallenge' }
         ]
       },
       'map-page': {
-        context: { icon: '🗺️', label: '探索地图' },
+        context: { icon: '🗺️', label: '地图' },
         menu: [
           { icon: '🧭', label: '带我探索', color: 'cyan', action: 'guideMe' },
-          { icon: '💡', label: '探索小贴士', color: 'blue', action: 'exploreTips' },
+          { icon: '💡', label: '小贴士', color: 'blue', action: 'exploreTips' },
           { icon: '🏅', label: '奖励', color: 'yellow', action: 'rewards' }
         ]
       },
       'workshop-page': {
-        context: { icon: '🎨', label: '创作工坊' },
+        context: { icon: '🎨', label: '工坊' },
         menu: [
           { icon: '✨', label: '随机惊喜', color: 'purple', action: 'surpriseMe' },
           { icon: '🖼️', label: '我的作品', color: 'pink', action: 'myCreations' },
-          { icon: '💡', label: '获取灵感', color: 'yellow', action: 'getIdeas' }
+          { icon: '💡', label: '灵感', color: 'yellow', action: 'getIdeas' }
         ]
       },
       'backpack-page': {
         context: { icon: '🎒', label: '背包' },
         menu: [
           { icon: '⭐', label: '精彩回顾', color: 'purple', action: 'highlights' },
-          { icon: '📊', label: '统计数据', color: 'blue', action: 'stats' },
-          { icon: '🎯', label: '下一目标', color: 'green', action: 'nextGoal' }
+          { icon: '📊', label: '统计', color: 'blue', action: 'stats' },
+          { icon: '🎯', label: '下个目标', color: 'green', action: 'nextGoal' }
         ]
       },
       'species-list-page': {
-        context: { icon: '📖', label: '图鉴' },
+        context: { icon: '📚', label: '图鉴' },
         menu: [
           { icon: '🎲', label: '随机挑战', color: 'purple', action: 'randomChallenge' },
           { icon: '💡', label: '趣味知识', color: 'blue', action: 'funFact' },
-          { icon: '🎯', label: '知识挑战', color: 'orange', action: 'quizChallenge' }
+          { icon: '🎯', label: '挑战', color: 'orange', action: 'quizChallenge' }
         ]
       },
       'species-detail-page': {
-        context: { icon: '🦋', label: '物种详情' },
+        context: { icon: '🦋', label: '物种' },
         menu: [
           { icon: '💡', label: '更多知识', color: 'purple', action: 'moreFacts' },
           { icon: '🔗', label: '相关物种', color: 'blue', action: 'related' },
@@ -9929,21 +12270,21 @@
         ]
       },
       'photo-effect-page': {
-        context: { icon: '✨', label: 'Choose Style' },
-        menu: [{ icon: '🎤', label: 'Ask AI', color: 'purple', action: 'askAI' }],
+        context: { icon: '✨', label: '选风格' },
+        menu: [{ icon: '🎤', label: '问AI', color: 'purple', action: 'askAI' }],
         isGeneric: true
       },
       'workshop-photo-page': {
-        context: { icon: '📷', label: '选择照片' },
-        menu: [{ icon: '🎤', label: 'Ask AI', color: 'purple', action: 'askAI' }],
+        context: { icon: '📷', label: '选照片' },
+        menu: [{ icon: '🎤', label: '问AI', color: 'purple', action: 'askAI' }],
         isGeneric: true
       }
     };
 
     // 默认配置
     const defaultConfig = {
-      context: { icon: '✨', label: 'AI Assistant' },
-      menu: [{ icon: '🎤', label: 'Ask AI', color: 'purple', action: 'askAI' }],
+      context: { icon: '✨', label: 'AI' },
+      menu: [{ icon: '🎤', label: '问AI', color: 'purple', action: 'askAI' }],
       isGeneric: true
     };
 
@@ -9963,16 +12304,13 @@
       // 通用助手显示不同UI
       if (config.isGeneric) {
         menuGrid.innerHTML = `
-          <div class="ai-generic-row">
-            <div class="ai-generic-avatar">🤖</div>
-            <div class="ai-generic-text">"Need help?"</div>
-            <button class="ai-generic-btn" onclick="handleAIAction('askAI')">
-              🎤 Voice Chat
-            </button>
+          <div class="ai-menu-item" onclick="handleAIAction('askAI')">
+            <div class="ai-menu-icon purple">🎤</div>
+            <div class="ai-menu-label">问AI</div>
           </div>
         `;
       } else {
-        // 更新菜单项
+        // 更新菜单项 - 大图标风格
         menuGrid.innerHTML = config.menu.map(item => `
           <div class="ai-menu-item" onclick="handleAIAction('${item.action}')">
             <div class="ai-menu-icon ${item.color}">${item.icon}</div>
@@ -11185,27 +13523,1249 @@
     }
 
     // PTT 浮层
-    // 聊天页内置录音功能
+    // MVP版本: 聊天页内置录音功能
     let chatRecordingTimer = null;
     
-    function startChatRecording(type) {
+    // AI角色列表
+    const aiCharacters = ['🤖', '🦊', '🐼', '🦉', '🐸'];
+    let chatCharIndex = 0;
+    let generalCharIndex = 0;
+    
+    // AI/PTT 合一键逻辑
+    let aiPttPressTimer = null;
+    let aiPttIsLongPress = false;
+    let aiPttIsPressed = false; // 新增：追踪是否真正按下
+    const LONG_PRESS_DURATION = 500; // 500ms判定为长按
+    
+    function startAIPTTPress() {
+      aiPttIsPressed = true; // 标记已按下
+      aiPttIsLongPress = false;
+      const btn = document.querySelector('.btn-ai-ptt');
+      
+      aiPttPressTimer = setTimeout(() => {
+        // 长按 - 触发PTT
+        aiPttIsLongPress = true;
+        if (btn) btn.classList.add('pressing');
+        triggerPTT();
+      }, LONG_PRESS_DURATION);
+    }
+    
+    function endAIPTTPress() {
+      console.log('🔚 endAIPTTPress called, aiPttIsPressed:', aiPttIsPressed, 'aiPttIsLongPress:', aiPttIsLongPress);
+      // 如果没有按下过，直接返回（防止mouseleave误触发）
+      if (!aiPttIsPressed) return;
+      
+      clearTimeout(aiPttPressTimer);
+      const btn = document.querySelector('.btn-ai-ptt');
+      if (btn) btn.classList.remove('pressing');
+      
+      if (aiPttIsLongPress) {
+        // 长按结束 - 停止PTT
+        console.log('⏹️ Long press ended, stopping PTT');
+        stopPTT();
+      } else {
+        // 短按 - 切换AI菜单
+        console.log('👆 Short press, triggering AI menu switch');
+        triggerAIMenuSwitch();
+      }
+      aiPttIsLongPress = false;
+      aiPttIsPressed = false; // 重置按下状态
+    }
+    
+    // 鼠标移出时取消操作，不触发任何动作
+    function cancelAIPTTPress() {
+      if (!aiPttIsPressed) return;
+      
+      clearTimeout(aiPttPressTimer);
+      const btn = document.querySelector('.btn-ai-ptt');
+      if (btn) btn.classList.remove('pressing');
+      
+      // 如果是长按中移出，需要停止PTT
+      if (aiPttIsLongPress) {
+        stopPTT();
+      }
+      // 不触发短按动作
+      
+      aiPttIsLongPress = false;
+      aiPttIsPressed = false;
+    }
+    
+    function triggerPTT() {
+      // 聊天页面特殊处理
+      if (currentPage === 'chat-page') {
+        startChatRecordingMVP('chat');
+        return;
+      }
+      if (currentPage === 'general-chat-page') {
+        startChatRecordingMVP('general');
+        return;
+      }
+      // 相机页面禁用
+      if (currentPage === 'camera-page') {
+        showToast('🎤 拍照期间语音不可用');
+        return;
+      }
+      // 其他页面显示PTT浮层
+      const overlay = document.getElementById('ptt-overlay');
+      if (overlay) {
+        hideAI();
+        overlay.classList.add('show');
+        resetPTTToRecording();
+        simulateVoiceRecognition();
+      }
+    }
+    
+    function stopPTT() {
+      if (currentPage === 'chat-page') {
+        stopChatRecordingMVP('chat');
+        return;
+      }
+      if (currentPage === 'general-chat-page') {
+        stopChatRecordingMVP('general');
+        return;
+      }
+      // PTT浮层保持显示，等用户主动关闭
+    }
+    
+    // 地图页AI浮层状态
+    let mapAIOverlayVisible = false;
+    let mapAICurrentTab = 0;
+    let isSpeaking = false;
+    let aiMenuSwitchLock = false; // 防抖锁
+    let currentSpeechId = 0; // 语音请求ID
+    
+    // 初始化语音合成
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.getVoices();
+    }
+    
+    // 语音播报内容 - 童趣化
+    const aiVoiceContent = {
+      0: '嘿！这里有好多好玩的任务等着你呢！去找找漂亮的花朵，看看蝴蝶在哪里，还有好多惊喜哦！点一个试试吧！',
+      1: '小探险家，告诉你几个秘密哦！早上的时候小虫虫最活跃啦，蹲下来看看，会发现很多有趣的小东西呢！',
+      2: '哇，完成任务就能得到闪闪发光的星星哦！把所有任务都完成，还有神秘大礼物等着你呢！'
+    };
+    
+    function triggerAIMenuSwitch() {
+      console.log('🎯 triggerAIMenuSwitch called, currentPage:', currentPage);
+      // 防抖：300ms内不重复触发
+      if (aiMenuSwitchLock) {
+        console.log('🔒 aiMenuSwitchLock is true, returning');
+        return;
+      }
+      aiMenuSwitchLock = true;
+      setTimeout(() => { aiMenuSwitchLock = false; }, 300);
+      
+      // 地图页特殊处理 - AI浮层
+      if (currentPage === 'map-page') {
+        console.log('🗺️ Map page special handling');
+        if (!mapAIOverlayVisible) {
+          showMapAIOverlay();
+          setTimeout(() => speakAIContent(0), 50);
+        } else {
+          // 已显示时，短按切换Tab
+          mapAICurrentTab = (mapAICurrentTab + 1) % 3;
+          updateAIOverlayUI();
+          speakAIContent(mapAICurrentTab);
+        }
+        return;
+      }
+      
+      // 工坊页特殊处理 - AI浮层
+      if (currentPage === 'workshop-page') {
+        console.log('🎨 Workshop page special handling');
+        if (!workshopAIOverlayVisible) {
+          showWorkshopAIOverlay();
+        } else {
+          // 已显示时，短按切换Tab
+          workshopAICurrentTab = (workshopAICurrentTab + 1) % 3;
+          updateWorkshopAIOverlayUI();
+          speakWorkshopAIContent(workshopAICurrentTab);
+        }
+        return;
+      }
+      
+      // 首页特殊处理 - AI浮层
+      if (currentPage === 'home-page') {
+        console.log('🏠 Home page special handling');
+        if (!homeAIOverlayVisible) {
+          showHomeAIOverlay();
+        } else {
+          homeAICurrentTab = (homeAICurrentTab + 1) % 3;
+          updateHomeAIOverlayUI();
+          speakHomeAIContent(homeAICurrentTab);
+        }
+        return;
+      }
+      
+      // 相机页特殊处理 - AI浮层
+      if (currentPage === 'camera-page') {
+        console.log('📷 Camera page special handling');
+        if (!cameraAIOverlayVisible) {
+          showCameraAIOverlay();
+        } else {
+          cameraAICurrentTab = (cameraAICurrentTab + 1) % 3;
+          updateCameraAIOverlayUI();
+          speakCameraAIContent(cameraAICurrentTab);
+        }
+        return;
+      }
+      
+      // 背包页特殊处理 - AI浮层
+      if (currentPage === 'backpack-page') {
+        console.log('🎒 Backpack page special handling');
+        if (!backpackAIOverlayVisible) {
+          showBackpackAIOverlay();
+        } else {
+          backpackAICurrentTab = (backpackAICurrentTab + 1) % 3;
+          updateBackpackAIOverlayUI();
+          speakBackpackAIContent(backpackAICurrentTab);
+        }
+        return;
+      }
+      
+      // 照片预览页特殊处理 - AI浮层
+      if (currentPage === 'photo-preview-page') {
+        console.log('🖼️ Photo preview page special handling');
+        if (!previewAIOverlayVisible) {
+          showPreviewAIOverlay();
+        } else {
+          previewAICurrentTab = (previewAICurrentTab + 1) % 3;
+          updatePreviewAIOverlayUI();
+          speakPreviewAIContent(previewAICurrentTab);
+        }
+        return;
+      }
+      
+      // 物种列表页特殊处理 - AI浮层
+      if (currentPage === 'subcategory-list-page') {
+        console.log('📚 Species list page special handling');
+        if (!speciesListAIOverlayVisible) {
+          showSpeciesListAIOverlay();
+        } else {
+          speciesListAICurrentTab = (speciesListAICurrentTab + 1) % 3;
+          updateSpeciesListAIOverlayUI();
+          speakSpeciesListAIContent(speciesListAICurrentTab);
+        }
+        return;
+      }
+      
+      // 物种详情页特殊处理 - AI浮层
+      if (currentPage === 'subcategory-detail-page') {
+        console.log('🦋 Species detail page special handling');
+        if (!speciesDetailAIOverlayVisible) {
+          showSpeciesDetailAIOverlay();
+        } else {
+          speciesDetailAICurrentTab = (speciesDetailAICurrentTab + 1) % 3;
+          updateSpeciesDetailAIOverlayUI();
+          speakSpeciesDetailAIContent(speciesDetailAICurrentTab);
+        }
+        return;
+      }
+      
+      // 其他页面 - 显示/隐藏AI菜单
+      console.log('📱 Calling toggleAI()');
+      toggleAI();
+    }
+    
+    function showMapAIOverlay() {
+      const overlay = document.getElementById('map-ai-overlay');
+      if (overlay) {
+        overlay.classList.remove('hidden');
+        mapAIOverlayVisible = true;
+        mapAICurrentTab = 0;
+        updateAIOverlayUI();
+      }
+    }
+    
+    function hideMapAIOverlay() {
+      const overlay = document.getElementById('map-ai-overlay');
+      if (overlay) {
+        overlay.classList.add('hidden');
+        mapAIOverlayVisible = false;
+      }
+      stopSpeaking();
+    }
+    
+    // 点击Tab切换
+    function switchAITab(index) {
+      mapAICurrentTab = index;
+      updateAIOverlayUI();
+      speakAIContent(index);
+    }
+    
+    function updateAIOverlayUI() {
+      // 更新Tab高亮
+      document.querySelectorAll('.ai-bar-tab').forEach((tab, i) => {
+        tab.classList.toggle('active', i === mapAICurrentTab);
+      });
+      
+      // 切换内容
+      document.querySelectorAll('.ai-body-content').forEach((content) => {
+        content.classList.toggle('active', parseInt(content.dataset.content) === mapAICurrentTab);
+      });
+    }
+    
+    // 语音播报功能
+    function speakAIContent(tabIndex) {
+      const text = aiVoiceContent[tabIndex];
+      if (!text || !('speechSynthesis' in window)) return;
+      
+      // 递增请求ID
+      currentSpeechId++;
+      const thisId = currentSpeechId;
+      
+      window.speechSynthesis.cancel();
+      
+      // 等待cancel生效后再speak
+      setTimeout(() => {
+        if (thisId !== currentSpeechId) return;
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.85;
+        utterance.pitch = 1.15;
+        
+        const voices = window.speechSynthesis.getVoices();
+        const zhVoice = voices.find(v => v.lang.includes('zh'));
+        if (zhVoice) utterance.voice = zhVoice;
+        
+        utterance.onstart = () => setSpeakingState(true);
+        utterance.onend = () => setSpeakingState(false);
+        utterance.onerror = () => setSpeakingState(false);
+        
+        window.speechSynthesis.speak(utterance);
+      }, 100);
+    }
+    
+    // 重播按钮
+    function replayAIVoice() {
+      speakAIContent(mapAICurrentTab);
+    }
+    
+    function stopSpeaking() {
+      currentSpeechId++;
+      if ('speechSynthesis' in window) {
+        speechSynthesis.cancel();
+      }
+      setSpeakingState(false);
+    }
+    
+    function setSpeakingState(speaking) {
+      isSpeaking = speaking;
+      const btn = document.querySelector('.ai-replay-btn');
+      if (btn) {
+        btn.classList.toggle('speaking', speaking);
+      }
+    }
+    
+    // 兼容旧函数名
+    function hideMapAICard() {
+      hideMapAIOverlay();
+    }
+    
+    // ============ 工坊页 AI 浮层 ============
+    let workshopAIOverlayVisible = false;
+    let workshopAICurrentTab = 0;
+    let currentSurpriseStyle = null;
+    
+    // 风格配置
+    const workshopStyles = [
+      { name: '吉卜力', icon: '🏔️', class: 'style-ghibli' },
+      { name: '像素风', icon: '👾', class: 'style-pixel' },
+      { name: '水彩画', icon: '🎨', class: 'style-watercolor' },
+      { name: '卡通风', icon: '🎬', class: 'style-cartoon' }
+    ];
+    
+    // 模拟用户照片库
+    const userPhotos = [
+      'https://picsum.photos/80/80?random=1',
+      'https://picsum.photos/80/80?random=2',
+      'https://picsum.photos/80/80?random=3',
+      'https://picsum.photos/80/80?random=4',
+      'https://picsum.photos/80/80?random=5'
+    ];
+    
+    function getWorkshopAIVoiceContent(tabIndex) {
+      if (tabIndex === 0 && currentSurpriseStyle) {
+        return `今天试试${currentSurpriseStyle.name}怎么样？点击开始创作，马上就能看到效果！`;
+      }
+      const voiceTexts = [
+        '随机选了一个风格和照片，点击开始创作吧！',
+        '这是你最近创作的作品，点击查看全部可以看到更多哦！',
+        '需要灵感吗？试试把花朵变成水彩画，或者把昆虫变成像素风！'
+      ];
+      return voiceTexts[tabIndex];
+    }
+    
+    function randomizeSurprise() {
+      // 随机选择风格
+      const randomStyle = workshopStyles[Math.floor(Math.random() * workshopStyles.length)];
+      currentSurpriseStyle = randomStyle;
+      
+      // 随机选择照片
+      const randomPhoto = userPhotos[Math.floor(Math.random() * userPhotos.length)];
+      
+      // 更新UI
+      const styleBox = document.getElementById('surprise-style-box');
+      const stylePreview = styleBox?.querySelector('.surprise-preview');
+      const styleName = document.getElementById('surprise-style-name');
+      const photoImg = document.getElementById('surprise-photo-img');
+      
+      if (stylePreview) {
+        stylePreview.className = `surprise-preview ${randomStyle.class}`;
+        stylePreview.textContent = randomStyle.icon;
+      }
+      if (styleName) {
+        styleName.textContent = randomStyle.name;
+      }
+      if (photoImg) {
+        photoImg.src = randomPhoto + '&t=' + Date.now(); // 防止缓存
+      }
+    }
+    
+    function showWorkshopAIOverlay() {
+      const overlay = document.getElementById('workshop-ai-overlay');
+      if (overlay) {
+        // 每次打开都随机生成新组合
+        randomizeSurprise();
+        
+        overlay.classList.remove('hidden');
+        workshopAIOverlayVisible = true;
+        workshopAICurrentTab = 0;
+        updateWorkshopAIOverlayUI();
+        speakWorkshopAIContent(0);
+      }
+    }
+    
+    function hideWorkshopAIOverlay() {
+      const overlay = document.getElementById('workshop-ai-overlay');
+      if (overlay) {
+        overlay.classList.add('hidden');
+        workshopAIOverlayVisible = false;
+      }
+      stopSpeaking();
+    }
+    
+    function switchWorkshopAITab(index) {
+      workshopAICurrentTab = index;
+      updateWorkshopAIOverlayUI();
+      speakWorkshopAIContent(index);
+    }
+    
+    function updateWorkshopAIOverlayUI() {
+      const overlay = document.getElementById('workshop-ai-overlay');
+      if (!overlay) return;
+      
+      // 更新Tab高亮
+      overlay.querySelectorAll('.ai-bar-tab').forEach((tab, i) => {
+        tab.classList.toggle('active', i === workshopAICurrentTab);
+      });
+      
+      // 切换内容
+      overlay.querySelectorAll('.ai-body-content').forEach((content) => {
+        content.classList.toggle('active', parseInt(content.dataset.content) === workshopAICurrentTab);
+      });
+    }
+    
+    function speakWorkshopAIContent(tabIndex) {
+      const text = getWorkshopAIVoiceContent(tabIndex);
+      if (!text || !('speechSynthesis' in window)) return;
+      
+      currentSpeechId++;
+      const thisId = currentSpeechId;
+      
+      window.speechSynthesis.cancel();
+      
+      setTimeout(() => {
+        if (thisId !== currentSpeechId) return;
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.85;
+        utterance.pitch = 1.15;
+        
+        const voices = window.speechSynthesis.getVoices();
+        const zhVoice = voices.find(v => v.lang.includes('zh'));
+        if (zhVoice) utterance.voice = zhVoice;
+        
+        utterance.onstart = () => setSpeakingState(true);
+        utterance.onend = () => setSpeakingState(false);
+        utterance.onerror = () => setSpeakingState(false);
+        
+        window.speechSynthesis.speak(utterance);
+      }, 100);
+    }
+    
+    function replayWorkshopAIVoice() {
+      speakWorkshopAIContent(workshopAICurrentTab);
+    }
+    
+    // 随机惊喜 - 直接开始创作
+    function startRandomCreation() {
+      if (!currentSurpriseStyle) {
+        randomizeSurprise();
+      }
+      
+      // 关闭浮层
+      hideWorkshopAIOverlay();
+      
+      // 直接开始AIGC创作流程
+      showAigcModal('surprise');
+    }
+    
+    // 短按AI键循环切换Tab
+    function cycleWorkshopAITab() {
+      if (!workshopAIOverlayVisible) {
+        showWorkshopAIOverlay();
+      } else {
+        workshopAICurrentTab = (workshopAICurrentTab + 1) % 3;
+        updateWorkshopAIOverlayUI();
+        speakWorkshopAIContent(workshopAICurrentTab);
+      }
+    }
+    
+    // 点击浮层外区域关闭 - 工坊
+    document.addEventListener('click', function(e) {
+      setTimeout(function() {
+        if (workshopAIOverlayVisible) {
+          const overlay = document.getElementById('workshop-ai-overlay');
+          const isInsideOverlay = overlay && overlay.contains(e.target);
+          const isAIButton = e.target.closest('.btn-ai-ptt');
+          if (overlay && !isInsideOverlay && !isAIButton) {
+            hideWorkshopAIOverlay();
+          }
+        }
+      }, 0);
+    });
+    
+    // 点击浮层外区域关闭
+    document.addEventListener('click', function(e) {
+      setTimeout(function() {
+        if (mapAIOverlayVisible) {
+          const overlay = document.getElementById('map-ai-overlay');
+          const isInsideOverlay = overlay && overlay.contains(e.target);
+          const isAIButton = e.target.closest('.btn-ai-ptt');
+          if (overlay && !isInsideOverlay && !isAIButton) {
+            hideMapAIOverlay();
+          }
+        }
+      }, 0);
+    });
+    
+    // ============ 首页 AI 浮层 ============
+    let homeAIOverlayVisible = false;
+    let homeAICurrentTab = 0;
+    const homeAIVoiceContent = [
+      '今天有2个任务等着你！寻找春天的花朵正在进行中，加油！',
+      '想学点新知识吗？点击你感兴趣的话题，我来告诉你！',
+      '你已经发现了12种物种，完成了5个任务，获得了3枚徽章，太棒了！'
+    ];
+    
+    function showHomeAIOverlay() {
+      const overlay = document.getElementById('home-ai-overlay');
+      if (overlay) {
+        overlay.classList.remove('hidden');
+        homeAIOverlayVisible = true;
+        homeAICurrentTab = 0;
+        updateHomeAIOverlayUI();
+        speakHomeAIContent(0);
+      }
+    }
+    
+    function hideHomeAIOverlay() {
+      const overlay = document.getElementById('home-ai-overlay');
+      if (overlay) {
+        overlay.classList.add('hidden');
+        homeAIOverlayVisible = false;
+      }
+      stopSpeaking();
+    }
+    
+    function switchHomeAITab(index) {
+      homeAICurrentTab = index;
+      updateHomeAIOverlayUI();
+      speakHomeAIContent(index);
+    }
+    
+    function updateHomeAIOverlayUI() {
+      const overlay = document.getElementById('home-ai-overlay');
+      if (!overlay) return;
+      
+      overlay.querySelectorAll('.ai-bar-tab').forEach((tab, i) => {
+        tab.classList.toggle('active', i === homeAICurrentTab);
+      });
+      
+      overlay.querySelectorAll('.ai-body-content').forEach((content) => {
+        content.classList.toggle('active', parseInt(content.dataset.content) === homeAICurrentTab);
+      });
+    }
+    
+    function speakHomeAIContent(tabIndex) {
+      const text = homeAIVoiceContent[tabIndex];
+      if (!text || !('speechSynthesis' in window)) return;
+      
+      currentSpeechId++;
+      const thisId = currentSpeechId;
+      window.speechSynthesis.cancel();
+      
+      setTimeout(() => {
+        if (thisId !== currentSpeechId) return;
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.85;
+        utterance.pitch = 1.15;
+        const voices = window.speechSynthesis.getVoices();
+        const zhVoice = voices.find(v => v.lang.includes('zh'));
+        if (zhVoice) utterance.voice = zhVoice;
+        utterance.onstart = () => setSpeakingState(true);
+        utterance.onend = () => setSpeakingState(false);
+        utterance.onerror = () => setSpeakingState(false);
+        window.speechSynthesis.speak(utterance);
+      }, 100);
+    }
+    
+    function replayHomeAIVoice() {
+      speakHomeAIContent(homeAICurrentTab);
+    }
+    
+    // 点击浮层外区域关闭 - 首页
+    document.addEventListener('click', function(e) {
+      setTimeout(function() {
+        if (homeAIOverlayVisible) {
+          const overlay = document.getElementById('home-ai-overlay');
+          const isInsideOverlay = overlay && overlay.contains(e.target);
+          const isAIButton = e.target.closest('.btn-ai-ptt');
+          if (overlay && !isInsideOverlay && !isAIButton) {
+            hideHomeAIOverlay();
+          }
+        }
+      }, 0);
+    });
+    
+    // ============ 相机页 AI 浮层 ============
+    let cameraAIOverlayVisible = false;
+    let cameraAICurrentTab = 0;
+    const cameraAIVoiceContent = [
+      '对准你想了解的东西，按下快门拍照，我来帮你识别！',
+      '小技巧：光线好、靠近点、拿稳相机，照片会更清晰哦！',
+      '快门拍照，闪电是闪光灯，数字是缩放，方格是网格线。'
+    ];
+    
+    function showCameraAIOverlay() {
+      const overlay = document.getElementById('camera-ai-overlay');
+      if (overlay) {
+        overlay.classList.remove('hidden');
+        cameraAIOverlayVisible = true;
+        cameraAICurrentTab = 0;
+        updateCameraAIOverlayUI();
+        speakCameraAIContent(0);
+      }
+    }
+    
+    function hideCameraAIOverlay() {
+      const overlay = document.getElementById('camera-ai-overlay');
+      if (overlay) {
+        overlay.classList.add('hidden');
+        cameraAIOverlayVisible = false;
+      }
+      stopSpeaking();
+    }
+    
+    function switchCameraAITab(index) {
+      cameraAICurrentTab = index;
+      updateCameraAIOverlayUI();
+      speakCameraAIContent(index);
+    }
+    
+    function updateCameraAIOverlayUI() {
+      const overlay = document.getElementById('camera-ai-overlay');
+      if (!overlay) return;
+      
+      overlay.querySelectorAll('.ai-bar-tab').forEach((tab, i) => {
+        tab.classList.toggle('active', i === cameraAICurrentTab);
+      });
+      
+      overlay.querySelectorAll('.ai-body-content').forEach((content) => {
+        content.classList.toggle('active', parseInt(content.dataset.content) === cameraAICurrentTab);
+      });
+    }
+    
+    function speakCameraAIContent(tabIndex) {
+      const text = cameraAIVoiceContent[tabIndex];
+      if (!text || !('speechSynthesis' in window)) return;
+      
+      currentSpeechId++;
+      const thisId = currentSpeechId;
+      window.speechSynthesis.cancel();
+      
+      setTimeout(() => {
+        if (thisId !== currentSpeechId) return;
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.85;
+        utterance.pitch = 1.15;
+        const voices = window.speechSynthesis.getVoices();
+        const zhVoice = voices.find(v => v.lang.includes('zh'));
+        if (zhVoice) utterance.voice = zhVoice;
+        utterance.onstart = () => setSpeakingState(true);
+        utterance.onend = () => setSpeakingState(false);
+        utterance.onerror = () => setSpeakingState(false);
+        window.speechSynthesis.speak(utterance);
+      }, 100);
+    }
+    
+    function replayCameraAIVoice() {
+      speakCameraAIContent(cameraAICurrentTab);
+    }
+    
+    // 点击浮层外区域关闭 - 相机
+    document.addEventListener('click', function(e) {
+      setTimeout(function() {
+        if (cameraAIOverlayVisible) {
+          const overlay = document.getElementById('camera-ai-overlay');
+          const isInsideOverlay = overlay && overlay.contains(e.target);
+          const isAIButton = e.target.closest('.btn-ai-ptt');
+          if (overlay && !isInsideOverlay && !isAIButton) {
+            hideCameraAIOverlay();
+          }
+        }
+      }, 0);
+    });
+    
+    // ============ 背包页 AI 浮层 ============
+    let backpackAIOverlayVisible = false;
+    let backpackAICurrentTab = 0;
+    const backpackAIVoiceContent = [
+      '这是你最近的精彩时刻！蝴蝶特写是你的最佳照片，已经连续探索7天了！',
+      '你已经拍了28张照片，发现了12种物种，完成了5个任务，真厉害！',
+      '再发现3种昆虫，就能获得昆虫专家徽章，加油！'
+    ];
+    
+    function showBackpackAIOverlay() {
+      const overlay = document.getElementById('backpack-ai-overlay');
+      if (overlay) {
+        overlay.classList.remove('hidden');
+        backpackAIOverlayVisible = true;
+        backpackAICurrentTab = 0;
+        updateBackpackAIOverlayUI();
+        speakBackpackAIContent(0);
+      }
+    }
+    
+    function hideBackpackAIOverlay() {
+      const overlay = document.getElementById('backpack-ai-overlay');
+      if (overlay) {
+        overlay.classList.add('hidden');
+        backpackAIOverlayVisible = false;
+      }
+      stopSpeaking();
+    }
+    
+    function switchBackpackAITab(index) {
+      backpackAICurrentTab = index;
+      updateBackpackAIOverlayUI();
+      speakBackpackAIContent(index);
+    }
+    
+    function updateBackpackAIOverlayUI() {
+      const overlay = document.getElementById('backpack-ai-overlay');
+      if (!overlay) return;
+      
+      overlay.querySelectorAll('.ai-bar-tab').forEach((tab, i) => {
+        tab.classList.toggle('active', i === backpackAICurrentTab);
+      });
+      
+      overlay.querySelectorAll('.ai-body-content').forEach((content) => {
+        content.classList.toggle('active', parseInt(content.dataset.content) === backpackAICurrentTab);
+      });
+    }
+    
+    function speakBackpackAIContent(tabIndex) {
+      const text = backpackAIVoiceContent[tabIndex];
+      if (!text || !('speechSynthesis' in window)) return;
+      
+      currentSpeechId++;
+      const thisId = currentSpeechId;
+      window.speechSynthesis.cancel();
+      
+      setTimeout(() => {
+        if (thisId !== currentSpeechId) return;
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.85;
+        utterance.pitch = 1.15;
+        const voices = window.speechSynthesis.getVoices();
+        const zhVoice = voices.find(v => v.lang.includes('zh'));
+        if (zhVoice) utterance.voice = zhVoice;
+        utterance.onstart = () => setSpeakingState(true);
+        utterance.onend = () => setSpeakingState(false);
+        utterance.onerror = () => setSpeakingState(false);
+        window.speechSynthesis.speak(utterance);
+      }, 100);
+    }
+    
+    function replayBackpackAIVoice() {
+      speakBackpackAIContent(backpackAICurrentTab);
+    }
+    
+    // 点击浮层外区域关闭 - 背包
+    document.addEventListener('click', function(e) {
+      setTimeout(function() {
+        if (backpackAIOverlayVisible) {
+          const overlay = document.getElementById('backpack-ai-overlay');
+          const isInsideOverlay = overlay && overlay.contains(e.target);
+          const isAIButton = e.target.closest('.btn-ai-ptt');
+          if (overlay && !isInsideOverlay && !isAIButton) {
+            hideBackpackAIOverlay();
+          }
+        }
+      }, 0);
+    });
+    
+    // ============ 照片预览页 AI 浮层 ============
+    let previewAIOverlayVisible = false;
+    let previewAICurrentTab = 0;
+    const previewAIVoiceContent = [
+      '这是一只凤蝶！识别准确度98%。点击了解更多关于它的知识！',
+      '想和我聊聊这只蝴蝶吗？你可以问我它吃什么、住在哪里，或者让我给你讲个故事！',
+      '想把这张照片变成艺术作品吗？选择一种风格，开始魔法创作！'
+    ];
+    
+    function showPreviewAIOverlay() {
+      const overlay = document.getElementById('preview-ai-overlay');
+      if (overlay) {
+        overlay.classList.remove('hidden');
+        previewAIOverlayVisible = true;
+        previewAICurrentTab = 0;
+        updatePreviewAIOverlayUI();
+        speakPreviewAIContent(0);
+      }
+    }
+    
+    function hidePreviewAIOverlay() {
+      const overlay = document.getElementById('preview-ai-overlay');
+      if (overlay) {
+        overlay.classList.add('hidden');
+        previewAIOverlayVisible = false;
+      }
+      stopSpeaking();
+    }
+    
+    function switchPreviewAITab(index) {
+      previewAICurrentTab = index;
+      updatePreviewAIOverlayUI();
+      speakPreviewAIContent(index);
+    }
+    
+    function updatePreviewAIOverlayUI() {
+      const overlay = document.getElementById('preview-ai-overlay');
+      if (!overlay) return;
+      
+      overlay.querySelectorAll('.ai-bar-tab').forEach((tab, i) => {
+        tab.classList.toggle('active', i === previewAICurrentTab);
+      });
+      
+      overlay.querySelectorAll('.ai-body-content').forEach((content) => {
+        content.classList.toggle('active', parseInt(content.dataset.content) === previewAICurrentTab);
+      });
+    }
+    
+    function speakPreviewAIContent(tabIndex) {
+      const text = previewAIVoiceContent[tabIndex];
+      if (!text || !('speechSynthesis' in window)) return;
+      
+      currentSpeechId++;
+      const thisId = currentSpeechId;
+      window.speechSynthesis.cancel();
+      
+      setTimeout(() => {
+        if (thisId !== currentSpeechId) return;
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.85;
+        utterance.pitch = 1.15;
+        const voices = window.speechSynthesis.getVoices();
+        const zhVoice = voices.find(v => v.lang.includes('zh'));
+        if (zhVoice) utterance.voice = zhVoice;
+        utterance.onstart = () => setSpeakingState(true);
+        utterance.onend = () => setSpeakingState(false);
+        utterance.onerror = () => setSpeakingState(false);
+        window.speechSynthesis.speak(utterance);
+      }, 100);
+    }
+    
+    function replayPreviewAIVoice() {
+      speakPreviewAIContent(previewAICurrentTab);
+    }
+    
+    // 点击浮层外区域关闭 - 照片预览
+    document.addEventListener('click', function(e) {
+      setTimeout(function() {
+        if (previewAIOverlayVisible) {
+          const overlay = document.getElementById('preview-ai-overlay');
+          const isInsideOverlay = overlay && overlay.contains(e.target);
+          const isAIButton = e.target.closest('.btn-ai-ptt');
+          if (overlay && !isInsideOverlay && !isAIButton) {
+            hidePreviewAIOverlay();
+          }
+        }
+      }, 0);
+    });
+    
+    // ============ 物种列表页 AI 浮层 ============
+    let speciesListAIOverlayVisible = false;
+    let speciesListAICurrentTab = 0;
+    const speciesListAIVoiceContent = [
+      '来一个随机挑战吧！去户外找一朵雏菊，拍照给我看！',
+      '你知道吗？向日葵其实不是一朵花，而是由成千上万朵小花组成的！',
+      '考考你！哪种花会跟着太阳转？'
+    ];
+    
+    function showSpeciesListAIOverlay() {
+      const overlay = document.getElementById('species-list-ai-overlay');
+      if (overlay) {
+        overlay.classList.remove('hidden');
+        speciesListAIOverlayVisible = true;
+        speciesListAICurrentTab = 0;
+        updateSpeciesListAIOverlayUI();
+        speakSpeciesListAIContent(0);
+      }
+    }
+    
+    function hideSpeciesListAIOverlay() {
+      const overlay = document.getElementById('species-list-ai-overlay');
+      if (overlay) {
+        overlay.classList.add('hidden');
+        speciesListAIOverlayVisible = false;
+      }
+      stopSpeaking();
+    }
+    
+    function switchSpeciesListAITab(index) {
+      speciesListAICurrentTab = index;
+      updateSpeciesListAIOverlayUI();
+      speakSpeciesListAIContent(index);
+    }
+    
+    function updateSpeciesListAIOverlayUI() {
+      const overlay = document.getElementById('species-list-ai-overlay');
+      if (!overlay) return;
+      
+      overlay.querySelectorAll('.ai-bar-tab').forEach((tab, i) => {
+        tab.classList.toggle('active', i === speciesListAICurrentTab);
+      });
+      
+      overlay.querySelectorAll('.ai-body-content').forEach((content) => {
+        content.classList.toggle('active', parseInt(content.dataset.content) === speciesListAICurrentTab);
+      });
+    }
+    
+    function speakSpeciesListAIContent(tabIndex) {
+      const text = speciesListAIVoiceContent[tabIndex];
+      if (!text || !('speechSynthesis' in window)) return;
+      
+      currentSpeechId++;
+      const thisId = currentSpeechId;
+      window.speechSynthesis.cancel();
+      
+      setTimeout(() => {
+        if (thisId !== currentSpeechId) return;
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.85;
+        utterance.pitch = 1.15;
+        const voices = window.speechSynthesis.getVoices();
+        const zhVoice = voices.find(v => v.lang.includes('zh'));
+        if (zhVoice) utterance.voice = zhVoice;
+        utterance.onstart = () => setSpeakingState(true);
+        utterance.onend = () => setSpeakingState(false);
+        utterance.onerror = () => setSpeakingState(false);
+        window.speechSynthesis.speak(utterance);
+      }, 100);
+    }
+    
+    function replaySpeciesListAIVoice() {
+      speakSpeciesListAIContent(speciesListAICurrentTab);
+    }
+    
+    // 小测验选项点击
+    function selectQuizOption(element, isCorrect) {
+      const options = element.parentElement.querySelectorAll('.quiz-option');
+      options.forEach(opt => {
+        opt.classList.remove('correct', 'wrong');
+        opt.style.pointerEvents = 'none';
+      });
+      
+      if (isCorrect) {
+        element.classList.add('correct');
+        showToast('🎉 答对了！');
+      } else {
+        element.classList.add('wrong');
+        showToast('❌ 再想想！');
+      }
+      
+      setTimeout(() => {
+        options.forEach(opt => {
+          opt.classList.remove('correct', 'wrong');
+          opt.style.pointerEvents = 'auto';
+        });
+      }, 2000);
+    }
+    
+    // 点击浮层外区域关闭 - 物种列表
+    document.addEventListener('click', function(e) {
+      setTimeout(function() {
+        if (speciesListAIOverlayVisible) {
+          const overlay = document.getElementById('species-list-ai-overlay');
+          const isInsideOverlay = overlay && overlay.contains(e.target);
+          const isAIButton = e.target.closest('.btn-ai-ptt');
+          if (overlay && !isInsideOverlay && !isAIButton) {
+            hideSpeciesListAIOverlay();
+          }
+        }
+      }, 0);
+    });
+    
+    // ============ 物种详情页 AI 浮层 ============
+    let speciesDetailAIOverlayVisible = false;
+    let speciesDetailAICurrentTab = 0;
+    const speciesDetailAIVoiceContent = [
+      '蒲公英的种子可以飞行几公里远！它还是一种中草药，可以清热解毒哦。',
+      '蒲公英和雏菊、向日葵、菊花都是菊科植物，是一家人呢！',
+      '考考你！蒲公英的种子靠什么传播？是蜜蜂、风还是水呢？'
+    ];
+    
+    function showSpeciesDetailAIOverlay() {
+      const overlay = document.getElementById('species-detail-ai-overlay');
+      if (overlay) {
+        overlay.classList.remove('hidden');
+        speciesDetailAIOverlayVisible = true;
+        speciesDetailAICurrentTab = 0;
+        updateSpeciesDetailAIOverlayUI();
+        speakSpeciesDetailAIContent(0);
+      }
+    }
+    
+    function hideSpeciesDetailAIOverlay() {
+      const overlay = document.getElementById('species-detail-ai-overlay');
+      if (overlay) {
+        overlay.classList.add('hidden');
+        speciesDetailAIOverlayVisible = false;
+      }
+      stopSpeaking();
+    }
+    
+    function switchSpeciesDetailAITab(index) {
+      speciesDetailAICurrentTab = index;
+      updateSpeciesDetailAIOverlayUI();
+      speakSpeciesDetailAIContent(index);
+    }
+    
+    function updateSpeciesDetailAIOverlayUI() {
+      const overlay = document.getElementById('species-detail-ai-overlay');
+      if (!overlay) return;
+      
+      overlay.querySelectorAll('.ai-bar-tab').forEach((tab, i) => {
+        tab.classList.toggle('active', i === speciesDetailAICurrentTab);
+      });
+      
+      overlay.querySelectorAll('.ai-body-content').forEach((content) => {
+        content.classList.toggle('active', parseInt(content.dataset.content) === speciesDetailAICurrentTab);
+      });
+    }
+    
+    function speakSpeciesDetailAIContent(tabIndex) {
+      const text = speciesDetailAIVoiceContent[tabIndex];
+      if (!text || !('speechSynthesis' in window)) return;
+      
+      currentSpeechId++;
+      const thisId = currentSpeechId;
+      window.speechSynthesis.cancel();
+      
+      setTimeout(() => {
+        if (thisId !== currentSpeechId) return;
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.85;
+        utterance.pitch = 1.15;
+        const voices = window.speechSynthesis.getVoices();
+        const zhVoice = voices.find(v => v.lang.includes('zh'));
+        if (zhVoice) utterance.voice = zhVoice;
+        utterance.onstart = () => setSpeakingState(true);
+        utterance.onend = () => setSpeakingState(false);
+        utterance.onerror = () => setSpeakingState(false);
+        window.speechSynthesis.speak(utterance);
+      }, 100);
+    }
+    
+    function replaySpeciesDetailAIVoice() {
+      speakSpeciesDetailAIContent(speciesDetailAICurrentTab);
+    }
+    
+    // 物种详情小测验选项点击
+    function selectDetailQuizOption(element, isCorrect) {
+      const options = element.parentElement.querySelectorAll('.quiz-option');
+      options.forEach(opt => {
+        opt.classList.remove('correct', 'wrong');
+        opt.style.pointerEvents = 'none';
+      });
+      
+      if (isCorrect) {
+        element.classList.add('correct');
+        showToast('🎉 答对了！风是蒲公英种子的好朋友！');
+      } else {
+        element.classList.add('wrong');
+        showToast('❌ 再想想，蒲公英种子像小降落伞...');
+      }
+      
+      setTimeout(() => {
+        options.forEach(opt => {
+          opt.classList.remove('correct', 'wrong');
+          opt.style.pointerEvents = 'auto';
+        });
+      }, 2000);
+    }
+    
+    // 点击浮层外区域关闭 - 物种详情
+    document.addEventListener('click', function(e) {
+      setTimeout(function() {
+        if (speciesDetailAIOverlayVisible) {
+          const overlay = document.getElementById('species-detail-ai-overlay');
+          const isInsideOverlay = overlay && overlay.contains(e.target);
+          const isAIButton = e.target.closest('.btn-ai-ptt');
+          if (overlay && !isInsideOverlay && !isAIButton) {
+            hideSpeciesDetailAIOverlay();
+          }
+        }
+      }, 0);
+    });
+    
+    // 返回键逻辑
+    function goBack() {
+      // 页面返回映射
+      const backMap = {
+        'camera-page': 'home-page',
+        'photo-preview-page': 'camera-page',
+        'chat-page': 'photo-preview-page',
+        'general-chat-page': 'home-page',
+        'map-page': 'home-page',
+        'workshop-page': 'home-page',
+        'backpack-page': 'home-page',
+        'settings-page': 'home-page',
+        'species-list-page': 'backpack-page',
+        'species-detail-page': 'species-list-page',
+        'story-page': 'chat-page',
+        'photo-effect-page': 'photo-preview-page',
+        'workshop-photo-page': 'workshop-page',
+        'workshop-edit-page': 'workshop-photo-page',
+      };
+      
+      const targetPage = backMap[currentPage] || 'home-page';
+      navigateTo(targetPage);
+    }
+    
+    // 切换角色
+    function switchChatCharacter(type, direction) {
+      if (type === 'chat') {
+        chatCharIndex = (chatCharIndex + direction + aiCharacters.length) % aiCharacters.length;
+        const avatar = document.getElementById('chat-ai-avatar');
+        if (avatar) {
+          avatar.style.transform = 'scale(0.8)';
+          setTimeout(() => {
+            avatar.textContent = aiCharacters[chatCharIndex];
+            avatar.style.transform = 'scale(1)';
+          }, 150);
+        }
+      } else {
+        generalCharIndex = (generalCharIndex + direction + aiCharacters.length) % aiCharacters.length;
+        const avatar = document.getElementById('general-chat-ai-avatar');
+        if (avatar) {
+          avatar.style.transform = 'scale(0.8)';
+          setTimeout(() => {
+            avatar.textContent = aiCharacters[generalCharIndex];
+            avatar.style.transform = 'scale(1)';
+          }, 150);
+        }
+      }
+    }
+    
+    // 敬请期待提示
+    function showComingSoon(feature) {
+      showToast(`✨ ${feature}功能即将上线，敬请期待！`);
+    }
+    
+    // MVP状态枚举: idle, listening, thinking, speaking
+    function setChatStatus(type, status) {
+      const prefix = type === 'chat' ? 'chat' : 'general-chat';
+      const avatar = document.getElementById(`${prefix}-ai-avatar`);
+      const statusDot = document.getElementById(`${prefix}-status-dot`);
+      const statusText = document.getElementById(`${prefix}-status-text`);
+      const soundWave = document.getElementById(`${prefix}-sound-wave`);
+      
+      // 清除所有状态类
+      if (avatar) {
+        avatar.classList.remove('speaking', 'thinking', 'listening');
+      }
+      if (statusDot) {
+        statusDot.classList.remove('speaking', 'thinking', 'listening');
+      }
+      
+      const statusConfig = {
+        idle: { text: '等待中', dotClass: '', avatarClass: '', showWave: false },
+        listening: { text: '聆听中...', dotClass: 'listening', avatarClass: 'listening', showWave: false },
+        thinking: { text: '思考中...', dotClass: 'thinking', avatarClass: 'thinking', showWave: false },
+        speaking: { text: '正在回答...', dotClass: 'speaking', avatarClass: 'speaking', showWave: true }
+      };
+      
+      const config = statusConfig[status] || statusConfig.idle;
+      
+      if (statusText) statusText.textContent = config.text;
+      if (statusDot && config.dotClass) statusDot.classList.add(config.dotClass);
+      if (avatar && config.avatarClass) avatar.classList.add(config.avatarClass);
+      if (soundWave) {
+        soundWave.classList.toggle('hidden', !config.showWave);
+      }
+    }
+    
+    function startChatRecordingMVP(type) {
       const btn = type === 'chat' ? document.getElementById('chat-speak-btn') : document.getElementById('general-chat-speak-btn');
       if (btn) {
         btn.classList.add('recording');
         const textEl = btn.querySelector('.chat-speak-text');
-        if (textEl) textEl.textContent = '聆听中...';
+        if (textEl) textEl.textContent = '松开发送';
       }
+      setChatStatus(type, 'listening');
     }
     
-    function stopChatRecording(type) {
+    function stopChatRecordingMVP(type) {
       const btn = type === 'chat' ? document.getElementById('chat-speak-btn') : document.getElementById('general-chat-speak-btn');
       if (btn) {
         btn.classList.remove('recording');
         const textEl = btn.querySelector('.chat-speak-text');
         if (textEl) textEl.textContent = '按住说话';
-        // 模拟发送消息
-        simulateChatResponse(type);
       }
+      
+      // 模拟AI响应流程: listening -> thinking -> speaking -> idle
+      setChatStatus(type, 'thinking');
+      
+      setTimeout(() => {
+        setChatStatus(type, 'speaking');
+        
+        // 模拟说话3秒后结束
+        setTimeout(() => {
+          setChatStatus(type, 'idle');
+        }, 3000);
+      }, 1000);
+    }
+    
+    // 保留旧函数兼容性
+    function startChatRecording(type) {
+      startChatRecordingMVP(type);
+    }
+    
+    function stopChatRecording(type) {
+      stopChatRecordingMVP(type);
     }
     
     function simulateChatResponse(type) {
@@ -11224,25 +14784,27 @@
       if (currentPage === 'chat-page') {
         const btn = document.getElementById('chat-speak-btn');
         if (btn && !btn.classList.contains('recording')) {
-          startChatRecording('chat');
-          setTimeout(() => stopChatRecording('chat'), 2000);
+          startChatRecordingMVP('chat');
+          setTimeout(() => stopChatRecordingMVP('chat'), 2000);
         }
         return;
       }
       if (currentPage === 'general-chat-page') {
         const btn = document.getElementById('general-chat-speak-btn');
         if (btn && !btn.classList.contains('recording')) {
-          startChatRecording('general');
-          setTimeout(() => stopChatRecording('general'), 2000);
+          startChatRecordingMVP('general');
+          setTimeout(() => stopChatRecordingMVP('general'), 2000);
         }
         return;
       }
       
+      const backdrop = document.getElementById('ptt-backdrop');
       const overlay = document.getElementById('ptt-overlay');
       if (overlay.classList.contains('show')) {
         hidePTT();
       } else {
         hideAI();
+        if (backdrop) backdrop.classList.add('show');
         overlay.classList.add('show');
         resetPTTToRecording();
         simulateVoiceRecognition();
@@ -11270,74 +14832,105 @@
     }
 
     function hidePTT() {
+      const backdrop = document.getElementById('ptt-backdrop');
       const overlay = document.getElementById('ptt-overlay');
+      if (backdrop) backdrop.classList.remove('show');
       if (overlay) {
         overlay.classList.remove('show');
         resetPTTToRecording();
       }
     }
 
-    function resetPTTToRecording() {
-      document.getElementById('ptt-recording-section').style.display = 'flex';
-      document.getElementById('ptt-response-section').style.display = 'none';
-      document.getElementById('ptt-hint').style.display = 'block';
-      document.getElementById('ptt-status-dot').className = 'ptt-status-dot';
-      document.getElementById('ptt-status-text').textContent = '聆听中...';
+    // PTT 角色列表
+    const pttCharacters = [
+      { emoji: '🦉', name: '咕咕', color: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)' },
+      { emoji: '🦊', name: '小狐', color: 'linear-gradient(135deg, #FF8C00 0%, #FF6347 100%)' },
+      { emoji: '🐸', name: '呱呱', color: 'linear-gradient(135deg, #4ADE80 0%, #22C55E 100%)' },
+      { emoji: '🐰', name: '兔兔', color: 'linear-gradient(135deg, #F9A8D4 0%, #EC4899 100%)' }
+    ];
+    let currentPTTCharIndex = 0;
+
+    function switchPTTCharacter(direction) {
+      currentPTTCharIndex = (currentPTTCharIndex + direction + pttCharacters.length) % pttCharacters.length;
+      const char = pttCharacters[currentPTTCharIndex];
+      const avatar = document.getElementById('ptt-avatar');
+      const nameEl = document.getElementById('ptt-avatar-name');
+      
+      if (avatar) {
+        avatar.textContent = char.emoji;
+        avatar.style.background = char.color;
+      }
+      if (nameEl) nameEl.textContent = char.name;
     }
 
+    function resetPTTToRecording() {
+      // 简化版 PTT 重置状态
+      const avatar = document.getElementById('ptt-avatar');
+      const waveform = document.getElementById('ptt-waveform');
+      const statusDot = document.getElementById('ptt-status-dot');
+      const statusText = document.getElementById('ptt-status-text');
+      const hint = document.getElementById('ptt-hint');
+      
+      if (avatar) {
+        avatar.className = 'ptt-avatar listening';
+      }
+      if (waveform) {
+        waveform.className = 'ptt-waveform listening';
+      }
+      if (statusDot) {
+        statusDot.className = 'ptt-status-dot';
+      }
+      if (statusText) {
+        statusText.textContent = '正在听...';
+      }
+      if (hint) {
+        hint.textContent = '按住说话 · 松开发送';
+      }
+    }
+
+    // 旧的角色切换函数（兼容）
     function switchCharacter(emoji, btn) {
-      document.querySelectorAll('.ptt-char-btn').forEach(b => b.classList.remove('进行中'));
-      btn.classList.add('进行中');
-      document.getElementById('ptt-character').textContent = emoji;
-      currentAICharacter = emoji;
+      // 已废弃，使用 switchPTTCharacter
     }
 
     function simulateVoiceRecognition() {
-      const phrases = [
-        "What kind of bug is this?",
-        "Tell me about this flower",
-        "Is this rock special?",
-        "Why is the sky blue?"
-      ];
-      const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-      const transcript = document.getElementById('ptt-transcript');
-      transcript.textContent = '';
+      // 简化版：只更新状态，不显示文字
+      const avatar = document.getElementById('ptt-avatar');
+      const waveform = document.getElementById('ptt-waveform');
+      const statusDot = document.getElementById('ptt-status-dot');
+      const statusText = document.getElementById('ptt-status-text');
       
-      let i = 0;
-      const interval = setInterval(() => {
-        if (i < randomPhrase.length) {
-          transcript.textContent += randomPhrase[i];
-          i++;
-        } else {
-          clearInterval(interval);
-          setTimeout(() => showPTTResponse(randomPhrase), 500);
-        }
-      }, 50);
+      // 模拟录音 2秒
+      setTimeout(() => {
+        // 切换到思考状态
+        if (avatar) avatar.className = 'ptt-avatar thinking';
+        if (waveform) waveform.className = 'ptt-waveform thinking';
+        if (statusDot) statusDot.className = 'ptt-status-dot thinking';
+        if (statusText) statusText.textContent = '思考中...';
+        
+        // 1秒后切换到回复状态
+        setTimeout(() => {
+          if (avatar) avatar.className = 'ptt-avatar speaking';
+          if (waveform) waveform.className = 'ptt-waveform';
+          if (statusDot) statusDot.className = 'ptt-status-dot speaking';
+          if (statusText) statusText.textContent = '正在说...';
+          
+          // 模拟语音播放 3秒后结束
+          setTimeout(() => {
+            const hint = document.getElementById('ptt-hint');
+            if (hint) hint.textContent = '按住继续 · 点击外部关闭';
+            if (avatar) avatar.className = 'ptt-avatar';
+            if (waveform) waveform.className = 'ptt-waveform';
+            if (statusDot) statusDot.className = 'ptt-status-dot speaking';
+            if (statusText) statusText.textContent = '回答完成';
+          }, 3000);
+        }, 1000);
+      }, 2000);
     }
 
+    // showPTTResponse 已废弃（简化版不显示文本回复）
     function showPTTResponse(userQuestion) {
-      document.getElementById('ptt-status-dot').className = 'ptt-status-dot thinking';
-      document.getElementById('ptt-status-text').textContent = '思考中...';
-      
-      setTimeout(() => {
-        document.getElementById('ptt-status-dot').className = 'ptt-status-dot done';
-        document.getElementById('ptt-status-text').textContent = 'AI Answered';
-        document.getElementById('ptt-user-text').textContent = userQuestion;
-        
-        const responses = {
-          "What kind of bug is this?": "That's a ladybug! They're tiny beetles with spots. They eat aphids and help gardens grow! 🐞",
-          "Tell me about this flower": "This looks like a sunflower! They can grow really tall and always face the sun. Bees love them! 🌻",
-          "Is this rock special?": "Wow, great find! This could be granite - see those sparkly bits? That's mica! 🪨✨",
-          "Why is the sky blue?": "The sky looks blue because sunlight bounces off tiny bits of air! It's called scattering. Cool, right? ☀️💙"
-        };
-        
-        document.getElementById('ptt-ai-text').textContent = responses[userQuestion] || "That's interesting! Tell me more.";
-        document.getElementById('ptt-ai-avatar').textContent = currentAICharacter;
-        
-        document.getElementById('ptt-recording-section').style.display = 'none';
-        document.getElementById('ptt-response-section').style.display = 'flex';
-        document.getElementById('ptt-hint').style.display = 'none';
-      }, 800);
+      // 简化版不需要此函数
     }
 
     function pttAskMore() {
