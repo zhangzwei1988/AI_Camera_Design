@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI 探索者 - V10 中文版</title>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
@@ -404,6 +405,42 @@
       font-size: 14px;
     }
 
+    /* 首页通知铃铛 */
+    .home-notification-bell {
+      position: absolute;
+      top: 36px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 50;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .home-notification-bell:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+    .home-notification-bell:active {
+      transform: scale(0.95);
+    }
+    .home-notification-bell .notification-dot {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 10px;
+      height: 10px;
+      background: #EF4444;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+
     /* 页面容器 */
     .page {
       position: absolute;
@@ -418,7 +455,7 @@
       pointer-events: auto;
     }
 
-    /* 导出模式：非活动页面完全隐藏 */
+    /* 导出模式:非活动页面完全隐藏 */
     body.export-mode .page {
       display: none !important;
     }
@@ -426,7 +463,7 @@
       display: block !important;
     }
     
-    /* 导出模式：隐藏未显示的弹窗（用visibility而非display，保留DOM） */
+    /* 导出模式:隐藏未显示的弹窗(用visibility而非display,保留DOM) */
     body.export-mode .ai-overlay:not(.show),
     body.export-mode .ptt-overlay:not(.show),
     body.export-mode .settings-sheet-overlay:not(.show),
@@ -466,7 +503,7 @@
       background: linear-gradient(135deg, #EF4444, #DC2626);
     }
 
-    /* 导出模式：强制显示可见卡片的标签 */
+    /* 导出模式:强制显示可见卡片的标签 */
     body.export-mode .card.pos-left .card-label,
     body.export-mode .card.pos-center .card-label,
     body.export-mode .card.pos-right .card-label {
@@ -475,7 +512,7 @@
       transition: none !important;
     }
     
-    /* 导出模式：移除所有动画效果 */
+    /* 导出模式:移除所有动画效果 */
     body.export-mode * {
       animation: none !important;
       transition: none !important;
@@ -761,7 +798,7 @@
       transform: translateY(0);
     }
 
-    /* 顶部栏：上下文 + 关闭 */
+    /* 顶部栏:上下文 + 关闭 */
     .ai-header {
       display: flex;
       justify-content: space-between;
@@ -804,6 +841,49 @@
       justify-content: center;
       align-items: stretch;
       gap: 12px;
+    }
+
+    /* 无AI菜单时的友好提示 */
+    .ai-no-menu-hint {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+      width: 100%;
+    }
+    .ai-hint-avatar {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #FFD93D 0%, #FF9500 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin-bottom: 8px;
+      box-shadow: 0 4px 16px rgba(255, 149, 0, 0.4);
+      animation: gentleBounce 2s ease-in-out infinite;
+    }
+    @keyframes gentleBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .ai-hint-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #FFD93D;
+      margin-bottom: 12px;
+    }
+    .ai-hint-text {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.6;
+    }
+    .ai-hint-text strong {
+      color: #A78BFA;
+      font-weight: 600;
     }
 
     .ai-menu-item {
@@ -854,7 +934,7 @@
       text-align: center;
     }
 
-    /* ============ AI 语音对话浮层（简化版 V2）============ */
+    /* ============ AI 语音对话浮层(简化版 V2)============ */
     .ptt-backdrop {
       position: absolute;
       inset: 0;
@@ -1052,7 +1132,7 @@
     .ptt-wave-bar:nth-child(5) { height: 12px; animation-delay: 0.2s; }
     .ptt-wave-bar:nth-child(6) { height: 16px; animation-delay: 0.1s; }
 
-    /* 底部提示区（居中） */
+    /* 底部提示区(居中) */
     .ptt-footer {
       display: flex;
       justify-content: center;
@@ -3678,7 +3758,7 @@
       border: 2px solid #EF4444;
     }
 
-    /* ===== 物种详情AI浮层 ===== */
+    /* ===== 发现详情AI浮层 ===== */
     .species-detail-ai-overlay {
       position: absolute;
       bottom: 0;
@@ -3739,7 +3819,7 @@
       transform: scale(1.02);
     }
 
-    /* 相关物种 */
+    /* 相关发现 */
     .detail-related-content {
       display: flex;
       flex-direction: column;
@@ -4774,32 +4854,44 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 24px;
+      font-size: 32px;
       font-weight: 700;
       color: #FFD700;
-      text-shadow: 0 2px 8px rgba(255, 215, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.3);
-      z-index: 500;
+      text-shadow: 0 2px 12px rgba(255, 215, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.4);
+      z-index: 9999;
       pointer-events: none;
       opacity: 0;
+      background: rgba(0,0,0,0.7);
+      padding: 12px 24px;
+      border-radius: 20px;
     }
     .xp-float.show {
-      animation: xpFloatUp 1.5s ease-out forwards;
+      animation: xpFloatUp 1.8s ease-out forwards;
     }
     @keyframes xpFloatUp {
       0% {
         opacity: 0;
+        top: 50%;
         transform: translate(-50%, -50%) scale(0.5);
       }
-      20% {
+      15% {
         opacity: 1;
+        top: 50%;
         transform: translate(-50%, -50%) scale(1.2);
       }
-      40% {
-        transform: translate(-50%, -70%) scale(1);
+      30% {
+        top: 50%;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      70% {
+        opacity: 1;
+        top: 50%;
+        transform: translate(-50%, -50%) scale(1);
       }
       100% {
         opacity: 0;
-        transform: translate(-50%, -120%) scale(0.8);
+        top: 30%;
+        transform: translate(-50%, -50%) scale(0.8);
       }
     }
 
@@ -4890,7 +4982,7 @@
       box-shadow: 0 4px 12px rgba(255, 200, 0, 0.4);
     }
 
-    /* ============ 徽章解锁弹窗 ============ */
+    /* ============ 勋章解锁弹窗 ============ */
     .badge-modal-overlay {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -5601,19 +5693,7 @@
     }
 
     .photo-species-tag {
-      position: absolute;
-      bottom: 6px;
-      left: 6px;
-      right: 6px;
-      background: rgba(0, 0, 0, 0.6);
-      border-radius: 6px;
-      padding: 4px 6px;
-      font-size: 10px;
-      color: white;
-      text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      display: none;
     }
 
     /* 右侧知识栏 */
@@ -5672,7 +5752,36 @@
       font-size: 13px;
       font-weight: 600;
       color: #5D4E3A;
+      margin-bottom: 0;
+    }
+
+    .section-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       margin-bottom: 10px;
+    }
+
+    .section-voice-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, #4CAF50, #81C784);
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(76, 175, 80, 0.3);
+      transition: all 0.2s;
+    }
+    .section-voice-btn:hover {
+      transform: scale(1.1);
+    }
+    .section-voice-btn:active {
+      transform: scale(0.95);
     }
 
     /* 趣味知识 */
@@ -5858,6 +5967,914 @@
       /* 使用page-blur-bg统一背景 */
     }
 
+    /* ============ 探险护照样式 - 双字号规范 ============ */
+    /* 18px：标题、按钮、重点数字 / 14px：正文、说明 */
+    
+    .passport-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 60px 20px 16px;
+      gap: 12px;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .passport-back-btn {
+      position: absolute;
+      top: 10px;
+      left: 14px;
+      background: rgba(0, 0, 0, 0.5);
+      border: none;
+      border-radius: 16px;
+      padding: 8px 14px;
+      font-family: inherit;
+      font-size: 18px;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 20;
+      backdrop-filter: blur(4px);
+    }
+
+    .passport-share-btn {
+      position: absolute;
+      top: 10px;
+      right: 62px;
+      background: rgba(0, 0, 0, 0.5);
+      border: none;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      font-size: 18px;
+      cursor: pointer;
+      z-index: 20;
+      backdrop-filter: blur(4px);
+    }
+
+    .passport-notify-btn {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      background: rgba(0, 0, 0, 0.5);
+      border: none;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      font-size: 18px;
+      cursor: pointer;
+      z-index: 20;
+      backdrop-filter: blur(4px);
+    }
+
+    .passport-notify-btn .notify-dot {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 10px;
+      height: 10px;
+      background: #EF4444;
+      border-radius: 50%;
+      border: 2px solid rgba(0,0,0,0.5);
+    }
+
+
+    /* 护照身份卡 */
+    .passport-identity-card {
+      background: linear-gradient(145deg, #F5E6D3 0%, #E8D4BC 50%, #DCC8A8 100%);
+      border-radius: 14px;
+      padding: 36px 18px 18px 18px;
+      box-shadow: 
+        0 4px 16px rgba(139, 90, 43, 0.25),
+        inset 0 2px 0 rgba(255,255,255,0.4);
+      position: relative;
+      border: 3px solid #C4A574;
+    }
+
+    .passport-identity-card::before {
+      content: '🌿 EXPLORER PASSPORT 🌿';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      background: linear-gradient(90deg, #8B5A2B 0%, #A0724B 50%, #8B5A2B 100%);
+      color: #FFE4B5;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-align: center;
+      padding: 6px 0;
+      border-radius: 14px 14px 0 0;
+    }
+
+    .passport-identity-card::after {
+      display: none;
+    }
+
+    .passport-profile {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .passport-avatar-area {
+      position: relative;
+    }
+
+    .passport-avatar-frame {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      background: linear-gradient(135deg, #FFF8E7 0%, #FFE4B5 100%);
+      position: relative;
+    }
+    /* 彩虹相框 - 静态渐变边框 */
+    .passport-avatar-frame::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 15px;
+      padding: 4px;
+      background: linear-gradient(
+        135deg,
+        #FF6B6B 0%,
+        #FFD93D 25%,
+        #6BCB77 50%,
+        #4D96FF 75%,
+        #9B59B6 100%
+      );
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+    /* 小装饰角标 */
+    .passport-avatar-frame::after {
+      content: '✦';
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      z-index: 3;
+    }
+
+    .passport-streak-badge {
+      position: absolute;
+      bottom: -6px;
+      right: -10px;
+      background: linear-gradient(135deg, #FF6B6B 0%, #EE5A24 100%);
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      z-index: 2;
+    }
+
+    .passport-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .passport-listener-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #8B5A2B;
+      letter-spacing: 1px;
+    }
+
+    .passport-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: #5D4037;
+    }
+
+    .passport-level-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .passport-level-badge {
+      background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 12px;
+    }
+
+    .passport-stars-count {
+      font-size: 18px;
+      color: #8B5A2B;
+      font-weight: 700;
+    }
+
+    .passport-progress-section {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .passport-progress-bar {
+      flex: 1;
+      height: 14px;
+      background: rgba(139, 90, 43, 0.2);
+      border-radius: 7px;
+      overflow: hidden;
+      border: 1px solid rgba(139, 90, 43, 0.3);
+    }
+
+    .passport-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #FFD700 0%, #FFA500 100%);
+      border-radius: 7px;
+    }
+
+    .passport-next-level {
+      font-size: 14px;
+      color: #8B5A2B;
+      font-weight: 700;
+    }
+
+    .passport-today-gain {
+      position: absolute;
+      top: 32px;
+      right: 14px;
+      background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+      color: white;
+      padding: 8px 14px;
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .passport-today-label {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .passport-today-value {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    /* 统计数据 */
+    .passport-stats {
+      display: flex;
+      gap: 10px;
+    }
+
+    .passport-stat-item {
+      flex: 1;
+      background: linear-gradient(180deg, #FFFFFF 0%, #F5F5F5 100%);
+      border-radius: 14px;
+      padding: 12px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+
+    .passport-stat-item:active {
+      transform: scale(0.95);
+    }
+
+    .passport-stat-icon {
+      font-size: 28px;
+    }
+
+    .passport-stat-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .passport-stat-hint {
+      font-size: 14px;
+      color: #888;
+    }
+
+    /* 通用区块 */
+    .passport-section {
+      background: linear-gradient(180deg, #FFFFFF 0%, #F9FAFB 100%);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    .passport-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .passport-section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #5D4037;
+    }
+
+    .passport-see-all {
+      background: none;
+      border: none;
+      font-size: 14px;
+      color: #8B5A2B;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* 爷爷的老朋友 */
+    .passport-friends-grid {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .passport-friends-grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .passport-friend-item {
+      flex: 0 0 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .passport-friend-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      background: linear-gradient(135deg, #FFF8E7 0%, #FFE4B5 100%);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+
+    .passport-friend-avatar.locked {
+      background: linear-gradient(135deg, #E8E8E8 0%, #D0D0D0 100%);
+      filter: grayscale(0.9);
+      opacity: 0.5;
+    }
+
+    .passport-friend-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #666;
+      text-align: center;
+    }
+
+    /* 探险勋章 */
+    .passport-badges-row {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .passport-badges-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .passport-badge-item {
+      flex: 0 0 90px;
+      background: linear-gradient(180deg, #FFF8E7 0%, #FFE4B5 100%);
+      border-radius: 14px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      position: relative;
+    }
+
+    .passport-badge-item.new::after {
+      content: '新';
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: #EF4444;
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 10px;
+    }
+
+    .passport-badge-item.locked {
+      background: linear-gradient(180deg, #F0F0F0 0%, #E0E0E0 100%);
+      opacity: 0.6;
+    }
+
+    .passport-badge-icon {
+      font-size: 36px;
+    }
+
+    .passport-badge-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #555;
+      text-align: center;
+    }
+
+    .passport-badge-rarity {
+      font-size: 14px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 8px;
+    }
+
+    .passport-badge-rarity.common { background: #C0C0C0; color: white; }
+    .passport-badge-rarity.rare { background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%); color: white; }
+    .passport-badge-rarity.epic { background: linear-gradient(135deg, #A855F7 0%, #7C3AED 100%); color: white; }
+
+    .passport-badge-progress {
+      font-size: 14px;
+      font-weight: 600;
+      color: #888;
+    }
+
+    /* 探险之路入口 */
+    .passport-journey-card {
+      background: linear-gradient(135deg, #8B5A2B 0%, #6D4C2A 100%);
+      border-radius: 14px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(139, 90, 43, 0.35);
+      position: relative;
+    }
+
+    .passport-journey-icon {
+      font-size: 36px;
+    }
+
+    .passport-journey-info {
+      flex: 1;
+    }
+
+    .passport-journey-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #FFD700;
+      margin-bottom: 4px;
+    }
+
+    .passport-journey-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .passport-journey-arrow {
+      font-size: 24px;
+      color: #FFD700;
+    }
+
+    .passport-voice-btn {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    /* 爷爷的信入口卡片 */
+    .passport-letters-card {
+      background: linear-gradient(135deg, #D4A574 0%, #B8956E 100%);
+      border-radius: 14px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(180, 140, 100, 0.35);
+      position: relative;
+      border: 2px solid rgba(139, 90, 43, 0.3);
+    }
+    .passport-letters-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' fill='%23000' fill-opacity='0.02'/%3E%3C/svg%3E");
+      border-radius: 12px;
+      pointer-events: none;
+    }
+    .passport-letters-icon {
+      font-size: 36px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+    .passport-letters-info {
+      flex: 1;
+    }
+    .passport-letters-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #5D4037;
+      margin-bottom: 4px;
+    }
+    .passport-letters-desc {
+      font-size: 14px;
+      color: rgba(93, 64, 55, 0.85);
+    }
+    .passport-letters-badge {
+      background: #E53935;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(229, 57, 53, 0.4);
+    }
+    .passport-letters-arrow {
+      font-size: 24px;
+      color: #5D4037;
+    }
+
+    /* ========== 爷爷的信页面 ========== */
+    .letters-container {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, #F5E6D3 0%, #E8D5C4 50%, #DCC8B5 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .letters-container::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='1' fill='%238B5A2B' fill-opacity='0.05'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h200v200H0z' fill='none'/%3E%3Cpath d='M100 0v200M0 100h200' stroke='%238B5A2B' stroke-opacity='0.03' stroke-width='1'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .letters-back-btn {
+      position: absolute;
+      top: 14px;
+      left: 20px;
+      background: rgba(0, 0, 0, 0.4);
+      border: none;
+      border-radius: 18px;
+      padding: 8px 14px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      z-index: 20;
+      backdrop-filter: blur(4px);
+    }
+    .letters-header {
+      text-align: center;
+      padding: 56px 20px 16px;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+    .letters-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #5D4037;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .letters-subtitle {
+      font-size: 14px;
+      color: #8D6E63;
+      margin-top: 6px;
+    }
+    .letters-progress {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(139, 90, 43, 0.15);
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-top: 10px;
+      font-size: 14px;
+      color: #6D4C41;
+      font-weight: 600;
+    }
+    .letters-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      padding: 16px 24px 24px;
+      flex: 1;
+      overflow-y: auto;
+      position: relative;
+      z-index: 1;
+      align-content: start;
+    }
+    .letters-grid::-webkit-scrollbar {
+      width: 6px;
+    }
+    .letters-grid::-webkit-scrollbar-thumb {
+      background: rgba(139, 90, 43, 0.3);
+      border-radius: 3px;
+    }
+
+    /* 信封样式 */
+    .letter-envelope {
+      aspect-ratio: 1;
+      background: linear-gradient(180deg, #FFF8E7 0%, #F5E6D3 100%);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(139, 90, 43, 0.25);
+      border: 2px solid #D7CCC8;
+      transition: all 0.3s ease;
+    }
+    .letter-envelope:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(139, 90, 43, 0.35);
+    }
+    .letter-envelope.unlocked {
+      background: linear-gradient(180deg, #FFFDE7 0%, #FFF8E1 100%);
+      border-color: #FFD54F;
+    }
+    .letter-envelope.unlocked::after {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 30px solid transparent;
+      border-right: 30px solid transparent;
+      border-bottom: 20px solid #FFD54F;
+      opacity: 0.6;
+    }
+    .letter-envelope.locked {
+      background: linear-gradient(180deg, #EFEBE9 0%, #D7CCC8 100%);
+      border-color: #BCAAA4;
+      cursor: default;
+    }
+    .letter-envelope.locked:hover {
+      transform: none;
+      box-shadow: 0 4px 12px rgba(139, 90, 43, 0.25);
+    }
+    .letter-envelope-icon {
+      font-size: 28px;
+      margin-bottom: 4px;
+    }
+    .letter-envelope.locked .letter-envelope-icon {
+      filter: grayscale(0.5) opacity(0.6);
+    }
+    .letter-envelope-number {
+      font-size: 14px;
+      font-weight: 600;
+      color: #8D6E63;
+    }
+    .letter-envelope.locked .letter-envelope-number {
+      color: #A1887F;
+    }
+    /* 蜡封效果 */
+    .letter-wax-seal {
+      position: absolute;
+      bottom: 8px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .letter-envelope.unlocked .letter-wax-seal {
+      background: linear-gradient(135deg, #FFD700 0%, #FFC107 100%);
+    }
+    .letter-envelope.locked .letter-wax-seal {
+      background: linear-gradient(135deg, #9E9E9E 0%, #757575 100%);
+    }
+    /* 新信件标记 */
+    .letter-new-badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: #E53935;
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(229, 57, 53, 0.4);
+    }
+    /* 信件类型标签 */
+    .letter-type-tag {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      font-size: 14px;
+      background: rgba(255,255,255,0.8);
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    /* ========== 信件阅读弹窗 ========== */
+    .letter-modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .letter-modal-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .letter-modal {
+      width: 420px;
+      max-height: 400px;
+      background: linear-gradient(180deg, #FFF8E7 0%, #F5E6D3 100%);
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      position: relative;
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.3s ease;
+      overflow: hidden;
+    }
+    .letter-modal-overlay.show .letter-modal {
+      transform: scale(1) translateY(0);
+    }
+    .letter-modal::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='4' height='4' viewBox='0 0 4 4' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 3h1v1H1V3zm2-2h1v1H3V1z' fill='%238B5A2B' fill-opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .letter-modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(139, 90, 43, 0.2);
+      border: none;
+      font-size: 14px;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .letter-modal-header {
+      padding: 20px 24px 12px;
+      border-bottom: 1px dashed #D7CCC8;
+      position: relative;
+    }
+    .letter-modal-type {
+      font-size: 14px;
+      color: #8D6E63;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .letter-modal-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #5D4037;
+      margin-top: 6px;
+    }
+    .letter-modal-content {
+      padding: 20px 24px;
+      max-height: 240px;
+      overflow-y: auto;
+    }
+    .letter-modal-content::-webkit-scrollbar {
+      width: 4px;
+    }
+    .letter-modal-content::-webkit-scrollbar-thumb {
+      background: rgba(139, 90, 43, 0.2);
+      border-radius: 2px;
+    }
+    .letter-modal-text {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #5D4037;
+      font-family: 'Comic Neue', cursive;
+      white-space: pre-wrap;
+    }
+    .letter-modal-signature {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px dashed #D7CCC8;
+    }
+    .letter-modal-signature-text {
+      font-size: 14px;
+      font-weight: 700;
+      color: #6D4C41;
+      font-style: italic;
+    }
+    .letter-modal-stamp {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8B5A2B 0%, #6D4C2A 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #FFD700;
+      box-shadow: 0 2px 8px rgba(139, 90, 43, 0.4);
+      border: 2px solid #A67C52;
+    }
+    .letter-modal-stamp-icon {
+      font-size: 18px;
+    }
+    .letter-modal-stamp-text {
+      font-size: 8px;
+      font-weight: 700;
+    }
+    .letter-modal-footer {
+      padding: 12px 24px 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .letter-voice-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 24px;
+      background: linear-gradient(135deg, #8B5A2B 0%, #6D4C2A 100%);
+      border: none;
+      border-radius: 20px;
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(139, 90, 43, 0.3);
+    }
+
+        /* 旧样式保留兼容 */
     .explorer-container {
       width: 100%;
       height: 100%;
@@ -6227,42 +7244,57 @@
       color: rgba(255,255,255,0.7);
     }
 
-    /* ============ 升级指南 升级指南页 ============ */
+    /* ============ 探险之路页 ============ */
     #level-guide-page {
       /* 使用page-blur-bg统一背景 */
     }
 
-    .level-guide-container {
+    .journey-container {
       width: 100%;
       height: 100%;
       display: flex;
       flex-direction: column;
-      padding: 56px 20px 16px;
-      gap: 12px;
+      padding: 60px 20px 16px;
+      gap: 14px;
       overflow-y: auto;
     }
 
-    .level-guide-back-btn {
+    .journey-back-btn {
       position: absolute;
-      top: 14px;
-      left: 20px;
-      background: rgba(0, 0, 0, 0.4);
+      top: 10px;
+      left: 14px;
+      background: rgba(0, 0, 0, 0.5);
       border: none;
-      border-radius: 18px;
+      border-radius: 16px;
       padding: 8px 14px;
       font-family: inherit;
-      font-size: 13px;
+      font-size: 18px;
       font-weight: 600;
       color: white;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       z-index: 20;
       backdrop-filter: blur(4px);
     }
 
-    .level-guide-title {
+    .journey-voice-title-btn {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      background: rgba(0, 0, 0, 0.5);
+      border: none;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      font-size: 18px;
+      cursor: pointer;
+      z-index: 20;
+      backdrop-filter: blur(4px);
+    }
+
+    .journey-title {
       font-size: 18px;
       font-weight: 700;
       color: white;
@@ -6270,366 +7302,306 @@
       text-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
 
-    /* 等级进度线 */
-    .level-timeline {
-      background: rgba(255,255,255,0.95);
+    /* 当前进度 */
+    .journey-progress-header {
+      background: linear-gradient(145deg, #FFF8E7 0%, #FFE4B5 100%);
       border-radius: 16px;
-      padding: 20px 12px 24px;
-      position: relative;
+      padding: 14px 16px;
+      border: 2px solid #D4A574;
     }
 
-    .timeline-track {
-      height: 6px;
-      background: #E5E7EB;
-      border-radius: 3px;
-      position: absolute;
-      left: 24px;
-      right: 24px;
-      top: 29px;
-    }
-
-    .timeline-progress {
-      height: 100%;
-      background: linear-gradient(90deg, #4CAF50 0%, #8BC34A 100%);
-      border-radius: 3px;
-    }
-
-    .timeline-nodes {
-      display: flex;
-      justify-content: space-between;
-      position: relative;
-      z-index: 1;
-    }
-
-    .timeline-node {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: #E5E7EB;
+    .journey-progress-row {
       display: flex;
       align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .timeline-node.已完成 {
-      background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
-    }
-
-    .timeline-node.current {
-      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-      box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.4);
-    }
-
-    .timeline-node.legendary-node {
-      background: linear-gradient(135deg, #A855F7 0%, #7C3AED 100%);
-    }
-
-    .node-level {
-      font-size: 10px;
-      font-weight: 700;
-      color: white;
-    }
-
-    .timeline-node:not(.已完成):not(.current):not(.legendary-node) .node-level {
-      color: #9CA3AF;
-    }
-
-    .node-you {
-      position: absolute;
-      bottom: -14px;
-      font-size: 8px;
-      font-weight: 700;
-      color: #F59E0B;
-      white-space: nowrap;
-    }
-
-    /* 等级列表 */
-    .level-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .level-card {
-      background: rgba(255,255,255,0.9);
-      border-radius: 12px;
-      padding: 12px;
-      border-left: 4px solid #E5E7EB;
-    }
-
-    .level-card.已完成 {
-      border-left-color: #4CAF50;
-      opacity: 0.7;
-    }
-
-    .level-card.current {
-      border-left-color: #FFD700;
-      background: linear-gradient(135deg, #FFFEF0 0%, #FFF8DC 100%);
-      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
-    }
-
-    .level-card.next {
-      border-left-color: #667EEA;
-      background: linear-gradient(135deg, #F0F4FF 0%, #E8EDFF 100%);
-    }
-
-    .level-card.locked {
-      opacity: 0.5;
-    }
-
-    .level-card.legendary {
-      border-left-color: #A855F7;
-      background: linear-gradient(135deg, #FAF5FF 0%, #F3E8FF 100%);
-    }
-
-    .level-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .level-num {
-      font-size: 12px;
-      font-weight: 700;
-      color: #666;
-    }
-
-    .level-name {
-      flex: 1;
-      font-size: 13px;
-      font-weight: 600;
-      color: #333;
-    }
-
-    .level-status {
-      font-size: 12px;
-    }
-
-    .level-status.current-badge {
-      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-      color: white;
-      font-size: 9px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 8px;
-    }
-
-    .level-status.next-badge {
-      background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
-      color: white;
-      font-size: 9px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 8px;
-    }
-
-    .level-unlocks {
-      margin-top: 8px;
-    }
-
-    .unlock-category {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .unlock-tag {
-      font-size: 10px;
-      font-weight: 600;
-      padding: 4px 8px;
-      border-radius: 6px;
-      display: inline-flex;
-      align-items: center;
-      gap: 2px;
-    }
-
-    /* AI角色 - 紫色 */
-    .unlock-tag.ai {
-      background: linear-gradient(135deg, #E9D5FF 0%, #DDD6FE 100%);
-      color: #7C3AED;
-    }
-
-    /* 画风 - 橙色 */
-    .unlock-tag.style {
-      background: linear-gradient(135deg, #FED7AA 0%, #FDBA74 100%);
-      color: #C2410C;
-    }
-
-    /* 头像框 - 金色 */
-    .unlock-tag.frame {
-      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
-      color: #B45309;
-    }
-
-    /* 称号 - 绿色 */
-    .unlock-tag.title {
-      background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
-      color: #047857;
-    }
-
-    /* 功能 - 蓝色 */
-    .unlock-tag.feature {
-      background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%);
-      color: #1D4ED8;
-    }
-
-    /* 贴纸 - 粉色 */
-    .unlock-tag.sticker {
-      background: linear-gradient(135deg, #FCE7F3 0%, #FBCFE8 100%);
-      color: #BE185D;
-    }
-
-    /* 高亮(下一级重点) */
-    .unlock-tag.highlight {
-      box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.4);
-      animation: tag-pulse 2s infinite;
-    }
-
-    @keyframes tag-pulse {
-      0%, 100% { box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.4); }
-      50% { box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2); }
-    }
-
-    /* 传说级 - 彩虹渐变 */
-    .unlock-tag.legendary {
-      background: linear-gradient(135deg, #FFD700 0%, #FF6B6B 25%, #A855F7 50%, #3B82F6 75%, #10B981 100%);
-      color: white;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-    }
-
-    .level-progress-info {
-      margin-top: 8px;
-      font-size: 11px;
-      color: #888;
-    }
-
-    .mini-progress {
-      height: 4px;
-      background: rgba(0,0,0,0.1);
-      border-radius: 2px;
-      margin-top: 4px;
-    }
-
-    .mini-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #4CAF50 0%, #8BC34A 100%);
-      border-radius: 2px;
-    }
-
-    .level-xp-need {
-      margin-top: 6px;
-      font-size: 11px;
-      color: #667EEA;
-      font-weight: 600;
-    }
-
-    /* XP获取指南 */
-    .xp-guide-section {
-      background: rgba(255,255,255,0.95);
-      border-radius: 14px;
-      padding: 14px;
-      margin-top: 4px;
-    }
-
-    .xp-guide-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: #5D4E3A;
+      gap: 10px;
       margin-bottom: 10px;
     }
 
-    .xp-guide-list {
+    .journey-progress-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    .journey-progress-info {
+      flex: 1;
+    }
+
+    .journey-progress-level {
+      font-size: 14px;
+      color: #8B5A2B;
+    }
+
+    .journey-progress-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: #5D4037;
+    }
+
+    .journey-progress-stars {
+      font-size: 18px;
+      font-weight: 700;
+      color: #F59E0B;
+    }
+
+    .journey-progress-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .journey-progress-bar {
+      flex: 1;
+      height: 12px;
+      background: rgba(139, 90, 43, 0.2);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .journey-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #FFD700 0%, #FFA500 100%);
+      border-radius: 6px;
+    }
+
+    .journey-progress-next {
+      font-size: 14px;
+      color: #8B5A2B;
+      font-weight: 600;
+    }
+
+    /* 等级路线图 - 单列 */
+    .journey-levels-section {
+      background: rgba(255,255,255,0.95);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .journey-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .journey-section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #5D4037;
+    }
+
+    .journey-section-voice {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .journey-levels-list {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 10px;
     }
 
-    .xp-item {
+    .journey-level-card {
+      background: linear-gradient(180deg, #F5F5F5 0%, #E8E8E8 100%);
+      border-radius: 14px;
+      padding: 12px 14px;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .journey-level-card:active {
+      transform: scale(0.98);
+    }
+
+    .journey-level-card.completed {
+      background: linear-gradient(180deg, #E8F5E9 0%, #C8E6C9 100%);
+      border-color: #4CAF50;
+      opacity: 0.85;
+    }
+
+    .journey-level-card.current {
+      background: linear-gradient(180deg, #FFF8E1 0%, #FFECB3 100%);
+      border-color: #FFD700;
+      box-shadow: 0 4px 16px rgba(255, 215, 0, 0.3);
+    }
+
+    .journey-level-card.next {
+      background: linear-gradient(180deg, #E3F2FD 0%, #BBDEFB 100%);
+      border-color: #667EEA;
+    }
+
+    .journey-level-card.locked {
+      opacity: 0.5;
+    }
+
+    .journey-level-card.legendary {
+      background: linear-gradient(180deg, #F3E5F5 0%, #E1BEE7 100%);
+      border-color: #9C27B0;
+    }
+
+    .journey-level-header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
+      gap: 10px;
+      margin-bottom: 10px;
     }
 
-    .xp-item:last-child {
-      border-bottom: none;
-    }
-
-    .xp-action {
-      font-size: 12px;
-      color: #555;
-    }
-
-    .xp-value {
-      font-size: 12px;
-      font-weight: 700;
-      color: #4CAF50;
-    }
-
-    /* ============ 首页通知铃铛 ============ */
-    .home-notification-bell {
-      position: absolute;
-      top: 50px;
-      right: 20px;
-      width: 44px;
-      height: 44px;
-      background: rgba(255, 255, 255, 0.9);
+    .journey-level-num {
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
+      background: #9CA3AF;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
-      cursor: pointer;
-      z-index: 20;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      transition: transform 0.2s;
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
     }
-    .home-notification-bell:进行中 {
+
+    .journey-level-card.completed .journey-level-num {
+      background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+    }
+
+    .journey-level-card.current .journey-level-num {
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    }
+
+    .journey-level-card.next .journey-level-num {
+      background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+    }
+
+    .journey-level-card.legendary .journey-level-num {
+      background: linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%);
+    }
+
+    .journey-level-name {
+      flex: 1;
+      font-size: 18px;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .journey-level-status {
+      font-size: 14px;
+    }
+
+    .journey-level-unlocks {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .journey-unlock-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255,255,255,0.8);
+      padding: 10px 14px;
+      border-radius: 12px;
+      min-width: 72px;
+    }
+
+    .journey-unlock-item .icon {
+      font-size: 32px;
+    }
+
+    .journey-unlock-item .label {
+      font-size: 14px;
+      color: #555;
+      font-weight: 500;
+    }
+
+    /* 星星获取方式 */
+    .journey-stars-section {
+      background: linear-gradient(180deg, #FFFBEB 0%, #FEF3C7 100%);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .journey-stars-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .journey-stars-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #92400E;
+    }
+
+    .journey-stars-voice {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .journey-stars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .journey-star-item {
+      background: rgba(255,255,255,0.9);
+      border-radius: 14px;
+      padding: 14px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .journey-star-item:active {
       transform: scale(0.95);
     }
-    .home-notification-bell .notification-dot {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 10px;
-      height: 10px;
-      background: #EF4444;
-      border-radius: 50%;
-      border: 2px solid white;
+
+    .journey-star-icon {
+      font-size: 32px;
     }
 
-    /* Explorer页通知按钮 */
-    .explorer-notification-btn {
-      position: absolute;
-      top: 14px;
-      right: 20px;
-      width: 40px;
-      height: 40px;
-      background: rgba(0, 0, 0, 0.4);
-      border: none;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      cursor: pointer;
-      z-index: 20;
-      backdrop-filter: blur(4px);
-    }
-    .explorer-notification-btn .notification-dot {
-      position: absolute;
-      top: 6px;
-      right: 6px;
-      width: 8px;
-      height: 8px;
-      background: #EF4444;
-      border-radius: 50%;
-      border: 2px solid white;
+    .journey-star-action {
+      font-size: 14px;
+      font-weight: 600;
+      color: #5D4037;
+      text-align: center;
     }
 
-    /* ============ Notifications 通知列表页 ============ */
+    .journey-star-value {
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 12px;
+    }
+
+        /* ============ Notifications 通知列表页 ============ */
     #notifications-page {
       overflow: hidden;
     }
@@ -7932,24 +8904,24 @@
               <div class="card-label">设置</div>
             </div>
             <div class="card pos-center" data-page="camera-page" onclick="handleCardClick(1)">
-              <div class="card-icon"><img src="icons/Camera.png" alt="相机"></div>
+              <div class="card-icon"><img src="icons/Camera.png" alt="神奇相机"></div>
               <div class="card-label">相机</div>
             </div>
             <div class="card pos-right" data-page="map-page" onclick="handleCardClick(2)">
-              <div class="card-icon"><img src="icons/Map.png" alt="地图"></div>
+              <div class="card-icon"><img src="icons/Map.png" alt="探索地图"></div>
               <div class="card-label">地图</div>
             </div>
             <div class="card pos-far-right" data-page="workshop-page" onclick="handleCardClick(3)">
-              <div class="card-icon"><img src="icons/Workshop.png" alt="工坊"></div>
-              <div class="card-label">工坊</div>
+              <div class="card-icon"><img src="icons/Workshop.png" alt="魔法工坊"></div>
+              <div class="card-label">魔法工坊</div>
             </div>
             <div class="card pos-hidden" data-page="backpack-page" onclick="handleCardClick(4)">
-              <div class="card-icon"><img src="icons/Backpack.png" alt="背包"></div>
-              <div class="card-label">背包</div>
+              <div class="card-icon"><img src="icons/Backpack.png" alt="探险背包"></div>
+              <div class="card-label">探险背包</div>
             </div>
             <div class="card pos-far-left" data-page="explorer-page" onclick="handleCardClick(5)">
-              <div class="card-icon"><img src="icons/Explorer.png" alt="探险家"></div>
-              <div class="card-label">探险家</div>
+              <div class="card-icon"><img src="icons/Passport.png" alt="探险护照"></div>
+              <div class="card-label">护照</div>
             </div>
           </div>
 
@@ -7984,15 +8956,15 @@
                 <div class="home-learn-content">
                   <div class="learn-card" onclick="hideHomeAIOverlay(); navigateTo('chat-page');">
                     <div class="learn-icon">🐝</div>
-                    <span class="learn-text">蜜蜂为什么会跳舞？</span>
+                    <span class="learn-text">蜜蜂为什么会跳舞?</span>
                   </div>
                   <div class="learn-card" onclick="hideHomeAIOverlay(); navigateTo('chat-page');">
                     <div class="learn-icon">🌻</div>
-                    <span class="learn-text">向日葵真的会转吗？</span>
+                    <span class="learn-text">向日葵真的会转吗?</span>
                   </div>
                   <div class="learn-card" onclick="hideHomeAIOverlay(); navigateTo('chat-page');">
                     <div class="learn-icon">🍄</div>
-                    <span class="learn-text">蘑菇是植物吗？</span>
+                    <span class="learn-text">蘑菇是植物吗?</span>
                   </div>
                 </div>
               </div>
@@ -8002,7 +8974,7 @@
                 <div class="home-progress-content">
                   <div class="progress-stat">
                     <span class="stat-num">12</span>
-                    <span class="stat-label">发现物种</span>
+                    <span class="stat-label">发现</span>
                   </div>
                   <div class="progress-stat">
                     <span class="stat-num">5</span>
@@ -8010,7 +8982,7 @@
                   </div>
                   <div class="progress-stat">
                     <span class="stat-num">3</span>
-                    <span class="stat-label">获得徽章</span>
+                    <span class="stat-label">获得勋章</span>
                   </div>
                   <div class="progress-stat">
                     <span class="stat-num">🔥7</span>
@@ -8103,7 +9075,7 @@
                       <div class="identify-icon">🔍</div>
                       <div class="identify-text">
                         <span class="identify-title">拍照识别</span>
-                        <span class="identify-desc">对准想了解的东西，按快门拍照</span>
+                        <span class="identify-desc">对准想了解的东西,按快门拍照</span>
                       </div>
                     </div>
                     <div class="identify-examples">
@@ -8124,11 +9096,11 @@
                     </div>
                     <div class="tip-card">
                       <span class="tip-icon">📏</span>
-                      <span class="tip-text">靠近一点，拍得更清楚</span>
+                      <span class="tip-text">靠近一点,拍得更清楚</span>
                     </div>
                     <div class="tip-card">
                       <span class="tip-icon">✋</span>
-                      <span class="tip-text">拿稳相机，不要晃动</span>
+                      <span class="tip-text">拿稳相机,不要晃动</span>
                     </div>
                   </div>
                 </div>
@@ -8159,7 +9131,7 @@
               <div class="ai-overlay-bar">
                 <div class="ai-bar-left">
                   <div class="ai-bar-avatar" style="background: linear-gradient(135deg, #34D399 0%, #10B981 100%);">📷</div>
-                  <span class="ai-bar-context">相机</span>
+                  <span class="ai-bar-context">神奇相机</span>
                 </div>
                 <div class="ai-bar-tabs">
                   <div class="ai-bar-tab active" data-tab="0" onclick="switchCameraAITab(0)">
@@ -8230,11 +9202,11 @@
                   <div class="preview-chat-content">
                     <div class="chat-prompt-card" onclick="hidePreviewAIOverlay(); navigateTo('chat-page');">
                       <span class="prompt-icon">💬</span>
-                      <span class="prompt-text">这只蝴蝶吃什么？</span>
+                      <span class="prompt-text">这只蝴蝶吃什么?</span>
                     </div>
                     <div class="chat-prompt-card" onclick="hidePreviewAIOverlay(); navigateTo('chat-page');">
                       <span class="prompt-icon">🏠</span>
-                      <span class="prompt-text">它住在哪里？</span>
+                      <span class="prompt-text">它住在哪里?</span>
                     </div>
                     <div class="chat-prompt-card" onclick="hidePreviewAIOverlay(); navigateTo('chat-page');">
                       <span class="prompt-icon">🎭</span>
@@ -8485,15 +9457,15 @@
                   </div>
                 </div>
                 <div class="task-modal-desc" id="task-modal-desc">
-                  在周围寻找美丽的花朵吧！找到后拍一张照片。你能发现多少种颜色？ 🌈
+                  在周围寻找美丽的花朵吧!找到后拍一张照片。你能发现多少种颜色? 🌈
                 </div>
                 <div class="task-modal-reward">
                   <span>🏆</span>
-                  <span>奖励：+10 经验 & 花朵徽章</span>
+                  <span>奖励:+10 经验 & 花朵勋章</span>
                 </div>
                 <div class="task-modal-actions">
                   <button class="task-btn task-btn-decline" onclick="hideTaskModal()">稍后再说</button>
-                  <button class="task-btn task-btn-accept" onclick="acceptTask()">出发！🚀</button>
+                  <button class="task-btn task-btn-accept" onclick="acceptTask()">出发!🚀</button>
                 </div>
               </div>
             </div>
@@ -8788,7 +9760,7 @@
               <div class="ai-overlay-bar">
                 <div class="ai-bar-left">
                   <div class="ai-bar-avatar" style="background: linear-gradient(135deg, #F472B6 0%, #EC4899 100%);">🎨</div>
-                  <span class="ai-bar-context">创作工坊</span>
+                  <span class="ai-bar-context">魔法工坊</span>
                 </div>
                 <div class="ai-bar-tabs">
                   <div class="ai-bar-tab active" data-tab="0" onclick="switchWorkshopAITab(0)">
@@ -8971,9 +9943,9 @@
 
             <!-- Tab栏 -->
             <div class="backpack-tabs">
-              <button class="backpack-tab 进行中" onclick="switchBackpackTab('album', this)">📷 相册</button>
-              <button class="backpack-tab" onclick="switchBackpackTab('guide', this)">🦋 图鉴</button>
-              <button class="backpack-tab" onclick="switchBackpackTab('badges', this)">🏅 徽章</button>
+              <button class="backpack-tab 进行中" onclick="switchBackpackTab('album', this)">📷 探险记录</button>
+              <button class="backpack-tab" onclick="switchBackpackTab('guide', this)">🦋 我的发现</button>
+              <button class="backpack-tab" onclick="switchBackpackTab('badges', this)">🏅 勋章</button>
               <button class="backpack-tab" onclick="switchBackpackTab('stories', this)">📖 故事</button>
             </div>
 
@@ -9138,7 +10110,7 @@
                     <div class="stat-item">
                       <span class="stat-icon">🦋</span>
                       <span class="stat-number">12</span>
-                      <span class="stat-name">物种</span>
+                      <span class="stat-name">发现</span>
                     </div>
                     <div class="stat-item">
                       <span class="stat-icon">✅</span>
@@ -9153,7 +10125,7 @@
                     <div class="stat-item">
                       <span class="stat-icon">🏅</span>
                       <span class="stat-number">3</span>
-                      <span class="stat-name">徽章</span>
+                      <span class="stat-name">勋章</span>
                     </div>
                   </div>
                 </div>
@@ -9165,7 +10137,7 @@
                       <div class="goal-icon">🎯</div>
                       <div class="goal-info">
                         <span class="goal-title">发现更多昆虫</span>
-                        <span class="goal-desc">再发现3种昆虫，获得「昆虫专家」徽章</span>
+                        <span class="goal-desc">再发现3种昆虫,获得「昆虫专家」勋章</span>
                       </div>
                       <div class="goal-progress">
                         <div class="goal-bar" style="width: 60%;"></div>
@@ -9178,7 +10150,7 @@
               <div class="ai-overlay-bar">
                 <div class="ai-bar-left">
                   <div class="ai-bar-avatar" style="background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);">🎒</div>
-                  <span class="ai-bar-context">背包</span>
+                  <span class="ai-bar-context">探险背包</span>
                 </div>
                 <div class="ai-bar-tabs">
                   <div class="ai-bar-tab active" data-tab="0" onclick="switchBackpackAITab(0)">
@@ -9270,7 +10242,7 @@
                       <div class="challenge-icon">🎲</div>
                       <div class="challenge-info">
                         <span class="challenge-title">寻找雏菊</span>
-                        <span class="challenge-desc">去户外找一朵真正的雏菊拍照吧！</span>
+                        <span class="challenge-desc">去户外找一朵真正的雏菊拍照吧!</span>
                       </div>
                     </div>
                     <button class="challenge-start-btn" onclick="hideSpeciesListAIOverlay(); navigateTo('camera-page');">
@@ -9285,7 +10257,7 @@
                   <div class="species-funfact-content">
                     <div class="funfact-card">
                       <div class="funfact-icon">💡</div>
-                      <div class="funfact-text">向日葵其实不是一朵花，而是由成千上万朵小花组成的！中间的小圆点都是独立的小花哦。</div>
+                      <div class="funfact-text">向日葵其实不是一朵花,而是由成千上万朵小花组成的!中间的小圆点都是独立的小花哦。</div>
                     </div>
                   </div>
                 </div>
@@ -9293,7 +10265,7 @@
                 <!-- 内容3: 小测验 -->
                 <div class="ai-body-content" data-content="2">
                   <div class="species-quiz-content">
-                    <div class="quiz-question">哪种花会跟着太阳转？</div>
+                    <div class="quiz-question">哪种花会跟着太阳转?</div>
                     <div class="quiz-options">
                       <div class="quiz-option" onclick="selectQuizOption(this, false)">🌸 樱花</div>
                       <div class="quiz-option" onclick="selectQuizOption(this, true)">🌻 向日葵</div>
@@ -9306,7 +10278,7 @@
               <div class="ai-overlay-bar">
                 <div class="ai-bar-left">
                   <div class="ai-bar-avatar" style="background: linear-gradient(135deg, #34D399 0%, #10B981 100%);">📚</div>
-                  <span class="ai-bar-context">图鉴</span>
+                  <span class="ai-bar-context">我的发现</span>
                 </div>
                 <div class="ai-bar-tabs">
                   <div class="ai-bar-tab active" data-tab="0" onclick="switchSpeciesListAITab(0)">
@@ -9386,26 +10358,32 @@
                     <div class="species-info-latin">Taraxacum mongolicum</div>
                   </div>
                 </div>
-                <div class="section-title">🎈 趣味知识</div>
+                <div class="section-title-row">
+                  <span class="section-title">🎈 趣味知识</span>
+                  <button class="section-voice-btn" onclick="speakFunFacts()">🔊</button>
+                </div>
                 <div class="species-fun-facts">
                   <div class="fun-fact">
                     <div class="fun-fact-icon">🌬️</div>
-                    <div class="fun-fact-text">种子像小降落伞，风一吹就能飞到很远的地方！</div>
+                    <div class="fun-fact-text">种子像小降落伞,风一吹就能飞到很远的地方!</div>
                   </div>
                   <div class="fun-fact">
                     <div class="fun-fact-icon">🍃</div>
-                    <div class="fun-fact-text">叶子可以吃，有点苦但很健康！</div>
+                    <div class="fun-fact-text">叶子可以吃,有点苦但很健康!</div>
                   </div>
                   <div class="fun-fact">
                     <div class="fun-fact-icon">☀️</div>
-                    <div class="fun-fact-text">花会跟着太阳转动，晚上还会闭合！</div>
+                    <div class="fun-fact-text">花会跟着太阳转动,晚上还会闭合!</div>
                   </div>
                 </div>
               </div>
 
               <!-- 科学小档案 -->
               <div class="science-section">
-                <div class="section-title">📖 科学小档案</div>
+                <div class="section-title-row">
+                  <span class="section-title">📖 科学小档案</span>
+                  <button class="section-voice-btn" onclick="speakScienceInfo()">🔊</button>
+                </div>
                 <div class="science-table">
                   <div class="science-row">
                     <div class="science-label">分类</div>
@@ -9432,15 +10410,18 @@
 
               <!-- 我的发现 -->
               <div class="discovery-section">
-                <div class="section-title">📷 我的发现</div>
+                <div class="section-title-row">
+                  <span class="section-title">📷 我的发现</span>
+                  <button class="section-voice-btn" onclick="speakDiscovery()">🔊</button>
+                </div>
                 <div class="discovery-stats">
                   <div class="discovery-stat">
                     <span>📅</span>
-                    <span>首次发现：1月5日</span>
+                    <span>首次发现:1月5日</span>
                   </div>
                   <div class="discovery-stat">
                     <span>🖼️</span>
-                    <span>共拍摄：2 张</span>
+                    <span>共拍摄:2 张</span>
                   </div>
                 </div>
               </div>
@@ -9463,7 +10444,7 @@
               </div>
             </div>
             
-            <!-- 物种详情AI浮层 -->
+            <!-- 发现详情AI浮层 -->
             <div class="species-detail-ai-overlay hidden" id="species-detail-ai-overlay">
               <div class="ai-overlay-body">
                 <!-- 内容1: 更多知识 -->
@@ -9471,11 +10452,11 @@
                   <div class="detail-morefacts-content">
                     <div class="morefact-card">
                       <span class="morefact-icon">🔬</span>
-                      <span class="morefact-text">蒲公英的种子可以飞行几公里远！</span>
+                      <span class="morefact-text">蒲公英的种子可以飞行几公里远!</span>
                     </div>
                     <div class="morefact-card">
                       <span class="morefact-icon">💊</span>
-                      <span class="morefact-text">它是一种中草药，可以清热解毒。</span>
+                      <span class="morefact-text">它是一种中草药,可以清热解毒。</span>
                     </div>
                     <button class="learn-more-btn" onclick="hideSpeciesDetailAIOverlay(); navigateTo('chat-page');">
                       <span>问AI更多问题</span>
@@ -9484,7 +10465,7 @@
                   </div>
                 </div>
                 
-                <!-- 内容2: 相关物种 -->
+                <!-- 内容2: 相关发现 -->
                 <div class="ai-body-content" data-content="1">
                   <div class="detail-related-content">
                     <div class="related-species-row">
@@ -9505,14 +10486,14 @@
                         <span>???</span>
                       </div>
                     </div>
-                    <div class="related-hint">都是菊科植物哦！</div>
+                    <div class="related-hint">都是菊科植物哦!</div>
                   </div>
                 </div>
                 
                 <!-- 内容3: 考考我 -->
                 <div class="ai-body-content" data-content="2">
                   <div class="detail-quiz-content">
-                    <div class="quiz-question">蒲公英的种子靠什么传播？</div>
+                    <div class="quiz-question">蒲公英的种子靠什么传播?</div>
                     <div class="quiz-options">
                       <div class="quiz-option" onclick="selectDetailQuizOption(this, false)">🐝 蜜蜂</div>
                       <div class="quiz-option" onclick="selectDetailQuizOption(this, true)">🌬️ 风</div>
@@ -9525,7 +10506,7 @@
               <div class="ai-overlay-bar">
                 <div class="ai-bar-left">
                   <div class="ai-bar-avatar" style="background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);">🦋</div>
-                  <span class="ai-bar-context">物种</span>
+                  <span class="ai-bar-context">发现</span>
                 </div>
                 <div class="ai-bar-tabs">
                   <div class="ai-bar-tab active" data-tab="0" onclick="switchSpeciesDetailAITab(0)">
@@ -9534,7 +10515,7 @@
                   </div>
                   <div class="ai-bar-tab" data-tab="1" onclick="switchSpeciesDetailAITab(1)">
                     <span class="tab-icon">🔗</span>
-                    <span class="tab-text">相关物种</span>
+                    <span class="tab-text">相关发现</span>
                   </div>
                   <div class="ai-bar-tab" data-tab="2" onclick="switchSpeciesDetailAITab(2)">
                     <span class="tab-icon">🎯</span>
@@ -9553,118 +10534,170 @@
 
         <!-- ========== Explorer 探险家中心页 ========== -->
         <div id="explorer-page" class="page page-blur-bg">
-          <div class="explorer-container">
+          <div class="passport-container">
             <!-- 返回按钮 -->
-            <button class="explorer-back-btn" onclick="navigateTo('home-page')">
+            <button class="passport-back-btn" onclick="navigateTo('home-page')">
               <span>←</span>
               <span>返回</span>
             </button>
 
-            <!-- 通知铃铛 - 固定入口 -->
-            <button class="explorer-notification-btn" onclick="navigateTo('notifications-page')">
-              <span>🔔</span>
-              <div class="notification-dot" id="explorer-notification-dot"></div>
+            <!-- 分享按钮 -->
+            <button class="passport-share-btn" onclick="showShareModal('explorer')">📤</button>
+
+            <!-- 通知按钮 -->
+            <button class="passport-notify-btn" onclick="navigateTo('notifications-page')">
+              🔔
+              <div class="notify-dot"></div>
             </button>
 
-            <!-- 探险家身份卡 -->
-            <div class="explorer-identity-card">
-              <div class="explorer-profile">
-                <div class="explorer-avatar-large">
-                  <div class="avatar-frame gold">
-                    <span>🧒</span>
-                  </div>
-                  <div class="avatar-streak">🔥 7</div>
+            <!-- 探险护照身份卡 -->
+            <div class="passport-identity-card">
+              <div class="passport-profile">
+                <div class="passport-avatar-area">
+                  <div class="passport-avatar-frame">🧒</div>
+                  <div class="passport-streak-badge">🔥 7</div>
                 </div>
-                <div class="explorer-info">
-                  <div class="explorer-title">自然侦探</div>
-                  <div class="explorer-name">小探险家</div>
-                  <div class="explorer-level-info">
-                    <span class="level-text">5级</span>
-                    <span class="level-xp">1,280 / 1,800 经验</span>
-                  </div>
-                  <div class="xp-progress-bar">
-                    <div class="xp-progress-fill" style="width: 71%;"></div>
+                <div class="passport-info">
+                  <div class="passport-listener-title">倾听者 · Lv.5</div>
+                  <div class="passport-name">自然小侦探</div>
+                  <div class="passport-level-row">
+                    <span class="passport-level-badge">丛林游侠</span>
+                    <span class="passport-stars-count">⭐ 1,280</span>
                   </div>
                 </div>
               </div>
 
-              <!-- 今日XP获得 -->
-              <div class="today-xp" onclick="showTodayXPDetail()">
-                <span class="today-xp-label">今日</span>
-                <span class="today-xp-value">+85 经验</span>
+              <!-- 进度条 -->
+              <div class="passport-progress-section">
+                <div class="passport-progress-bar">
+                  <div class="passport-progress-fill" style="width: 71%;"></div>
+                </div>
+                <div class="passport-next-level">→ Lv.6</div>
+              </div>
+
+              <!-- 今日收获 -->
+              <div class="passport-today-gain" onclick="showTodayXPDetail()">
+                <span class="passport-today-label">今日</span>
+                <span class="passport-today-value">+85 ⭐</span>
               </div>
             </div>
 
             <!-- 统计数据 -->
-            <div class="explorer-stats">
-              <div class="stat-item">
-                <span class="stat-icon">📸</span>
-                <span class="stat-value">128</span>
-                <span class="stat-label">照片</span>
+            <div class="passport-stats">
+              <div class="passport-stat-item" onclick="speakStat('photos')">
+                <span class="passport-stat-icon">📸</span>
+                <span class="passport-stat-value">128</span>
+                <span class="passport-stat-hint">照片</span>
               </div>
-              <div class="stat-item">
-                <span class="stat-icon">🦋</span>
-                <span class="stat-value">23</span>
-                <span class="stat-label">物种</span>
+              <div class="passport-stat-item" onclick="speakStat('species')">
+                <span class="passport-stat-icon">🦋</span>
+                <span class="passport-stat-value">23</span>
+                <span class="passport-stat-hint">发现</span>
               </div>
-              <div class="stat-item">
-                <span class="stat-icon">🏆</span>
-                <span class="stat-value">8</span>
-                <span class="stat-label">徽章</span>
+              <div class="passport-stat-item" onclick="speakStat('medals')">
+                <span class="passport-stat-icon">🎖️</span>
+                <span class="passport-stat-value">8</span>
+                <span class="passport-stat-hint">勋章</span>
               </div>
-              <div class="stat-item">
-                <span class="stat-icon">✅</span>
-                <span class="stat-value">15</span>
-                <span class="stat-label">任务</span>
-              </div>
-            </div>
-
-            <!-- 徽章展示 -->
-            <div class="explorer-badges-section">
-              <div class="section-header">
-                <span class="section-title">🏅 最近徽章</span>
-                <button class="see-all-btn" onclick="navigateTo('backpack-page')">查看全部 →</button>
-              </div>
-              <div class="badges-showcase">
-                <div class="badge-item earned new">
-                  <span class="badge-icon">🌸</span>
-                  <span class="badge-name">花卉专家</span>
-                  <span class="badge-rarity rare">稀有</span>
-                </div>
-                <div class="badge-item earned">
-                  <span class="badge-icon">📸</span>
-                  <span class="badge-name">100张照片</span>
-                  <span class="badge-rarity common">普通</span>
-                </div>
-                <div class="badge-item earned">
-                  <span class="badge-icon">🔥</span>
-                  <span class="badge-name">连续7天</span>
-                  <span class="badge-rarity epic">史诗</span>
-                </div>
-                <div class="badge-item locked">
-                  <span class="badge-icon">🦋</span>
-                  <span class="badge-name">昆虫大师</span>
-                  <span class="badge-progress">12/20</span>
-                </div>
+              <div class="passport-stat-item" onclick="speakStat('tasks')">
+                <span class="passport-stat-icon">🔭</span>
+                <span class="passport-stat-value">15</span>
+                <span class="passport-stat-hint">任务</span>
               </div>
             </div>
 
-            <!-- 下一个目标 -->
-            <div class="next-goal-section">
-              <div class="next-goal-card" onclick="navigateTo('level-guide-page')">
-                <div class="goal-icon">🎯</div>
-                <div class="goal-info">
-                  <div class="goal-title">下一目标：6级</div>
-                  <div class="goal-desc">再获得 520 经验解锁 🦊 森林狐狸 AI</div>
-                </div>
-                <div class="goal-arrow">→</div>
+            <!-- 爷爷的老朋友 -->
+            <div class="passport-section">
+              <div class="passport-section-header">
+                <span class="passport-section-title">🦉 爷爷的老朋友</span>
+                <button class="passport-see-all" onclick="navigateTo('level-guide-page')">更多 →</button>
               </div>
-              
-              <!-- 分享我的成就 -->
-              <button class="explorer-share-card-btn" onclick="event.stopPropagation(); showShareModal('explorer')">
-                <span>📤</span>
-                <span>分享探索历程</span>
-              </button>
+              <div class="passport-friends-grid">
+                <div class="passport-friend-item">
+                  <div class="passport-friend-avatar">🦉</div>
+                  <span class="passport-friend-name">咕咕</span>
+                </div>
+                <div class="passport-friend-item">
+                  <div class="passport-friend-avatar">🤖</div>
+                  <span class="passport-friend-name">锈锈</span>
+                </div>
+                <div class="passport-friend-item">
+                  <div class="passport-friend-avatar">🐰</div>
+                  <span class="passport-friend-name">闪电兔</span>
+                </div>
+                <div class="passport-friend-item">
+                  <div class="passport-friend-avatar">🧙</div>
+                  <span class="passport-friend-name">泡泡精灵</span>
+                </div>
+                <div class="passport-friend-item">
+                  <div class="passport-friend-avatar">🦊</div>
+                  <span class="passport-friend-name">捣蛋狐</span>
+                </div>
+                <div class="passport-friend-item">
+                  <div class="passport-friend-avatar locked">🐸</div>
+                  <span class="passport-friend-name">话唠蛙</span>
+                </div>
+                <div class="passport-friend-item">
+                  <div class="passport-friend-avatar locked">🦋</div>
+                  <span class="passport-friend-name">臭美蝶</span>
+                </div>
+                <div class="passport-friend-item">
+                  <div class="passport-friend-avatar locked">🐉</div>
+                  <span class="passport-friend-name">瞌睡龙</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 探险勋章 -->
+            <div class="passport-section">
+              <div class="passport-section-header">
+                <span class="passport-section-title">🎖️ 探险勋章</span>
+                <button class="passport-see-all" onclick="navigateTo('backpack-page')">更多 →</button>
+              </div>
+              <div class="passport-badges-row">
+                <div class="passport-badge-item new">
+                  <span class="passport-badge-icon">🌸</span>
+                  <span class="passport-badge-name">花语使者</span>
+                  <span class="passport-badge-rarity rare">稀有</span>
+                </div>
+                <div class="passport-badge-item">
+                  <span class="passport-badge-icon">📸</span>
+                  <span class="passport-badge-name">百拍达人</span>
+                  <span class="passport-badge-rarity common">普通</span>
+                </div>
+                <div class="passport-badge-item">
+                  <span class="passport-badge-icon">🔥</span>
+                  <span class="passport-badge-name">七日坚持</span>
+                  <span class="passport-badge-rarity epic">史诗</span>
+                </div>
+                <div class="passport-badge-item locked">
+                  <span class="passport-badge-icon">🦋</span>
+                  <span class="passport-badge-name">昆虫大师</span>
+                  <span class="passport-badge-progress">12/20</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 爷爷的信入口 -->
+            <div class="passport-letters-card" onclick="navigateTo('letters-page')">
+              <div class="passport-letters-icon">📜</div>
+              <div class="passport-letters-info">
+                <div class="passport-letters-title">爷爷的信</div>
+                <div class="passport-letters-desc">已收到 2 封，还有 13 封在路上...</div>
+              </div>
+              <span class="passport-letters-badge">1 新</span>
+              <div class="passport-letters-arrow">→</div>
+            </div>
+
+            <!-- 探险之路入口 -->
+            <div class="passport-journey-card" onclick="navigateTo('level-guide-page')">
+              <div class="passport-journey-icon">🗺️</div>
+              <div class="passport-journey-info">
+                <div class="passport-journey-title">探险之路</div>
+                <div class="passport-journey-desc">再收集 520 颗⭐ 唤醒 🐸 话唠蛙</div>
+              </div>
+              <div class="passport-journey-arrow">→</div>
+              <button class="passport-voice-btn" onclick="event.stopPropagation(); speakJourneyGuide()">🔊</button>
             </div>
           </div>
         </div>
@@ -9692,7 +10725,7 @@
                 <div class="xp-detail-item">
                   <div class="xp-detail-item-icon species">🦋</div>
                   <div class="xp-detail-item-info">
-                    <div class="xp-detail-item-action">发现了2个新物种</div>
+                    <div class="xp-detail-item-action">发现了2个新发现</div>
                     <div class="xp-detail-item-desc">蝴蝶、蜻蜓</div>
                   </div>
                   <div class="xp-detail-item-value">+30 经验</div>
@@ -9709,7 +10742,7 @@
                   <div class="xp-detail-item-icon streak">🔥</div>
                   <div class="xp-detail-item-info">
                     <div class="xp-detail-item-action">连续签到奖励</div>
-                    <div class="xp-detail-item-desc">已连续7天！</div>
+                    <div class="xp-detail-item-desc">已连续7天!</div>
                   </div>
                   <div class="xp-detail-item-value">+10 经验</div>
                 </div>
@@ -9730,234 +10763,409 @@
               
               <div class="xp-detail-tip">
                 <span class="xp-detail-tip-icon">💡</span>
-                <span class="xp-detail-tip-text">继续探索吧！再获得520经验即可升到6级！</span>
+                <span class="xp-detail-tip-text">继续探索吧!再获得520经验即可升到6级!</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- ========== 升级指南 升级指南页 ========== -->
+        <!-- ========== 探险之路页 ========== -->
         <div id="level-guide-page" class="page page-blur-bg">
-          <div class="level-guide-container">
+          <div class="journey-container">
             <!-- 返回按钮 -->
-            <button class="level-guide-back-btn" onclick="navigateTo('explorer-page')">
+            <button class="journey-back-btn" onclick="navigateTo('explorer-page')">
               <span>←</span>
               <span>返回</span>
             </button>
 
-            <div class="level-guide-title">🗺️ 升级指南</div>
+            <!-- 语音按钮 -->
+            <button class="journey-voice-title-btn" onclick="speakJourneyIntro()">🔊</button>
 
-            <!-- 等级进度线 -->
-            <div class="level-timeline">
-              <div class="timeline-track">
-                <div class="timeline-progress" style="width: 44%;"></div>
-              </div>
-              <div class="timeline-nodes">
-                <div class="timeline-node 已完成"><span class="node-level">1</span></div>
-                <div class="timeline-node 已完成"><span class="node-level">2</span></div>
-                <div class="timeline-node 已完成"><span class="node-level">3</span></div>
-                <div class="timeline-node 已完成"><span class="node-level">4</span></div>
-                <div class="timeline-node current">
-                  <span class="node-level">5</span>
-                  <span class="node-you">你</span>
+            <div class="journey-title">🗺️ 探险之路</div>
+
+            <!-- 当前进度 -->
+            <div class="journey-progress-header">
+              <div class="journey-progress-row">
+                <div class="journey-progress-avatar">🧒</div>
+                <div class="journey-progress-info">
+                  <div class="journey-progress-level">Lv.5 · 自然小侦探</div>
+                  <div class="journey-progress-name">Nature Detective</div>
                 </div>
-                <div class="timeline-node"><span class="node-level">6</span></div>
-                <div class="timeline-node"><span class="node-level">7</span></div>
-                <div class="timeline-node"><span class="node-level">8</span></div>
-                <div class="timeline-node"><span class="node-level">9</span></div>
-                <div class="timeline-node legendary-node"><span class="node-level">👑</span></div>
+                <div class="journey-progress-stars">⭐ 1,280</div>
+              </div>
+              <div class="journey-progress-bar-wrap">
+                <div class="journey-progress-bar">
+                  <div class="journey-progress-fill" style="width: 71%;"></div>
+                </div>
+                <span class="journey-progress-next">→ Lv.6</span>
               </div>
             </div>
 
-            <!-- 等级列表 -->
-            <div class="level-list">
-              <div class="level-card 已完成">
-                <div class="level-header">
-                  <span class="level-num">1级</span>
-                  <span class="level-name">初级探险家</span>
-                  <span class="level-status">✓</span>
-                </div>
-                <div class="level-unlocks">
-                  <div class="unlock-category">
-                    <span class="unlock-tag feature">📷 相机</span>
-                    <span class="unlock-tag feature">🔍 AI识别</span>
-                    <span class="unlock-tag feature">📖 图鉴</span>
+            <!-- 等级特权路线图 -->
+            <div class="journey-levels-section">
+              <div class="journey-section-header">
+                <span class="journey-section-title">🎁 等级特权</span>
+                <button class="journey-section-voice" onclick="speakLevelsGuide()">🔊</button>
+              </div>
+              <div class="journey-levels-list">
+                <!-- Lv1 冒险新星 -->
+                <div class="journey-level-card completed" onclick="speakLevelDetail(1)">
+                  <div class="journey-level-header">
+                    <div class="journey-level-num">1</div>
+                    <span class="journey-level-name">冒险新星</span>
+                    <span class="journey-level-status">✓</span>
+                  </div>
+                  <div class="journey-level-unlocks">
+                    <div class="journey-unlock-item"><span class="icon">🦉</span><span class="label">咕咕</span></div>
+                    <div class="journey-unlock-item"><span class="icon">🎨</span><span class="label">5基础风格</span></div>
+                    <div class="journey-unlock-item"><span class="icon">🖼️</span><span class="label">基础框</span></div>
+                    <div class="journey-unlock-item"><span class="icon">🎴</span><span class="label">基础卡片</span></div>
                   </div>
                 </div>
-              </div>
 
-              <div class="level-card 已完成">
-                <div class="level-header">
-                  <span class="level-num">2级</span>
-                  <span class="level-name">好奇宝宝</span>
-                  <span class="level-status">✓</span>
-                </div>
-                <div class="level-unlocks">
-                  <div class="unlock-category">
-                    <span class="unlock-tag frame">🖼️ 青铜相框</span>
-                    <span class="unlock-tag ai">🤖 机器人伙伴</span>
+                <!-- Lv2 好奇宝贝 -->
+                <div class="journey-level-card completed" onclick="speakLevelDetail(2)">
+                  <div class="journey-level-header">
+                    <div class="journey-level-num">2</div>
+                    <span class="journey-level-name">好奇宝贝</span>
+                    <span class="journey-level-status">✓</span>
+                  </div>
+                  <div class="journey-level-unlocks">
+                    <div class="journey-unlock-item"><span class="icon">🤖</span><span class="label">锈锈</span></div>
+                    <div class="journey-unlock-item"><span class="icon">🥉</span><span class="label">铜色框</span></div>
                   </div>
                 </div>
-              </div>
 
-              <div class="level-card 已完成">
-                <div class="level-header">
-                  <span class="level-num">3级</span>
-                  <span class="level-name">观察者</span>
-                  <span class="level-status">✓</span>
-                </div>
-                <div class="level-unlocks">
-                  <div class="unlock-category">
-                    <span class="unlock-tag ai">🧙 智慧精灵</span>
-                    <span class="unlock-tag style">🎨 卡通风格</span>
-                    <span class="unlock-tag title">🏷️ "自然爱好者"</span>
+                <!-- Lv3 森林学徒 -->
+                <div class="journey-level-card completed" onclick="speakLevelDetail(3)">
+                  <div class="journey-level-header">
+                    <div class="journey-level-num">3</div>
+                    <span class="journey-level-name">森林学徒</span>
+                    <span class="journey-level-status">✓</span>
+                  </div>
+                  <div class="journey-level-unlocks">
+                    <div class="journey-unlock-item"><span class="icon">🐰</span><span class="label">闪电兔</span></div>
+                    <div class="journey-unlock-item"><span class="icon">🎪</span><span class="label">泡泡玛特风</span></div>
+                    <div class="journey-unlock-item"><span class="icon">🏷️</span><span class="label">自然爱好者</span></div>
                   </div>
                 </div>
-              </div>
 
-              <div class="level-card 已完成">
-                <div class="level-header">
-                  <span class="level-num">4级</span>
-                  <span class="level-name">学徒</span>
-                  <span class="level-status">✓</span>
-                </div>
-                <div class="level-unlocks">
-                  <div class="unlock-category">
-                    <span class="unlock-tag style">💧 水彩风格</span>
-                    <span class="unlock-tag style">🖍️ 蜡笔风格</span>
-                    <span class="unlock-tag feature">🗺️ 地图任务</span>
+                <!-- Lv4 野外侦察兵 -->
+                <div class="journey-level-card completed" onclick="speakLevelDetail(4)">
+                  <div class="journey-level-header">
+                    <div class="journey-level-num">4</div>
+                    <span class="journey-level-name">野外侦察兵</span>
+                    <span class="journey-level-status">✓</span>
+                  </div>
+                  <div class="journey-level-unlocks">
+                    <div class="journey-unlock-item"><span class="icon">🧙</span><span class="label">泡泡精灵</span></div>
+                    <div class="journey-unlock-item"><span class="icon">🧱</span><span class="label">乐高微缩风</span></div>
+                    <div class="journey-unlock-item"><span class="icon">📖</span><span class="label">讲故事</span></div>
                   </div>
                 </div>
-              </div>
 
-              <div class="level-card current">
-                <div class="level-header">
-                  <span class="level-num">5级</span>
-                  <span class="level-name">自然侦探</span>
-                  <span class="level-status current-badge">当前</span>
-                </div>
-                <div class="level-unlocks">
-                  <div class="unlock-category">
-                    <span class="unlock-tag frame">🖼️ 银色相框</span>
-                    <span class="unlock-tag title">🏷️ 称号展示</span>
-                    <span class="unlock-tag ai">🦉 智慧猫头鹰</span>
-                    <span class="unlock-tag feature">📊 每周报告</span>
+                <!-- Lv5 自然小侦探 当前 -->
+                <div class="journey-level-card current" onclick="speakLevelDetail(5)">
+                  <div class="journey-level-header">
+                    <div class="journey-level-num">5</div>
+                    <span class="journey-level-name">自然小侦探</span>
+                    <span class="journey-level-status">📍当前</span>
+                  </div>
+                  <div class="journey-level-unlocks">
+                    <div class="journey-unlock-item"><span class="icon">🦊</span><span class="label">捣蛋狐</span></div>
+                    <div class="journey-unlock-item"><span class="icon">🎬</span><span class="label">皮克斯风</span></div>
+                    <div class="journey-unlock-item"><span class="icon">🥈</span><span class="label">银色框</span></div>
+                    <div class="journey-unlock-item"><span class="icon">🎴</span><span class="label">银色卡片</span></div>
                   </div>
                 </div>
-                <div class="level-progress-info">
-                  <span>1,280 / 1,800 经验</span>
-                  <div class="mini-progress"><div class="mini-fill" style="width:71%"></div></div>
-                </div>
-              </div>
 
-              <div class="level-card next">
-                <div class="level-header">
-                  <span class="level-num">6级</span>
-                  <span class="level-name">自然童子军</span>
-                  <span class="level-status next-badge">下一级</span>
-                </div>
-                <div class="level-unlocks">
-                  <div class="unlock-category">
-                    <span class="unlock-tag ai highlight">🦊 森林狐狸</span>
-                    <span class="unlock-tag style highlight">🖌️ 油画风格</span>
-                    <span class="unlock-tag style">✏️ 素描风格</span>
-                    <span class="unlock-tag sticker">⭐ 星星贴纸</span>
+                <!-- Lv6 丛林游侠 下一级 -->
+                <div class="journey-level-card next" onclick="speakLevelDetail(6)">
+                  <div class="journey-level-header">
+                    <div class="journey-level-num">6</div>
+                    <span class="journey-level-name">丛林游侠</span>
+                    <span class="journey-level-status">🎯 520⭐</span>
+                  </div>
+                  <div class="journey-level-unlocks">
+                    <div class="journey-unlock-item"><span class="icon">🐸</span><span class="label">话唠蛙</span></div>
+                    <div class="journey-unlock-item"><span class="icon">📐</span><span class="label">低多边形风</span></div>
+                    <div class="journey-unlock-item"><span class="icon">🏷️</span><span class="label">野外专家</span></div>
                   </div>
                 </div>
-                <div class="level-xp-need">🎯 还需520经验解锁</div>
-              </div>
 
-              <div class="level-card locked">
-                <div class="level-header">
-                  <span class="level-num">7级</span>
-                  <span class="level-name">收藏家</span>
-                  <span class="level-status">🔒</span>
-                </div>
-                <div class="level-unlocks">
-                  <div class="unlock-category">
-                    <span class="unlock-tag style">👾 像素风格</span>
-                    <span class="unlock-tag ai">🐸 青蛙护林员</span>
-                    <span class="unlock-tag feature">🔬 专业识别</span>
-                    <span class="unlock-tag title">🏷️ "野外专家"</span>
+                <!-- Lv7 精英猎人 -->
+                <div class="journey-level-card locked" onclick="speakLevelDetail(7)">
+                  <div class="journey-level-header">
+                    <div class="journey-level-num">7</div>
+                    <span class="journey-level-name">精英猎人</span>
+                    <span class="journey-level-status">🔒</span>
+                  </div>
+                  <div class="journey-level-unlocks">
+                    <div class="journey-unlock-item"><span class="icon">🦋</span><span class="label">臭美蝶</span></div>
+                    <div class="journey-unlock-item"><span class="icon">🖼️</span><span class="label">吉卜力风</span></div>
                   </div>
                 </div>
-              </div>
 
-              <div class="level-card locked">
-                <div class="level-header">
-                  <span class="level-num">8级</span>
-                  <span class="level-name">专家</span>
-                  <span class="level-status">🔒</span>
-                </div>
-                <div class="level-unlocks">
-                  <div class="unlock-category">
-                    <span class="unlock-tag frame">🖼️ 金色相框</span>
-                    <span class="unlock-tag sticker">🌈 彩虹贴纸包</span>
-                    <span class="unlock-tag style">🏔️ 吉卜力风格</span>
-                    <span class="unlock-tag ai">🦋 蝴蝶图鉴</span>
-                    <span class="unlock-tag feature">🎵 自然音效</span>
+                <!-- Lv8 探险大师 -->
+                <div class="journey-level-card locked" onclick="speakLevelDetail(8)">
+                  <div class="journey-level-header">
+                    <div class="journey-level-num">8</div>
+                    <span class="journey-level-name">探险大师</span>
+                    <span class="journey-level-status">🔒</span>
+                  </div>
+                  <div class="journey-level-unlocks">
+                    <div class="journey-unlock-item"><span class="icon">🤖</span><span class="label">未来机甲风</span></div>
+                    <div class="journey-unlock-item"><span class="icon">🥇</span><span class="label">金色框</span></div>
+                    <div class="journey-unlock-item"><span class="icon">🎴</span><span class="label">金色卡片</span></div>
                   </div>
                 </div>
-              </div>
 
-              <div class="level-card locked">
-                <div class="level-header">
-                  <span class="level-num">9级</span>
-                  <span class="level-name">学者</span>
-                  <span class="level-status">🔒</span>
-                </div>
-                <div class="level-unlocks">
-                  <div class="unlock-category">
-                    <span class="unlock-tag feature">📖 专家知识</span>
-                    <span class="unlock-tag ai">🧪 科学博士</span>
-                    <span class="unlock-tag style">🌌 银河风格</span>
-                    <span class="unlock-tag title">🏷️ "自然学者"</span>
+                <!-- Lv9 自然守护者 -->
+                <div class="journey-level-card locked" onclick="speakLevelDetail(9)">
+                  <div class="journey-level-header">
+                    <div class="journey-level-num">9</div>
+                    <span class="journey-level-name">自然守护者</span>
+                    <span class="journey-level-status">🔒</span>
+                  </div>
+                  <div class="journey-level-unlocks">
+                    <div class="journey-unlock-item"><span class="icon">🐉</span><span class="label">瞌睡龙</span></div>
+                    <div class="journey-unlock-item"><span class="icon">🏷️</span><span class="label">自然学者</span></div>
                   </div>
                 </div>
-              </div>
 
-              <div class="level-card locked legendary">
-                <div class="level-header">
-                  <span class="level-num">10级</span>
-                  <span class="level-name">传奇探险家</span>
-                  <span class="level-status">👑</span>
-                </div>
-                <div class="level-unlocks">
-                  <div class="unlock-category">
-                    <span class="unlock-tag frame legendary">🌈 彩虹相框</span>
-                    <span class="unlock-tag title legendary">👑 "传奇"</span>
-                    <span class="unlock-tag ai legendary">🐉 龙之智者</span>
-                    <span class="unlock-tag style legendary">✨ 全息风格</span>
-                    <span class="unlock-tag feature legendary">🎁 神秘宝盒</span>
-                    <span class="unlock-tag feature legendary">🔓 全部解锁</span>
+                <!-- Lv10 传奇英雄 -->
+                <div class="journey-level-card locked legendary" onclick="speakLevelDetail(10)">
+                  <div class="journey-level-header">
+                    <div class="journey-level-num">👑</div>
+                    <span class="journey-level-name">传奇英雄</span>
+                    <span class="journey-level-status">🔒</span>
+                  </div>
+                  <div class="journey-level-unlocks">
+                    <div class="journey-unlock-item"><span class="icon">🍬</span><span class="label">Q弹软糖风</span></div>
+                    <div class="journey-unlock-item"><span class="icon">🌈</span><span class="label">彩虹框</span></div>
+                    <div class="journey-unlock-item"><span class="icon">🎴</span><span class="label">彩虹卡片</span></div>
+                    <div class="journey-unlock-item"><span class="icon">🏷️</span><span class="label">传奇探险家</span></div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- XP获取指南 -->
-            <div class="xp-guide-section">
-              <div class="xp-guide-title">💡 如何获得经验</div>
-              <div class="xp-guide-list">
-                <div class="xp-item">
-                  <span class="xp-action">📸 拍摄照片</span>
-                  <span class="xp-value">+2 经验</span>
+            <!-- 星星获取方式 -->
+            <div class="journey-stars-section">
+              <div class="journey-stars-header">
+                <span class="journey-stars-title">⭐ 探索之星的能量</span>
+                <button class="journey-stars-voice" onclick="speakStarsGuide()">🔊</button>
+              </div>
+              <div class="journey-stars-grid">
+                <div class="journey-star-item" onclick="speakStarMethod('photo')">
+                  <span class="journey-star-icon">📸</span>
+                  <span class="journey-star-action">拍摄照片</span>
+                  <span class="journey-star-value">+2</span>
                 </div>
-                <div class="xp-item">
-                  <span class="xp-action">🦋 发现新物种</span>
-                  <span class="xp-value">+15 经验</span>
+                <div class="journey-star-item" onclick="speakStarMethod('species')">
+                  <span class="journey-star-icon">🦋</span>
+                  <span class="journey-star-action">发现</span>
+                  <span class="journey-star-value">+15</span>
                 </div>
-                <div class="xp-item">
-                  <span class="xp-action">⭐ 完成每日任务</span>
-                  <span class="xp-value">+10~35 经验</span>
+                <div class="journey-star-item" onclick="speakStarMethod('task')">
+                  <span class="journey-star-icon">🔭</span>
+                  <span class="journey-star-action">完成任务</span>
+                  <span class="journey-star-value">+10~35</span>
                 </div>
-                <div class="xp-item">
-                  <span class="xp-action">🎨 创作作品</span>
-                  <span class="xp-value">+10 经验</span>
+                <div class="journey-star-item" onclick="speakStarMethod('create')">
+                  <span class="journey-star-icon">🎨</span>
+                  <span class="journey-star-action">创作作品</span>
+                  <span class="journey-star-value">+10</span>
                 </div>
-                <div class="xp-item">
-                  <span class="xp-action">🔥 连续签到奖励</span>
-                  <span class="xp-value">+10 经验</span>
+                <div class="journey-star-item" onclick="speakStarMethod('quiz')">
+                  <span class="journey-star-icon">❓</span>
+                  <span class="journey-star-action">回答问题</span>
+                  <span class="journey-star-value">+5</span>
+                </div>
+                <div class="journey-star-item" onclick="speakStarMethod('streak')">
+                  <span class="journey-star-icon">🔥</span>
+                  <span class="journey-star-action">连续探索</span>
+                  <span class="journey-star-value">+10</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========== 爷爷的信页面 ========== -->
+        <div id="letters-page" class="page">
+          <div class="letters-container">
+            <!-- 返回按钮 -->
+            <button class="letters-back-btn" onclick="navigateTo('explorer-page')">
+              <span>←</span>
+              <span>返回</span>
+            </button>
+
+            <!-- 标题区 -->
+            <div class="letters-header">
+              <div class="letters-title">
+                <span>📜</span>
+                <span>爷爷的信</span>
+              </div>
+              <div class="letters-subtitle">探索世界的路上，爷爷一直陪着你</div>
+              <div class="letters-progress">
+                <span>✉️</span>
+                <span>已收到 2 封 / 共 15 封</span>
+              </div>
+            </div>
+
+            <!-- 信件网格 -->
+            <div class="letters-grid">
+              <!-- 欢迎信 - 已解锁已读 -->
+              <div class="letter-envelope unlocked" onclick="openLetter(0)">
+                <span class="letter-type-tag">👋</span>
+                <span class="letter-envelope-icon">✉️</span>
+                <span class="letter-envelope-number">#1 欢迎信</span>
+                <div class="letter-wax-seal">✓</div>
+              </div>
+              
+              <!-- 探险笔记1 - 已解锁未读 -->
+              <div class="letter-envelope unlocked" onclick="openLetter(1)">
+                <span class="letter-type-tag">📖</span>
+                <span class="letter-envelope-icon">✉️</span>
+                <span class="letter-envelope-number">#2 Lv.1</span>
+                <div class="letter-wax-seal">✓</div>
+                <span class="letter-new-badge">新</span>
+              </div>
+              
+              <!-- 探险笔记2-10 - 未解锁 -->
+              <div class="letter-envelope locked" onclick="showLetterLockHint(2)">
+                <span class="letter-type-tag">📖</span>
+                <span class="letter-envelope-icon">✉️</span>
+                <span class="letter-envelope-number">#3 Lv.2</span>
+                <div class="letter-wax-seal">🔒</div>
+              </div>
+              
+              <div class="letter-envelope locked" onclick="showLetterLockHint(3)">
+                <span class="letter-type-tag">📖</span>
+                <span class="letter-envelope-icon">✉️</span>
+                <span class="letter-envelope-number">#4 Lv.3</span>
+                <div class="letter-wax-seal">🔒</div>
+              </div>
+              
+              <div class="letter-envelope locked" onclick="showLetterLockHint(4)">
+                <span class="letter-type-tag">📖</span>
+                <span class="letter-envelope-icon">✉️</span>
+                <span class="letter-envelope-number">#5 Lv.4</span>
+                <div class="letter-wax-seal">🔒</div>
+              </div>
+              
+              <div class="letter-envelope locked" onclick="showLetterLockHint(5)">
+                <span class="letter-type-tag">📖</span>
+                <span class="letter-envelope-icon">✉️</span>
+                <span class="letter-envelope-number">#6 Lv.5</span>
+                <div class="letter-wax-seal">🔒</div>
+              </div>
+              
+              <div class="letter-envelope locked" onclick="showLetterLockHint(6)">
+                <span class="letter-type-tag">📖</span>
+                <span class="letter-envelope-icon">✉️</span>
+                <span class="letter-envelope-number">#7 Lv.6</span>
+                <div class="letter-wax-seal">🔒</div>
+              </div>
+              
+              <div class="letter-envelope locked" onclick="showLetterLockHint(7)">
+                <span class="letter-type-tag">📖</span>
+                <span class="letter-envelope-icon">✉️</span>
+                <span class="letter-envelope-number">#8 Lv.7</span>
+                <div class="letter-wax-seal">🔒</div>
+              </div>
+              
+              <div class="letter-envelope locked" onclick="showLetterLockHint(8)">
+                <span class="letter-type-tag">📖</span>
+                <span class="letter-envelope-icon">✉️</span>
+                <span class="letter-envelope-number">#9 Lv.8</span>
+                <div class="letter-wax-seal">🔒</div>
+              </div>
+              
+              <div class="letter-envelope locked" onclick="showLetterLockHint(9)">
+                <span class="letter-type-tag">📖</span>
+                <span class="letter-envelope-icon">✉️</span>
+                <span class="letter-envelope-number">#10 Lv.9</span>
+                <div class="letter-wax-seal">🔒</div>
+              </div>
+              
+              <div class="letter-envelope locked" onclick="showLetterLockHint(10)">
+                <span class="letter-type-tag">📖</span>
+                <span class="letter-envelope-icon">✉️</span>
+                <span class="letter-envelope-number">#11 Lv.10</span>
+                <div class="letter-wax-seal">🔒</div>
+              </div>
+              
+              <!-- 里程碑信 - 未解锁 -->
+              <div class="letter-envelope locked" onclick="showLetterLockHint(11)">
+                <span class="letter-type-tag">🏆</span>
+                <span class="letter-envelope-icon">✉️</span>
+                <span class="letter-envelope-number">#12 50种</span>
+                <div class="letter-wax-seal">🔒</div>
+              </div>
+              
+              <div class="letter-envelope locked" onclick="showLetterLockHint(12)">
+                <span class="letter-type-tag">🏆</span>
+                <span class="letter-envelope-icon">✉️</span>
+                <span class="letter-envelope-number">#13 100种</span>
+                <div class="letter-wax-seal">🔒</div>
+              </div>
+              
+              <div class="letter-envelope locked" onclick="showLetterLockHint(13)">
+                <span class="letter-type-tag">🏆</span>
+                <span class="letter-envelope-icon">✉️</span>
+                <span class="letter-envelope-number">#14 全收集</span>
+                <div class="letter-wax-seal">🔒</div>
+              </div>
+              
+              <!-- 最终信 - 未解锁 -->
+              <div class="letter-envelope locked" onclick="showLetterLockHint(14)">
+                <span class="letter-type-tag">⭐</span>
+                <span class="letter-envelope-icon">✉️</span>
+                <span class="letter-envelope-number">#15 最终</span>
+                <div class="letter-wax-seal">🔒</div>
+              </div>
+            </div>
+
+            <!-- 信件阅读弹窗 -->
+            <div class="letter-modal-overlay" id="letter-modal-overlay" onclick="closeLetter()">
+              <div class="letter-modal" onclick="event.stopPropagation()">
+                <button class="letter-modal-close" onclick="closeLetter()">✕</button>
+                <div class="letter-modal-header">
+                  <div class="letter-modal-type" id="letter-modal-type">
+                    <span>👋</span>
+                    <span>欢迎信</span>
+                  </div>
+                  <div class="letter-modal-title" id="letter-modal-title">欢迎来到探险家的世界</div>
+                </div>
+                <div class="letter-modal-content">
+                  <div class="letter-modal-text" id="letter-modal-text">
+亲爱的小探险家：
+
+欢迎加入我们的探险队！
+
+爷爷年轻的时候，也像你这么大。那时候，我最喜欢做的事情就是在山里、田野间到处跑，观察那些有趣的小虫子、美丽的花朵和神奇的石头。
+
+这台小机器是爷爷送给你的礼物。带着它出去探险吧！用它拍下你发现的每一样有趣的东西，它会告诉你它们的名字和故事。
+
+记住，最棒的探险家不是知道最多的人，而是最会问"为什么"的人。
+
+期待看到你的发现！
+                  </div>
+                  <div class="letter-modal-signature">
+                    <span class="letter-modal-signature-text">爱你的爷爷</span>
+                    <div class="letter-modal-stamp">
+                      <span class="letter-modal-stamp-icon">🦉</span>
+                      <span class="letter-modal-stamp-text">爷爷印</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="letter-modal-footer">
+                  <button class="letter-voice-btn" onclick="readLetterAloud()">
+                    <span>🔊</span>
+                    <span>听爷爷读</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -9989,8 +11197,8 @@
                       <span class="notification-sender">妈妈</span>
                       <span class="notification-time">10:30</span>
                     </div>
-                    <div class="notification-preview">今天做得太棒了！我看到你发现了蝴蝶 🎉</div>
-                    <div class="notification-full">今天做得太棒了！我看到你发现了蝴蝶 and I'm so proud of you! Keep exploring and learning new things. Love you! 🎉❤️</div>
+                    <div class="notification-preview">今天做得太棒了!我看到你发现了蝴蝶 🎉</div>
+                    <div class="notification-full">今天做得太棒了!我看到你发现了蝴蝶 and I'm so proud of you! Keep exploring and learning new things. Love you! 🎉❤️</div>
                   </div>
                 </div>
 
@@ -10015,10 +11223,10 @@
                   <div class="notification-icon badge">🏆</div>
                   <div class="notification-content">
                     <div class="notification-header">
-                      <span class="notification-sender">徽章解锁！</span>
+                      <span class="notification-sender">勋章解锁!</span>
                       <span class="notification-time">16:42</span>
                     </div>
-                    <div class="notification-preview">你获得了花卉专家徽章 🌸</div>
+                    <div class="notification-preview">你获得了花卉专家勋章 🌸</div>
                   </div>
                   <span class="notification-arrow">›</span>
                 </div>
@@ -10030,13 +11238,13 @@
                       <span class="notification-sender">爸爸</span>
                       <span class="notification-time">12:20</span>
                     </div>
-                    <div class="notification-preview">这周末我们一起去公园探索吧！</div>
+                    <div class="notification-preview">这周末我们一起去公园探索吧!</div>
                     <div class="notification-full">Can't wait to explore the park together this weekend! Maybe we can find some interesting insects. What do you think? 🐛🔍</div>
                   </div>
                 </div>
               </div>
 
-              <!-- æ›´æ—© -->
+              <!-- 更早 -->
               <div class="notifications-date-group">
                 <div class="notifications-date">本周</div>
                 
@@ -10044,10 +11252,10 @@
                   <div class="notification-icon level">⭐</div>
                   <div class="notification-content">
                     <div class="notification-header">
-                      <span class="notification-sender">升级！</span>
+                      <span class="notification-sender">升级!</span>
                       <span class="notification-time">周一</span>
                     </div>
-                    <div class="notification-preview">恭喜！你达到了5级</div>
+                    <div class="notification-preview">恭喜!你达到了5级</div>
                   </div>
                   <span class="notification-arrow">›</span>
                 </div>
@@ -10059,7 +11267,7 @@
                       <span class="notification-sender">AI Explorer</span>
                       <span class="notification-time">周日</span>
                     </div>
-                    <div class="notification-preview">新功能：夜间探索模式上线了！</div>
+                    <div class="notification-preview">新功能:夜间探索模式上线了!</div>
                   </div>
                 </div>
               </div>
@@ -10413,11 +11621,11 @@
             </div>
 
             <div class="system-update-content">
-              <!-- 默认状态：已是最新 -->
+              <!-- 默认状态:已是最新 -->
               <div class="update-state" id="update-state-current">
                 <div class="system-update-icon">🌐</div>
                 <div class="system-update-status">您的系统已是最新版本</div>
-                <div class="system-update-version">当前版本：2.0.4</div>
+                <div class="system-update-version">当前版本:2.0.4</div>
               </div>
 
               <!-- 检查中状态 -->
@@ -10433,12 +11641,12 @@
               <!-- 有更新可用状态 -->
               <div class="update-state" id="update-state-available" style="display: none;">
                 <div class="update-available-icon">🎉</div>
-                <div class="system-update-status">发现新版本！</div>
+                <div class="system-update-status">发现新版本!</div>
                 <div class="system-update-version">版本 2.1.0</div>
                 <div class="update-changelog">
-                  <div class="changelog-title">更新内容：</div>
+                  <div class="changelog-title">更新内容:</div>
                   <div class="changelog-item">• 优化 AI 识别能力</div>
-                  <div class="changelog-item">• 新增探索徽章</div>
+                  <div class="changelog-item">• 新增探索勋章</div>
                   <div class="changelog-item">• 修复问题及性能优化</div>
                 </div>
               </div>
@@ -10622,7 +11830,7 @@
                 <div class="share-option-icon qr">🔗</div>
                 <div class="share-option-info">
                   <div class="share-option-name">二维码</div>
-                  <div class="share-option-desc">分享给任何人（7天有效）</div>
+                  <div class="share-option-desc">分享给任何人(7天有效)</div>
                 </div>
                 <span class="share-option-arrow">→</span>
               </div>
@@ -10716,11 +11924,11 @@
                 </div>
                 <div class="card-stat">
                   <span class="card-stat-value">23</span>
-                  <span class="card-stat-label">物种</span>
+                  <span class="card-stat-label">发现</span>
                 </div>
                 <div class="card-stat">
                   <span class="card-stat-value">8</span>
-                  <span class="card-stat-label">徽章</span>
+                  <span class="card-stat-label">勋章</span>
                 </div>
               </div>
 
@@ -10762,57 +11970,61 @@
         <!-- ========== 分享成功提示 ========== -->
         <div class="share-success-toast" id="share-success-toast">
           <span>✅</span>
-          <span>已发送到家庭圈！</span>
+          <span>已发送到家庭圈!</span>
         </div>
 
-        <!-- ========== XP飘字 ========== -->
-        <div class="xp-float" id="xp-float">+15 经验 ✨</div>
+        <!-- ========== 星星飘字 ========== -->
+        <div class="xp-float" id="xp-float">+5 ⭐</div>
 
         <!-- ========== 升级弹窗 ========== -->
         <div class="levelup-modal-overlay" id="levelup-modal">
           <div class="levelup-modal">
-            <div class="levelup-stars">⭐ ✨ ⭐</div>
-            <div class="levelup-title">升级啦！</div>
-            <div class="levelup-levels">5级 → 6级</div>
+            <div class="levelup-stars">🎊 ✨ 🎊</div>
+            <div class="levelup-title">等级提升!</div>
+            <div class="levelup-levels">Lv.5 自然小侦探 → Lv.6 丛林游侠</div>
             
             <div class="levelup-unlocks">
-              <div class="levelup-unlocks-title">新解锁</div>
+              <div class="levelup-unlocks-title">🎁 新解锁</div>
               <div class="levelup-unlock-item">
-                <span>🦊</span>
-                <span>森林狐狸 AI</span>
+                <span>🐸</span>
+                <span>话唠蛙</span>
               </div>
               <div class="levelup-unlock-item">
-                <span>🎨</span>
-                <span>油画风格</span>
+                <span>📐</span>
+                <span>低多边形风格</span>
+              </div>
+              <div class="levelup-unlock-item">
+                <span>🏷️</span>
+                <span>「野外专家」称号</span>
               </div>
             </div>
 
-            <button class="levelup-btn" onclick="hideLevelUpModal()">太棒了！</button>
+            <button class="levelup-btn" onclick="hideLevelUpModal()">太棒了!</button>
           </div>
         </div>
 
-        <!-- ========== 徽章解锁弹窗 ========== -->
+        <!-- ========== 勋章解锁弹窗 ========== -->
         <div class="badge-modal-overlay" id="badge-modal">
           <div class="badge-modal">
             <div class="badge-confetti">✨ 🎉 ⭐ 🎊 ✨ 🎉 ⭐ 🎊 ✨</div>
             
             <div class="badge-icon-large">🌸</div>
             
-            <div class="badge-unlock-title">徽章解锁！</div>
+            <div class="badge-unlock-title">勋章解锁!</div>
             <div class="badge-name-row">
               <span class="badge-name">花卉专家</span>
               <span class="badge-rarity rare">⭐ 稀有</span>
             </div>
             <div class="badge-description">"发现了10种不同的花卉"</div>
 
-            <button class="badge-btn continue" onclick="triggerBadgeClose()">太棒了！</button>
+            <button class="badge-btn continue" onclick="triggerBadgeClose()">太棒了!</button>
           </div>
         </div>
 
-        <!-- ========== AI 语音对话浮层（简化版 V2）========== -->
+        <!-- ========== AI 语音对话浮层(简化版 V2)========== -->
         <div class="ptt-backdrop" id="ptt-backdrop" onclick="hidePTT()"></div>
         <div class="ptt-overlay" id="ptt-overlay" onclick="event.stopPropagation()">
-          <!-- 顶部：聊天记录按钮（右上角） -->
+          <!-- 顶部:聊天记录按钮(右上角) -->
           <div class="ptt-header">
             <div></div>
             <button class="ptt-history-btn" onclick="openChatHistory()">
@@ -10823,7 +12035,7 @@
           
           <!-- 主内容区 -->
           <div class="ptt-main">
-            <!-- 角色选择区（居中） -->
+            <!-- 角色选择区(居中) -->
             <div class="ptt-character-area">
               <button class="ptt-char-nav" onclick="switchPTTCharacter(-1)">◀</button>
               <div class="ptt-avatar-wrapper">
@@ -10833,7 +12045,7 @@
               <button class="ptt-char-nav" onclick="switchPTTCharacter(1)">▶</button>
             </div>
             
-            <!-- 状态区（角色下方） -->
+            <!-- 状态区(角色下方) -->
             <div class="ptt-status-area">
               <div class="ptt-status-row">
                 <div class="ptt-status-dot" id="ptt-status-dot"></div>
@@ -10850,7 +12062,7 @@
             </div>
           </div>
           
-          <!-- 底部提示（居中） -->
+          <!-- 底部提示(居中) -->
           <div class="ptt-footer">
             <div class="ptt-hint" id="ptt-hint">按住说话 · 松开发送</div>
           </div>
@@ -10931,7 +12143,7 @@
         <div class="nav-section-title">📱 主页面</div>
         <div class="nav-items">
           <div class="nav-item 进行中" onclick="goTo('home-page')"><span class="icon">🏠</span><span>主页</span></div>
-          <div class="nav-item" onclick="goTo('camera-page')"><span class="icon">📷</span><span>相机</span></div>
+          <div class="nav-item" onclick="goTo('camera-page')"><span class="icon">📷</span><span>神奇相机</span></div>
           <div class="nav-item" onclick="goTo('photo-preview-page')"><span class="icon">🖼️</span><span>照片预览</span></div>
           <div class="nav-item" onclick="goTo('chat-page')"><span class="icon">💬</span><span>照片聊天</span></div>
           <div class="nav-item" onclick="goTo('general-chat-page')"><span class="icon">🗣️</span><span>通用聊天</span></div>
@@ -10943,10 +12155,10 @@
       <div class="nav-section">
         <div class="nav-section-title">🧭 探索</div>
         <div class="nav-items">
-          <div class="nav-item" onclick="goTo('map-page')"><span class="icon">🗺️</span><span>地图</span></div>
-          <div class="nav-item" onclick="goTo('workshop-page')"><span class="icon">🎨</span><span>工坊</span></div>
+          <div class="nav-item" onclick="goTo('map-page')"><span class="icon">🗺️</span><span>探索地图</span></div>
+          <div class="nav-item" onclick="goTo('workshop-page')"><span class="icon">🎨</span><span>魔法工坊</span></div>
           <div class="nav-item" onclick="goTo('photo-effect-page')"><span class="icon">✨</span><span>风格选择</span></div>
-          <div class="nav-item" onclick="goTo('workshop-photo-page')"><span class="icon">📷</span><span>工坊选图</span></div>
+          <div class="nav-item" onclick="goTo('workshop-photo-page')"><span class="icon">📷</span><span>魔法工坊选图</span></div>
           <div class="nav-item" onclick="goTo('aigc-result-page')"><span class="icon">🖼️</span><span>生成结果</span></div>
         </div>
       </div>
@@ -10957,10 +12169,11 @@
         <div class="nav-items">
           <div class="nav-item" onclick="goTo('explorer-page')"><span class="icon">🧭</span><span>探险家</span></div>
           <div class="nav-item sub" onclick="goTo('explorer-page', 'xp-detail')"><span class="icon">📊</span><span>今日XP</span></div>
-          <div class="nav-item" onclick="goTo('backpack-page')"><span class="icon">🎒</span><span>背包</span></div>
-          <div class="nav-item" onclick="goTo('level-guide-page')"><span class="icon">📈</span><span>等级说明</span></div>
-          <div class="nav-item" onclick="goTo('subcategory-list-page')"><span class="icon">📖</span><span>图鉴</span></div>
-          <div class="nav-item" onclick="goTo('subcategory-detail-page')"><span class="icon">🔍</span><span>物种详情</span></div>
+          <div class="nav-item" onclick="goTo('backpack-page')"><span class="icon">🎒</span><span>探险背包</span></div>
+          <div class="nav-item" onclick="goTo('level-guide-page')"><span class="icon">🗺️</span><span>探险之路</span></div>
+          <div class="nav-item" onclick="goTo('letters-page')"><span class="icon">📜</span><span>爷爷的信</span></div>
+          <div class="nav-item" onclick="goTo('subcategory-list-page')"><span class="icon">📖</span><span>我的发现</span></div>
+          <div class="nav-item" onclick="goTo('subcategory-detail-page')"><span class="icon">🔍</span><span>发现详情</span></div>
         </div>
       </div>
 
@@ -10991,10 +12204,10 @@
           <div class="nav-item" onclick="goTo('photo-preview-page', 'ai-menu')"><span class="icon">🖼️</span><span>预览AI菜单</span></div>
           <div class="nav-item" onclick="goTo('chat-page', 'ai-menu')"><span class="icon">💬</span><span>聊天AI菜单</span></div>
           <div class="nav-item" onclick="goTo('map-page', 'ai-menu')"><span class="icon">🗺️</span><span>地图AI菜单</span></div>
-          <div class="nav-item" onclick="goTo('workshop-page', 'ai-menu')"><span class="icon">🎨</span><span>工坊AI菜单</span></div>
-          <div class="nav-item" onclick="goTo('backpack-page', 'ai-menu')"><span class="icon">🎒</span><span>背包AI菜单</span></div>
-          <div class="nav-item" onclick="goTo('species-list-page', 'ai-menu')"><span class="icon">📖</span><span>图鉴AI菜单</span></div>
-          <div class="nav-item" onclick="goTo('species-detail-page', 'ai-menu')"><span class="icon">🔍</span><span>物种AI菜单</span></div>
+          <div class="nav-item" onclick="goTo('workshop-page', 'ai-menu')"><span class="icon">🎨</span><span>魔法工坊AI菜单</span></div>
+          <div class="nav-item" onclick="goTo('backpack-page', 'ai-menu')"><span class="icon">🎒</span><span>探险背包AI菜单</span></div>
+          <div class="nav-item" onclick="goTo('species-list-page', 'ai-menu')"><span class="icon">📖</span><span>我的发现AI菜单</span></div>
+          <div class="nav-item" onclick="goTo('species-detail-page', 'ai-menu')"><span class="icon">🔍</span><span>发现AI菜单</span></div>
         </div>
       </div>
 
@@ -11012,9 +12225,9 @@
       <div class="nav-section">
         <div class="nav-section-title">🎉 激励反馈演示</div>
         <div class="nav-items">
-          <div class="nav-item demo-item" onclick="demoXP()"><span class="icon">✨</span><span>经验值+15XP</span></div>
-          <div class="nav-item demo-item" onclick="demoLevelUp()"><span class="icon">⭐</span><span>升级弹窗</span></div>
-          <div class="nav-item demo-item" onclick="demoBadge()"><span class="icon">🏆</span><span>徽章解锁</span></div>
+          <div class="nav-item demo-item" onclick="demoStar()"><span class="icon">⭐</span><span>星星+5</span></div>
+          <div class="nav-item demo-item" onclick="demoLevelUp()"><span class="icon">🎊</span><span>升级弹窗</span></div>
+          <div class="nav-item demo-item" onclick="demoBadge()"><span class="icon">🏆</span><span>勋章解锁</span></div>
           <div class="nav-item demo-item" onclick="demoSequence()"><span class="icon">🎬</span><span>完整流程</span></div>
         </div>
       </div>
@@ -11045,13 +12258,13 @@
       if (exportMode) {
         console.log('🎯 导出模式已开启 - 请点击导航项来显示目标页面');
       } else {
-        // 关闭导出模式：恢复被移除的元素
+        // 关闭导出模式:恢复被移除的元素
         restoreElements();
         console.log('📱 导出模式已关闭 - 元素已恢复');
       }
     }
 
-    // 移除非活动元素（只移除页面，不移除弹窗）
+    // 移除非活动元素(只移除页面,不移除弹窗)
     function removeIn进行中Elements() {
       // 先恢复之前移除的元素
       if (hiddenElements.length > 0) {
@@ -11162,7 +12375,7 @@
     }
 
     function goTo(pageId, modal = null) {
-      // 防抖：清除之前的延迟移除
+      // 防抖:清除之前的延迟移除
       if (goToTimeout) {
         clearTimeout(goToTimeout);
         goToTimeout = null;
@@ -11171,17 +12384,17 @@
       console.log('📍 goTo:', pageId, modal);
       currentState = { page: pageId, modal: modal };
       
-      // 更新URL hash（不触发hashchange）
+      // 更新URL hash(不触发hashchange)
       const newHash = modal ? `${pageId}/${modal}` : pageId;
       if (window.location.hash !== '#' + newHash) {
         try {
           history.replaceState(null, '', '#' + newHash);
         } catch(e) {
-          // iframe跨域限制，忽略此错误
+          // iframe跨域限制,忽略此错误
         }
       }
       
-      // 如果是导出模式，先恢复所有元素
+      // 如果是导出模式,先恢复所有元素
       if (exportMode && hiddenElements.length > 0) {
         console.log('♻️ 恢复元素...');
         restoreElements();
@@ -11232,7 +12445,7 @@
       // 更新导航高亮
       updateNavHighlight(pageId, modal);
       
-      // 如果是导出模式，延迟移除非活动元素
+      // 如果是导出模式,延迟移除非活动元素
       if (exportMode) {
         console.log('⏳ 300ms后移除非活动页面...');
         goToTimeout = setTimeout(() => {
@@ -11242,7 +12455,7 @@
       }
     }
     
-    // 纯页面切换（不隐藏弹窗）
+    // 纯页面切换(不隐藏弹窗)
     function navigateToPage(pageId) {
       document.querySelectorAll('.page').forEach(page => {
         page.classList.remove('进行中');
@@ -11400,7 +12613,7 @@
           document.getElementById('export-mode-toggle').classList.add('进行中');
         }
         
-        // 延迟执行goTo，确保页面完全加载
+        // 延迟执行goTo,确保页面完全加载
         setTimeout(() => goTo(pageId, modal), 50);
       }
     }
@@ -11527,13 +12740,13 @@
     }
 
     function deletePhoto() {
-      if (confirm('删除此照片？')) {
+      if (confirm('删除此照片?')) {
         navigateTo('camera-page');
       }
     }
 
     function savePhoto() {
-      alert('照片已保存到背包！ 📸');
+      alert('照片已保存到背包! 📸');
     }
 
     // ============ 地图功能 ============
@@ -11542,25 +12755,25 @@
         icon: '🌸',
         color: 'linear-gradient(135deg, #FF6B6B 0%, #E74C3C 100%)',
         title: '寻找花朵',
-        desc: '在周围寻找美丽的花朵吧！找到后拍一张照片。你能发现多少种颜色？🌈'
+        desc: '在周围寻找美丽的花朵吧!找到后拍一张照片。你能发现多少种颜色?🌈'
       },
       butterfly: {
         icon: '🦋',
         color: 'linear-gradient(135deg, #FFD700 0%, #F59E0B 100%)',
         title: '发现蝴蝶',
-        desc: '蝴蝶喜欢阳光明媚的地方和花朵。慢慢移动，保持安静，才能拍到好照片！🌻'
+        desc: '蝴蝶喜欢阳光明媚的地方和花朵。慢慢移动,保持安静,才能拍到好照片!🌻'
       },
       rock: {
         icon: '🪨',
         color: 'linear-gradient(135deg, #4ADE80 0%, #22C55E 100%)',
         title: '探索岩石',
-        desc: '找一块有独特颜色或图案的有趣岩石。是什么让它与众不同？🔍'
+        desc: '找一块有独特颜色或图案的有趣岩石。是什么让它与众不同?🔍'
       },
       leaf: {
         icon: '🍂',
         color: 'linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%)',
         title: '收集落叶',
-        desc: '寻找不同形状和大小的落叶。你能识别出多少种不同的树木？🌳'
+        desc: '寻找不同形状和大小的落叶。你能识别出多少种不同的树木?🌳'
       }
     };
 
@@ -11662,7 +12875,7 @@
 
     function saveAigcResult() {
       hideAigcModal();
-      alert('作品已保存到背包！ 🎨');
+      alert('作品已保存到背包! 🎨');
       navigateTo('backpack-page');
     }
 
@@ -11682,7 +12895,7 @@
     }
     
     function saveAigcToGallery() {
-      alert('作品已保存到背包！ 🎨');
+      alert('作品已保存到背包! 🎨');
       // 停留在当前页面,等待用户主动操作
     }
 
@@ -11758,9 +12971,9 @@
     }
 
     // ============ XP飘字和弹窗 ============
-    function showXPFloat(amount) {
+    function showStarFloat(amount) {
       const el = document.getElementById('xp-float');
-      el.textContent = `+${amount} XP ✨`;
+      el.textContent = `+${amount} ⭐`;
       el.classList.remove('show');
       void el.offsetWidth; // 强制重绘
       el.classList.add('show');
@@ -11768,6 +12981,11 @@
       setTimeout(() => {
         el.classList.remove('show');
       }, 1500);
+    }
+
+    // 保留旧名以兼容
+    function showXPFloat(amount) {
+      showStarFloat(amount);
     }
 
     function showLevelUpModal() {
@@ -11802,8 +13020,8 @@
     function demoRewardSequence() {
       showLevelUpAfterBadge = true;
       
-      // 1. XP飘字
-      showXPFloat(15);
+      // 1. 星星飘字
+      showStarFloat(5);
       
       // 2. 1.5秒后显示徽章弹窗
       setTimeout(() => {
@@ -11907,13 +13125,13 @@
         
         // 模拟更新过程
         setTimeout(() => {
-          // 更新完成，回到最新状态
+          // 更新完成,回到最新状态
           updateState = 'current';
           document.getElementById('update-state-available').style.display = 'none';
           document.getElementById('update-state-current').style.display = 'flex';
           
           // 更新版本号
-          document.querySelector('#update-state-current .system-update-version').textContent = '当前版本：2.1.0';
+          document.querySelector('#update-state-current .system-update-version').textContent = '当前版本:2.1.0';
           
           btn.textContent = '检查更新';
           btn.disabled = false;
@@ -11941,6 +13159,77 @@
     
     function hideTodayXPDetail() {
       document.getElementById('xp-detail-overlay').classList.remove('show');
+    }
+
+    // ============ 探险护照 - 语音播报功能 ============
+    function speakStat(type) {
+      const messages = {
+        'photos': '你已经拍了128张照片！每一张都记录着你的探险故事呢！',
+        'species': '太棒了！你已经发现了23种生物！爷爷的《万物之书》又多了好多新内容！',
+        'medals': '哇！你已经获得8枚探险勋章啦！继续加油，还有更多勋章等着你！',
+        'tasks': '你已经完成了15个观察任务！真是个厉害的小探险家！'
+      };
+      const msg = messages[type] || '继续探索吧！';
+      showToast('🔊 ' + msg);
+      console.log('[TTS]', msg);
+    }
+
+    function speakJourneyGuide() {
+      const msg = '嗨，小探险家！我是咕咕。万物之书需要探索之星作为能量，你每次探索自然，都在为它充能！再收集520颗星星，就能唤醒爷爷的老朋友话唠蛙啦！';
+      showToast('🦉 咕咕说: ' + msg.substring(0, 25) + '...');
+      console.log('[TTS - 咕咕]', msg);
+    }
+
+    // ============ 探险之路页面语音函数 ============
+    function speakJourneyIntro() {
+      const msg = '欢迎来到探险之路！爷爷当年走遍世界，用探索之星唤醒了我们。现在轮到你啦！每升一级都能唤醒一位老朋友，他们都认识爷爷哦！';
+      showToast('🦉 ' + msg);
+      console.log('[TTS]', msg);
+    }
+
+    function speakLevelsGuide() {
+      const msg = '从1级到10级，每个等级都有惊喜！你可以唤醒新的AI伙伴、解锁创作风格和相框。每位伙伴都有爷爷的故事要告诉你！';
+      showToast('🎁 ' + msg);
+      console.log('[TTS]', msg);
+    }
+
+    function speakLevelDetail(level) {
+      const levelDetails = {
+        1: '1级冒险新星！解锁相机和我的发现功能，你的探险之旅开始了！我是咕咕，第一个陪伴你的伙伴！',
+        2: '2级好奇宝贝！解锁铜色相框，还能唤醒机器人伙伴锈锈！他是爷爷的发明助手哦！',
+        3: '3级森林学徒！解锁泡泡玛特风格，闪电兔也醒来啦！还能获得「自然爱好者」称号！',
+        4: '4级野外侦察兵！解锁乐高微缩风格和讲故事功能，泡泡精灵有好多故事要讲给你听！',
+        5: '5级自然小侦探！这是你现在的等级！解锁银色相框和皮克斯风格，我捣蛋狐来啦！',
+        6: '6级丛林游侠！再收集520颗星星就能唤醒话唠蛙！他最了解爷爷的探险故事！',
+        7: '7级精英猎人！解锁吉卜力风格，臭美蝶是爷爷最爱的伙伴之一哦！',
+        8: '8级探险大师！解锁金色相框和未来机甲风格，超级酷！',
+        9: '9级自然守护者！解锁「自然学者」称号，瞌睡龙是最古老的伙伴，知道很多秘密！',
+        10: '10级传奇英雄！最高等级！解锁彩虹相框、Q弹软糖风格和「传奇探险家」称号！'
+      };
+      const msg = levelDetails[level] || '继续探索吧！';
+      const icons = ['', '🦉', '🤖', '🐰', '🧙', '🦊', '🐸', '🦋', '🤖', '🐉', '👑'];
+      showToast(icons[level] + ' ' + msg);
+      console.log('[TTS]', msg);
+    }
+
+    function speakStarsGuide() {
+      const msg = '万物之书需要探索之星作为能量！你每次观察自然、发现新事物，都在为它充能。星星够了，沉睡的伙伴就会醒来！';
+      showToast('⭐ ' + msg);
+      console.log('[TTS]', msg);
+    }
+
+    function speakStarMethod(type) {
+      const messages = {
+        'photo': '每拍一张照片就能获得2颗星星！真实的观察是万物之书最喜欢的能量！',
+        'species': '发现新事物可以获得15颗星星！书会记录你的每一个发现！',
+        'task': '完成探索任务可以获得10到35颗星星，任务越难奖励越多哦！',
+        'create': '用魔法工坊创作一个作品就能获得10颗星星！发挥你的想象力吧！',
+        'quiz': '答对自然小测验可以获得5颗星星！知识也是探索的一部分！',
+        'streak': '连续每天探索可以获得10颗额外星星！爷爷当年也是每天坚持探索的！'
+      };
+      const msg = messages[type] || '继续探索吧！';
+      showToast('⭐ ' + msg);
+      console.log('[TTS]', msg);
     }
 
     function selectOption(type, value, el) {
@@ -11998,7 +13287,7 @@
       hideAICard();
       hideAI();
       navigateTo('backpack-page');
-      // 延迟执行筛选，确保页面已渲染
+      // 延迟执行筛选,确保页面已渲染
       setTimeout(() => {
         // 先确保在 Album tab
         const albumTab = document.querySelector('.backpack-tab');
@@ -12142,9 +13431,9 @@
       if (typeof hideBackpackAIOverlay === 'function') hideBackpackAIOverlay(); // 关闭背包AI浮层
       if (typeof hidePreviewAIOverlay === 'function') hidePreviewAIOverlay(); // 关闭照片预览AI浮层
       if (typeof hideSpeciesListAIOverlay === 'function') hideSpeciesListAIOverlay(); // 关闭物种列表AI浮层
-      if (typeof hideSpeciesDetailAIOverlay === 'function') hideSpeciesDetailAIOverlay(); // 关闭物种详情AI浮层
+      if (typeof hideSpeciesDetailAIOverlay === 'function') hideSpeciesDetailAIOverlay(); // 关闭发现详情AI浮层
       
-      // 进入story-page时重置页码，离开时停止朗读
+      // 进入story-page时重置页码,离开时停止朗读
       if (pageId === 'story-page') {
         currentStoryPage = 0;
         updateStoryPage();
@@ -12185,7 +13474,7 @@
       if (overlay) overlay.classList.remove('show');
     }
 
-    // AI菜单配置 - 图标为主，文字简短
+    // AI菜单配置 - 图标为主,文字简短
     const pageConfigs = {
       'home-page': {
         context: { icon: '🏠', label: '首页' },
@@ -12238,7 +13527,7 @@
         ]
       },
       'workshop-page': {
-        context: { icon: '🎨', label: '工坊' },
+        context: { icon: '🎨', label: '魔法工坊' },
         menu: [
           { icon: '✨', label: '随机惊喜', color: 'purple', action: 'surpriseMe' },
           { icon: '🖼️', label: '我的作品', color: 'pink', action: 'myCreations' },
@@ -12246,7 +13535,7 @@
         ]
       },
       'backpack-page': {
-        context: { icon: '🎒', label: '背包' },
+        context: { icon: '🎒', label: '探险背包' },
         menu: [
           { icon: '⭐', label: '精彩回顾', color: 'purple', action: 'highlights' },
           { icon: '📊', label: '统计', color: 'blue', action: 'stats' },
@@ -12254,7 +13543,7 @@
         ]
       },
       'species-list-page': {
-        context: { icon: '📚', label: '图鉴' },
+        context: { icon: '📚', label: '我的发现' },
         menu: [
           { icon: '🎲', label: '随机挑战', color: 'purple', action: 'randomChallenge' },
           { icon: '💡', label: '趣味知识', color: 'blue', action: 'funFact' },
@@ -12262,10 +13551,10 @@
         ]
       },
       'species-detail-page': {
-        context: { icon: '🦋', label: '物种' },
+        context: { icon: '🦋', label: '发现' },
         menu: [
           { icon: '💡', label: '更多知识', color: 'purple', action: 'moreFacts' },
-          { icon: '🔗', label: '相关物种', color: 'blue', action: 'related' },
+          { icon: '🔗', label: '相关发现', color: 'blue', action: 'related' },
           { icon: '🎯', label: '考考我', color: 'orange', action: 'quizMe' }
         ]
       },
@@ -12301,14 +13590,17 @@
         contextBadge.style.display = 'none';
       }
       
-      // 通用助手显示不同UI
+      // 通用页面显示AI角色和友好提示
       if (config.isGeneric) {
         menuGrid.innerHTML = `
-          <div class="ai-menu-item" onclick="handleAIAction('askAI')">
-            <div class="ai-menu-icon purple">🎤</div>
-            <div class="ai-menu-label">问AI</div>
+          <div class="ai-no-menu-hint">
+            <div class="ai-hint-avatar">🦉</div>
+            <div class="ai-hint-name">咕咕</div>
+            <div class="ai-hint-text">这里没有特别的AI功能哦～<br>想和我聊天的话，<strong>长按AI键</strong>就可以啦！</div>
           </div>
         `;
+        // 播放语音提示
+        speakText('这里没有特别的AI功能哦，想和我聊天的话，长按AI键就可以啦！');
       } else {
         // 更新菜单项 - 大图标风格
         menuGrid.innerHTML = config.menu.map(item => `
@@ -12349,8 +13641,8 @@
       if (feedback) {
         feedback.style.display = 'block';
         feedback.innerHTML = isCorrect 
-          ? '<div style="background: #D1FAE5; color: #059669; padding: 10px; border-radius: 10px; text-align: center; font-weight: 600;">✅ 正确！ +2 经验</div>'
-          : '<div style="background: #FEE2E2; color: #DC2626; padding: 10px; border-radius: 10px; text-align: center; font-weight: 600;">❌ 不太对哦！ 正确答案是B</div>';
+          ? '<div style="background: #D1FAE5; color: #059669; padding: 10px; border-radius: 10px; text-align: center; font-weight: 600;">✅ 正确! +2 经验</div>'
+          : '<div style="background: #FEE2E2; color: #DC2626; padding: 10px; border-radius: 10px; text-align: center; font-weight: 600;">❌ 不太对哦! 正确答案是B</div>';
       }
       
       // 显示下一题按钮
@@ -12366,18 +13658,18 @@
     function nextQuizQuestion() {
       quizQuestion++;
       
-      // 如果已经是第4题（已回答完3题），直接显示结果
+      // 如果已经是第4题(已回答完3题),直接显示结果
       if (quizQuestion > 3) {
         showQuizResult();
         return;
       }
       
-      // 简化版：显示下一题（实际应从题库随机）
+      // 简化版:显示下一题(实际应从题库随机)
       const cardBody = document.querySelector('#ai-card .ai-card-body');
       if (cardBody) {
         const questions = [
-          { q: '蝴蝶用什么来品尝味道？', a: 'B', opts: ['A) 它们的舌头', 'B) 它们的脚', 'C) 它们的翅膀'] },
-          { q: '章鱼有几颗心脏？', a: 'C', opts: ['A) 一颗', 'B) 两颗', 'C) 三颗'] }
+          { q: '蝴蝶用什么来品尝味道?', a: 'B', opts: ['A) 它们的舌头', 'B) 它们的脚', 'C) 它们的翅膀'] },
+          { q: '章鱼有几颗心脏?', a: 'C', opts: ['A) 一颗', 'B) 两颗', 'C) 三颗'] }
         ];
         const qData = questions[quizQuestion - 2];
         if (!qData) {
@@ -12386,7 +13678,7 @@
         }
         cardBody.innerHTML = `
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <span style="font-size: 12px; color: #888;">第${quizQuestion}题（共3题）</span>
+            <span style="font-size: 12px; color: #888;">第${quizQuestion}题(共3题)</span>
             <span style="font-size: 12px; color: #F59E0B; font-weight: 600;">🏆 得分: ${quizScore * 2} 经验</span>
           </div>
           <div style="font-size: 15px; font-weight: 600; color: #333; margin-bottom: 14px;">${qData.q}</div>
@@ -12405,14 +13697,14 @@
       if (card) {
         card.innerHTML = `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">🏆</span>挑战完成！</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">🏆</span>挑战完成!</div>
             <button class="ai-card-close" onclick="hideAICard(); quizScore=0; quizQuestion=1;">✕</button>
           </div>
           <div class="ai-card-body" style="text-align: center; padding: 20px 0;">
             <div style="font-size: 64px; margin-bottom: 16px;">${quizScore === 3 ? '🎉' : quizScore >= 2 ? '👏' : '💪'}</div>
-            <div style="font-size: 24px; font-weight: 700; color: #333; margin-bottom: 8px;">${quizScore}/3 正确！</div>
+            <div style="font-size: 24px; font-weight: 700; color: #333; margin-bottom: 8px;">${quizScore}/3 正确!</div>
             <div style="font-size: 18px; color: #F59E0B; font-weight: 600; margin-bottom: 16px;">+${quizScore * 2} 经验获得</div>
-            <div style="font-size: 14px; color: #888;">${quizScore === 3 ? '满分！你太棒了！' : quizScore >= 2 ? '做得好！继续学习！' : '不错的尝试！熟能生巧！'}</div>
+            <div style="font-size: 14px; color: #888;">${quizScore === 3 ? '满分!你太棒了!' : quizScore >= 2 ? '做得好!继续学习!' : '不错的尝试!熟能生巧!'}</div>
           </div>
           <div class="ai-card-footer">
             <button class="ai-card-btn secondary" onclick="hideAICard(); quizScore=0; quizQuestion=1;">完成</button>
@@ -12492,7 +13784,7 @@
       // 显示保存成功提示
       const toast = document.createElement('div');
       toast.style.cssText = 'position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 12px 24px; border-radius: 20px; font-size: 14px; z-index: 9999;';
-      toast.textContent = '✅ 故事已保存到背包！';
+      toast.textContent = '✅ 故事已保存到背包!';
       document.body.appendChild(toast);
       setTimeout(() => toast.remove(), 2000);
     }
@@ -12601,7 +13893,7 @@
               <div class="task-list-icon" style="background: linear-gradient(135deg, #D1FAE5, #A7F3D0);">🪨</div>
               <div class="task-list-content">
                 <div class="task-list-title">探索酷岩石</div>
-                <div class="task-list-desc">已完成！</div>
+                <div class="task-list-desc">已完成!</div>
               </div>
               <span class="task-list-done">✓</span>
             </div>
@@ -12619,11 +13911,11 @@
           </div>
           <div class="ai-card-body" style="text-align: center; padding: 20px 0;">
             <div style="font-size: 48px; margin-bottom: 12px;">☀️</div>
-            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">今天还没有任务！</div>
+            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">今天还没有任务!</div>
             <div style="font-size: 14px; color: #888; margin-bottom: 16px;">新任务每天早上5点刷新</div>
             <div style="background: #f0f9ff; border-radius: 12px; padding: 14px;">
-              <div style="font-size: 12px; font-weight: 600; color: #0369a1; margin-bottom: 4px;">💡 在等待期间：</div>
-              <div style="font-size: 13px; color: #555;">可以自由探索！ 📷</div>
+              <div style="font-size: 12px; font-weight: 600; color: #0369a1; margin-bottom: 4px;">💡 在等待期间:</div>
+              <div style="font-size: 13px; color: #555;">可以自由探索! 📷</div>
             </div>
           </div>
           <div class="ai-card-footer">
@@ -12633,14 +13925,14 @@
         
         'learnSomething': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">📖</span>你知道吗？</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">📖</span>你知道吗?</div>
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body">
             <div class="fact-card">
               <div class="fact-icon">🐞</div>
               <div class="fact-species">瓢虫</div>
-              <div class="fact-text">瓢虫一生可以吃掉5000只害虫！</div>
+              <div class="fact-text">瓢虫一生可以吃掉5000只害虫!</div>
               <div class="fact-analogy">🍕 That's like you eating 50 pizzas every day for a year!</div>
             </div>
           </div>
@@ -12652,12 +13944,12 @@
         
         'learnSomethingEmpty': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">📖</span>你知道吗？</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">📖</span>你知道吗?</div>
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body" style="text-align: center; padding: 20px 0;">
             <div style="font-size: 48px; margin-bottom: 12px;">🔍</div>
-            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">拍摄你的第一张照片来解锁趣味知识！</div>
+            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">拍摄你的第一张照片来解锁趣味知识!</div>
             <div style="font-size: 14px; color: #888;">每一次发现都有有趣的知识等你学习 🌟</div>
           </div>
           <div class="ai-card-footer">
@@ -12694,7 +13986,7 @@
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body">
-            <div class="help-list-item"><div class="help-list-icon">🎬</div><div class="help-list-content"><div class="help-list-title">快速入门</div><div class="help-list-desc">学习基础知识（30秒）</div></div></div>
+            <div class="help-list-item"><div class="help-list-icon">🎬</div><div class="help-list-content"><div class="help-list-title">快速入门</div><div class="help-list-desc">学习基础知识(30秒)</div></div></div>
             <div class="help-list-item"><div class="help-list-icon">🎤</div><div class="help-list-content"><div class="help-list-title">语音指令</div><div class="help-list-desc">与探索者对话</div></div></div>
             <div class="help-list-item"><div class="help-list-icon">📷</div><div class="help-list-content"><div class="help-list-title">拍摄技巧</div><div class="help-list-desc">拍出精彩照片</div></div></div>
             <div style="text-align: center; margin-top: 16px; padding-top: 16px; border-top: 1px solid #f0f0f0;">
@@ -12706,7 +13998,7 @@
         
         'identifyThis': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">🔍</span>我发现了东西！</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">🔍</span>我发现了东西!</div>
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body">
@@ -12714,7 +14006,7 @@
               <div class="identify-thumb">🐞</div>
               <div class="identify-name">瓢虫</div>
               <div class="identify-scientific">Coccinellidae</div>
-              <div class="identify-desc">一种身上有斑点的小甲虫！它们吃花园里的害虫，非常有帮助。🌱</div>
+              <div class="identify-desc">一种身上有斑点的小甲虫!它们吃花园里的害虫,非常有帮助。🌱</div>
             </div>
           </div>
           <div class="ai-card-footer">
@@ -12729,12 +14021,12 @@
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body">
-            <div class="tip-item"><div class="tip-status good">☀️</div><div class="tip-content"><div class="tip-title">光线检查</div><div class="tip-desc">光线很好！做得不错！</div></div></div>
+            <div class="tip-item"><div class="tip-status good">☀️</div><div class="tip-content"><div class="tip-title">光线检查</div><div class="tip-desc">光线很好!做得不错!</div></div></div>
             <div class="tip-item"><div class="tip-status improve">🎯</div><div class="tip-content"><div class="tip-title">靠近一点</div><div class="tip-desc">靠近以填满画面</div></div></div>
-            <div class="tip-item"><div class="tip-status good">📐</div><div class="tip-content"><div class="tip-title">保持稳定</div><div class="tip-desc">很好，很稳！</div></div></div>
+            <div class="tip-item"><div class="tip-status good">📐</div><div class="tip-content"><div class="tip-title">保持稳定</div><div class="tip-desc">很好,很稳!</div></div></div>
           </div>
           <div class="ai-card-footer">
-            <button class="ai-card-btn primary" onclick="hideAICard()">明白了！👍</button>
+            <button class="ai-card-btn primary" onclick="hideAICard()">明白了!👍</button>
           </div>
         `,
         
@@ -12767,13 +14059,13 @@
             <div class="identify-result">
               <div class="identify-name">🐞 Ladybug</div>
               <div class="identify-scientific">Coccinellidae</div>
-              <div class="identify-desc">身上有斑点的益虫小甲虫！🌱</div>
+              <div class="identify-desc">身上有斑点的益虫小甲虫!🌱</div>
               <div class="identify-badge">📖 Added to your 图鉴!</div>
             </div>
           </div>
           <div class="ai-card-footer">
             <button class="ai-card-btn secondary" onclick="hideAICard(); hideAI(); navigateTo('chat-page');">💬 Ask More</button>
-            <button class="ai-card-btn primary" onclick="hideAICard()">明白了！👍</button>
+            <button class="ai-card-btn primary" onclick="hideAICard()">明白了!👍</button>
           </div>
         `,
         
@@ -12813,7 +14105,7 @@
           </div>
           <div class="ai-card-body" style="text-align: center; padding: 16px 0;">
             <div style="font-size: 48px; margin-bottom: 12px;">✨📖</div>
-            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 8px;">让我用你的发现编个故事！</div>
+            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 8px;">让我用你的发现编个故事!</div>
             <div style="font-size: 14px; color: #888; margin-bottom: 16px;">AI 将根据你拍摄的照片创作一个有趣的故事</div>
             <div style="display: flex; justify-content: center; gap: 12px;">
               <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #fef3c7, #fde68a); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">🦸</div>
@@ -12868,17 +14160,17 @@
           </div>
           <div class="ai-card-body">
             <div style="background: #FEF3C7; border-radius: 10px; padding: 10px 12px; margin-bottom: 14px; font-size: 12px; color: #92400E;">
-              🎲 来自你发现物种的3道问题！
+              🎲 来自你发现的3道问题!
             </div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-              <span style="font-size: 12px; color: #888;">第1题（共3题）</span>
+              <span style="font-size: 12px; color: #888;">第1题(共3题)</span>
               <span style="font-size: 12px; color: #F59E0B; font-weight: 600;">🏆 每题 +2 经验</span>
             </div>
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
               <span style="font-size: 24px;">🐞</span>
-              <span style="font-size: 12px; color: #888;">关于：瓢虫</span>
+              <span style="font-size: 12px; color: #888;">关于:瓢虫</span>
             </div>
-            <div style="font-size: 15px; font-weight: 600; color: #333; margin-bottom: 14px;">瓢虫通常有多少个斑点？</div>
+            <div style="font-size: 15px; font-weight: 600; color: #333; margin-bottom: 14px;">瓢虫通常有多少个斑点?</div>
             <div class="quiz-option" onclick="selectQuizAnswer(this, false)">A) 刚好7个斑点</div>
             <div class="quiz-option" onclick="selectQuizAnswer(this, true)">B) 因品种而异</div>
             <div class="quiz-option" onclick="selectQuizAnswer(this, false)">C) 总是10个斑点</div>
@@ -12897,7 +14189,7 @@
           <div class="ai-card-body" style="text-align: center; padding: 20px 0;">
             <div style="font-size: 48px; margin-bottom: 12px;">🎓</div>
             <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">还没有可测验的物种</div>
-            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">发现并识别物种后，即可解锁专属测验！</div>
+            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">发现并识别物种后,即可解锁专属测验!</div>
             <div style="display: flex; justify-content: center; gap: 8px;">
               <span style="font-size: 28px; opacity: 0.4;">🐞</span>
               <span style="font-size: 28px; opacity: 0.4;">🦋</span>
@@ -12924,7 +14216,7 @@
             <div class="tip-item"><div class="tip-status" style="background: #FEE2E2;">🌸</div><div class="tip-content"><div class="tip-title">Finding blooming flowers</div><div class="tip-desc">Colors pop in good light</div></div></div>
             <div class="tip-item"><div class="tip-status" style="background: #E0E7FF;">🪨</div><div class="tip-content"><div class="tip-title">Checking out rocks</div><div class="tip-desc">Shadows show cool patterns</div></div></div>
             <div style="background: #f0f9ff; border-radius: 12px; padding: 12px; margin-top: 12px;">
-              <div style="font-size: 12px; color: #0369a1;">⏰ <strong>最佳时间：</strong> 10am - 2pm</div>
+              <div style="font-size: 12px; color: #0369a1;">⏰ <strong>最佳时间:</strong> 10am - 2pm</div>
               <div style="font-size: 12px; color: #0369a1; margin-top: 4px;">💡 <strong>Tip:</strong> Look near flowers for insects!</div>
             </div>
           </div>
@@ -13014,8 +14306,8 @@
           </div>
           <div class="ai-card-body" style="text-align: center; padding: 20px 0;">
             <div style="font-size: 48px; margin-bottom: 12px;">🎉</div>
-            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">任务全部完成！</div>
-            <div style="font-size: 14px; color: #888; margin-bottom: 4px;">今天表现太棒了！</div>
+            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">任务全部完成!</div>
+            <div style="font-size: 14px; color: #888; margin-bottom: 4px;">今天表现太棒了!</div>
             <div style="font-size: 13px; color: #666;">新任务将于明天早上5点刷新 ☀️</div>
           </div>
           <div class="ai-card-footer">
@@ -13025,16 +14317,16 @@
         
         'surpriseMe': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">✨</span>随机惊喜组合！</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">✨</span>随机惊喜组合!</div>
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body">
             <div class="surprise-combo"><div class="surprise-photo">🌻</div><div class="surprise-plus">+</div><div class="surprise-style">🏔️ 吉卜力</div></div>
-            <div class="surprise-hint">🎲 为你随机挑选！</div>
+            <div class="surprise-hint">🎲 为你随机挑选!</div>
           </div>
           <div class="ai-card-footer">
             <button class="ai-card-btn secondary">🔄 换一组</button>
-            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); showAigcModal();">✨ 开始创作！</button>
+            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); showAigcModal();">✨ 开始创作!</button>
           </div>
         `,
         
@@ -13046,7 +14338,7 @@
           <div class="ai-card-body" style="text-align: center; padding: 16px 0;">
             <div style="font-size: 48px; margin-bottom: 12px;">📷</div>
             <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">还没有照片</div>
-            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">先去拍几张照片，再来随机创作吧！</div>
+            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">先去拍几张照片,再来随机创作吧!</div>
             <div style="display: flex; justify-content: center; gap: 12px;">
               <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #e0e7ff, #c7d2fe); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; opacity: 0.5;">🌻</div>
               <div style="font-size: 24px; color: #ccc;">+</div>
@@ -13124,7 +14416,7 @@
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body">
-            <div class="guide-speech"><div class="guide-avatar">🎨</div><div class="guide-text">"试着把你的昆虫照片变成像素艺术！👾"</div></div>
+            <div class="guide-speech"><div class="guide-avatar">🎨</div><div class="guide-text">"试着把你的昆虫照片变成像素艺术!👾"</div></div>
           </div>
           <div class="ai-card-footer">
             <button class="ai-card-btn secondary">🔄 换个灵感</button>
@@ -13140,7 +14432,7 @@
           <div class="ai-card-body" style="text-align: center; padding: 16px 0;">
             <div style="font-size: 48px; margin-bottom: 12px;">📷</div>
             <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">还没有照片</div>
-            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">先去拍几张照片，获取专属创作灵感！</div>
+            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">先去拍几张照片,获取专属创作灵感!</div>
           </div>
           <div class="ai-card-footer">
             <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">去拍照 📷</button>
@@ -13159,7 +14451,7 @@
                 <span style="font-size: 24px;">🦋</span>
                 <div>
                   <div style="font-size: 13px; font-weight: 600; color: #92400E;">帝王蝶</div>
-                  <div style="font-size: 10px; color: #B45309;">首次稀有发现！⭐⭐⭐</div>
+                  <div style="font-size: 10px; color: #B45309;">首次稀有发现!⭐⭐⭐</div>
                 </div>
               </div>
             </div>
@@ -13167,7 +14459,7 @@
               <div style="font-size: 11px; color: #888; text-transform: uppercase; margin-bottom: 4px;">📸 最佳照片</div>
               <div style="background: #f0f9ff; border-radius: 10px; padding: 10px; display: flex; align-items: center; gap: 10px;">
                 <div style="width: 40px; height: 40px; background: #dbeafe; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px;">🐞</div>
-                <div style="font-size: 12px; color: #0369a1;">被用于3件AI作品！</div>
+                <div style="font-size: 12px; color: #0369a1;">被用于3件AI作品!</div>
               </div>
             </div>
             <div>
@@ -13175,8 +14467,8 @@
               <div style="background: #fef2f2; border-radius: 10px; padding: 10px; display: flex; align-items: center; gap: 10px;">
                 <span style="font-size: 24px;">🔥</span>
                 <div>
-                  <div style="font-size: 13px; font-weight: 600; color: #991B1B;">连续7天！</div>
-                  <div style="font-size: 10px; color: #B91C1C;">你的最长连续记录！🎉</div>
+                  <div style="font-size: 13px; font-weight: 600; color: #991B1B;">连续7天!</div>
+                  <div style="font-size: 10px; color: #B91C1C;">你的最长连续记录!🎉</div>
                 </div>
               </div>
             </div>
@@ -13193,19 +14485,19 @@
           </div>
           <div class="ai-card-body" style="text-align: center; padding: 16px 0;">
             <div style="font-size: 48px; margin-bottom: 12px;">🌱</div>
-            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">你的一周才刚开始！</div>
-            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">去探索，创造一些精彩瞬间吧 ✨</div>
+            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">你的一周才刚开始!</div>
+            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">去探索,创造一些精彩瞬间吧 ✨</div>
             <div style="background: #f0f9ff; border-radius: 12px; padding: 14px; text-align: left;">
-              <div style="font-size: 12px; font-weight: 600; color: #0369a1; margin-bottom: 8px;">💡 可以试试：</div>
+              <div style="font-size: 12px; font-weight: 600; color: #0369a1; margin-bottom: 8px;">💡 可以试试:</div>
               <div style="font-size: 13px; color: #555; line-height: 1.8;">
                 • 拍摄3张照片<br>
-                • 发现一个新物种<br>
+                • 发现一个新发现<br>
                 • 创作AI艺术
               </div>
             </div>
           </div>
           <div class="ai-card-footer">
-            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">出发！🚀</button>
+            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">出发!🚀</button>
           </div>
         `,
         
@@ -13222,7 +14514,7 @@
             </div>
             <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #eee;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                <span style="font-size: 12px; color: #555;">🏅 徽章: 8/15</span>
+                <span style="font-size: 12px; color: #555;">🏅 勋章: 8/15</span>
                 <span style="font-size: 11px; color: #888;">53%</span>
               </div>
               <div style="background: #e5e7eb; border-radius: 8px; height: 6px; overflow: hidden;">
@@ -13239,7 +14531,7 @@
               <div style="font-size: 11px; color: #888;">📅 最高: 12天</div>
             </div>
             <div style="background: #f0fdf4; border-radius: 10px; padding: 10px; margin-top: 10px; text-align: center;">
-              <div style="font-size: 11px; color: #166534;">🚀 探索者身份始于2024年3月 · 已探索127天！</div>
+              <div style="font-size: 11px; color: #166534;">🚀 探索者身份始于2024年3月 · 已探索127天!</div>
             </div>
           </div>
         `,
@@ -13252,7 +14544,7 @@
           <div class="ai-card-body" style="text-align: center; padding: 16px 0;">
             <div style="font-size: 48px; margin-bottom: 12px;">📊</div>
             <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">还没有数据</div>
-            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">开始探索后，这里会显示你的统计数据</div>
+            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">开始探索后,这里会显示你的统计数据</div>
             <div class="stats-row" style="opacity: 0.4;">
               <div class="stat-item"><div class="stat-number">0</div><div class="stat-label">📷 照片</div></div>
               <div class="stat-item"><div class="stat-number">0</div><div class="stat-label">🦋 物种</div></div>
@@ -13293,12 +14585,12 @@
             <!-- 提示 -->
             <div style="background: #f0f9ff; border-radius: 10px; padding: 10px; display: flex; align-items: center; gap: 8px;">
               <span style="font-size: 16px;">💡</span>
-              <div style="font-size: 12px; color: #0369a1;">提示：在石头和落叶下面找昆虫！</div>
+              <div style="font-size: 12px; color: #0369a1;">提示:在石头和落叶下面找昆虫!</div>
             </div>
           </div>
           <div class="ai-card-footer">
             <button class="ai-card-btn secondary" onclick="hideAICard();">知道了 👍</button>
-            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">去寻找！📷</button>
+            <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">去寻找!📷</button>
           </div>
         `,
         
@@ -13309,10 +14601,10 @@
           </div>
           <div class="ai-card-body" style="text-align: center; padding: 16px 0;">
             <div style="font-size: 48px; margin-bottom: 12px;">🎯</div>
-            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">开始你的探索旅程！</div>
-            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">拍摄照片、发现物种后，会为你推荐目标</div>
+            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">开始你的探索旅程!</div>
+            <div style="font-size: 14px; color: #888; margin-bottom: 16px;">拍摄照片、发现后,会为你推荐目标</div>
             <div style="background: #f0f9ff; border-radius: 12px; padding: 14px; text-align: left;">
-              <div style="font-size: 12px; font-weight: 600; color: #0369a1; margin-bottom: 8px;">🌟 初始目标：</div>
+              <div style="font-size: 12px; font-weight: 600; color: #0369a1; margin-bottom: 8px;">🌟 初始目标:</div>
               <div style="font-size: 13px; color: #555; line-height: 1.8;">
                 • 拍摄第一张照片<br>
                 • 发现第一个物种<br>
@@ -13333,14 +14625,14 @@
           <div class="ai-card-body">
             <div style="text-align: center; margin-bottom: 16px;">
               <div style="font-size: 48px; margin-bottom: 8px;">🐞</div>
-              <div style="font-size: 15px; font-weight: 600; color: #333;">你之前发现过瓢虫！</div>
+              <div style="font-size: 15px; font-weight: 600; color: #333;">你之前发现过瓢虫!</div>
             </div>
             <div style="background: #f9f9f9; border-radius: 12px; padding: 14px; margin-bottom: 12px;">
-              <div style="font-size: 14px; color: #555; font-weight: 600; margin-bottom: 6px;">🎯 挑战：</div>
-              <div style="font-size: 13px; color: #666;">今天你能再找一只来比较一下斑点吗？</div>
+              <div style="font-size: 14px; color: #555; font-weight: 600; margin-bottom: 6px;">🎯 挑战:</div>
+              <div style="font-size: 13px; color: #666;">今天你能再找一只来比较一下斑点吗?</div>
             </div>
             <div style="background: linear-gradient(135deg, #FEF3C7, #FDE68A); border-radius: 12px; padding: 12px; text-align: center;">
-              <div style="font-size: 13px; font-weight: 600; color: #92400E;">🎯 奖励：完成可获 +10 经验！</div>
+              <div style="font-size: 13px; font-weight: 600; color: #92400E;">🎯 奖励:完成可获 +10 经验!</div>
             </div>
           </div>
           <div class="ai-card-footer">
@@ -13356,7 +14648,7 @@
           </div>
           <div class="ai-card-body" style="text-align: center; padding: 20px 0;">
             <div style="font-size: 48px; margin-bottom: 12px;">🔍</div>
-            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">先发现点东西！</div>
+            <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">先发现点东西!</div>
             <div style="font-size: 14px; color: #888;">拍摄照片并识别后即可解锁挑战 🎯</div>
           </div>
           <div class="ai-card-footer">
@@ -13372,7 +14664,7 @@
           <div class="ai-card-body">
             <div class="fact-card">
               <div class="fact-icon">🌻</div>
-              <div class="fact-text">向日葵总是朝着太阳生长！☀️</div>
+              <div class="fact-text">向日葵总是朝着太阳生长!☀️</div>
             </div>
           </div>
           <div class="ai-card-footer">
@@ -13389,7 +14681,7 @@
           <div class="ai-card-body" style="text-align: center; padding: 20px 0;">
             <div style="font-size: 48px; margin-bottom: 12px;">📚</div>
             <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">还没有图鉴记录</div>
-            <div style="font-size: 14px; color: #888;">发现物种后，会为你展示相关的趣味知识</div>
+            <div style="font-size: 14px; color: #888;">发现后,会为你展示相关的趣味知识</div>
           </div>
           <div class="ai-card-footer">
             <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">开始探索 📷</button>
@@ -13412,11 +14704,11 @@
         
         'related': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">🔗</span>相关物种</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">🔗</span>相关发现</div>
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body">
-            <div style="font-size: 13px; color: #888; margin-bottom: 10px;">你发现的其他昆虫：</div>
+            <div style="font-size: 13px; color: #888; margin-bottom: 10px;">你发现的其他昆虫:</div>
             <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 16px;">
               <div style="text-align: center;">
                 <div style="width: 50px; height: 50px; background: #f0f9f0; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 4px;">🦋</div>
@@ -13431,7 +14723,7 @@
                 <div style="font-size: 10px; color: #555;">蟋蟀</div>
               </div>
             </div>
-            <div style="font-size: 13px; color: #888; margin-bottom: 8px;">待发现的其他昆虫：</div>
+            <div style="font-size: 13px; color: #888; margin-bottom: 8px;">待发现的其他昆虫:</div>
             <div style="display: flex; flex-wrap: wrap; gap: 8px;">
               <span style="background: #f5f5f5; padding: 4px 10px; border-radius: 12px; font-size: 12px; color: #888;">🐜 蚂蚁</span>
               <span style="background: #f5f5f5; padding: 4px 10px; border-radius: 12px; font-size: 12px; color: #888;">🪲 甲虫</span>
@@ -13442,13 +14734,13 @@
         
         'relatedEmpty': `
           <div class="ai-card-header">
-            <div class="ai-card-title"><span class="ai-card-title-icon">🔗</span>相关物种</div>
+            <div class="ai-card-title"><span class="ai-card-title-icon">🔗</span>相关发现</div>
             <button class="ai-card-close" onclick="hideAICard()">✕</button>
           </div>
           <div class="ai-card-body">
-            <div style="font-size: 14px; color: #555; margin-bottom: 16px;">你目前只发现了 🐞 哦！</div>
+            <div style="font-size: 14px; color: #555; margin-bottom: 16px;">你目前只发现了 🐞 哦!</div>
             <div style="background: #f0f9ff; border-radius: 12px; padding: 14px; margin-bottom: 12px;">
-              <div style="font-size: 12px; font-weight: 600; color: #0369a1; margin-bottom: 8px;">💡 更多昆虫等你发现：</div>
+              <div style="font-size: 12px; font-weight: 600; color: #0369a1; margin-bottom: 8px;">💡 更多昆虫等你发现:</div>
               <div style="display: flex; flex-wrap: wrap; gap: 8px;">
                 <span style="font-size: 20px;">🦋</span>
                 <span style="font-size: 20px;">🐝</span>
@@ -13458,7 +14750,7 @@
                 <span style="font-size: 20px;">🦟</span>
               </div>
             </div>
-            <div style="font-size: 13px; color: #888; text-align: center;">继续探索，发现更多！</div>
+            <div style="font-size: 13px; color: #888; text-align: center;">继续探索,发现更多!</div>
           </div>
           <div class="ai-card-footer">
             <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">寻找昆虫 🔍</button>
@@ -13481,10 +14773,10 @@
               </div>
             </div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-              <span style="font-size: 12px; color: #888;">第1题（共3题）</span>
+              <span style="font-size: 12px; color: #888;">第1题(共3题)</span>
               <span style="font-size: 12px; color: #F59E0B; font-weight: 600;">🏆 每题 +2 经验</span>
             </div>
-            <div style="font-size: 15px; font-weight: 600; color: #333; margin-bottom: 14px;">帝王蝶每年迁徙多远？</div>
+            <div style="font-size: 15px; font-weight: 600; color: #333; margin-bottom: 14px;">帝王蝶每年迁徙多远?</div>
             <div class="quiz-option" onclick="selectQuizAnswer(this, false)">A) 大约100英里</div>
             <div class="quiz-option" onclick="selectQuizAnswer(this, true)">B) 最远可达3000英里</div>
             <div class="quiz-option" onclick="selectQuizAnswer(this, false)">C) 它们不迁徙</div>
@@ -13503,7 +14795,7 @@
           <div class="ai-card-body" style="text-align: center; padding: 20px 0;">
             <div style="font-size: 48px; margin-bottom: 12px;">🎓</div>
             <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 6px;">还没有可测验的物种</div>
-            <div style="font-size: 14px; color: #888;">发现并识别物种后，即可解锁专属测验！</div>
+            <div style="font-size: 14px; color: #888;">发现并识别物种后,即可解锁专属测验!</div>
           </div>
           <div class="ai-card-footer">
             <button class="ai-card-btn primary" onclick="hideAICard(); hideAI(); navigateTo('camera-page');">开始探索 📷</button>
@@ -13511,7 +14803,7 @@
         `
       };
       
-      // 如果开启了空状态预览，优先返回空状态版本
+      // 如果开启了空状态预览,优先返回空状态版本
       const emptyToggle = document.getElementById('empty-state-toggle');
       if (emptyToggle && emptyToggle.checked) {
         const emptyAction = action + 'Empty';
@@ -13534,7 +14826,7 @@
     // AI/PTT 合一键逻辑
     let aiPttPressTimer = null;
     let aiPttIsLongPress = false;
-    let aiPttIsPressed = false; // 新增：追踪是否真正按下
+    let aiPttIsPressed = false; // 新增:追踪是否真正按下
     const LONG_PRESS_DURATION = 500; // 500ms判定为长按
     
     function startAIPTTPress() {
@@ -13552,7 +14844,7 @@
     
     function endAIPTTPress() {
       console.log('🔚 endAIPTTPress called, aiPttIsPressed:', aiPttIsPressed, 'aiPttIsLongPress:', aiPttIsLongPress);
-      // 如果没有按下过，直接返回（防止mouseleave误触发）
+      // 如果没有按下过,直接返回(防止mouseleave误触发)
       if (!aiPttIsPressed) return;
       
       clearTimeout(aiPttPressTimer);
@@ -13572,7 +14864,7 @@
       aiPttIsPressed = false; // 重置按下状态
     }
     
-    // 鼠标移出时取消操作，不触发任何动作
+    // 鼠标移出时取消操作,不触发任何动作
     function cancelAIPTTPress() {
       if (!aiPttIsPressed) return;
       
@@ -13580,7 +14872,7 @@
       const btn = document.querySelector('.btn-ai-ptt');
       if (btn) btn.classList.remove('pressing');
       
-      // 如果是长按中移出，需要停止PTT
+      // 如果是长按中移出,需要停止PTT
       if (aiPttIsLongPress) {
         stopPTT();
       }
@@ -13624,7 +14916,7 @@
         stopChatRecordingMVP('general');
         return;
       }
-      // PTT浮层保持显示，等用户主动关闭
+      // PTT浮层保持显示,等用户主动关闭
     }
     
     // 地图页AI浮层状态
@@ -13641,14 +14933,14 @@
     
     // 语音播报内容 - 童趣化
     const aiVoiceContent = {
-      0: '嘿！这里有好多好玩的任务等着你呢！去找找漂亮的花朵，看看蝴蝶在哪里，还有好多惊喜哦！点一个试试吧！',
-      1: '小探险家，告诉你几个秘密哦！早上的时候小虫虫最活跃啦，蹲下来看看，会发现很多有趣的小东西呢！',
-      2: '哇，完成任务就能得到闪闪发光的星星哦！把所有任务都完成，还有神秘大礼物等着你呢！'
+      0: '嘿!这里有好多好玩的任务等着你呢!去找找漂亮的花朵,看看蝴蝶在哪里,还有好多惊喜哦!点一个试试吧!',
+      1: '小探险家,告诉你几个秘密哦!早上的时候小虫虫最活跃啦,蹲下来看看,会发现很多有趣的小东西呢!',
+      2: '哇,完成任务就能得到闪闪发光的星星哦!把所有任务都完成,还有神秘大礼物等着你呢!'
     };
     
     function triggerAIMenuSwitch() {
       console.log('🎯 triggerAIMenuSwitch called, currentPage:', currentPage);
-      // 防抖：300ms内不重复触发
+      // 防抖:300ms内不重复触发
       if (aiMenuSwitchLock) {
         console.log('🔒 aiMenuSwitchLock is true, returning');
         return;
@@ -13663,7 +14955,7 @@
           showMapAIOverlay();
           setTimeout(() => speakAIContent(0), 50);
         } else {
-          // 已显示时，短按切换Tab
+          // 已显示时,短按切换Tab
           mapAICurrentTab = (mapAICurrentTab + 1) % 3;
           updateAIOverlayUI();
           speakAIContent(mapAICurrentTab);
@@ -13677,7 +14969,7 @@
         if (!workshopAIOverlayVisible) {
           showWorkshopAIOverlay();
         } else {
-          // 已显示时，短按切换Tab
+          // 已显示时,短按切换Tab
           workshopAICurrentTab = (workshopAICurrentTab + 1) % 3;
           updateWorkshopAIOverlayUI();
           speakWorkshopAIContent(workshopAICurrentTab);
@@ -13750,7 +15042,7 @@
         return;
       }
       
-      // 物种详情页特殊处理 - AI浮层
+      // 发现详情页特殊处理 - AI浮层
       if (currentPage === 'subcategory-detail-page') {
         console.log('🦋 Species detail page special handling');
         if (!speciesDetailAIOverlayVisible) {
@@ -13888,12 +15180,12 @@
     
     function getWorkshopAIVoiceContent(tabIndex) {
       if (tabIndex === 0 && currentSurpriseStyle) {
-        return `今天试试${currentSurpriseStyle.name}怎么样？点击开始创作，马上就能看到效果！`;
+        return `今天试试${currentSurpriseStyle.name}怎么样?点击开始创作,马上就能看到效果!`;
       }
       const voiceTexts = [
-        '随机选了一个风格和照片，点击开始创作吧！',
-        '这是你最近创作的作品，点击查看全部可以看到更多哦！',
-        '需要灵感吗？试试把花朵变成水彩画，或者把昆虫变成像素风！'
+        '随机选了一个风格和照片,点击开始创作吧!',
+        '这是你最近创作的作品,点击查看全部可以看到更多哦!',
+        '需要灵感吗?试试把花朵变成水彩画,或者把昆虫变成像素风!'
       ];
       return voiceTexts[tabIndex];
     }
@@ -14057,9 +15349,9 @@
     let homeAIOverlayVisible = false;
     let homeAICurrentTab = 0;
     const homeAIVoiceContent = [
-      '今天有2个任务等着你！寻找春天的花朵正在进行中，加油！',
-      '想学点新知识吗？点击你感兴趣的话题，我来告诉你！',
-      '你已经发现了12种物种，完成了5个任务，获得了3枚徽章，太棒了！'
+      '今天有2个任务等着你!寻找春天的花朵正在进行中,加油!',
+      '想学点新知识吗?点击你感兴趣的话题,我来告诉你!',
+      '你已经发现了12种物种,完成了5个任务,获得了3枚徽章,太棒了!'
     ];
     
     function showHomeAIOverlay() {
@@ -14147,9 +15439,9 @@
     let cameraAIOverlayVisible = false;
     let cameraAICurrentTab = 0;
     const cameraAIVoiceContent = [
-      '对准你想了解的东西，按下快门拍照，我来帮你识别！',
-      '小技巧：光线好、靠近点、拿稳相机，照片会更清晰哦！',
-      '快门拍照，闪电是闪光灯，数字是缩放，方格是网格线。'
+      '对准你想了解的东西,按下快门拍照,我来帮你识别!',
+      '小技巧:光线好、靠近点、拿稳相机,照片会更清晰哦!',
+      '快门拍照,闪电是闪光灯,数字是缩放,方格是网格线。'
     ];
     
     function showCameraAIOverlay() {
@@ -14237,9 +15529,9 @@
     let backpackAIOverlayVisible = false;
     let backpackAICurrentTab = 0;
     const backpackAIVoiceContent = [
-      '这是你最近的精彩时刻！蝴蝶特写是你的最佳照片，已经连续探索7天了！',
-      '你已经拍了28张照片，发现了12种物种，完成了5个任务，真厉害！',
-      '再发现3种昆虫，就能获得昆虫专家徽章，加油！'
+      '这是你最近的精彩时刻!蝴蝶特写是你的最佳照片,已经连续探索7天了!',
+      '你已经拍了28张照片,发现了12种物种,完成了5个任务,真厉害!',
+      '再发现3种昆虫,就能获得昆虫专家徽章,加油!'
     ];
     
     function showBackpackAIOverlay() {
@@ -14327,9 +15619,9 @@
     let previewAIOverlayVisible = false;
     let previewAICurrentTab = 0;
     const previewAIVoiceContent = [
-      '这是一只凤蝶！识别准确度98%。点击了解更多关于它的知识！',
-      '想和我聊聊这只蝴蝶吗？你可以问我它吃什么、住在哪里，或者让我给你讲个故事！',
-      '想把这张照片变成艺术作品吗？选择一种风格，开始魔法创作！'
+      '这是一只凤蝶!识别准确度98%。点击了解更多关于它的知识!',
+      '想和我聊聊这只蝴蝶吗?你可以问我它吃什么、住在哪里,或者让我给你讲个故事!',
+      '想把这张照片变成艺术作品吗?选择一种风格,开始魔法创作!'
     ];
     
     function showPreviewAIOverlay() {
@@ -14417,9 +15709,9 @@
     let speciesListAIOverlayVisible = false;
     let speciesListAICurrentTab = 0;
     const speciesListAIVoiceContent = [
-      '来一个随机挑战吧！去户外找一朵雏菊，拍照给我看！',
-      '你知道吗？向日葵其实不是一朵花，而是由成千上万朵小花组成的！',
-      '考考你！哪种花会跟着太阳转？'
+      '来一个随机挑战吧!去户外找一朵雏菊,拍照给我看!',
+      '你知道吗?向日葵其实不是一朵花,而是由成千上万朵小花组成的!',
+      '考考你!哪种花会跟着太阳转?'
     ];
     
     function showSpeciesListAIOverlay() {
@@ -14499,10 +15791,13 @@
       
       if (isCorrect) {
         element.classList.add('correct');
-        showToast('🎉 答对了！');
+        // 答对直接显示星星飘字
+        setTimeout(() => {
+          showStarFloat(5);
+        }, 300);
       } else {
         element.classList.add('wrong');
-        showToast('❌ 再想想！');
+        showToast('❌ 再想想!');
       }
       
       setTimeout(() => {
@@ -14527,13 +15822,13 @@
       }, 0);
     });
     
-    // ============ 物种详情页 AI 浮层 ============
+    // ============ 发现详情页 AI 浮层 ============
     let speciesDetailAIOverlayVisible = false;
     let speciesDetailAICurrentTab = 0;
     const speciesDetailAIVoiceContent = [
-      '蒲公英的种子可以飞行几公里远！它还是一种中草药，可以清热解毒哦。',
-      '蒲公英和雏菊、向日葵、菊花都是菊科植物，是一家人呢！',
-      '考考你！蒲公英的种子靠什么传播？是蜜蜂、风还是水呢？'
+      '蒲公英的种子可以飞行几公里远!它还是一种中草药,可以清热解毒哦。',
+      '蒲公英和雏菊、向日葵、菊花都是菊科植物,是一家人呢!',
+      '考考你!蒲公英的种子靠什么传播?是蜜蜂、风还是水呢?'
     ];
     
     function showSpeciesDetailAIOverlay() {
@@ -14603,7 +15898,49 @@
       speakSpeciesDetailAIContent(speciesDetailAICurrentTab);
     }
     
-    // 物种详情小测验选项点击
+    // 发现详情页 - 趣味知识语音
+    function speakFunFacts() {
+      const text = '蒲公英有三个有趣的知识！第一，种子像小降落伞，风一吹就能飞到很远的地方！第二，叶子可以吃，有点苦但很健康！第三，花会跟着太阳转动，晚上还会闭合！';
+      speakText(text);
+    }
+    
+    // 发现详情页 - 科学小档案语音
+    function speakScienceInfo() {
+      const text = '蒲公英的科学小档案：它属于菊科蒲公英属，花期是3到5月，果期是6到8月，分布在全球温带地区，常见于路边、草地和田野。';
+      speakText(text);
+    }
+    
+    // 发现详情页 - 我的发现语音
+    function speakDiscovery() {
+      const text = '我的发现：你在1月5日第一次发现了蒲公英，一共拍摄了2张照片！';
+      speakText(text);
+    }
+    
+    // 通用语音播报函数
+    function speakText(text) {
+      if (!text || !('speechSynthesis' in window)) return;
+      
+      currentSpeechId++;
+      const thisId = currentSpeechId;
+      window.speechSynthesis.cancel();
+      
+      setTimeout(() => {
+        if (thisId !== currentSpeechId) return;
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.85;
+        utterance.pitch = 1.15;
+        const voices = window.speechSynthesis.getVoices();
+        const zhVoice = voices.find(v => v.lang.includes('zh'));
+        if (zhVoice) utterance.voice = zhVoice;
+        utterance.onstart = () => setSpeakingState(true);
+        utterance.onend = () => setSpeakingState(false);
+        utterance.onerror = () => setSpeakingState(false);
+        window.speechSynthesis.speak(utterance);
+      }, 100);
+    }
+    
+    // 发现详情小测验选项点击
     function selectDetailQuizOption(element, isCorrect) {
       const options = element.parentElement.querySelectorAll('.quiz-option');
       options.forEach(opt => {
@@ -14613,10 +15950,13 @@
       
       if (isCorrect) {
         element.classList.add('correct');
-        showToast('🎉 答对了！风是蒲公英种子的好朋友！');
+        // 答对直接显示星星飘字
+        setTimeout(() => {
+          showStarFloat(5);
+        }, 300);
       } else {
         element.classList.add('wrong');
-        showToast('❌ 再想想，蒲公英种子像小降落伞...');
+        showToast('❌ 再想想,蒲公英种子像小降落伞...');
       }
       
       setTimeout(() => {
@@ -14627,7 +15967,7 @@
       }, 2000);
     }
     
-    // 点击浮层外区域关闭 - 物种详情
+    // 点击浮层外区域关闭 - 发现详情
     document.addEventListener('click', function(e) {
       setTimeout(function() {
         if (speciesDetailAIOverlayVisible) {
@@ -14692,7 +16032,100 @@
     
     // 敬请期待提示
     function showComingSoon(feature) {
-      showToast(`✨ ${feature}功能即将上线，敬请期待！`);
+      showToast(`✨ ${feature}功能即将上线,敬请期待!`);
+    }
+    
+    // ========== 爷爷的信功能 ==========
+    const lettersData = [
+      {
+        type: '👋 欢迎信',
+        title: '欢迎来到探险家的世界',
+        content: `亲爱的小探险家：
+
+欢迎加入我们的探险队！
+
+爷爷年轻的时候，也像你这么大。那时候，我最喜欢做的事情就是在山里、田野间到处跑，观察那些有趣的小虫子、美丽的花朵和神奇的石头。
+
+这台小机器是爷爷送给你的礼物。带着它出去探险吧！用它拍下你发现的每一样有趣的东西，它会告诉你它们的名字和故事。
+
+记住，最棒的探险家不是知道最多的人，而是最会问"为什么"的人。
+
+期待看到你的发现！`,
+        unlockCondition: '初始解锁'
+      },
+      {
+        type: '📖 探险笔记',
+        title: '第一步，最重要的一步',
+        content: `亲爱的小探险家：
+
+恭喜你升到1级了！
+
+爷爷还记得自己第一次认出一只蝴蝶的名字时，那种兴奋的感觉。那是一只柑橘凤蝶，翅膀上有漂亮的黄色斑纹。
+
+每一次发现，不管多小，都是了不起的成就。因为你开始用好奇的眼睛看世界了。
+
+继续保持这份好奇心，它会带你去很多神奇的地方。
+
+期待你的下一个发现！`,
+        unlockCondition: '升到 Lv.1'
+      },
+      {
+        type: '📖 探险笔记',
+        title: '学会观察的秘密',
+        content: `亲爱的小探险家：
+
+你已经是2级的小探险家了！
+
+今天爷爷想告诉你一个观察的秘密：最好的发现，往往藏在你以为已经很熟悉的地方。
+
+下次出门的时候，试试看：蹲下来，从虫子的角度看世界，你会发现完全不一样的风景。
+
+一片普通的草地，对于一只蚂蚁来说，就是一片森林。`,
+        unlockCondition: '升到 Lv.2'
+      }
+    ];
+    
+    const letterLockHints = {
+      2: '升到 Lv.2 解锁',
+      3: '升到 Lv.3 解锁',
+      4: '升到 Lv.4 解锁',
+      5: '升到 Lv.5 解锁',
+      6: '升到 Lv.6 解锁',
+      7: '升到 Lv.7 解锁',
+      8: '升到 Lv.8 解锁',
+      9: '升到 Lv.9 解锁',
+      10: '升到 Lv.10 解锁',
+      11: '发现 50 种物种解锁',
+      12: '发现 100 种物种解锁',
+      13: '完成全收集成就解锁',
+      14: '达成传说探险家解锁'
+    };
+    
+    function openLetter(index) {
+      const letter = lettersData[index];
+      if (!letter) {
+        showToast('📜 这封信还在路上...');
+        return;
+      }
+      
+      document.getElementById('letter-modal-type').innerHTML = `<span>${letter.type.split(' ')[0]}</span><span>${letter.type.split(' ')[1]}</span>`;
+      document.getElementById('letter-modal-title').textContent = letter.title;
+      document.getElementById('letter-modal-text').textContent = letter.content;
+      document.getElementById('letter-modal-overlay').classList.add('show');
+    }
+    
+    function closeLetter() {
+      document.getElementById('letter-modal-overlay').classList.remove('show');
+    }
+    
+    function showLetterLockHint(index) {
+      const hint = letterLockHints[index] || '继续探险解锁';
+      showToast(`🔒 ${hint}`);
+    }
+    
+    function readLetterAloud() {
+      showToast('🔊 爷爷正在读信...');
+      // 实际实现会调用TTS
     }
     
     // MVP状态枚举: idle, listening, thinking, speaking
@@ -14888,13 +16321,13 @@
       }
     }
 
-    // 旧的角色切换函数（兼容）
+    // 旧的角色切换函数(兼容)
     function switchCharacter(emoji, btn) {
-      // 已废弃，使用 switchPTTCharacter
+      // 已废弃,使用 switchPTTCharacter
     }
 
     function simulateVoiceRecognition() {
-      // 简化版：只更新状态，不显示文字
+      // 简化版:只更新状态,不显示文字
       const avatar = document.getElementById('ptt-avatar');
       const waveform = document.getElementById('ptt-waveform');
       const statusDot = document.getElementById('ptt-status-dot');
@@ -14928,7 +16361,7 @@
       }, 2000);
     }
 
-    // showPTTResponse 已废弃（简化版不显示文本回复）
+    // showPTTResponse 已废弃(简化版不显示文本回复)
     function showPTTResponse(userQuestion) {
       // 简化版不需要此函数
     }
@@ -14951,7 +16384,7 @@
     });
 
     // 演示功能 - 在控制台可用
-    window.demoXP = () => showXPFloat(15);
+    window.demoStar = () => showStarFloat(5);
     window.demoLevelUp = () => showLevelUpModal();
     window.demoBadge = () => showBadgeModal();
     window.demoSequence = () => demoRewardSequence();
