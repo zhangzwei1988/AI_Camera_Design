@@ -12416,12 +12416,11 @@
           <div class="nav-item" onclick="goTo('home-page', 'ai-menu')"><span class="icon">🏠</span><span>首页AI菜单</span></div>
           <div class="nav-item" onclick="goTo('camera-page', 'ai-menu')"><span class="icon">📷</span><span>相机AI菜单</span></div>
           <div class="nav-item" onclick="goTo('photo-preview-page', 'ai-menu')"><span class="icon">🖼️</span><span>预览AI菜单</span></div>
-          <div class="nav-item" onclick="goTo('chat-page', 'ai-menu')"><span class="icon">💬</span><span>聊天AI菜单</span></div>
           <div class="nav-item" onclick="goTo('map-page', 'ai-menu')"><span class="icon">🗺️</span><span>地图AI菜单</span></div>
           <div class="nav-item" onclick="goTo('workshop-page', 'ai-menu')"><span class="icon">🎨</span><span>魔法工坊AI菜单</span></div>
           <div class="nav-item" onclick="goTo('backpack-page', 'ai-menu')"><span class="icon">🎒</span><span>探险背包AI菜单</span></div>
-          <div class="nav-item" onclick="goTo('species-list-page', 'ai-menu')"><span class="icon">📖</span><span>我的发现AI菜单</span></div>
-          <div class="nav-item" onclick="goTo('species-detail-page', 'ai-menu')"><span class="icon">🔍</span><span>发现AI菜单</span></div>
+          <div class="nav-item" onclick="goTo('subcategory-list-page', 'ai-menu')"><span class="icon">📖</span><span>我的发现AI菜单</span></div>
+          <div class="nav-item" onclick="goTo('subcategory-detail-page', 'ai-menu')"><span class="icon">🔍</span><span>发现详情AI菜单</span></div>
         </div>
       </div>
 
@@ -12429,9 +12428,8 @@
       <div class="nav-section">
         <div class="nav-section-title">🎤 PTT浮窗</div>
         <div class="nav-items">
-          <div class="nav-item" onclick="goTo('home-page', 'ptt')"><span class="icon">🏠</span><span>首页PTT</span></div>
-          <div class="nav-item" onclick="goTo('camera-page', 'ptt')"><span class="icon">📷</span><span>相机PTT</span></div>
-          <div class="nav-item" onclick="goTo('chat-page', 'ptt')"><span class="icon">💬</span><span>聊天PTT</span></div>
+          <div class="nav-item" onclick="goTo('home-page', 'ptt')"><span class="icon">💬</span><span>普通对话</span></div>
+          <div class="nav-item" onclick="goTo('chat-page')"><span class="icon">🖼️</span><span>照片对话</span></div>
         </div>
       </div>
 
@@ -12440,6 +12438,7 @@
         <div class="nav-section-title">🎉 激励反馈演示</div>
         <div class="nav-items">
           <div class="nav-item demo-item" onclick="demoStar()"><span class="icon">⭐</span><span>星星+5</span></div>
+          <div class="nav-item demo-item" onclick="demoNewSpecies()"><span class="icon">🦋</span><span>发现新物种</span></div>
           <div class="nav-item demo-item" onclick="demoLevelUp()"><span class="icon">🎊</span><span>升级弹窗</span></div>
           <div class="nav-item demo-item" onclick="demoBadge()"><span class="icon">🏆</span><span>勋章解锁</span></div>
           <div class="nav-item demo-item" onclick="demoSequence()"><span class="icon">🎬</span><span>完整流程</span></div>
@@ -12637,12 +12636,43 @@
       if (modal) {
         console.log('🎯 显示弹窗:', modal);
         if (modal === 'ai-menu') {
-          const overlay = document.getElementById('ai-overlay');
-          if (overlay) {
-            overlay.classList.add('show');
-            updateAIMenu();
-            console.log('✅ AI菜单已显示');
-          }
+          // 根据页面ID显示对应的AI浮层
+          setTimeout(() => {
+            switch(pageId) {
+              case 'home-page':
+                if (typeof showHomeAIOverlay === 'function') showHomeAIOverlay();
+                break;
+              case 'camera-page':
+                if (typeof showCameraAIOverlay === 'function') showCameraAIOverlay();
+                break;
+              case 'photo-preview-page':
+                if (typeof showPreviewAIOverlay === 'function') showPreviewAIOverlay();
+                break;
+              case 'map-page':
+                if (typeof showMapAIOverlay === 'function') showMapAIOverlay();
+                break;
+              case 'workshop-page':
+                if (typeof showWorkshopAIOverlay === 'function') showWorkshopAIOverlay();
+                break;
+              case 'backpack-page':
+                if (typeof showBackpackAIOverlay === 'function') showBackpackAIOverlay();
+                break;
+              case 'subcategory-list-page':
+                if (typeof showSpeciesListAIOverlay === 'function') showSpeciesListAIOverlay();
+                break;
+              case 'subcategory-detail-page':
+                if (typeof showSpeciesDetailAIOverlay === 'function') showSpeciesDetailAIOverlay();
+                break;
+              default:
+                // 默认显示通用AI菜单
+                const overlay = document.getElementById('ai-overlay');
+                if (overlay) {
+                  overlay.classList.add('show');
+                  updateAIMenu();
+                }
+            }
+            console.log('✅ AI菜单已显示:', pageId);
+          }, 100);
         } else if (modal === 'ptt') {
           const backdrop = document.getElementById('ptt-backdrop');
           const ptt = document.getElementById('ptt-overlay');
