@@ -8921,7 +8921,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.75);
+      background: rgba(0, 0, 0, 0.7);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -8935,18 +8935,16 @@
       pointer-events: auto;
     }
     .discovery-modal {
-      background: linear-gradient(135deg, #2d2d44 0%, #1a1a2e 100%);
-      border-radius: 20px;
+      background: linear-gradient(180deg, #FFF8E7 0%, #FFE4B5 100%);
+      border-radius: 24px;
       padding: 24px 20px;
       text-align: center;
-      width: 85%;
-      max-width: 280px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transform: translateY(20px);
+      width: 280px;
+      transform: scale(0.8);
       transition: transform 0.3s ease-out;
     }
     .discovery-modal-overlay.show .discovery-modal {
-      transform: translateY(0);
+      transform: scale(1);
     }
     .discovery-icon-row {
       font-size: 16px;
@@ -8970,19 +8968,19 @@
       50% { opacity: 1; transform: scale(1.1); }
     }
     .discovery-title {
-      color: #FFD700;
-      font-size: 16px;
-      font-weight: 600;
-      margin: 12px 0 8px;
+      color: #F59E0B;
+      font-size: 18px;
+      font-weight: 700;
+      margin: 12px 0 4px;
     }
     .discovery-species {
-      color: white;
+      color: #5D4E3A;
       font-size: 24px;
       font-weight: bold;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .discovery-subtitle {
-      color: rgba(255, 255, 255, 0.5);
+      color: #8B5A2B;
       font-size: 12px;
       margin-bottom: 12px;
     }
@@ -8990,10 +8988,10 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(255, 215, 0, 0.15);
+      background: rgba(255,255,255,0.6);
       padding: 8px 18px;
       border-radius: 16px;
-      color: #FFD700;
+      color: #5D4E3A;
       font-weight: 600;
       font-size: 14px;
       margin-bottom: 16px;
@@ -9008,9 +9006,9 @@
     .discovery-btn {
       flex: 1;
       padding: 12px 14px;
-      border-radius: 10px;
+      border-radius: 20px;
       border: none;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
       cursor: pointer;
       transition: transform 0.2s;
@@ -9019,12 +9017,13 @@
       transform: scale(1.03);
     }
     .discovery-btn.secondary {
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
+      background: rgba(139, 90, 43, 0.15);
+      color: #5D4E3A;
     }
     .discovery-btn.primary {
-      background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
-      color: white;
+      background: linear-gradient(135deg, #FFD700 0%, #F59E0B 100%);
+      color: #5D4E3A;
+      box-shadow: 0 4px 12px rgba(255, 200, 0, 0.4);
     }
   </style>
 </head>
