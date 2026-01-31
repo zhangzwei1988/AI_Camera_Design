@@ -2008,6 +2008,26 @@
       50% { transform: scale(1.2); }
     }
 
+    /* ===== 照片聊天页 AI浮层 ===== */
+    .chat-ai-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(30, 32, 44, 0.96);
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      z-index: 50;
+      transition: all 0.25s ease;
+      border-radius: 16px 16px 0 0;
+    }
+    .chat-ai-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(100%);
+    }
+
     /* ============ 通用聊天 通用聊天页 (MVP版本) ============ */
     #general-chat-page {
       /* 使用page-blur-bg统一背景 */
@@ -2563,7 +2583,7 @@
 
     /* 内容区域 */
     .ai-overlay-body {
-      padding: 16px 16px 12px;
+      padding: 20px 16px 16px;
       position: relative;
     }
     .ai-body-content {
@@ -2809,12 +2829,14 @@
       transition: all 0.2s;
     }
     .ai-bar-tab:hover { background: rgba(255, 255, 255, 0.15); }
-    .ai-bar-tab.active {
-      background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+    .ai-bar-tab.active,
+    .map-ai-overlay .ai-bar-tab.active,
+    .chat-ai-overlay .ai-bar-tab.active {
+      background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%) !important;
     }
     .ai-bar-tab .tab-icon { font-size: 16px; }
     .ai-bar-tab .tab-text { font-size: 12px; color: rgba(255, 255, 255, 0.9); font-weight: 500; }
-    .ai-bar-tab.active .tab-text { color: white; }
+    .ai-bar-tab.active .tab-text { color: white; font-weight: 600; }
 
     .ai-bar-close {
       width: 32px;
@@ -3644,17 +3666,19 @@
 
     /* 魔法创作 */
     .preview-magic-content {
-      padding: 4px 0;
+      padding: 16px 8px 12px;
     }
     .magic-style-row {
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
+      gap: 12px;
     }
     .magic-style-item {
+      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -3662,17 +3686,28 @@
       transform: scale(1.05);
     }
     .magic-style-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 14px;
+      width: 100%;
+      aspect-ratio: 1;
+      max-width: 100px;
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 28px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+    .magic-style-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 16px;
     }
     .magic-style-item span {
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.8);
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 500;
     }
 
     /* ===== 物种列表AI浮层 ===== */
@@ -9405,21 +9440,21 @@
                 <div class="ai-body-content" data-content="2">
                   <div class="preview-magic-content">
                     <div class="magic-style-row">
-                      <div class="magic-style-item" onclick="hidePreviewAIOverlay(); navigateTo('workshop-page');">
-                        <div class="magic-style-icon style-ghibli">🏔️</div>
-                        <span>吉卜力</span>
+                      <div class="magic-style-item" onclick="startMagicGeneration('皮克斯3D')">
+                        <div class="magic-style-icon"><img src="icons/style_pixar.png" alt="皮克斯3D"></div>
+                        <span>皮克斯3D</span>
                       </div>
-                      <div class="magic-style-item" onclick="hidePreviewAIOverlay(); navigateTo('workshop-page');">
-                        <div class="magic-style-icon style-pixel">👾</div>
-                        <span>像素风</span>
+                      <div class="magic-style-item" onclick="startMagicGeneration('软糖风')">
+                        <div class="magic-style-icon"><img src="icons/style_candy.png" alt="软糖风"></div>
+                        <span>软糖风</span>
                       </div>
-                      <div class="magic-style-item" onclick="hidePreviewAIOverlay(); navigateTo('workshop-page');">
-                        <div class="magic-style-icon style-watercolor">🎨</div>
-                        <span>水彩画</span>
+                      <div class="magic-style-item" onclick="startMagicGeneration('黏土风')">
+                        <div class="magic-style-icon"><img src="icons/style_clay.png" alt="黏土风"></div>
+                        <span>黏土风</span>
                       </div>
-                      <div class="magic-style-item" onclick="hidePreviewAIOverlay(); navigateTo('workshop-page');">
-                        <div class="magic-style-icon style-cartoon">🎬</div>
-                        <span>卡通风</span>
+                      <div class="magic-style-item" onclick="startMagicGeneration('毛毡风')">
+                        <div class="magic-style-icon"><img src="icons/style_felt.png" alt="毛毡风"></div>
+                        <span>毛毡风</span>
                       </div>
                     </div>
                   </div>
@@ -9517,6 +9552,90 @@
                   <span class="chat-speak-icon">🎤</span>
                   <span class="chat-speak-text">按住说话</span>
                 </button>
+              </div>
+            </div>
+
+            <!-- 照片聊天 AI浮层 - 简化单级菜单 -->
+            <div class="chat-ai-overlay hidden" id="chat-ai-overlay">
+              <!-- 内容区域 -->
+              <div class="ai-overlay-body">
+                <!-- 内容0: 换话题 -->
+                <div class="ai-body-content active" data-content="0">
+                  <div class="preview-chat-content">
+                    <div class="chat-prompt-card" onclick="hideChatAIOverlay(); showToast('已切换到新话题')">
+                      <span class="prompt-icon">🌸</span>
+                      <span class="prompt-text">聊聊花的颜色</span>
+                    </div>
+                    <div class="chat-prompt-card" onclick="hideChatAIOverlay(); showToast('已切换到新话题')">
+                      <span class="prompt-icon">🦋</span>
+                      <span class="prompt-text">蝴蝶为什么会飞</span>
+                    </div>
+                    <div class="chat-prompt-card" onclick="hideChatAIOverlay(); showToast('已切换到新话题')">
+                      <span class="prompt-icon">🔍</span>
+                      <span class="prompt-text">随机话题</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 内容1: 编故事 -->
+                <div class="ai-body-content" data-content="1">
+                  <div class="preview-chat-content">
+                    <div class="chat-prompt-card" onclick="hideChatAIOverlay(); startStoryGeneration('冒险故事')">
+                      <span class="prompt-icon">🏰</span>
+                      <span class="prompt-text">冒险故事</span>
+                    </div>
+                    <div class="chat-prompt-card" onclick="hideChatAIOverlay(); startStoryGeneration('童话故事')">
+                      <span class="prompt-icon">🧚</span>
+                      <span class="prompt-text">童话故事</span>
+                    </div>
+                    <div class="chat-prompt-card" onclick="hideChatAIOverlay(); startStoryGeneration('随机创作')">
+                      <span class="prompt-icon">✨</span>
+                      <span class="prompt-text">随机创作</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 内容2: 挑战 - 直接显示问答 -->
+                <div class="ai-body-content" data-content="2">
+                  <div class="species-quiz-content" id="chat-quiz-content">
+                    <div style="text-align: center; margin-bottom: 4px;">
+                      <span style="font-size: 11px; background: linear-gradient(135deg, #FEF3C7, #FDE68A); padding: 4px 10px; border-radius: 10px; color: #92400E;">🌟 答对 +5⭐</span>
+                    </div>
+                    <div class="quiz-question" id="chat-quiz-question">这张照片里的花是什么颜色？</div>
+                    <div class="quiz-options" id="chat-quiz-options">
+                      <div class="quiz-option" onclick="answerChatQuiz(this, false)">🔴 红色</div>
+                      <div class="quiz-option" onclick="answerChatQuiz(this, false)">🔵 蓝色</div>
+                      <div class="quiz-option" onclick="answerChatQuiz(this, true)">🟡 黄色</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 底部菜单栏 -->
+              <div class="ai-overlay-bar">
+                <div class="ai-bar-left">
+                  <div class="ai-bar-avatar">💬</div>
+                  <span class="ai-bar-context">聊天</span>
+                </div>
+                <div class="ai-bar-tabs">
+                  <div class="ai-bar-tab active" data-tab="0" onclick="switchChatAITab(0)">
+                    <span class="tab-icon">🔄</span>
+                    <span class="tab-text">换话题</span>
+                  </div>
+                  <div class="ai-bar-tab" data-tab="1" onclick="switchChatAITab(1)">
+                    <span class="tab-icon">📖</span>
+                    <span class="tab-text">编故事</span>
+                  </div>
+                  <div class="ai-bar-tab" data-tab="2" onclick="switchChatAITab(2)">
+                    <span class="tab-icon">🎯</span>
+                    <span class="tab-text">挑战</span>
+                  </div>
+                </div>
+                <div class="ai-bar-right">
+                  <button class="ai-replay-btn" onclick="replayChatAIVoice()">
+                    <span class="replay-icon">🔊</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -11978,17 +12097,59 @@
           </div>
         </div>
 
-        <!-- ========== 全局AIGC生成弹窗 ========== -->
+        <!-- ========== 魔法创作进度弹窗 ========== -->
         <div class="aigc-modal-overlay" id="aigc-modal-overlay">
           <div class="aigc-modal" onclick="event.stopPropagation()">
-            <div class="aigc-modal-title">✨ Creating Magic Art</div>
-            
-            <!-- 生成中 -->
+            <div class="aigc-modal-title" id="aigc-modal-title">✨ 魔法创作中</div>
             <div class="aigc-generating" id="aigc-generating">
               <div class="aigc-spinner">🎨</div>
-              <div class="aigc-progress-text">正在转换你的照片...</div>
+              <div class="aigc-progress-text" id="aigc-progress-text">正在施展魔法...</div>
               <div class="aigc-progress-bar">
-                <div class="aigc-progress-fill" id="aigc-progress" style="width: 30%;"></div>
+                <div class="aigc-progress-fill" id="aigc-progress" style="width: 0%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========== Quiz挑战弹窗 ========== -->
+        <div class="aigc-modal-overlay" id="quiz-modal-overlay">
+          <div class="aigc-modal" onclick="event.stopPropagation()" style="padding: 20px; max-width: 340px;">
+            <div style="text-align: center; margin-bottom: 16px;">
+              <span style="font-size: 32px;">🎯</span>
+              <div style="font-size: 16px; font-weight: 600; color: #333; margin-top: 8px;">自然小测验</div>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #FEF3C7, #FDE68A); padding: 10px; border-radius: 10px; text-align: center; font-size: 13px; color: #92400E; margin-bottom: 16px;">
+              🌟 答对可获得 +5 星星
+            </div>
+            
+            <div id="quiz-question" style="font-size: 15px; font-weight: 600; color: #333; margin-bottom: 16px; text-align: center;">
+              这张照片里的花是什么颜色的？
+            </div>
+            
+            <div id="quiz-options">
+              <div class="quiz-option" onclick="selectQuizAnswer(this, false)">🔴 红色</div>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, false)">🔵 蓝色</div>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, true)">🟡 黄色</div>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, false)">🟣 紫色</div>
+            </div>
+            
+            <button onclick="hideQuizModal()" style="width: 100%; margin-top: 16px; padding: 12px; background: #f0f0f0; border: none; border-radius: 10px; font-size: 14px; color: #666; cursor: pointer;">
+              稍后再试
+            </button>
+          </div>
+        </div>
+
+        <!-- ========== 故事生成弹窗 ========== -->
+        <div class="aigc-modal-overlay" id="story-modal-overlay">
+          <div class="aigc-modal" onclick="event.stopPropagation()">
+            <div class="aigc-modal-title">📖 正在编写故事</div>
+            
+            <div class="aigc-generating">
+              <div class="aigc-spinner">✨</div>
+              <div class="aigc-progress-text" id="story-progress-text">正在构思精彩情节...</div>
+              <div class="aigc-progress-bar">
+                <div class="aigc-progress-fill" id="story-progress" style="width: 0%;"></div>
               </div>
             </div>
           </div>
@@ -14032,6 +14193,167 @@
       setTimeout(() => toast.remove(), 2000);
     }
     
+    // ========== Quiz挑战弹窗 ==========
+    const quizQuestions = [
+      { q: '这张照片里的花是什么颜色的？', options: ['🔴 红色', '🔵 蓝色', '🟡 黄色', '🟣 紫色'], correct: 2 },
+      { q: '蝴蝶的翅膀上有什么？', options: ['🪶 羽毛', '✨ 鳞片', '🧵 绒毛', '💎 水晶'], correct: 1 },
+      { q: '向日葵为什么叫向日葵？', options: ['🌙 喜欢月亮', '☀️ 跟着太阳转', '🌧️ 喜欢下雨', '❄️ 喜欢冬天'], correct: 1 },
+      { q: '蒲公英的种子靠什么传播？', options: ['🐝 蜜蜂', '🌬️ 风', '💧 水', '🐦 小鸟'], correct: 1 }
+    ];
+    let currentQuiz = null;
+    
+    function showQuizModal(type) {
+      const overlay = document.getElementById('quiz-modal-overlay');
+      if (!overlay) return;
+      
+      // 随机选择一道题
+      currentQuiz = quizQuestions[Math.floor(Math.random() * quizQuestions.length)];
+      
+      // 更新题目
+      document.getElementById('quiz-question').textContent = currentQuiz.q;
+      
+      // 更新选项
+      const optionsContainer = document.getElementById('quiz-options');
+      optionsContainer.innerHTML = currentQuiz.options.map((opt, i) => 
+        `<div class="quiz-option" onclick="selectQuizAnswer(this, ${i === currentQuiz.correct})">${opt}</div>`
+      ).join('');
+      
+      overlay.classList.add('show');
+    }
+    
+    function hideQuizModal() {
+      const overlay = document.getElementById('quiz-modal-overlay');
+      if (overlay) overlay.classList.remove('show');
+    }
+    
+    function selectQuizAnswer(element, isCorrect) {
+      const options = element.parentElement.querySelectorAll('.quiz-option');
+      options.forEach(opt => {
+        opt.style.pointerEvents = 'none';
+      });
+      
+      if (isCorrect) {
+        element.classList.add('correct');
+        setTimeout(() => {
+          hideQuizModal();
+          showStarFloat(5);
+          showToast('🎉 答对了! +5⭐');
+        }, 800);
+      } else {
+        element.classList.add('wrong');
+        // 显示正确答案
+        options[currentQuiz.correct].classList.add('correct');
+        setTimeout(() => {
+          hideQuizModal();
+          showToast('😅 再接再厉!');
+        }, 1200);
+      }
+    }
+    
+    // ========== 故事生成弹窗 ==========
+    const storyProgressTexts = [
+      '正在构思精彩情节...',
+      '角色正在登场...',
+      '添加神奇的魔法...',
+      '故事即将完成...'
+    ];
+    
+    function startStoryGeneration(storyType) {
+      const overlay = document.getElementById('story-modal-overlay');
+      if (!overlay) return;
+      
+      overlay.classList.add('show');
+      
+      const progressBar = document.getElementById('story-progress');
+      const progressText = document.getElementById('story-progress-text');
+      let progress = 0;
+      let textIndex = 0;
+      
+      const interval = setInterval(() => {
+        progress += 5;
+        progressBar.style.width = progress + '%';
+        
+        // 更新进度文字
+        if (progress % 25 === 0 && textIndex < storyProgressTexts.length) {
+          progressText.textContent = storyProgressTexts[textIndex];
+          textIndex++;
+        }
+        
+        if (progress >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            overlay.classList.remove('show');
+            navigateTo('story-page');
+            showToast('📖 ' + storyType + '已生成!');
+          }, 300);
+        }
+      }, 80);
+    }
+    
+    // ========== 魔法创作功能 ==========
+    const magicStyleImages = {
+      '皮克斯3D': 'icons/style_pixar.png',
+      '软糖风': 'icons/style_candy.png',
+      '黏土风': 'icons/style_clay.png',
+      '毛毡风': 'icons/style_felt.png'
+    };
+    
+    const magicProgressTexts = [
+      '正在施展魔法...',
+      '调配神奇颜料...',
+      '绘制细节中...',
+      '即将完成...'
+    ];
+    
+    let currentMagicStyle = '';
+    
+    function startMagicGeneration(styleName) {
+      hidePreviewAIOverlay();
+      currentMagicStyle = styleName;
+      
+      const overlay = document.getElementById('aigc-modal-overlay');
+      const progressBar = document.getElementById('aigc-progress');
+      const progressText = document.getElementById('aigc-progress-text');
+      const titleEl = document.getElementById('aigc-modal-title');
+      
+      if (!overlay) return;
+      
+      // 重置状态
+      progressBar.style.width = '0%';
+      titleEl.textContent = '✨ ' + styleName + ' 创作中';
+      progressText.textContent = '正在施展魔法...';
+      
+      overlay.classList.add('show');
+      
+      let progress = 0;
+      let textIndex = 0;
+      
+      const interval = setInterval(() => {
+        progress += 4;
+        progressBar.style.width = progress + '%';
+        
+        // 更新进度文字
+        if (progress % 25 === 0 && textIndex < magicProgressTexts.length) {
+          progressText.textContent = magicProgressTexts[textIndex];
+          textIndex++;
+        }
+        
+        if (progress >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            hideAIGCModal();
+            navigateTo('aigc-result-page');
+            showToast('✨ ' + styleName + ' 创作完成!');
+          }, 300);
+        }
+      }, 60);
+    }
+    
+    function hideAIGCModal() {
+      const overlay = document.getElementById('aigc-modal-overlay');
+      if (overlay) overlay.classList.remove('show');
+    }
+    
     let isStoryPlaying = false;
     let storyUtterance = null;
     
@@ -15140,6 +15462,12 @@
         showToast('🎤 拍照期间语音不可用');
         return;
       }
+      // 照片预览页长按直接跳转到聊天页
+      if (currentPage === 'photo-preview-page') {
+        hidePreviewAIOverlay();
+        navigateTo('chat-page');
+        return;
+      }
       // 其他页面显示PTT浮层
       const overlay = document.getElementById('ptt-overlay');
       if (overlay) {
@@ -15168,6 +15496,149 @@
     let isSpeaking = false;
     let aiMenuSwitchLock = false; // 防抖锁
     let currentSpeechId = 0; // 语音请求ID
+    
+    // 照片聊天页AI浮层状态
+    let chatAIOverlayVisible = false;
+    let chatAICurrentTab = 0;
+    
+    function showChatAIOverlay() {
+      const overlay = document.getElementById('chat-ai-overlay');
+      if (overlay) {
+        overlay.classList.remove('hidden');
+        chatAIOverlayVisible = true;
+        chatAICurrentTab = 0;
+        updateChatAIOverlayUI();
+        setTimeout(() => speakChatAIContent(0), 50);
+      }
+    }
+    
+    function hideChatAIOverlay() {
+      const overlay = document.getElementById('chat-ai-overlay');
+      if (overlay) {
+        overlay.classList.add('hidden');
+        chatAIOverlayVisible = false;
+      }
+      stopSpeaking();
+    }
+    
+    function switchChatAITab(index) {
+      chatAICurrentTab = index;
+      updateChatAIOverlayUI();
+      speakChatAIContent(index);
+      
+      // 切换到挑战tab时随机出题
+      if (index === 2) {
+        loadChatQuiz();
+      }
+    }
+    
+    function updateChatAIOverlayUI() {
+      const overlay = document.getElementById('chat-ai-overlay');
+      if (!overlay) return;
+      
+      // 更新Tab高亮
+      overlay.querySelectorAll('.ai-bar-tab').forEach((tab, i) => {
+        tab.classList.toggle('active', i === chatAICurrentTab);
+      });
+      
+      // 切换内容
+      overlay.querySelectorAll('.ai-body-content').forEach((content) => {
+        content.classList.toggle('active', parseInt(content.dataset.content) === chatAICurrentTab);
+      });
+    }
+    
+    // 聊天页小测验题库
+    const chatQuizBank = [
+      { q: '这张照片里的花是什么颜色？', opts: ['🔴 红色', '🔵 蓝色', '🟡 黄色'], ans: 2 },
+      { q: '蝴蝶的翅膀上有什么？', opts: ['🪶 羽毛', '✨ 鳞片', '🧵 绒毛'], ans: 1 },
+      { q: '向日葵为什么叫向日葵？', opts: ['🌙 喜欢月亮', '☀️ 跟着太阳转', '🌧️ 喜欢下雨'], ans: 1 },
+      { q: '蒲公英的种子靠什么传播？', opts: ['🐝 蜜蜂', '🌬️ 风', '💧 水'], ans: 1 },
+      { q: '蜜蜂采蜜是为了什么？', opts: ['🍯 做蜂蜜', '💐 闻花香', '🎨 画画'], ans: 0 },
+      { q: '树叶为什么是绿色的？', opts: ['🎨 涂了颜料', '🌿 有叶绿素', '💧 喝了绿水'], ans: 1 }
+    ];
+    let currentChatQuiz = null;
+    
+    function loadChatQuiz() {
+      currentChatQuiz = chatQuizBank[Math.floor(Math.random() * chatQuizBank.length)];
+      
+      const questionEl = document.getElementById('chat-quiz-question');
+      const optionsEl = document.getElementById('chat-quiz-options');
+      
+      if (questionEl) questionEl.textContent = currentChatQuiz.q;
+      if (optionsEl) {
+        optionsEl.innerHTML = currentChatQuiz.opts.map((opt, i) => 
+          `<div class="quiz-option" onclick="answerChatQuiz(this, ${i === currentChatQuiz.ans})">${opt}</div>`
+        ).join('');
+      }
+    }
+    
+    function answerChatQuiz(element, isCorrect) {
+      const options = element.parentElement.querySelectorAll('.quiz-option');
+      options.forEach(opt => opt.style.pointerEvents = 'none');
+      
+      if (isCorrect) {
+        element.classList.add('correct');
+        setTimeout(() => {
+          showStarFloat(5);
+          showToast('🎉 答对了! +5⭐');
+          // 1.5秒后出下一题
+          setTimeout(() => {
+            loadChatQuiz();
+          }, 1500);
+        }, 500);
+      } else {
+        element.classList.add('wrong');
+        // 显示正确答案
+        options[currentChatQuiz.ans].classList.add('correct');
+        setTimeout(() => {
+          showToast('😅 再试一次吧!');
+          // 2秒后出下一题
+          setTimeout(() => {
+            loadChatQuiz();
+          }, 2000);
+        }, 500);
+      }
+    }
+    
+    // 聊天页语音内容
+    const chatAIVoiceContent = {
+      0: '想换个话题聊聊吗？点一个你感兴趣的，我来告诉你更多有趣的事情！',
+      1: '来编一个属于你的故事吧！选一个故事类型，我们一起创作！',
+      2: '准备好接受挑战了吗？来测试一下你学到的知识吧！'
+    };
+    
+    function speakChatAIContent(tabIndex) {
+      const text = chatAIVoiceContent[tabIndex];
+      if (!text || !('speechSynthesis' in window)) return;
+      
+      currentSpeechId++;
+      const thisId = currentSpeechId;
+      
+      window.speechSynthesis.cancel();
+      
+      setTimeout(() => {
+        if (thisId !== currentSpeechId) return;
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.85;
+        utterance.pitch = 1.15;
+        
+        const voices = window.speechSynthesis.getVoices();
+        const zhVoice = voices.find(v => v.lang.includes('zh'));
+        if (zhVoice) utterance.voice = zhVoice;
+        
+        utterance.onstart = () => setSpeakingState(true);
+        utterance.onend = () => setSpeakingState(false);
+        utterance.onerror = () => setSpeakingState(false);
+        
+        window.speechSynthesis.speak(utterance);
+      }, 100);
+    }
+    
+    function replayChatAIVoice() {
+      speakChatAIContent(chatAICurrentTab);
+    }
     
     // 初始化语音合成
     if ('speechSynthesis' in window) {
@@ -15272,6 +15743,19 @@
         return;
       }
       
+      // 照片聊天页特殊处理 - AI浮层
+      if (currentPage === 'chat-page') {
+        console.log('💬 Chat page special handling');
+        if (!chatAIOverlayVisible) {
+          showChatAIOverlay();
+        } else {
+          chatAICurrentTab = (chatAICurrentTab + 1) % 3;
+          updateChatAIOverlayUI();
+          speakChatAIContent(chatAICurrentTab);
+        }
+        return;
+      }
+      
       // 物种列表页特殊处理 - AI浮层
       if (currentPage === 'subcategory-list-page') {
         console.log('📚 Species list page special handling');
@@ -15330,13 +15814,16 @@
     }
     
     function updateAIOverlayUI() {
-      // 更新Tab高亮
-      document.querySelectorAll('.ai-bar-tab').forEach((tab, i) => {
+      const overlay = document.getElementById('map-ai-overlay');
+      if (!overlay) return;
+      
+      // 更新Tab高亮 - 只作用于地图overlay
+      overlay.querySelectorAll('.ai-bar-tab').forEach((tab, i) => {
         tab.classList.toggle('active', i === mapAICurrentTab);
       });
       
-      // 切换内容
-      document.querySelectorAll('.ai-body-content').forEach((content) => {
+      // 切换内容 - 只作用于地图overlay
+      overlay.querySelectorAll('.ai-body-content').forEach((content) => {
         content.classList.toggle('active', parseInt(content.dataset.content) === mapAICurrentTab);
       });
     }
@@ -16235,6 +16722,59 @@
     
     // 返回键逻辑
     function goBack() {
+      // 先检查是否有AI菜单打开，优先关闭AI菜单
+      const aiOverlay = document.getElementById('ai-overlay');
+      if (aiOverlay && aiOverlay.classList.contains('show')) {
+        hideAI();
+        return;
+      }
+      
+      // 检查地图AI菜单
+      const mapAIOverlay = document.getElementById('map-ai-overlay');
+      if (mapAIOverlay && !mapAIOverlay.classList.contains('hidden')) {
+        hideMapAIOverlay();
+        return;
+      }
+      
+      // 检查聊天AI菜单
+      const chatAIOverlay = document.getElementById('chat-ai-overlay');
+      if (chatAIOverlay && !chatAIOverlay.classList.contains('hidden')) {
+        hideChatAIOverlay();
+        return;
+      }
+      
+      // 检查工坊AI菜单
+      const workshopAIOverlay = document.getElementById('workshop-ai-overlay');
+      if (workshopAIOverlay && !workshopAIOverlay.classList.contains('hidden')) {
+        hideWorkshopAIOverlay();
+        return;
+      }
+      
+      // 检查其他页面专属AI菜单
+      const homeAIOverlay = document.getElementById('home-ai-overlay');
+      if (homeAIOverlay && !homeAIOverlay.classList.contains('hidden')) {
+        hideHomeAIOverlay();
+        return;
+      }
+      
+      const cameraAIOverlay = document.getElementById('camera-ai-overlay');
+      if (cameraAIOverlay && !cameraAIOverlay.classList.contains('hidden')) {
+        hideCameraAIOverlay();
+        return;
+      }
+      
+      const previewAIOverlay = document.getElementById('preview-ai-overlay');
+      if (previewAIOverlay && !previewAIOverlay.classList.contains('hidden')) {
+        hidePreviewAIOverlay();
+        return;
+      }
+      
+      const backpackAIOverlay = document.getElementById('backpack-ai-overlay');
+      if (backpackAIOverlay && !backpackAIOverlay.classList.contains('hidden')) {
+        hideBackpackAIOverlay();
+        return;
+      }
+      
       // 页面返回映射
       const backMap = {
         'camera-page': 'home-page',
