@@ -2402,10 +2402,7 @@
       color: #5D4E3A;
       white-space: nowrap;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      opacity: 0;
-      transition: opacity 0.2s;
     }
-    .map-pin:hover .pin-label { opacity: 1; }
 
     .pin-status {
       position: absolute;
@@ -9717,26 +9714,19 @@
             <div class="map-path" style="width: 180px; height: 120px; top: 160px; left: 200px;"></div>
             <div class="map-path" style="width: 140px; height: 100px; top: 220px; left: 380px;"></div>
 
-            <!-- 地图标记点 -->
-            <div class="map-pin" style="left: 100px; top: 180px;" onclick="showTaskModal('flower')">
-              <div class="pin-label">🚩 探索任务</div>
+            <!-- 地图标记点（对齐地图×号位置） -->
+            <div class="map-pin" style="left: 280px; top: 210px;" onclick="showTaskModal('flower')">
+              <div class="pin-label">寻找春天的花朵</div>
               <div class="pin-marker red"></div>
-              <div class="pin-status 进行中">!</div>
             </div>
 
-            <div class="map-pin" style="left: 300px; top: 260px;" onclick="showTaskModal('butterfly')">
-              <div class="pin-label">🚩 探索任务</div>
+            <div class="map-pin" style="left: 520px; top: 310px;" onclick="showTaskModal('butterfly')">
+              <div class="pin-label">观察天空的云</div>
               <div class="pin-marker gold"></div>
             </div>
 
-            <div class="map-pin" style="left: 500px; top: 150px;" onclick="showTaskModal('rock')">
-              <div class="pin-label">✅ 已完成</div>
-              <div class="pin-marker green">✓</div>
-              <div class="pin-status done">✓</div>
-            </div>
-
-            <div class="map-pin" style="left: 420px; top: 340px;" onclick="showTaskModal('leaf')">
-              <div class="pin-label">🚩 探索任务</div>
+            <div class="map-pin" style="left: 555px; top: 185px;" onclick="showTaskModal('leaf')">
+              <div class="pin-label">收集不同的石头</div>
               <div class="pin-marker blue"></div>
             </div>
 
