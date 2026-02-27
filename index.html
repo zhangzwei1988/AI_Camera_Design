@@ -8158,6 +8158,151 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
 
+    /* ============ 重温教程确认弹窗 ============ */
+    .tutorial-confirm-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .tutorial-confirm-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .tutorial-confirm-card {
+      background: linear-gradient(180deg, #FFFEF8 0%, #F5F0E6 100%);
+      border-radius: 20px;
+      padding: 28px 32px 24px;
+      width: 360px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+    .tutorial-confirm-avatar {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+    .tutorial-confirm-text {
+      font-size: 15px;
+      color: #5D4E3A;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .tutorial-confirm-btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+    .tutorial-confirm-btns button {
+      padding: 10px 28px;
+      border-radius: 12px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .tutorial-btn-cancel {
+      background: #E5E0D8;
+      color: #8B7E6A;
+    }
+    .tutorial-btn-start {
+      background: linear-gradient(135deg, #FFD700 0%, #F59E0B 100%);
+      color: #5D4E3A;
+      box-shadow: 0 3px 10px rgba(245,158,11,0.3);
+    }
+
+    /* ============ 屏幕时间提前提醒横幅 ============ */
+    .screen-time-banner {
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+      border: 1px solid #F59E0B;
+      border-radius: 14px;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 400;
+      box-shadow: 0 4px 16px rgba(245,158,11,0.25);
+      transition: top 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      white-space: nowrap;
+    }
+    .screen-time-banner.show {
+      top: 12px;
+    }
+    .screen-time-banner-icon {
+      font-size: 22px;
+    }
+    .screen-time-banner-text {
+      font-size: 13px;
+      color: #92400E;
+      font-weight: 500;
+    }
+
+    /* ============ 屏幕时间结束遮罩 ============ */
+    .screen-time-end-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(30,20,10,0.85) 0%, rgba(50,35,20,0.92) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s;
+    }
+    .screen-time-end-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .screen-time-end-avatar {
+      font-size: 64px;
+      margin-bottom: 16px;
+      animation: float 3s ease-in-out infinite;
+    }
+    .screen-time-end-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #FFD700;
+      margin-bottom: 8px;
+    }
+    .screen-time-end-text {
+      font-size: 14px;
+      color: #F5E6C8;
+      line-height: 1.6;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .screen-time-end-btn {
+      padding: 12px 36px;
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(135deg, #FFD700 0%, #F59E0B 100%);
+      color: #5D4E3A;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      box-shadow: 0 4px 16px rgba(245,158,11,0.3);
+      margin-bottom: 16px;
+    }
+    .screen-time-end-hint {
+      font-size: 12px;
+      color: #C4A882;
+      text-align: center;
+      line-height: 1.5;
+    }
+
     /* ============ Settings底部弹窗 ============ */
     .settings-sheet-overlay {
       position: absolute;
@@ -11734,6 +11879,19 @@
 
               <!-- 关于组 -->
               <div class="settings-group">
+                <div class="settings-group-title">帮助与支持</div>
+                <div class="settings-group-card">
+                  <div class="settings-item" onclick="showTutorialConfirm()">
+                    <div class="settings-item-left">
+                      <div class="settings-icon orange">🦉</div>
+                      <div class="settings-label">重温探险家教程</div>
+                    </div>
+                    <span class="settings-chevron">›</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="settings-group">
                 <div class="settings-group-title">关于</div>
                 <div class="settings-group-card">
                   <div class="settings-item" onclick="navigateTo('about-device-page')">
@@ -12438,6 +12596,37 @@
           <div class="volume-text" id="volume-text">70%</div>
         </div>
 
+        <!-- ========== 重温教程确认弹窗 ========== -->
+        <div class="tutorial-confirm-overlay" id="tutorial-confirm-overlay" onclick="hideTutorialConfirm()">
+          <div class="tutorial-confirm-card" onclick="event.stopPropagation()">
+            <div class="tutorial-confirm-avatar">🦉</div>
+            <div class="tutorial-confirm-text">
+              想重新学一遍怎么收集自然之语吗？<br>没问题！我们从头开始～
+            </div>
+            <div class="tutorial-confirm-btns">
+              <button class="tutorial-btn-cancel" onclick="hideTutorialConfirm()">取消</button>
+              <button class="tutorial-btn-start" onclick="hideTutorialConfirm(); showToast('🦉 教程已重置，重新开始探险！')">好的，开始</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========== 屏幕时间提前提醒横幅 ========== -->
+        <div class="screen-time-banner" id="screen-time-banner">
+          <span class="screen-time-banner-icon">🦉</span>
+          <span class="screen-time-banner-text">探险家，今天的探索时间快到了哦～再玩5分钟就该休息啦！</span>
+        </div>
+
+        <!-- ========== 屏幕时间结束遮罩 ========== -->
+        <div class="screen-time-end-overlay" id="screen-time-end-overlay">
+          <div class="screen-time-end-avatar">🦉</div>
+          <div class="screen-time-end-title">今天的探索结束啦！</div>
+          <div class="screen-time-end-text">
+            好好休息，明天咕咕继续陪你冒险～
+          </div>
+          <button class="screen-time-end-btn" onclick="hideScreenTimeEnd()">好的，再见！</button>
+          <div class="screen-time-end-hint">想要更多探索时间？<br>跟爸爸妈妈说一下，让他们帮你调整吧～</div>
+        </div>
+
         <!-- ========== 息屏遮罩 ========== -->
         <div class="screen-off-overlay" id="screen-off-overlay"></div>
 
@@ -12581,6 +12770,8 @@
           <div class="nav-item demo-item" onclick="demoLevelUp()"><span class="icon">🎊</span><span>升级弹窗</span></div>
           <div class="nav-item demo-item" onclick="demoBadge()"><span class="icon">🏆</span><span>勋章解锁</span></div>
           <div class="nav-item demo-item" onclick="demoSequence()"><span class="icon">🎬</span><span>完整流程</span></div>
+          <div class="nav-item demo-item" onclick="demoScreenTimeBanner()"><span class="icon">⏰</span><span>时间快到</span></div>
+          <div class="nav-item demo-item" onclick="demoScreenTimeEnd()"><span class="icon">🌙</span><span>时间结束</span></div>
         </div>
       </div>
 
@@ -17199,6 +17390,43 @@
     window.demoSequence = () => demoRewardSequence();
     window.demoNewSpecies = () => demoNewSpeciesFlow();
     window.demoOldSpecies = () => demoOldSpeciesFlow();
+
+    // ============ 重温教程确认 ============
+    function showTutorialConfirm() {
+      const el = document.getElementById('tutorial-confirm-overlay');
+      if (el) el.classList.add('show');
+    }
+    function hideTutorialConfirm() {
+      const el = document.getElementById('tutorial-confirm-overlay');
+      if (el) el.classList.remove('show');
+    }
+
+    // ============ 屏幕时间提醒 ============
+    function showScreenTimeBanner() {
+      const el = document.getElementById('screen-time-banner');
+      if (el) {
+        el.classList.add('show');
+        setTimeout(() => { el.classList.remove('show'); }, 5000);
+      }
+    }
+    function showScreenTimeEnd() {
+      const el = document.getElementById('screen-time-end-overlay');
+      if (el) el.classList.add('show');
+    }
+    function hideScreenTimeEnd() {
+      const el = document.getElementById('screen-time-end-overlay');
+      if (el) el.classList.remove('show');
+    }
+
+    // 演示：屏幕时间完整流程（横幅5秒后弹全屏）
+    function demoScreenTimeFlow() {
+      showScreenTimeBanner();
+      setTimeout(() => { showScreenTimeEnd(); }, 6000);
+    }
+
+    window.demoScreenTime = () => demoScreenTimeFlow();
+    window.demoScreenTimeBanner = () => showScreenTimeBanner();
+    window.demoScreenTimeEnd = () => showScreenTimeEnd();
   </script>
 
 </body>
