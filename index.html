@@ -9072,9 +9072,8 @@
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
       transition: all 0.2s;
-    }
-    .system-update-btn:进行中 {
-      transform: scale(0.98);
+      font-family: inherit;
+      min-width: 180px;
     }
     .system-update-btn:disabled {
       opacity: 0.6;
@@ -9083,6 +9082,163 @@
     .system-update-btn.update-now {
       background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
       color: white;
+    }
+    .system-update-btn.downloading {
+      background: rgba(255,255,255,0.3);
+      color: white;
+      cursor: default;
+    }
+    .system-update-btn.install-ready {
+      background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+      color: white;
+    }
+
+    /* 进度条 - 通用 */
+    .update-progress-bar {
+      width: 280px;
+      height: 8px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 16px;
+    }
+    .update-progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #3B82F6 0%, #60A5FA 100%);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    .update-progress-fill.install {
+      background: linear-gradient(90deg, #22C55E 0%, #4ADE80 100%);
+    }
+    .update-progress-text {
+      font-size: 12px;
+      color: rgba(255,255,255,0.7);
+      margin-top: 6px;
+    }
+
+    /* ============ 版本更新通知弹窗（全局） ============ */
+    .update-notify-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 450;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .update-notify-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .update-notify-card {
+      background: linear-gradient(180deg, #FFFEF8 0%, #F5F0E6 100%);
+      border-radius: 20px;
+      padding: 24px 28px 20px;
+      width: 380px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    }
+    .update-notify-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .update-notify-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+    .update-notify-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #333;
+    }
+    .update-notify-ver {
+      font-size: 12px;
+      color: #888;
+      margin-top: 2px;
+    }
+    .update-notify-features {
+      background: #F0EDE8;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 18px;
+    }
+    .update-notify-features-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #8B7E6A;
+      margin-bottom: 8px;
+    }
+    .update-notify-feature-item {
+      font-size: 13px;
+      color: #5D4E3A;
+      line-height: 1.8;
+      padding-left: 4px;
+    }
+    .update-notify-progress-area {
+      margin-bottom: 16px;
+      display: none;
+    }
+    .update-notify-progress-area.show { display: block; }
+    .update-notify-progress-bar {
+      width: 100%;
+      height: 6px;
+      background: #E5E0D8;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .update-notify-progress-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(90deg, #3B82F6 0%, #60A5FA 100%);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    .update-notify-progress-text {
+      font-size: 11px;
+      color: #999;
+      margin-top: 6px;
+      text-align: center;
+    }
+    .update-notify-btns {
+      display: flex;
+      gap: 10px;
+    }
+    .update-notify-btns button {
+      flex: 1;
+      padding: 11px 0;
+      border-radius: 12px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .update-notify-btn-later {
+      background: #E5E0D8;
+      color: #8B7E6A;
+    }
+    .update-notify-btn-download {
+      background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+      color: white;
+      box-shadow: 0 3px 10px rgba(59,130,246,0.3);
+    }
+    .update-notify-btn-install {
+      background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+      color: white;
+      box-shadow: 0 3px 10px rgba(34,197,94,0.3);
     }
     
     /* ============ 新物种发现弹窗（设备屏幕内） ============ */
@@ -12087,10 +12243,44 @@
                 <div class="system-update-version">版本 2.1.0</div>
                 <div class="update-changelog">
                   <div class="changelog-title">更新内容:</div>
-                  <div class="changelog-item">• 优化 AI 识别能力</div>
-                  <div class="changelog-item">• 新增探索勋章</div>
-                  <div class="changelog-item">• 修复问题及性能优化</div>
+                  <div class="changelog-item">• 新增 3 位 AI 探索伙伴</div>
+                  <div class="changelog-item">• 优化物种识别准确率</div>
+                  <div class="changelog-item">• 新增「故事创作」功能</div>
                 </div>
+              </div>
+
+              <!-- 下载中状态 -->
+              <div class="update-state" id="update-state-downloading" style="display: none;">
+                <div class="update-spinner">
+                  <div class="spinner-ring"></div>
+                  <div class="spinner-icon">⬇️</div>
+                </div>
+                <div class="system-update-status">正在下载更新...</div>
+                <div class="update-progress-bar">
+                  <div class="update-progress-fill" id="page-download-progress-fill"></div>
+                </div>
+                <div class="update-progress-text" id="page-download-progress-text">0%</div>
+              </div>
+
+              <!-- 下载完成待安装 -->
+              <div class="update-state" id="update-state-ready" style="display: none;">
+                <div class="update-available-icon">✅</div>
+                <div class="system-update-status">下载完成</div>
+                <div class="system-update-version">版本 2.1.0 已准备就绪</div>
+              </div>
+
+              <!-- 安装中状态 -->
+              <div class="update-state" id="update-state-installing" style="display: none;">
+                <div class="update-spinner">
+                  <div class="spinner-ring"></div>
+                  <div class="spinner-icon">⚙️</div>
+                </div>
+                <div class="system-update-status">正在安装更新...</div>
+                <div class="system-update-version">请勿关闭设备</div>
+                <div class="update-progress-bar">
+                  <div class="update-progress-fill install" id="page-install-progress-fill"></div>
+                </div>
+                <div class="update-progress-text" id="page-install-progress-text">0%</div>
               </div>
 
               <button class="system-update-btn" id="system-update-btn" onclick="handleUpdateAction()">检查更新</button>
@@ -12596,6 +12786,35 @@
           <div class="volume-text" id="volume-text">70%</div>
         </div>
 
+        <!-- ========== 版本更新通知弹窗（全局） ========== -->
+        <div class="update-notify-overlay" id="update-notify-overlay" onclick="hideUpdateNotify()">
+          <div class="update-notify-card" onclick="event.stopPropagation()">
+            <div class="update-notify-header">
+              <div class="update-notify-icon">🚀</div>
+              <div>
+                <div class="update-notify-title">发现新版本</div>
+                <div class="update-notify-ver">v2.1.0 · 48MB</div>
+              </div>
+            </div>
+            <div class="update-notify-features">
+              <div class="update-notify-features-title">✨ 新版亮点</div>
+              <div class="update-notify-feature-item">🦉 新增 3 位 AI 探索伙伴</div>
+              <div class="update-notify-feature-item">🔍 优化物种识别准确率</div>
+              <div class="update-notify-feature-item">📖 新增「故事创作」功能</div>
+            </div>
+            <div class="update-notify-progress-area" id="notify-progress-area">
+              <div class="update-notify-progress-bar">
+                <div class="update-notify-progress-fill" id="notify-progress-fill"></div>
+              </div>
+              <div class="update-notify-progress-text" id="notify-progress-text">正在下载... 0%</div>
+            </div>
+            <div class="update-notify-btns" id="notify-btns">
+              <button class="update-notify-btn-later" id="notify-btn-later" onclick="hideUpdateNotify()">稍后再说</button>
+              <button class="update-notify-btn-download" id="notify-btn-action" onclick="handleNotifyDownload()">立即下载</button>
+            </div>
+          </div>
+        </div>
+
         <!-- ========== 重温教程确认弹窗 ========== -->
         <div class="tutorial-confirm-overlay" id="tutorial-confirm-overlay" onclick="hideTutorialConfirm()">
           <div class="tutorial-confirm-card" onclick="event.stopPropagation()">
@@ -12772,6 +12991,7 @@
           <div class="nav-item demo-item" onclick="demoSequence()"><span class="icon">🎬</span><span>完整流程</span></div>
           <div class="nav-item demo-item" onclick="demoScreenTimeBanner()"><span class="icon">⏰</span><span>时间快到</span></div>
           <div class="nav-item demo-item" onclick="demoScreenTimeEnd()"><span class="icon">🌙</span><span>时间结束</span></div>
+          <div class="nav-item demo-item" onclick="demoUpdateNotify()"><span class="icon">🚀</span><span>版本更新通知</span></div>
         </div>
       </div>
 
@@ -13664,66 +13884,181 @@
     }
 
     // ============ System Update ============
-    let updateState = 'current'; // current, checking, available
+    let updateState = 'current'; // current, checking, available, downloading, ready, installing
+    let bgDownloading = false; // 后台下载标记
+    let bgDownloadProgress = 0;
+    let bgDownloadTimer = null;
     
+    function showUpdateState(stateId) {
+      ['current','checking','available','downloading','ready','installing'].forEach(s => {
+        const el = document.getElementById('update-state-' + s);
+        if (el) el.style.display = (s === stateId) ? 'flex' : 'none';
+      });
+    }
+
     function handleUpdateAction() {
       const btn = document.getElementById('system-update-btn');
       
       if (updateState === 'current') {
-        // 开始检查更新
+        // 检查更新
         updateState = 'checking';
         btn.textContent = '检查中...';
         btn.disabled = true;
+        btn.className = 'system-update-btn';
+        showUpdateState('checking');
         
-        // 显示检查状态
-        document.getElementById('update-state-current').style.display = 'none';
-        document.getElementById('update-state-checking').style.display = 'flex';
-        document.getElementById('update-state-available').style.display = 'none';
-        
-        // 模拟检查过程
         setTimeout(() => {
-          // 显示有更新可用
-          updateState = 'available';
-          document.getElementById('update-state-checking').style.display = 'none';
-          document.getElementById('update-state-available').style.display = 'flex';
-          
-          btn.textContent = '立即更新';
-          btn.disabled = false;
-          btn.classList.add('update-now');
-        }, 2500);
+          if (bgDownloading || bgDownloadProgress >= 100) {
+            // 后台已有下载
+            if (bgDownloadProgress >= 100) {
+              updateState = 'ready';
+              showUpdateState('ready');
+              btn.textContent = '安装更新';
+              btn.disabled = false;
+              btn.className = 'system-update-btn install-ready';
+            } else {
+              updateState = 'downloading';
+              showUpdateState('downloading');
+              btn.textContent = '下载中...';
+              btn.disabled = true;
+              btn.className = 'system-update-btn downloading';
+              syncPageDownloadProgress();
+            }
+          } else {
+            updateState = 'available';
+            showUpdateState('available');
+            btn.textContent = '下载更新';
+            btn.disabled = false;
+            btn.className = 'system-update-btn update-now';
+          }
+        }, 2000);
         
       } else if (updateState === 'available') {
-        // 开始更新
-        btn.textContent = '更新中...';
+        // 开始下载
+        updateState = 'downloading';
+        showUpdateState('downloading');
+        btn.textContent = '下载中...';
         btn.disabled = true;
+        btn.className = 'system-update-btn downloading';
+        startDownload('page');
         
-        // 模拟更新过程
-        setTimeout(() => {
-          // 更新完成,回到最新状态
-          updateState = 'current';
-          document.getElementById('update-state-available').style.display = 'none';
-          document.getElementById('update-state-current').style.display = 'flex';
-          
-          // 更新版本号
-          document.querySelector('#update-state-current .system-update-version').textContent = '当前版本:2.1.0';
-          
-          btn.textContent = '检查更新';
-          btn.disabled = false;
-          btn.classList.remove('update-now');
-        }, 3000);
+      } else if (updateState === 'ready') {
+        // 安装
+        updateState = 'installing';
+        showUpdateState('installing');
+        btn.textContent = '安装中...';
+        btn.disabled = true;
+        btn.className = 'system-update-btn downloading';
+        simulateInstall();
       }
+    }
+
+    // 模拟下载进度（共用）
+    function startDownload(source) {
+      if (bgDownloading) return; // 已在下载
+      bgDownloading = true;
+      bgDownloadProgress = 0;
+      
+      bgDownloadTimer = setInterval(() => {
+        bgDownloadProgress += Math.floor(Math.random() * 8) + 3;
+        if (bgDownloadProgress >= 100) {
+          bgDownloadProgress = 100;
+          clearInterval(bgDownloadTimer);
+          bgDownloading = false;
+          onDownloadComplete(source);
+        }
+        // 更新页面进度（如果在更新页）
+        updatePageProgress();
+        // 更新弹窗进度（如果弹窗开着）
+        updateNotifyProgress();
+      }, 400);
+    }
+    
+    function updatePageProgress() {
+      const fill = document.getElementById('page-download-progress-fill');
+      const text = document.getElementById('page-download-progress-text');
+      if (fill) fill.style.width = bgDownloadProgress + '%';
+      if (text) text.textContent = bgDownloadProgress + '%';
+    }
+    
+    function syncPageDownloadProgress() {
+      // 进入更新页时同步后台进度
+      const syncTimer = setInterval(() => {
+        updatePageProgress();
+        if (!bgDownloading && bgDownloadProgress >= 100) {
+          clearInterval(syncTimer);
+        }
+      }, 300);
+    }
+    
+    function onDownloadComplete(source) {
+      const btn = document.getElementById('system-update-btn');
+      // 更新页面状态
+      if (updateState === 'downloading') {
+        updateState = 'ready';
+        showUpdateState('ready');
+        if (btn) {
+          btn.textContent = '安装更新';
+          btn.disabled = false;
+          btn.className = 'system-update-btn install-ready';
+        }
+      }
+      // 更新弹窗状态
+      const actionBtn = document.getElementById('notify-btn-action');
+      const laterBtn = document.getElementById('notify-btn-later');
+      const progressText = document.getElementById('notify-progress-text');
+      if (actionBtn) {
+        actionBtn.textContent = '立即安装';
+        actionBtn.className = 'update-notify-btn-install';
+        actionBtn.onclick = function() { hideUpdateNotify(); navigateTo('system-update-page'); handleUpdateAction(); };
+      }
+      if (laterBtn) laterBtn.textContent = '稍后安装';
+      if (progressText) progressText.textContent = '下载完成！';
+      
+      // 如果弹窗已关闭且不在更新页，重新弹出安装提醒
+      const overlay = document.getElementById('update-notify-overlay');
+      if (overlay && !overlay.classList.contains('show') && currentPage !== 'system-update-page') {
+        setTimeout(() => showUpdateNotify(), 500);
+      }
+    }
+    
+    function simulateInstall() {
+      let progress = 0;
+      const timer = setInterval(() => {
+        progress += Math.floor(Math.random() * 6) + 2;
+        if (progress >= 100) {
+          progress = 100;
+          clearInterval(timer);
+          // 安装完成
+          setTimeout(() => {
+            updateState = 'current';
+            showUpdateState('current');
+            bgDownloadProgress = 0;
+            document.querySelector('#update-state-current .system-update-version').textContent = '当前版本:2.1.0';
+            const btn = document.getElementById('system-update-btn');
+            btn.textContent = '检查更新';
+            btn.disabled = false;
+            btn.className = 'system-update-btn';
+            showToast('✅ 更新完成！系统已升级到 v2.1.0');
+          }, 800);
+        }
+        const fill = document.getElementById('page-install-progress-fill');
+        const text = document.getElementById('page-install-progress-text');
+        if (fill) fill.style.width = progress + '%';
+        if (text) text.textContent = progress + '%';
+      }, 500);
     }
 
     function resetUpdateState() {
       updateState = 'current';
-      document.getElementById('update-state-current').style.display = 'flex';
-      document.getElementById('update-state-checking').style.display = 'none';
-      document.getElementById('update-state-available').style.display = 'none';
-      
+      bgDownloading = false;
+      bgDownloadProgress = 0;
+      if (bgDownloadTimer) clearInterval(bgDownloadTimer);
+      showUpdateState('current');
       const btn = document.getElementById('system-update-btn');
       btn.textContent = '检查更新';
       btn.disabled = false;
-      btn.classList.remove('update-now');
+      btn.className = 'system-update-btn';
     }
 
     // ============ Today XP Detail ============
@@ -17427,6 +17762,72 @@
     window.demoScreenTime = () => demoScreenTimeFlow();
     window.demoScreenTimeBanner = () => showScreenTimeBanner();
     window.demoScreenTimeEnd = () => showScreenTimeEnd();
+
+    // ============ 版本更新通知弹窗 ============
+    function showUpdateNotify() {
+      // 重置弹窗状态
+      const actionBtn = document.getElementById('notify-btn-action');
+      const laterBtn = document.getElementById('notify-btn-later');
+      const progressArea = document.getElementById('notify-progress-area');
+      const progressFill = document.getElementById('notify-progress-fill');
+      const progressText = document.getElementById('notify-progress-text');
+      
+      if (bgDownloadProgress >= 100) {
+        // 下载已完成，显示安装按钮
+        actionBtn.textContent = '立即安装';
+        actionBtn.className = 'update-notify-btn-install';
+        actionBtn.onclick = function() { hideUpdateNotify(); navigateTo('system-update-page'); setTimeout(() => handleUpdateAction(), 300); };
+        laterBtn.textContent = '稍后安装';
+        progressArea.classList.add('show');
+        progressFill.style.width = '100%';
+        progressText.textContent = '下载完成！';
+      } else if (bgDownloading) {
+        // 下载中
+        actionBtn.textContent = '下载中...';
+        actionBtn.disabled = true;
+        actionBtn.className = 'update-notify-btn-download';
+        laterBtn.textContent = '后台下载';
+        progressArea.classList.add('show');
+      } else {
+        // 初始状态
+        actionBtn.textContent = '立即下载';
+        actionBtn.className = 'update-notify-btn-download';
+        actionBtn.disabled = false;
+        actionBtn.onclick = handleNotifyDownload;
+        laterBtn.textContent = '稍后再说';
+        progressArea.classList.remove('show');
+        progressFill.style.width = '0%';
+        progressText.textContent = '正在下载... 0%';
+      }
+      
+      document.getElementById('update-notify-overlay').classList.add('show');
+    }
+    
+    function hideUpdateNotify() {
+      document.getElementById('update-notify-overlay').classList.remove('show');
+    }
+    
+    function handleNotifyDownload() {
+      const progressArea = document.getElementById('notify-progress-area');
+      const actionBtn = document.getElementById('notify-btn-action');
+      const laterBtn = document.getElementById('notify-btn-later');
+      
+      progressArea.classList.add('show');
+      actionBtn.textContent = '下载中...';
+      actionBtn.disabled = true;
+      laterBtn.textContent = '后台下载';
+      
+      startDownload('notify');
+    }
+    
+    function updateNotifyProgress() {
+      const fill = document.getElementById('notify-progress-fill');
+      const text = document.getElementById('notify-progress-text');
+      if (fill) fill.style.width = bgDownloadProgress + '%';
+      if (text && bgDownloadProgress < 100) text.textContent = '正在下载... ' + bgDownloadProgress + '%';
+    }
+
+    window.demoUpdateNotify = () => { resetUpdateState(); showUpdateNotify(); };
   </script>
 
 </body>
