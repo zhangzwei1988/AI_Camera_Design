@@ -9240,6 +9240,56 @@
       color: white;
       box-shadow: 0 3px 10px rgba(34,197,94,0.3);
     }
+
+    /* ============ 全屏安装页（类苹果风格） ============ */
+    .install-fullscreen {
+      position: absolute;
+      inset: 0;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 700;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s;
+    }
+    .install-fullscreen.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .install-fullscreen-logo {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 40px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #333 0%, #222 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
+    .install-fullscreen-bar {
+      width: 240px;
+      height: 4px;
+      background: #333;
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .install-fullscreen-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: #fff;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+    .install-fullscreen-text {
+      font-size: 12px;
+      color: #666;
+      font-family: -apple-system, 'Helvetica Neue', sans-serif;
+    }
     
     /* ============ 新物种发现弹窗（设备屏幕内） ============ */
     .discovery-modal-overlay {
@@ -12269,20 +12319,6 @@
                 <div class="system-update-version">版本 2.1.0 已准备就绪</div>
               </div>
 
-              <!-- 安装中状态 -->
-              <div class="update-state" id="update-state-installing" style="display: none;">
-                <div class="update-spinner">
-                  <div class="spinner-ring"></div>
-                  <div class="spinner-icon">⚙️</div>
-                </div>
-                <div class="system-update-status">正在安装更新...</div>
-                <div class="system-update-version">请勿关闭设备</div>
-                <div class="update-progress-bar">
-                  <div class="update-progress-fill install" id="page-install-progress-fill"></div>
-                </div>
-                <div class="update-progress-text" id="page-install-progress-text">0%</div>
-              </div>
-
               <button class="system-update-btn" id="system-update-btn" onclick="handleUpdateAction()">检查更新</button>
             </div>
           </div>
@@ -12844,6 +12880,15 @@
           </div>
           <button class="screen-time-end-btn" onclick="hideScreenTimeEnd()">好的，再见！</button>
           <div class="screen-time-end-hint">想要更多探索时间？<br>跟爸爸妈妈说一下，让他们帮你调整吧～</div>
+        </div>
+
+        <!-- ========== 全屏安装页（类苹果风格） ========== -->
+        <div class="install-fullscreen" id="install-fullscreen">
+          <div class="install-fullscreen-logo">📷</div>
+          <div class="install-fullscreen-bar">
+            <div class="install-fullscreen-fill" id="install-fullscreen-fill"></div>
+          </div>
+          <div class="install-fullscreen-text" id="install-fullscreen-text">正在安装更新...</div>
         </div>
 
         <!-- ========== 息屏遮罩 ========== -->
@@ -13890,7 +13935,7 @@
     let bgDownloadTimer = null;
     
     function showUpdateState(stateId) {
-      ['current','checking','available','downloading','ready','installing'].forEach(s => {
+      ['current','checking','available','downloading','ready'].forEach(s => {
         const el = document.getElementById('update-state-' + s);
         if (el) el.style.display = (s === stateId) ? 'flex' : 'none';
       });
@@ -13943,12 +13988,8 @@
         startDownload('page');
         
       } else if (updateState === 'ready') {
-        // 安装
+        // 安装 → 全屏安装页
         updateState = 'installing';
-        showUpdateState('installing');
-        btn.textContent = '安装中...';
-        btn.disabled = true;
-        btn.className = 'system-update-btn downloading';
         simulateInstall();
       }
     }
@@ -14023,30 +14064,39 @@
     }
     
     function simulateInstall() {
+      // 显示全屏安装页
+      const fullscreen = document.getElementById('install-fullscreen');
+      const fill = document.getElementById('install-fullscreen-fill');
+      const text = document.getElementById('install-fullscreen-text');
+      fullscreen.classList.add('show');
+      fill.style.width = '0%';
+      
       let progress = 0;
       const timer = setInterval(() => {
-        progress += Math.floor(Math.random() * 6) + 2;
+        progress += Math.floor(Math.random() * 5) + 2;
         if (progress >= 100) {
           progress = 100;
           clearInterval(timer);
-          // 安装完成
+          fill.style.width = '100%';
+          text.textContent = '更新完成，正在重启...';
+          
           setTimeout(() => {
+            fullscreen.classList.remove('show');
             updateState = 'current';
-            showUpdateState('current');
             bgDownloadProgress = 0;
+            showUpdateState('current');
             document.querySelector('#update-state-current .system-update-version').textContent = '当前版本:2.1.0';
             const btn = document.getElementById('system-update-btn');
             btn.textContent = '检查更新';
             btn.disabled = false;
             btn.className = 'system-update-btn';
-            showToast('✅ 更新完成！系统已升级到 v2.1.0');
-          }, 800);
+            navigateTo('home-page');
+            showToast('✅ 系统已升级到 v2.1.0');
+          }, 1500);
         }
-        const fill = document.getElementById('page-install-progress-fill');
-        const text = document.getElementById('page-install-progress-text');
-        if (fill) fill.style.width = progress + '%';
-        if (text) text.textContent = progress + '%';
-      }, 500);
+        fill.style.width = progress + '%';
+        text.textContent = '正在安装更新...';
+      }, 600);
     }
 
     function resetUpdateState() {
