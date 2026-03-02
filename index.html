@@ -5750,7 +5750,7 @@
     }
 
     .photo-gallery-item {
-      aspect-ratio: 1;
+      aspect-ratio: 5 / 3;
       background: linear-gradient(180deg, #FFFEF8 0%, #F8F6F0 100%);
       border-radius: 12px;
       overflow: hidden;
@@ -5774,7 +5774,16 @@
     }
 
     .photo-species-tag {
-      display: none;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.6));
+      color: white;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 12px 6px 4px;
+      text-align: center;
     }
 
     /* 右侧知识栏 */
@@ -5784,6 +5793,35 @@
       flex-direction: column;
       overflow-y: auto;
       gap: 12px;
+    }
+
+    /* 物种代表照片 */
+    .species-hero-photo {
+      width: 100%;
+      aspect-ratio: 5 / 3;
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+      flex-shrink: 0;
+    }
+    .species-hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    .species-hero-photo:hover img { transform: scale(1.04); }
+    .species-hero-expand {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      font-size: 10px;
+      padding: 4px 10px;
+      border-radius: 10px 0 14px 0;
     }
 
     .species-info-card {
@@ -10984,6 +11022,11 @@
 
             <!-- 右侧知识栏 (三段式) -->
             <div class="species-knowledge-panel">
+              <!-- 物种代表照片 -->
+              <div class="species-hero-photo" onclick="openPhotoViewer(currentPhotoIndex)">
+                <img id="species-hero-img" src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800&fit=crop" alt="">
+                <div class="species-hero-expand">🔍 点击查看大图</div>
+              </div>
               <!-- 物种头部 + 趣味知识 -->
               <div class="species-info-card fun-facts-section">
                 <div class="species-info-header">
@@ -13131,22 +13174,116 @@
       { src: 'https://images.unsplash.com/photo-1455659817273-f96807779a8a?w=800&fit=crop', species: '紫罗兰', speciesId: 'violet' },
     ];
     
+    // 物种详情数据
+    const speciesDetailData = {
+      dandelion: {
+        name: '蒲公英', latin: 'Taraxacum mongolicum', icon: '🌼',
+        facts: [
+          { icon: '🌬️', text: '种子像小降落伞，风一吹就能飞到很远的地方！' },
+          { icon: '🍃', text: '叶子可以吃，有点苦但很健康！' },
+          { icon: '☀️', text: '花会跟着太阳转动，晚上还会闭合！' },
+        ],
+        science: { family: '菊科 · 蒲公英属', bloom: '3-5月', fruit: '6-8月', range: '全球温带地区', habitat: '路边、草地、田野' },
+        discovery: { date: '1月5日', count: 2 }
+      },
+      daisy: {
+        name: '雏菊', latin: 'Bellis perennis', icon: '🌸',
+        facts: [
+          { icon: '🌞', text: '名字来自"Day\'s eye"，因为它每天早上开花！' },
+          { icon: '💪', text: '生命力超强，踩过之后还能长回来！' },
+          { icon: '🎨', text: '花瓣其实是很多小花组成的"花序"！' },
+        ],
+        science: { family: '菊科 · 雏菊属', bloom: '2-5月', fruit: '5-7月', range: '欧洲、北美', habitat: '草坪、花园、路边' },
+        discovery: { date: '1月8日', count: 1 }
+      },
+      clover: {
+        name: '三叶草', latin: 'Trifolium repens', icon: '☘️',
+        facts: [
+          { icon: '🍀', text: '找到四叶草的概率大约是万分之一！' },
+          { icon: '🐝', text: '蜜蜂最爱的花之一，能产出很好的蜂蜜！' },
+          { icon: '🌍', text: '它能给土壤"施肥"，让其他植物长得更好！' },
+        ],
+        science: { family: '豆科 · 三叶草属', bloom: '4-10月', fruit: '5-11月', range: '全球', habitat: '草坪、田野、山坡' },
+        discovery: { date: '1月12日', count: 1 }
+      },
+      wildflower: {
+        name: '野菊', latin: 'Chrysanthemum indicum', icon: '🌻',
+        facts: [
+          { icon: '🍵', text: '可以用来泡茶，清香又好喝！' },
+          { icon: '🛡️', text: '有天然驱虫的能力，虫子不敢靠近！' },
+          { icon: '🏔️', text: '从平原到海拔3000米的山上都能看到它！' },
+        ],
+        science: { family: '菊科 · 菊属', bloom: '9-11月', fruit: '10-12月', range: '东亚地区', habitat: '山坡、荒地、路旁' },
+        discovery: { date: '1月15日', count: 1 }
+      },
+      violet: {
+        name: '紫罗兰', latin: 'Viola odorata', icon: '💜',
+        facts: [
+          { icon: '👃', text: '闻一会儿就"闻不到"了，因为它会暂时麻痹嗅觉！' },
+          { icon: '🎂', text: '可以做成糖渍花瓣，用来装饰蛋糕！' },
+          { icon: '🐜', text: '种子靠蚂蚁搬运传播，是蚂蚁的好朋友！' },
+        ],
+        science: { family: '堇菜科 · 堇菜属', bloom: '3-5月', fruit: '5-7月', range: '欧洲、亚洲', habitat: '林下、草地、花园' },
+        discovery: { date: '1月20日', count: 1 }
+      }
+    };
+
     let currentPhotoIndex = 0;
 
-    // 选择照片 (更新选中状态 + 打开全屏)
+    // 选择照片 → 切换右侧详情（不打开全屏）
     function selectPhoto(element, index) {
-      // 移除其他选中状态
       document.querySelectorAll('.photo-gallery-item').forEach(item => {
         item.classList.remove('selected');
       });
-      // 添加选中状态
       element.classList.add('selected');
+      currentPhotoIndex = index;
       
-      // 打开全屏预览
-      openPhotoViewer(index);
+      // 更新右侧详情
+      const photo = galleryPhotos[index];
+      if (photo) updateSpeciesDetail(photo.speciesId, photo.src);
+    }
+
+    // 更新右侧物种详情
+    function updateSpeciesDetail(speciesId, photoSrc) {
+      const data = speciesDetailData[speciesId];
+      if (!data) return;
       
-      // TODO: 根据物种更新右侧知识栏
-      console.log('Selected photo:', index, galleryPhotos[index]?.species);
+      // 大图
+      const heroImg = document.getElementById('species-hero-img');
+      if (heroImg) heroImg.src = photoSrc;
+      
+      // 物种头部
+      const nameEl = document.querySelector('.species-info-name');
+      const latinEl = document.querySelector('.species-info-latin');
+      const iconEl = document.querySelector('.species-info-icon');
+      if (nameEl) nameEl.textContent = data.name;
+      if (latinEl) latinEl.textContent = data.latin;
+      if (iconEl) iconEl.textContent = data.icon;
+      
+      // 趣味知识
+      const factsContainer = document.querySelector('.species-fun-facts');
+      if (factsContainer) {
+        factsContainer.innerHTML = data.facts.map(f => 
+          '<div class="fun-fact"><div class="fun-fact-icon">' + f.icon + '</div><div class="fun-fact-text">' + f.text + '</div></div>'
+        ).join('');
+      }
+      
+      // 科学小档案
+      const sciRows = document.querySelectorAll('.science-row');
+      if (sciRows.length >= 5) {
+        sciRows[0].querySelector('.science-value').textContent = data.science.family;
+        sciRows[1].querySelector('.science-value').textContent = data.science.bloom;
+        sciRows[2].querySelector('.science-value').textContent = data.science.fruit;
+        sciRows[3].querySelector('.science-value').textContent = data.science.range;
+        sciRows[4].querySelector('.science-value').textContent = data.science.habitat;
+      }
+      
+      // 我的发现
+      const stats = document.querySelectorAll('.discovery-stat span:last-child');
+      if (stats.length >= 2) {
+        stats[0].textContent = '首次发现:' + data.discovery.date;
+        stats[1].textContent = '共拍摄:' + data.discovery.count + ' 张';
+      }
     }
 
     // 打开全屏预览
