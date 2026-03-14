@@ -9511,30 +9511,8 @@
           <div class="home-ai-overlay hidden" id="home-ai-overlay">
             <!-- 内容区域 -->
             <div class="ai-overlay-body">
-              <!-- 内容1: 今日任务 -->
+              <!-- 唯一内容: 今日发现 -->
               <div class="ai-body-content active" data-content="0">
-                <div class="home-quest-content">
-                  <div class="quest-card">
-                    <div class="quest-icon">🌸</div>
-                    <div class="quest-info">
-                      <span class="quest-title">寻找春天的花朵</span>
-                      <span class="quest-desc">拍摄3种不同的花</span>
-                    </div>
-                    <span class="quest-badge">进行中</span>
-                  </div>
-                  <div class="quest-card completed">
-                    <div class="quest-icon">🦋</div>
-                    <div class="quest-info">
-                      <span class="quest-title">发现蝴蝶</span>
-                      <span class="quest-desc">拍摄1只蝴蝶</span>
-                    </div>
-                    <span class="quest-done">✓</span>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- 内容2: 学知识 -->
-              <div class="ai-body-content" data-content="1">
                 <div class="home-learn-content">
                   <div class="learn-card" onclick="hideHomeAIOverlay(); navigateTo('chat-page');">
                     <div class="learn-icon">🐝</div>
@@ -9550,28 +9528,6 @@
                   </div>
                 </div>
               </div>
-              
-              <!-- 内容3: 我的进度 -->
-              <div class="ai-body-content" data-content="2">
-                <div class="home-progress-content">
-                  <div class="progress-stat">
-                    <span class="stat-num">12</span>
-                    <span class="stat-label">发现</span>
-                  </div>
-                  <div class="progress-stat">
-                    <span class="stat-num">5</span>
-                    <span class="stat-label">完成任务</span>
-                  </div>
-                  <div class="progress-stat">
-                    <span class="stat-num">3</span>
-                    <span class="stat-label">获得勋章</span>
-                  </div>
-                  <div class="progress-stat">
-                    <span class="stat-num">🔥7</span>
-                    <span class="stat-label">连续天数</span>
-                  </div>
-                </div>
-              </div>
             </div>
             
             <!-- 底部菜单栏 -->
@@ -9582,16 +9538,8 @@
               </div>
               <div class="ai-bar-tabs">
                 <div class="ai-bar-tab active" data-tab="0" onclick="switchHomeAITab(0)">
-                  <span class="tab-icon">🎯</span>
-                  <span class="tab-text">今日任务</span>
-                </div>
-                <div class="ai-bar-tab" data-tab="1" onclick="switchHomeAITab(1)">
                   <span class="tab-icon">📖</span>
-                  <span class="tab-text">学知识</span>
-                </div>
-                <div class="ai-bar-tab" data-tab="2" onclick="switchHomeAITab(2)">
-                  <span class="tab-icon">🏆</span>
-                  <span class="tab-text">我的进度</span>
+                  <span class="tab-text">今日发现</span>
                 </div>
               </div>
               <div class="ai-bar-right">
@@ -9650,62 +9598,11 @@
             <!-- 相机AI浮层 -->
             <div class="camera-ai-overlay hidden" id="camera-ai-overlay">
               <div class="ai-overlay-body">
-                <!-- 内容1: 识别提示 -->
                 <div class="ai-body-content active" data-content="0">
-                  <div class="camera-identify-content">
-                    <div class="identify-card">
-                      <div class="identify-icon">🔍</div>
-                      <div class="identify-text">
-                        <span class="identify-title">拍照识别</span>
-                        <span class="identify-desc">对准想了解的东西,按快门拍照</span>
-                      </div>
-                    </div>
-                    <div class="identify-examples">
-                      <span class="example-tag">🌸 花朵</span>
-                      <span class="example-tag">🦋 昆虫</span>
-                      <span class="example-tag">🪨 岩石</span>
-                      <span class="example-tag">🍄 蘑菇</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- 内容2: 拍摄技巧 -->
-                <div class="ai-body-content" data-content="1">
-                  <div class="camera-tips-content">
-                    <div class="tip-card">
-                      <span class="tip-icon">☀️</span>
-                      <span class="tip-text">光线充足时效果最好</span>
-                    </div>
-                    <div class="tip-card">
-                      <span class="tip-icon">📏</span>
-                      <span class="tip-text">靠近一点,拍得更清楚</span>
-                    </div>
-                    <div class="tip-card">
-                      <span class="tip-icon">✋</span>
-                      <span class="tip-text">拿稳相机,不要晃动</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- 内容3: 帮助 -->
-                <div class="ai-body-content" data-content="2">
-                  <div class="camera-help-content">
-                    <div class="help-item">
-                      <span class="help-key">快门</span>
-                      <span class="help-action">拍照</span>
-                    </div>
-                    <div class="help-item">
-                      <span class="help-key">⚡</span>
-                      <span class="help-action">闪光灯</span>
-                    </div>
-                    <div class="help-item">
-                      <span class="help-key">1×</span>
-                      <span class="help-action">缩放</span>
-                    </div>
-                    <div class="help-item">
-                      <span class="help-key">⊞</span>
-                      <span class="help-action">网格线</span>
-                    </div>
+                  <div style="text-align: center; padding: 12px 16px;">
+                    <div style="font-size: 32px; margin-bottom: 6px;">🦉</div>
+                    <div style="font-size: 13px; font-weight: 600; color: #4F46E5; margin-bottom: 4px;">咕咕</div>
+                    <div style="font-size: 12px; color: #666; line-height: 1.5;">专心拍照吧！拍完按 AI 键再来找我～</div>
                   </div>
                 </div>
               </div>
@@ -9716,17 +9613,9 @@
                   <span class="ai-bar-context">神奇相机</span>
                 </div>
                 <div class="ai-bar-tabs">
-                  <div class="ai-bar-tab active" data-tab="0" onclick="switchCameraAITab(0)">
-                    <span class="tab-icon">🔍</span>
-                    <span class="tab-text">识别</span>
-                  </div>
-                  <div class="ai-bar-tab" data-tab="1" onclick="switchCameraAITab(1)">
-                    <span class="tab-icon">💡</span>
-                    <span class="tab-text">拍摄技巧</span>
-                  </div>
-                  <div class="ai-bar-tab" data-tab="2" onclick="switchCameraAITab(2)">
-                    <span class="tab-icon">❓</span>
-                    <span class="tab-text">帮助</span>
+                  <div class="ai-bar-tab active" data-tab="0">
+                    <span class="tab-icon">🦉</span>
+                    <span class="tab-text">咕咕提示</span>
                   </div>
                 </div>
                 <div class="ai-bar-right">
@@ -9839,6 +9728,24 @@
                     </div>
                   </div>
                 </div>
+                
+                <!-- 内容4: 编故事 -->
+                <div class="ai-body-content" data-content="3">
+                  <div class="preview-chat-content">
+                    <div class="chat-prompt-card" onclick="hidePreviewAIOverlay(); startStoryGeneration('冒险故事')">
+                      <span class="prompt-icon">🏰</span>
+                      <span class="prompt-text">冒险故事</span>
+                    </div>
+                    <div class="chat-prompt-card" onclick="hidePreviewAIOverlay(); startStoryGeneration('童话故事')">
+                      <span class="prompt-icon">🧚</span>
+                      <span class="prompt-text">童话故事</span>
+                    </div>
+                    <div class="chat-prompt-card" onclick="hidePreviewAIOverlay(); startStoryGeneration('科普故事')">
+                      <span class="prompt-icon">🔬</span>
+                      <span class="prompt-text">科普故事</span>
+                    </div>
+                  </div>
+                </div>
               </div>
               
               <div class="ai-overlay-bar">
@@ -9858,6 +9765,10 @@
                   <div class="ai-bar-tab" data-tab="2" onclick="switchPreviewAITab(2)">
                     <span class="tab-icon">✨</span>
                     <span class="tab-text">魔法创作</span>
+                  </div>
+                  <div class="ai-bar-tab" data-tab="3" onclick="switchPreviewAITab(3)">
+                    <span class="tab-icon">📖</span>
+                    <span class="tab-text">编故事</span>
                   </div>
                 </div>
                 <div class="ai-bar-right">
@@ -9935,58 +9846,15 @@
               </div>
             </div>
 
-            <!-- 照片聊天 AI浮层 - 简化单级菜单 -->
+            <!-- 照片聊天 AI浮层 - 咕咕提示 -->
             <div class="chat-ai-overlay hidden" id="chat-ai-overlay">
               <!-- 内容区域 -->
               <div class="ai-overlay-body">
-                <!-- 内容0: 换话题 -->
                 <div class="ai-body-content active" data-content="0">
-                  <div class="preview-chat-content">
-                    <div class="chat-prompt-card" onclick="hideChatAIOverlay(); showToast('已切换到新话题')">
-                      <span class="prompt-icon">🌸</span>
-                      <span class="prompt-text">聊聊花的颜色</span>
-                    </div>
-                    <div class="chat-prompt-card" onclick="hideChatAIOverlay(); showToast('已切换到新话题')">
-                      <span class="prompt-icon">🦋</span>
-                      <span class="prompt-text">蝴蝶为什么会飞</span>
-                    </div>
-                    <div class="chat-prompt-card" onclick="hideChatAIOverlay(); showToast('已切换到新话题')">
-                      <span class="prompt-icon">🔍</span>
-                      <span class="prompt-text">随机话题</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- 内容1: 编故事 -->
-                <div class="ai-body-content" data-content="1">
-                  <div class="preview-chat-content">
-                    <div class="chat-prompt-card" onclick="hideChatAIOverlay(); startStoryGeneration('冒险故事')">
-                      <span class="prompt-icon">🏰</span>
-                      <span class="prompt-text">冒险故事</span>
-                    </div>
-                    <div class="chat-prompt-card" onclick="hideChatAIOverlay(); startStoryGeneration('童话故事')">
-                      <span class="prompt-icon">🧚</span>
-                      <span class="prompt-text">童话故事</span>
-                    </div>
-                    <div class="chat-prompt-card" onclick="hideChatAIOverlay(); startStoryGeneration('随机创作')">
-                      <span class="prompt-icon">✨</span>
-                      <span class="prompt-text">随机创作</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- 内容2: 挑战 - 直接显示问答 -->
-                <div class="ai-body-content" data-content="2">
-                  <div class="species-quiz-content" id="chat-quiz-content">
-                    <div style="text-align: center; margin-bottom: 4px;">
-                      <span style="font-size: 11px; background: linear-gradient(135deg, #FEF3C7, #FDE68A); padding: 4px 10px; border-radius: 10px; color: #92400E;">🌟 答对 +5⭐</span>
-                    </div>
-                    <div class="quiz-question" id="chat-quiz-question">这张照片里的花是什么颜色？</div>
-                    <div class="quiz-options" id="chat-quiz-options">
-                      <div class="quiz-option" onclick="answerChatQuiz(this, false)">🔴 红色</div>
-                      <div class="quiz-option" onclick="answerChatQuiz(this, false)">🔵 蓝色</div>
-                      <div class="quiz-option" onclick="answerChatQuiz(this, true)">🟡 黄色</div>
-                    </div>
+                  <div style="text-align: center; padding: 12px 16px;">
+                    <div style="font-size: 32px; margin-bottom: 6px;">🦉</div>
+                    <div style="font-size: 13px; font-weight: 600; color: #4F46E5; margin-bottom: 4px;">咕咕</div>
+                    <div style="font-size: 12px; color: #666; line-height: 1.5;">我们正在聊天呢！直接跟我说话就好啦～</div>
                   </div>
                 </div>
               </div>
@@ -9998,17 +9866,9 @@
                   <span class="ai-bar-context">聊天</span>
                 </div>
                 <div class="ai-bar-tabs">
-                  <div class="ai-bar-tab active" data-tab="0" onclick="switchChatAITab(0)">
-                    <span class="tab-icon">🔄</span>
-                    <span class="tab-text">换话题</span>
-                  </div>
-                  <div class="ai-bar-tab" data-tab="1" onclick="switchChatAITab(1)">
-                    <span class="tab-icon">📖</span>
-                    <span class="tab-text">编故事</span>
-                  </div>
-                  <div class="ai-bar-tab" data-tab="2" onclick="switchChatAITab(2)">
-                    <span class="tab-icon">🎯</span>
-                    <span class="tab-text">挑战</span>
+                  <div class="ai-bar-tab active" data-tab="0">
+                    <span class="tab-icon">🦉</span>
+                    <span class="tab-text">咕咕提示</span>
                   </div>
                 </div>
                 <div class="ai-bar-right">
@@ -10147,7 +10007,7 @@
             <div class="map-ai-overlay hidden" id="map-ai-overlay">
               <!-- 内容区域 -->
               <div class="ai-overlay-body">
-                <!-- 内容1: 带我探索 -->
+                <!-- 唯一内容: 带我探索 -->
                 <div class="ai-body-content active" data-content="0">
                   <div class="ai-task-grid">
                     <div class="ai-task-card" onclick="showTaskModal('flower'); hideMapAIOverlay();">
@@ -10170,59 +10030,6 @@
                     </div>
                   </div>
                 </div>
-                
-                <!-- 内容2: 探索小贴士 -->
-                <div class="ai-body-content" data-content="1">
-                  <div class="ai-tips-grid">
-                    <div class="ai-tip-card">
-                      <div class="tip-image">🌅</div>
-                      <span class="tip-text">早晨观察昆虫</span>
-                    </div>
-                    <div class="ai-tip-card">
-                      <div class="tip-image">🔍</div>
-                      <span class="tip-text">蹲下仔细看</span>
-                    </div>
-                    <div class="ai-tip-card">
-                      <div class="tip-image">📸</div>
-                      <span class="tip-text">安静拍照</span>
-                    </div>
-                    <div class="ai-tip-card">
-                      <div class="tip-image">📝</div>
-                      <span class="tip-text">记录发现</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- 内容3: 奖励 -->
-                <div class="ai-body-content" data-content="2">
-                  <div class="ai-reward-grid">
-                    <div class="ai-reward-card">
-                      <div class="reward-image">🌸</div>
-                      <span class="reward-name">寻找花朵</span>
-                      <div class="reward-stars">⭐</div>
-                    </div>
-                    <div class="ai-reward-card">
-                      <div class="reward-image">🦋</div>
-                      <span class="reward-name">发现蝴蝶</span>
-                      <div class="reward-stars">⭐⭐</div>
-                    </div>
-                    <div class="ai-reward-card completed">
-                      <div class="reward-image">🪨</div>
-                      <span class="reward-name">探索岩石</span>
-                      <div class="reward-stars done">✅</div>
-                    </div>
-                    <div class="ai-reward-card">
-                      <div class="reward-image">🍂</div>
-                      <span class="reward-name">收集落叶</span>
-                      <div class="reward-stars">⭐</div>
-                    </div>
-                    <div class="ai-reward-card bonus">
-                      <div class="reward-image">🎁</div>
-                      <span class="reward-name">全部完成</span>
-                      <div class="reward-stars">⭐⭐⭐</div>
-                    </div>
-                  </div>
-                </div>
               </div>
               
               <!-- 底部菜单栏 -->
@@ -10235,14 +10042,6 @@
                   <div class="ai-bar-tab active" data-tab="0" onclick="switchAITab(0)">
                     <span class="tab-icon">🧭</span>
                     <span class="tab-text">带我探索</span>
-                  </div>
-                  <div class="ai-bar-tab" data-tab="1" onclick="switchAITab(1)">
-                    <span class="tab-icon">💡</span>
-                    <span class="tab-text">小贴士</span>
-                  </div>
-                  <div class="ai-bar-tab" data-tab="2" onclick="switchAITab(2)">
-                    <span class="tab-icon">🏅</span>
-                    <span class="tab-text">奖励</span>
                   </div>
                 </div>
                 <div class="ai-bar-right">
@@ -10362,7 +10161,7 @@
             <div class="workshop-ai-overlay hidden" id="workshop-ai-overlay">
               <!-- 内容区域 -->
               <div class="ai-overlay-body">
-                <!-- 内容1: 随机惊喜 -->
+                <!-- 唯一内容: 随机惊喜 -->
                 <div class="ai-body-content active" data-content="0">
                   <div class="workshop-surprise-content">
                     <div class="surprise-combo">
@@ -10382,51 +10181,6 @@
                     </button>
                   </div>
                 </div>
-                
-                <!-- 内容2: 我的作品 -->
-                <div class="ai-body-content" data-content="1">
-                  <div class="workshop-creations-row">
-                    <div class="creation-card" onclick="hideWorkshopAIOverlay();">
-                      <div class="creation-thumb">🎨</div>
-                      <span class="creation-name">蝴蝶水彩</span>
-                    </div>
-                    <div class="creation-card" onclick="hideWorkshopAIOverlay();">
-                      <div class="creation-thumb">👾</div>
-                      <span class="creation-name">像素花朵</span>
-                    </div>
-                    <div class="creation-card" onclick="hideWorkshopAIOverlay();">
-                      <div class="creation-thumb">🏔️</div>
-                      <span class="creation-name">吉卜力风</span>
-                    </div>
-                    <div class="creation-view-all" onclick="hideWorkshopAIOverlay(); navigateTo('backpack-page');">
-                      <span class="view-all-icon">📁</span>
-                      <span class="view-all-text">查看全部</span>
-                      <span class="view-all-arrow">›</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- 内容3: 灵感 -->
-                <div class="ai-body-content" data-content="2">
-                  <div class="workshop-ideas-grid">
-                    <div class="idea-card">
-                      <div class="idea-icon">🌸</div>
-                      <span class="idea-text">把花朵变成水彩画</span>
-                    </div>
-                    <div class="idea-card">
-                      <div class="idea-icon">🐛</div>
-                      <span class="idea-text">昆虫的像素世界</span>
-                    </div>
-                    <div class="idea-card">
-                      <div class="idea-icon">🍂</div>
-                      <span class="idea-text">落叶吉卜力风格</span>
-                    </div>
-                    <div class="idea-card">
-                      <div class="idea-icon">🌈</div>
-                      <span class="idea-text">彩虹卡通画</span>
-                    </div>
-                  </div>
-                </div>
               </div>
               
               <!-- 底部菜单栏 -->
@@ -10437,16 +10191,8 @@
                 </div>
                 <div class="ai-bar-tabs">
                   <div class="ai-bar-tab active" data-tab="0" onclick="switchWorkshopAITab(0)">
-                    <span class="tab-icon">✨</span>
+                    <span class="tab-icon">🎲</span>
                     <span class="tab-text">随机惊喜</span>
-                  </div>
-                  <div class="ai-bar-tab" data-tab="1" onclick="switchWorkshopAITab(1)">
-                    <span class="tab-icon">🖼️</span>
-                    <span class="tab-text">我的作品</span>
-                  </div>
-                  <div class="ai-bar-tab" data-tab="2" onclick="switchWorkshopAITab(2)">
-                    <span class="tab-icon">💡</span>
-                    <span class="tab-text">灵感</span>
                   </div>
                 </div>
                 <div class="ai-bar-right">
@@ -10745,7 +10491,7 @@
             <!-- 背包AI浮层 -->
             <div class="backpack-ai-overlay hidden" id="backpack-ai-overlay">
               <div class="ai-overlay-body">
-                <!-- 内容1: 精彩回顾 -->
+                <!-- 唯一内容: 精彩回顾 -->
                 <div class="ai-body-content active" data-content="0">
                   <div class="backpack-highlights-content">
                     <div class="highlight-card">
@@ -10771,53 +10517,6 @@
                     </div>
                   </div>
                 </div>
-                
-                <!-- 内容2: 统计 -->
-                <div class="ai-body-content" data-content="1">
-                  <div class="backpack-stats-content">
-                    <div class="stat-item">
-                      <span class="stat-icon">📷</span>
-                      <span class="stat-number">28</span>
-                      <span class="stat-name">照片</span>
-                    </div>
-                    <div class="stat-item">
-                      <span class="stat-icon">🦋</span>
-                      <span class="stat-number">12</span>
-                      <span class="stat-name">发现</span>
-                    </div>
-                    <div class="stat-item">
-                      <span class="stat-icon">✅</span>
-                      <span class="stat-number">5</span>
-                      <span class="stat-name">任务</span>
-                    </div>
-                    <div class="stat-item">
-                      <span class="stat-icon">🎨</span>
-                      <span class="stat-number">8</span>
-                      <span class="stat-name">作品</span>
-                    </div>
-                    <div class="stat-item">
-                      <span class="stat-icon">🏅</span>
-                      <span class="stat-number">3</span>
-                      <span class="stat-name">勋章</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- 内容3: 下个目标 -->
-                <div class="ai-body-content" data-content="2">
-                  <div class="backpack-goal-content">
-                    <div class="goal-card">
-                      <div class="goal-icon">🎯</div>
-                      <div class="goal-info">
-                        <span class="goal-title">发现更多昆虫</span>
-                        <span class="goal-desc">再发现3种昆虫,获得「昆虫专家」勋章</span>
-                      </div>
-                      <div class="goal-progress">
-                        <div class="goal-bar" style="width: 60%;"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
               
               <div class="ai-overlay-bar">
@@ -10829,14 +10528,6 @@
                   <div class="ai-bar-tab active" data-tab="0" onclick="switchBackpackAITab(0)">
                     <span class="tab-icon">⭐</span>
                     <span class="tab-text">精彩回顾</span>
-                  </div>
-                  <div class="ai-bar-tab" data-tab="1" onclick="switchBackpackAITab(1)">
-                    <span class="tab-icon">📊</span>
-                    <span class="tab-text">统计</span>
-                  </div>
-                  <div class="ai-bar-tab" data-tab="2" onclick="switchBackpackAITab(2)">
-                    <span class="tab-icon">🎯</span>
-                    <span class="tab-text">下个目标</span>
                   </div>
                 </div>
                 <div class="ai-bar-right">
@@ -10908,36 +10599,12 @@
             <!-- 物种列表AI浮层 -->
             <div class="species-list-ai-overlay hidden" id="species-list-ai-overlay">
               <div class="ai-overlay-body">
-                <!-- 内容1: 随机挑战 -->
+                <!-- 唯一内容: 知识挑战 -->
                 <div class="ai-body-content active" data-content="0">
-                  <div class="species-challenge-content">
-                    <div class="challenge-card">
-                      <div class="challenge-icon">🎲</div>
-                      <div class="challenge-info">
-                        <span class="challenge-title">寻找雏菊</span>
-                        <span class="challenge-desc">去户外找一朵真正的雏菊拍照吧!</span>
-                      </div>
-                    </div>
-                    <button class="challenge-start-btn" onclick="hideSpeciesListAIOverlay(); navigateTo('camera-page');">
-                      <span>接受挑战</span>
-                      <span>📷</span>
-                    </button>
-                  </div>
-                </div>
-                
-                <!-- 内容2: 趣味知识 -->
-                <div class="ai-body-content" data-content="1">
-                  <div class="species-funfact-content">
-                    <div class="funfact-card">
-                      <div class="funfact-icon">💡</div>
-                      <div class="funfact-text">向日葵其实不是一朵花,而是由成千上万朵小花组成的!中间的小圆点都是独立的小花哦。</div>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- 内容3: 小测验 -->
-                <div class="ai-body-content" data-content="2">
                   <div class="species-quiz-content">
+                    <div style="text-align: center; margin-bottom: 4px;">
+                      <span style="font-size: 11px; background: linear-gradient(135deg, #FEF3C7, #FDE68A); padding: 4px 10px; border-radius: 10px; color: #92400E;">🌟 答对 +5⭐</span>
+                    </div>
                     <div class="quiz-question">哪种花会跟着太阳转?</div>
                     <div class="quiz-options">
                       <div class="quiz-option" onclick="selectQuizOption(this, false)">🌸 樱花</div>
@@ -10955,16 +10622,8 @@
                 </div>
                 <div class="ai-bar-tabs">
                   <div class="ai-bar-tab active" data-tab="0" onclick="switchSpeciesListAITab(0)">
-                    <span class="tab-icon">🎲</span>
-                    <span class="tab-text">随机挑战</span>
-                  </div>
-                  <div class="ai-bar-tab" data-tab="1" onclick="switchSpeciesListAITab(1)">
-                    <span class="tab-icon">💡</span>
-                    <span class="tab-text">趣味知识</span>
-                  </div>
-                  <div class="ai-bar-tab" data-tab="2" onclick="switchSpeciesListAITab(2)">
                     <span class="tab-icon">🎯</span>
-                    <span class="tab-text">小测验</span>
+                    <span class="tab-text">知识挑战</span>
                   </div>
                 </div>
                 <div class="ai-bar-right">
@@ -11125,7 +10784,7 @@
             <!-- 发现详情AI浮层 -->
             <div class="species-detail-ai-overlay hidden" id="species-detail-ai-overlay">
               <div class="ai-overlay-body">
-                <!-- 内容1: 更多知识 -->
+                <!-- 唯一内容: 更多趣事 -->
                 <div class="ai-body-content active" data-content="0">
                   <div class="detail-morefacts-content">
                     <div class="morefact-card">
@@ -11142,43 +10801,6 @@
                     </button>
                   </div>
                 </div>
-                
-                <!-- 内容2: 相关发现 -->
-                <div class="ai-body-content" data-content="1">
-                  <div class="detail-related-content">
-                    <div class="related-species-row">
-                      <div class="related-species-item" onclick="showToast('🌼 查看雏菊');">
-                        <div class="related-icon">🌼</div>
-                        <span>雏菊</span>
-                      </div>
-                      <div class="related-species-item" onclick="showToast('🌻 查看向日葵');">
-                        <div class="related-icon">🌻</div>
-                        <span>向日葵</span>
-                      </div>
-                      <div class="related-species-item" onclick="showToast('💐 查看菊花');">
-                        <div class="related-icon">💐</div>
-                        <span>菊花</span>
-                      </div>
-                      <div class="related-species-item locked" onclick="showToast('🔒 还未发现');">
-                        <div class="related-icon">❓</div>
-                        <span>???</span>
-                      </div>
-                    </div>
-                    <div class="related-hint">都是菊科植物哦!</div>
-                  </div>
-                </div>
-                
-                <!-- 内容3: 考考我 -->
-                <div class="ai-body-content" data-content="2">
-                  <div class="detail-quiz-content">
-                    <div class="quiz-question">蒲公英的种子靠什么传播?</div>
-                    <div class="quiz-options">
-                      <div class="quiz-option" onclick="selectDetailQuizOption(this, false)">🐝 蜜蜂</div>
-                      <div class="quiz-option" onclick="selectDetailQuizOption(this, true)">🌬️ 风</div>
-                      <div class="quiz-option" onclick="selectDetailQuizOption(this, false)">💧 水</div>
-                    </div>
-                  </div>
-                </div>
               </div>
               
               <div class="ai-overlay-bar">
@@ -11189,15 +10811,7 @@
                 <div class="ai-bar-tabs">
                   <div class="ai-bar-tab active" data-tab="0" onclick="switchSpeciesDetailAITab(0)">
                     <span class="tab-icon">💡</span>
-                    <span class="tab-text">更多知识</span>
-                  </div>
-                  <div class="ai-bar-tab" data-tab="1" onclick="switchSpeciesDetailAITab(1)">
-                    <span class="tab-icon">🔗</span>
-                    <span class="tab-text">相关发现</span>
-                  </div>
-                  <div class="ai-bar-tab" data-tab="2" onclick="switchSpeciesDetailAITab(2)">
-                    <span class="tab-icon">🎯</span>
-                    <span class="tab-text">考考我</span>
+                    <span class="tab-text">更多趣事</span>
                   </div>
                 </div>
                 <div class="ai-bar-right">
@@ -13045,18 +12659,19 @@
         </div>
       </div>
 
-      <!-- AI菜单 -->
+      <!-- AI菜单 v2 -->
       <div class="nav-section">
-        <div class="nav-section-title">✨ AI菜单</div>
+        <div class="nav-section-title">✨ AI菜单 v2</div>
         <div class="nav-items">
-          <div class="nav-item" onclick="goTo('home-page', 'ai-menu')"><span class="icon">🏠</span><span>首页AI菜单</span></div>
-          <div class="nav-item" onclick="goTo('camera-page', 'ai-menu')"><span class="icon">📷</span><span>相机AI菜单</span></div>
-          <div class="nav-item" onclick="goTo('photo-preview-page', 'ai-menu')"><span class="icon">🖼️</span><span>预览AI菜单</span></div>
-          <div class="nav-item" onclick="goTo('map-page', 'ai-menu')"><span class="icon">🗺️</span><span>地图AI菜单</span></div>
-          <div class="nav-item" onclick="goTo('workshop-page', 'ai-menu')"><span class="icon">🎨</span><span>魔法工坊AI菜单</span></div>
-          <div class="nav-item" onclick="goTo('backpack-page', 'ai-menu')"><span class="icon">🎒</span><span>探险背包AI菜单</span></div>
-          <div class="nav-item" onclick="goTo('subcategory-list-page', 'ai-menu')"><span class="icon">📖</span><span>我的发现AI菜单</span></div>
-          <div class="nav-item" onclick="goTo('subcategory-detail-page', 'ai-menu')"><span class="icon">🔍</span><span>发现详情AI菜单</span></div>
+          <div class="nav-item" onclick="goTo('photo-preview-page', 'ai-menu')"><span class="icon">🖼️</span><span>照片预览 (4项·核心)</span></div>
+          <div class="nav-item" onclick="goTo('home-page', 'ai-menu')"><span class="icon">🏠</span><span>首页·今日发现</span></div>
+          <div class="nav-item" onclick="goTo('map-page', 'ai-menu')"><span class="icon">🗺️</span><span>地图·带我探索</span></div>
+          <div class="nav-item" onclick="goTo('workshop-page', 'ai-menu')"><span class="icon">🎨</span><span>工坊·随机惊喜</span></div>
+          <div class="nav-item" onclick="goTo('backpack-page', 'ai-menu')"><span class="icon">🎒</span><span>背包·精彩回顾</span></div>
+          <div class="nav-item" onclick="goTo('subcategory-list-page', 'ai-menu')"><span class="icon">📖</span><span>物种列表·知识挑战</span></div>
+          <div class="nav-item" onclick="goTo('subcategory-detail-page', 'ai-menu')"><span class="icon">🦋</span><span>物种详情·更多趣事</span></div>
+          <div class="nav-item" onclick="goTo('camera-page', 'ai-menu')" style="opacity:0.5"><span class="icon">📷</span><span>相机 (咕咕提示)</span></div>
+          <div class="nav-item" onclick="goTo('chat-page', 'ai-menu')" style="opacity:0.5"><span class="icon">💬</span><span>聊天 (咕咕提示)</span></div>
         </div>
       </div>
 
@@ -14574,24 +14189,18 @@
       if (overlay) overlay.classList.remove('show');
     }
 
-    // AI菜单配置 - 图标为主,文字简短
+    // AI菜单配置 v2 - 仅作为通用浮层的fallback（大部分页面已有专属浮层）
     const pageConfigs = {
       'home-page': {
         context: { icon: '🏠', label: '首页' },
         menu: [
-          { icon: '🎯', label: '今日任务', color: 'purple', action: 'dailyQuest' },
-          { icon: '📖', label: '学知识', color: 'blue', action: 'learnSomething' },
-          { icon: '🏆', label: '我的进度', color: 'yellow', action: 'myProgress' },
-          { icon: '❓', label: '帮助', color: 'green', action: 'help' }
+          { icon: '📖', label: '今日发现', color: 'blue', action: 'learnSomething' }
         ]
       },
       'camera-page': {
         context: { icon: '📷', label: '相机' },
-        menu: [
-          { icon: '🔍', label: '识别', color: 'purple', action: 'identifyThis' },
-          { icon: '💡', label: '拍摄技巧', color: 'blue', action: 'photoTips' },
-          { icon: '❓', label: '帮助', color: 'green', action: 'help' }
-        ]
+        menu: [],
+        isGeneric: true
       },
       'photo-preview-page': {
         context: { icon: '🖼️', label: '照片' },
@@ -14604,68 +14213,52 @@
       },
       'chat-page': {
         context: { icon: '💬', label: '聊天' },
-        menu: [
-          { icon: '🔄', label: '换话题', color: 'purple', action: 'newTopic' },
-          { icon: '📖', label: '编故事', color: 'blue', action: 'tellStory' },
-          { icon: '🎯', label: '挑战', color: 'orange', action: 'quizChallenge' }
-        ]
+        menu: [],
+        isGeneric: true
       },
       'general-chat-page': {
         context: { icon: '💬', label: '聊天' },
-        menu: [
-          { icon: '🔄', label: '换话题', color: 'purple', action: 'newTopic' },
-          { icon: '💡', label: '探索', color: 'blue', action: 'exploreIdeas' },
-          { icon: '🎯', label: '挑战', color: 'orange', action: 'quizChallenge' }
-        ]
+        menu: [],
+        isGeneric: true
       },
       'map-page': {
         context: { icon: '🗺️', label: '地图' },
         menu: [
-          { icon: '🧭', label: '带我探索', color: 'cyan', action: 'guideMe' },
-          { icon: '💡', label: '小贴士', color: 'blue', action: 'exploreTips' },
-          { icon: '🏅', label: '奖励', color: 'yellow', action: 'rewards' }
+          { icon: '🧭', label: '带我探索', color: 'cyan', action: 'guideMe' }
         ]
       },
       'workshop-page': {
         context: { icon: '🎨', label: '魔法工坊' },
         menu: [
-          { icon: '✨', label: '随机惊喜', color: 'purple', action: 'surpriseMe' },
-          { icon: '🖼️', label: '我的作品', color: 'pink', action: 'myCreations' },
-          { icon: '💡', label: '灵感', color: 'yellow', action: 'getIdeas' }
+          { icon: '🎲', label: '随机惊喜', color: 'purple', action: 'surpriseMe' }
         ]
       },
       'backpack-page': {
         context: { icon: '🎒', label: '探险背包' },
         menu: [
-          { icon: '⭐', label: '精彩回顾', color: 'purple', action: 'highlights' },
-          { icon: '📊', label: '统计', color: 'blue', action: 'stats' },
-          { icon: '🎯', label: '下个目标', color: 'green', action: 'nextGoal' }
+          { icon: '⭐', label: '精彩回顾', color: 'purple', action: 'highlights' }
         ]
       },
-      'species-list-page': {
+      'subcategory-list-page': {
         context: { icon: '📚', label: '我的发现' },
         menu: [
-          { icon: '🎲', label: '随机挑战', color: 'purple', action: 'randomChallenge' },
-          { icon: '💡', label: '趣味知识', color: 'blue', action: 'funFact' },
-          { icon: '🎯', label: '挑战', color: 'orange', action: 'quizChallenge' }
+          { icon: '🎯', label: '知识挑战', color: 'orange', action: 'quizChallenge' }
         ]
       },
-      'species-detail-page': {
+      'subcategory-detail-page': {
         context: { icon: '🦋', label: '发现' },
         menu: [
-          { icon: '💡', label: '更多知识', color: 'purple', action: 'moreFacts' },
-          { icon: '🔗', label: '相关发现', color: 'blue', action: 'related' },
-          { icon: '🎯', label: '考考我', color: 'orange', action: 'quizMe' }
+          { icon: '💡', label: '更多趣事', color: 'purple', action: 'moreFacts' }
         ]
       },
       'photo-effect-page': {
         context: { icon: '✨', label: '选风格' },
-        menu: [{ icon: '🎤', label: '问AI', color: 'purple', action: 'askAI' }],
+        menu: [],
         isGeneric: true
       },
       'workshop-photo-page': {
         context: { icon: '📷', label: '选照片' },
-        menu: [{ icon: '🎤', label: '问AI', color: 'purple', action: 'askAI' }],
+        menu: [],
         isGeneric: true
       }
     };
@@ -16298,9 +15891,7 @@
     
     // 聊天页语音内容
     const chatAIVoiceContent = {
-      0: '想换个话题聊聊吗？点一个你感兴趣的，我来告诉你更多有趣的事情！',
-      1: '来编一个属于你的故事吧！选一个故事类型，我们一起创作！',
-      2: '准备好接受挑战了吗？来测试一下你学到的知识吧！'
+      0: '我们正在聊天呢！直接跟我说话就好啦～'
     };
     
     function speakChatAIContent(tabIndex) {
@@ -16343,9 +15934,7 @@
     
     // 语音播报内容 - 童趣化
     const aiVoiceContent = {
-      0: '嘿!这里有好多好玩的任务等着你呢!去找找漂亮的花朵,看看蝴蝶在哪里,还有好多惊喜哦!点一个试试吧!',
-      1: '小探险家,告诉你几个秘密哦!早上的时候小虫虫最活跃啦,蹲下来看看,会发现很多有趣的小东西呢!',
-      2: '哇,完成任务就能得到闪闪发光的星星哦!把所有任务都完成,还有神秘大礼物等着你呢!'
+      0: '嘿!这里有好多好玩的任务等着你呢!去找找漂亮的花朵,看看蝴蝶在哪里,还有好多惊喜哦!点一个试试吧!'
     };
     
     function triggerAIMenuSwitch() {
@@ -16366,7 +15955,7 @@
           setTimeout(() => speakAIContent(0), 50);
         } else {
           // 已显示时,短按切换Tab
-          mapAICurrentTab = (mapAICurrentTab + 1) % 3;
+          mapAICurrentTab = (mapAICurrentTab + 1) % 1;
           updateAIOverlayUI();
           speakAIContent(mapAICurrentTab);
         }
@@ -16380,7 +15969,7 @@
           showWorkshopAIOverlay();
         } else {
           // 已显示时,短按切换Tab
-          workshopAICurrentTab = (workshopAICurrentTab + 1) % 3;
+          workshopAICurrentTab = (workshopAICurrentTab + 1) % 1;
           updateWorkshopAIOverlayUI();
           speakWorkshopAIContent(workshopAICurrentTab);
         }
@@ -16393,7 +15982,7 @@
         if (!homeAIOverlayVisible) {
           showHomeAIOverlay();
         } else {
-          homeAICurrentTab = (homeAICurrentTab + 1) % 3;
+          homeAICurrentTab = (homeAICurrentTab + 1) % 1;
           updateHomeAIOverlayUI();
           speakHomeAIContent(homeAICurrentTab);
         }
@@ -16406,7 +15995,7 @@
         if (!cameraAIOverlayVisible) {
           showCameraAIOverlay();
         } else {
-          cameraAICurrentTab = (cameraAICurrentTab + 1) % 3;
+          cameraAICurrentTab = (cameraAICurrentTab + 1) % 1;
           updateCameraAIOverlayUI();
           speakCameraAIContent(cameraAICurrentTab);
         }
@@ -16419,7 +16008,7 @@
         if (!backpackAIOverlayVisible) {
           showBackpackAIOverlay();
         } else {
-          backpackAICurrentTab = (backpackAICurrentTab + 1) % 3;
+          backpackAICurrentTab = (backpackAICurrentTab + 1) % 1;
           updateBackpackAIOverlayUI();
           speakBackpackAIContent(backpackAICurrentTab);
         }
@@ -16432,7 +16021,7 @@
         if (!previewAIOverlayVisible) {
           showPreviewAIOverlay();
         } else {
-          previewAICurrentTab = (previewAICurrentTab + 1) % 3;
+          previewAICurrentTab = (previewAICurrentTab + 1) % 4;
           updatePreviewAIOverlayUI();
           speakPreviewAIContent(previewAICurrentTab);
         }
@@ -16445,7 +16034,7 @@
         if (!chatAIOverlayVisible) {
           showChatAIOverlay();
         } else {
-          chatAICurrentTab = (chatAICurrentTab + 1) % 3;
+          chatAICurrentTab = (chatAICurrentTab + 1) % 1;
           updateChatAIOverlayUI();
           speakChatAIContent(chatAICurrentTab);
         }
@@ -16458,7 +16047,7 @@
         if (!speciesListAIOverlayVisible) {
           showSpeciesListAIOverlay();
         } else {
-          speciesListAICurrentTab = (speciesListAICurrentTab + 1) % 3;
+          speciesListAICurrentTab = (speciesListAICurrentTab + 1) % 1;
           updateSpeciesListAIOverlayUI();
           speakSpeciesListAIContent(speciesListAICurrentTab);
         }
@@ -16471,7 +16060,7 @@
         if (!speciesDetailAIOverlayVisible) {
           showSpeciesDetailAIOverlay();
         } else {
-          speciesDetailAICurrentTab = (speciesDetailAICurrentTab + 1) % 3;
+          speciesDetailAICurrentTab = (speciesDetailAICurrentTab + 1) % 1;
           updateSpeciesDetailAIOverlayUI();
           speakSpeciesDetailAIContent(speciesDetailAICurrentTab);
         }
@@ -16608,12 +16197,7 @@
       if (tabIndex === 0 && currentSurpriseStyle) {
         return `今天试试${currentSurpriseStyle.name}怎么样?点击开始创作,马上就能看到效果!`;
       }
-      const voiceTexts = [
-        '随机选了一个风格和照片,点击开始创作吧!',
-        '这是你最近创作的作品,点击查看全部可以看到更多哦!',
-        '需要灵感吗?试试把花朵变成水彩画,或者把昆虫变成像素风!'
-      ];
-      return voiceTexts[tabIndex];
+      return '随机选了一个风格和照片,点击开始创作吧!';
     }
     
     function randomizeSurprise() {
@@ -16737,7 +16321,7 @@
       if (!workshopAIOverlayVisible) {
         showWorkshopAIOverlay();
       } else {
-        workshopAICurrentTab = (workshopAICurrentTab + 1) % 3;
+        workshopAICurrentTab = (workshopAICurrentTab + 1) % 1;
         updateWorkshopAIOverlayUI();
         speakWorkshopAIContent(workshopAICurrentTab);
       }
@@ -16775,9 +16359,7 @@
     let homeAIOverlayVisible = false;
     let homeAICurrentTab = 0;
     const homeAIVoiceContent = [
-      '今天有2个任务等着你!寻找春天的花朵正在进行中,加油!',
-      '想学点新知识吗?点击你感兴趣的话题,我来告诉你!',
-      '你已经发现了12种物种,完成了5个任务,获得了3枚徽章,太棒了!'
+      '想学点新知识吗?点击你感兴趣的话题,我来告诉你!'
     ];
     
     function showHomeAIOverlay() {
@@ -16865,9 +16447,7 @@
     let cameraAIOverlayVisible = false;
     let cameraAICurrentTab = 0;
     const cameraAIVoiceContent = [
-      '对准你想了解的东西,按下快门拍照,我来帮你识别!',
-      '小技巧:光线好、靠近点、拿稳相机,照片会更清晰哦!',
-      '快门拍照,闪电是闪光灯,数字是缩放,方格是网格线。'
+      '专心拍照吧！拍完按AI键再来找我～'
     ];
     
     function showCameraAIOverlay() {
@@ -16955,9 +16535,7 @@
     let backpackAIOverlayVisible = false;
     let backpackAICurrentTab = 0;
     const backpackAIVoiceContent = [
-      '这是你最近的精彩时刻!蝴蝶特写是你的最佳照片,已经连续探索7天了!',
-      '你已经拍了28张照片,发现了12种物种,完成了5个任务,真厉害!',
-      '再发现3种昆虫,就能获得昆虫专家徽章,加油!'
+      '这是你最近的精彩时刻!蝴蝶特写是你的最佳照片,已经连续探索7天了!'
     ];
     
     function showBackpackAIOverlay() {
@@ -17047,7 +16625,8 @@
     const previewAIVoiceContent = [
       '哇！你发现了凤蝶！这是一种美丽的蝴蝶，它的翅膀上有数千片鳞片呢！恭喜你收集到了新的自然之语！',
       '想和我聊聊这只蝴蝶吗?你可以问我它吃什么、住在哪里,或者让我给你讲个故事!',
-      '想把这张照片变成艺术作品吗?选择一种风格,开始魔法创作!'
+      '想把这张照片变成艺术作品吗?选择一种风格,开始魔法创作!',
+      '用这张照片编一个故事吧!选择冒险、童话还是科普,我来帮你创作!'
     ];
     
     function showPreviewAIOverlay() {
@@ -17144,8 +16723,6 @@
     let speciesListAIOverlayVisible = false;
     let speciesListAICurrentTab = 0;
     const speciesListAIVoiceContent = [
-      '来一个随机挑战吧!去户外找一朵雏菊,拍照给我看!',
-      '你知道吗?向日葵其实不是一朵花,而是由成千上万朵小花组成的!',
       '考考你!哪种花会跟着太阳转?'
     ];
     
@@ -17261,9 +16838,7 @@
     let speciesDetailAIOverlayVisible = false;
     let speciesDetailAICurrentTab = 0;
     const speciesDetailAIVoiceContent = [
-      '蒲公英的种子可以飞行几公里远!它还是一种中草药,可以清热解毒哦。',
-      '蒲公英和雏菊、向日葵、菊花都是菊科植物,是一家人呢!',
-      '考考你!蒲公英的种子靠什么传播?是蜜蜂、风还是水呢?'
+      '蒲公英的种子可以飞行几公里远!它还是一种中草药,可以清热解毒哦。'
     ];
     
     function showSpeciesDetailAIOverlay() {
