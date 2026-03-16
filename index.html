@@ -844,7 +844,7 @@
       gap: 12px;
     }
 
-    /* 无AI菜单时的友好提示 */
+    /* 无AI菜单时的友好提示 - 旧版保留兼容 */
     .ai-no-menu-hint {
       display: flex;
       flex-direction: column;
@@ -853,6 +853,49 @@
       padding: 20px;
       text-align: center;
       width: 100%;
+    }
+
+    /* ===== 咕咕 Toast 提示 ===== */
+    .gugu-toast {
+      position: absolute;
+      bottom: 72px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(30, 32, 44, 0.92);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 12px 20px 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      max-width: 80%;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .gugu-toast.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+    .gugu-toast-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #FFD93D 0%, #FF9500 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .gugu-toast-text {
+      font-size: 13px;
+      color: #fff;
+      line-height: 1.5;
+      font-weight: 500;
     }
     .ai-hint-avatar {
       width: 64px;
@@ -9514,6 +9557,11 @@
     <!-- 页面内容区 -->
     <div class="screen-area">
       <div class="device-screen">
+        <!-- 咕咕 Toast 提示（设备屏幕内定位）-->
+        <div class="gugu-toast" id="gugu-toast">
+          <div class="gugu-toast-avatar">🦉</div>
+          <div class="gugu-toast-text" id="gugu-toast-text"></div>
+        </div>
         <!-- 天空背景 -->
         <div class="sky-bg">
           <div class="cloud cloud-1"></div>
@@ -10059,7 +10107,7 @@
             <!-- 指南针已移除 -->
 
             <!-- 任务弹窗 -->
-            <div class="task-modal-overlay" id="task-modal-overlay" onclick="hideTaskModal()">
+            <div class="task-modal-overlay" id="task-modal-overlay" onclick="event.stopPropagation(); hideTaskModal()">
               <div class="task-modal" onclick="event.stopPropagation()">
                 <div class="task-modal-header">
                   <div class="task-modal-icon" id="task-modal-icon" style="background: linear-gradient(135deg, #FF6B6B 0%, #E74C3C 100%);">🌸</div>
@@ -11071,7 +11119,7 @@
         </div>
 
         <!-- ========== Today XP Detail Sheet ========== -->
-        <div class="xp-detail-overlay" id="xp-detail-overlay" onclick="hideTodayXPDetail()">
+        <div class="xp-detail-overlay" id="xp-detail-overlay" onclick="event.stopPropagation(); hideTodayXPDetail()">
           <div class="xp-detail-sheet" onclick="event.stopPropagation()">
             <div class="xp-detail-header">
               <div class="xp-detail-title">
@@ -11497,7 +11545,7 @@
             </div>
 
             <!-- 信件阅读弹窗 -->
-            <div class="letter-modal-overlay" id="letter-modal-overlay" onclick="closeLetter()">
+            <div class="letter-modal-overlay" id="letter-modal-overlay" onclick="event.stopPropagation(); closeLetter()">
               <div class="letter-modal" onclick="event.stopPropagation()">
                 <button class="letter-modal-close" onclick="closeLetter()">✕</button>
                 <div class="letter-modal-header">
@@ -11928,7 +11976,7 @@
         </div>
 
         <!-- ========== Wi-Fi密码输入弹窗 ========== -->
-        <div class="wifi-password-overlay" id="wifi-password-overlay" onclick="hideWifiPasswordModal()">
+        <div class="wifi-password-overlay" id="wifi-password-overlay" onclick="event.stopPropagation(); hideWifiPasswordModal()">
           <div class="wifi-password-modal" onclick="event.stopPropagation()">
             <div class="wifi-password-header">
               <span class="wifi-password-title" id="wifi-password-title">连接到 s_WiFi5</span>
@@ -12340,8 +12388,8 @@
         </div>
 
         <!-- ========== 全局分享弹窗 ========== -->
-        <div class="share-modal-overlay" id="share-modal-overlay">
-          <div class="share-modal">
+        <div class="share-modal-overlay" id="share-modal-overlay" onclick="event.stopPropagation(); hideShareModal()">
+          <div class="share-modal" onclick="event.stopPropagation()">
             <div class="share-modal-header">
               <span class="share-modal-title">📤 分享到...</span>
               <button class="share-modal-close" onclick="hideShareModal()">✕</button>
@@ -12508,8 +12556,8 @@
         <div class="xp-float" id="xp-float">+5 ⭐</div>
 
         <!-- ========== 升级弹窗 ========== -->
-        <div class="levelup-modal-overlay" id="levelup-modal">
-          <div class="levelup-modal">
+        <div class="levelup-modal-overlay" id="levelup-modal" onclick="event.stopPropagation(); hideLevelUpModal()">
+          <div class="levelup-modal" onclick="event.stopPropagation()">
             <div class="levelup-stars">🎊 ✨ 🎊</div>
             <div class="levelup-title">等级提升!</div>
             <div class="levelup-levels">Lv.5 自然小侦探 → Lv.6 丛林游侠</div>
@@ -12535,8 +12583,8 @@
         </div>
 
         <!-- ========== 勋章解锁弹窗 ========== -->
-        <div class="badge-modal-overlay" id="badge-modal">
-          <div class="badge-modal">
+        <div class="badge-modal-overlay" id="badge-modal" onclick="event.stopPropagation(); hideBadgeModal()">
+          <div class="badge-modal" onclick="event.stopPropagation()">
             <div class="badge-confetti">✨ 🎉 ⭐ 🎊 ✨ 🎉 ⭐ 🎊 ✨</div>
             
             <div class="badge-icon-large">🌸</div>
@@ -12553,8 +12601,8 @@
         </div>
 
         <!-- ========== 新物种发现弹窗 ========== -->
-        <div class="discovery-modal-overlay" id="discovery-modal">
-          <div class="discovery-modal">
+        <div class="discovery-modal-overlay" id="discovery-modal" onclick="event.stopPropagation(); hideDiscoveryModal()">
+          <div class="discovery-modal" onclick="event.stopPropagation()">
             <div class="discovery-icon-row">
               <span class="sparkle">✨</span>
               <span class="main-icon" id="discovery-icon">🦋</span>
@@ -12846,8 +12894,11 @@
           <div class="nav-item" onclick="goTo('backpack-page', 'ai-menu')"><span class="icon">🎒</span><span>背包·精彩回顾</span></div>
           <div class="nav-item" onclick="goTo('subcategory-list-page', 'ai-menu')"><span class="icon">📖</span><span>物种列表·知识挑战</span></div>
           <div class="nav-item" onclick="goTo('subcategory-detail-page', 'ai-menu')"><span class="icon">🦋</span><span>物种详情·更多趣事</span></div>
-          <div class="nav-item" onclick="goTo('camera-page', 'ai-menu')" style="opacity:0.5"><span class="icon">📷</span><span>相机 (咕咕提示)</span></div>
-          <div class="nav-item" onclick="goTo('chat-page', 'ai-menu')" style="opacity:0.5"><span class="icon">💬</span><span>聊天 (咕咕提示)</span></div>
+          <div class="nav-item" onclick="goTo('camera-page', 'ai-menu')" style="opacity:0.5"><span class="icon">📷</span><span>相机 (Toast)</span></div>
+          <div class="nav-item" onclick="goTo('chat-page', 'ai-menu')" style="opacity:0.5"><span class="icon">💬</span><span>聊天 (Toast)</span></div>
+          <div class="nav-item" onclick="goTo('story-page', 'ai-menu')" style="opacity:0.5"><span class="icon">📖</span><span>故事 (Toast)</span></div>
+          <div class="nav-item" onclick="goTo('explorer-page', 'ai-menu')" style="opacity:0.5"><span class="icon">🧭</span><span>护照 (Toast)</span></div>
+          <div class="nav-item" onclick="goTo('settings-page', 'ai-menu')" style="opacity:0.5"><span class="icon">⚙️</span><span>设置 (Toast)</span></div>
         </div>
       </div>
 
@@ -13160,14 +13211,17 @@
       if (modal) {
         console.log('🎯 显示弹窗:', modal);
         if (modal === 'ai-menu') {
-          // 根据页面ID显示对应的AI浮层
           setTimeout(() => {
+            // 先检查是否为toast页面
+            const toastMsg = typeof guguToastMessages !== 'undefined' && guguToastMessages[pageId];
+            if (toastMsg) {
+              showGuguToast(toastMsg);
+              return;
+            }
+            // 有AI菜单的页面 → 显示专属浮层
             switch(pageId) {
               case 'home-page':
                 if (typeof showHomeAIOverlay === 'function') showHomeAIOverlay();
-                break;
-              case 'camera-page':
-                if (typeof showCameraAIOverlay === 'function') showCameraAIOverlay();
                 break;
               case 'photo-preview-page':
                 if (typeof showPreviewAIOverlay === 'function') showPreviewAIOverlay();
@@ -13187,13 +13241,6 @@
               case 'subcategory-detail-page':
                 if (typeof showSpeciesDetailAIOverlay === 'function') showSpeciesDetailAIOverlay();
                 break;
-              default:
-                // 默认显示通用AI菜单
-                const overlay = document.getElementById('ai-overlay');
-                if (overlay) {
-                  overlay.classList.add('show');
-                  updateAIMenu();
-                }
             }
             console.log('✅ AI菜单已显示:', pageId);
           }, 100);
@@ -16148,6 +16195,45 @@
       0: '咕咕帮你挑了一个任务！寻找花朵，拍3种不同的花，点击出发开始探索吧！'
     };
     
+    // ============ 咕咕 Toast 系统 ============
+    const guguToastMessages = {
+      'camera-page':        '专心拍照吧！拍完按AI键再来找我～',
+      'chat-page':          '我们正在聊天呢！直接跟我说话就好啦～',
+      'general-chat-page':  '我们正在聊天呢！直接跟我说话就好啦～',
+      'story-page':         '认真看故事哦，看完了再来找我～',
+      'photo-effect-page':  '先选一个喜欢的风格吧～',
+      'workshop-photo-page':'先选一张照片吧～',
+      'aigc-result-page':   '作品马上就好啦，等一下下～',
+      'explorer-page':      '这是你的探险家档案，点击可以听我介绍哦！',
+      'level-guide-page':   '这是你的探险之路，点击等级卡片可以听我介绍！',
+      'letters-page':       '爷爷的信都在这里，点击信封就能读给你听～',
+      'notifications-page': '看看有什么新消息吧～',
+      'settings-page':      '这里是设置，需要帮忙的话长按黄色键跟我说～',
+      'wifi-page':          '正在设置网络呢～',
+    };
+    
+    let guguToastTimer = null;
+    
+    function showGuguToast(text) {
+      const toast = document.getElementById('gugu-toast');
+      const toastText = document.getElementById('gugu-toast-text');
+      if (!toast || !toastText) return;
+      
+      // 清除上一个计时器
+      if (guguToastTimer) clearTimeout(guguToastTimer);
+      
+      toastText.textContent = text;
+      toast.classList.add('show');
+      
+      // 播放语音
+      speakText(text);
+      
+      // 3秒后自动消失
+      guguToastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+    
     function triggerAIMenuSwitch() {
       console.log('🎯 triggerAIMenuSwitch called, currentPage:', currentPage);
       // 防抖:300ms内不重复触发
@@ -16200,16 +16286,11 @@
         return;
       }
       
-      // 相机页特殊处理 - AI浮层
-      if (currentPage === 'camera-page') {
-        console.log('📷 Camera page special handling');
-        if (!cameraAIOverlayVisible) {
-          showCameraAIOverlay();
-        } else {
-          cameraAICurrentTab = (cameraAICurrentTab + 1) % 1;
-          updateCameraAIOverlayUI();
-          speakCameraAIContent(cameraAICurrentTab);
-        }
+      // ===== 无AI菜单页面 → 咕咕Toast =====
+      // 相机/聊天/故事/设置等页面统一用toast提示
+      const toastMsg = guguToastMessages[currentPage];
+      if (toastMsg) {
+        showGuguToast(toastMsg);
         return;
       }
       
@@ -16239,18 +16320,6 @@
         return;
       }
       
-      // 照片聊天页特殊处理 - AI浮层
-      if (currentPage === 'chat-page') {
-        console.log('💬 Chat page special handling');
-        if (!chatAIOverlayVisible) {
-          showChatAIOverlay();
-        } else {
-          chatAICurrentTab = (chatAICurrentTab + 1) % 1;
-          updateChatAIOverlayUI();
-          speakChatAIContent(chatAICurrentTab);
-        }
-        return;
-      }
       
       // 物种列表页特殊处理 - AI浮层
       if (currentPage === 'subcategory-list-page') {
@@ -16278,9 +16347,8 @@
         return;
       }
       
-      // 其他页面 - 显示/隐藏AI菜单
-      console.log('📱 Calling toggleAI()');
-      toggleAI();
+      // 未匹配的页面 → 咕咕Toast兜底
+      showGuguToast('长按黄色键跟我说话吧～');
     }
     
     function showMapAIOverlay() {
@@ -16544,7 +16612,7 @@
         if (workshopAIOverlayVisible) {
           const overlay = document.getElementById('workshop-ai-overlay');
           const isInsideOverlay = overlay && overlay.contains(e.target);
-          const isAIButton = e.target.closest('.btn-ai-ptt');
+          const isAIButton = e.target.closest('.btn-ai-ptt') || e.target.closest('.btn-back');
           if (overlay && !isInsideOverlay && !isAIButton) {
             hideWorkshopAIOverlay();
           }
@@ -16558,7 +16626,7 @@
         if (mapAIOverlayVisible) {
           const overlay = document.getElementById('map-ai-overlay');
           const isInsideOverlay = overlay && overlay.contains(e.target);
-          const isAIButton = e.target.closest('.btn-ai-ptt');
+          const isAIButton = e.target.closest('.btn-ai-ptt') || e.target.closest('.btn-back');
           if (overlay && !isInsideOverlay && !isAIButton) {
             hideMapAIOverlay();
           }
@@ -16646,7 +16714,7 @@
         if (homeAIOverlayVisible) {
           const overlay = document.getElementById('home-ai-overlay');
           const isInsideOverlay = overlay && overlay.contains(e.target);
-          const isAIButton = e.target.closest('.btn-ai-ptt');
+          const isAIButton = e.target.closest('.btn-ai-ptt') || e.target.closest('.btn-back');
           if (overlay && !isInsideOverlay && !isAIButton) {
             hideHomeAIOverlay();
           }
@@ -16734,7 +16802,7 @@
         if (cameraAIOverlayVisible) {
           const overlay = document.getElementById('camera-ai-overlay');
           const isInsideOverlay = overlay && overlay.contains(e.target);
-          const isAIButton = e.target.closest('.btn-ai-ptt');
+          const isAIButton = e.target.closest('.btn-ai-ptt') || e.target.closest('.btn-back');
           if (overlay && !isInsideOverlay && !isAIButton) {
             hideCameraAIOverlay();
           }
@@ -16822,7 +16890,7 @@
         if (backpackAIOverlayVisible) {
           const overlay = document.getElementById('backpack-ai-overlay');
           const isInsideOverlay = overlay && overlay.contains(e.target);
-          const isAIButton = e.target.closest('.btn-ai-ptt');
+          const isAIButton = e.target.closest('.btn-ai-ptt') || e.target.closest('.btn-back');
           if (overlay && !isInsideOverlay && !isAIButton) {
             hideBackpackAIOverlay();
           }
@@ -16922,7 +16990,7 @@
         if (previewAIOverlayVisible) {
           const overlay = document.getElementById('preview-ai-overlay');
           const isInsideOverlay = overlay && overlay.contains(e.target);
-          const isAIButton = e.target.closest('.btn-ai-ptt');
+          const isAIButton = e.target.closest('.btn-ai-ptt') || e.target.closest('.btn-back');
           if (overlay && !isInsideOverlay && !isAIButton) {
             hidePreviewAIOverlay();
           }
@@ -17037,7 +17105,7 @@
         if (speciesListAIOverlayVisible) {
           const overlay = document.getElementById('species-list-ai-overlay');
           const isInsideOverlay = overlay && overlay.contains(e.target);
-          const isAIButton = e.target.closest('.btn-ai-ptt');
+          const isAIButton = e.target.closest('.btn-ai-ptt') || e.target.closest('.btn-back');
           if (overlay && !isInsideOverlay && !isAIButton) {
             hideSpeciesListAIOverlay();
           }
@@ -17194,7 +17262,7 @@
         if (speciesDetailAIOverlayVisible) {
           const overlay = document.getElementById('species-detail-ai-overlay');
           const isInsideOverlay = overlay && overlay.contains(e.target);
-          const isAIButton = e.target.closest('.btn-ai-ptt');
+          const isAIButton = e.target.closest('.btn-ai-ptt') || e.target.closest('.btn-back');
           if (overlay && !isInsideOverlay && !isAIButton) {
             hideSpeciesDetailAIOverlay();
           }
@@ -17204,60 +17272,58 @@
     
     // 返回键逻辑
     function goBack() {
-      // 先检查是否有AI菜单打开，优先关闭AI菜单
+      // ===== 层级1: 关闭咕咕Toast =====
+      const guguToast = document.getElementById('gugu-toast');
+      if (guguToast && guguToast.classList.contains('show')) {
+        guguToast.classList.remove('show');
+        if (guguToastTimer) clearTimeout(guguToastTimer);
+        stopSpeaking();
+        return;
+      }
+      
+      // ===== 层级2: 关闭弹窗（发现/升级/徽章/任务/分享/经验/信件/照片/设置/WiFi）=====
+      const modals = [
+        { id: 'discovery-modal', hide: () => hideDiscoveryModal() },
+        { id: 'levelup-modal', hide: () => hideLevelUpModal() },
+        { id: 'badge-modal', hide: () => hideBadgeModal() },
+        { id: 'task-modal-overlay', hide: () => hideTaskModal() },
+        { id: 'share-modal-overlay', hide: () => hideShareModal() },
+        { id: 'xp-detail-overlay', hide: () => hideTodayXPDetail() },
+        { id: 'letter-modal-overlay', hide: () => closeLetter() },
+        { id: 'photo-viewer', hide: () => closePhotoViewer() },
+        { id: 'settings-sheet-overlay', hide: () => hideSettingsSheet() },
+        { id: 'wifi-password-overlay', hide: () => hideWifiPasswordModal() },
+      ];
+      for (const modal of modals) {
+        const el = document.getElementById(modal.id);
+        if (el && el.classList.contains('show')) {
+          modal.hide();
+          stopSpeaking();
+          return;
+        }
+      }
+      
+      // ===== 层级3: 关闭AI菜单浮层 =====
       const aiOverlay = document.getElementById('ai-overlay');
       if (aiOverlay && aiOverlay.classList.contains('show')) {
         hideAI();
         return;
       }
-      
-      // 检查地图AI菜单
-      const mapAIOverlay = document.getElementById('map-ai-overlay');
-      if (mapAIOverlay && !mapAIOverlay.classList.contains('hidden')) {
-        hideMapAIOverlay();
-        return;
+      const aiOverlayIds = [
+        'map-ai-overlay', 'chat-ai-overlay', 'workshop-ai-overlay',
+        'home-ai-overlay', 'camera-ai-overlay', 'preview-ai-overlay',
+        'backpack-ai-overlay', 'species-list-ai-overlay', 'species-detail-ai-overlay'
+      ];
+      for (const id of aiOverlayIds) {
+        const el = document.getElementById(id);
+        if (el && !el.classList.contains('hidden')) {
+          el.classList.add('hidden');
+          stopSpeaking();
+          return;
+        }
       }
       
-      // 检查聊天AI菜单
-      const chatAIOverlay = document.getElementById('chat-ai-overlay');
-      if (chatAIOverlay && !chatAIOverlay.classList.contains('hidden')) {
-        hideChatAIOverlay();
-        return;
-      }
-      
-      // 检查工坊AI菜单
-      const workshopAIOverlay = document.getElementById('workshop-ai-overlay');
-      if (workshopAIOverlay && !workshopAIOverlay.classList.contains('hidden')) {
-        hideWorkshopAIOverlay();
-        return;
-      }
-      
-      // 检查其他页面专属AI菜单
-      const homeAIOverlay = document.getElementById('home-ai-overlay');
-      if (homeAIOverlay && !homeAIOverlay.classList.contains('hidden')) {
-        hideHomeAIOverlay();
-        return;
-      }
-      
-      const cameraAIOverlay = document.getElementById('camera-ai-overlay');
-      if (cameraAIOverlay && !cameraAIOverlay.classList.contains('hidden')) {
-        hideCameraAIOverlay();
-        return;
-      }
-      
-      const previewAIOverlay = document.getElementById('preview-ai-overlay');
-      if (previewAIOverlay && !previewAIOverlay.classList.contains('hidden')) {
-        hidePreviewAIOverlay();
-        return;
-      }
-      
-      const backpackAIOverlay = document.getElementById('backpack-ai-overlay');
-      if (backpackAIOverlay && !backpackAIOverlay.classList.contains('hidden')) {
-        hideBackpackAIOverlay();
-        return;
-      }
-      
-      // 页面返回映射
+      // ===== 层级4: 页面返回 =====
       const backMap = {
         'camera-page': 'home-page',
         'photo-preview-page': 'camera-page',
