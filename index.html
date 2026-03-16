@@ -356,6 +356,7 @@
     .cloud-3::after { width: 35px; height: 33px; top: -17px; left: 22px; }
 
     @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes dot-pulse { 0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); } 40% { opacity: 1; transform: scale(1.2); } }
 
     /* 状态栏 */
     .status-bar {
@@ -9440,6 +9441,50 @@
       color: #5D4E3A;
       box-shadow: 0 4px 12px rgba(255, 200, 0, 0.4);
     }
+    /* ============ 开机引导页面 ============ */
+    .ob-page{display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;}
+    .ob-page.ob-wifi-pg{align-items:stretch;justify-content:flex-start;padding:16px 24px;}
+    .ob-logo{font-size:80px;filter:drop-shadow(0 6px 16px rgba(0,0,0,.2));}
+    .ob-brand{font-size:24px;font-weight:700;color:#fff;margin-top:12px;text-shadow:0 2px 8px rgba(0,0,0,.2);}
+    .ob-brand-sub{font-size:16px;font-weight:400;color:rgba(255,255,255,.6);margin-top:4px;}
+    .ob-welcome-icon{font-size:100px;filter:drop-shadow(0 6px 12px rgba(0,0,0,.15));}
+    .ob-welcome-title{font-size:24px;font-weight:700;color:#fff;margin-top:16px;text-shadow:0 2px 6px rgba(0,0,0,.2);}
+    .ob-welcome-desc{font-size:16px;font-weight:400;color:rgba(255,255,255,.8);margin-top:8px;text-align:center;max-width:500px;line-height:1.5;}
+    .ob-btn{border:none;border-radius:20px;padding:14px 48px;font-family:inherit;font-size:24px;font-weight:700;cursor:pointer;margin-top:20px;box-shadow:0 4px 14px rgba(0,0,0,.15);transition:transform .15s;}
+    .ob-btn:active{transform:scale(.95);}
+    .ob-btn-yellow{background:linear-gradient(180deg,#FFD700,#FFB800);color:#333;}
+    .ob-btn-green{background:linear-gradient(180deg,#4ADE80,#22C55E);color:#fff;}
+    .ob-btn-disabled{background:#D1D5DB;color:#999;pointer-events:none;}
+    .ob-wifi-title{font-size:24px;font-weight:700;color:#fff;text-align:center;margin-bottom:8px;}
+    .ob-wifi-desc{font-size:16px;font-weight:400;color:rgba(255,255,255,.7);text-align:center;margin-bottom:12px;}
+    .ob-wifi-list{flex:1;width:100%;overflow-y:auto;scrollbar-width:none;display:flex;flex-direction:column;gap:8px;}
+    .ob-wifi-list::-webkit-scrollbar{display:none;}
+    .ob-wifi-item{background:rgba(255,255,255,.9);border-radius:16px;padding:14px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:transform .15s;min-height:56px;}
+    .ob-wifi-item:active{transform:scale(.98);}
+    .ob-wifi-item.connected{box-shadow:0 0 0 3px #4ADE80;}
+    .ob-wifi-icon{font-size:24px;}
+    .ob-wifi-name{font-size:20px;font-weight:700;color:#333;flex:1;}
+    .ob-wifi-signal{font-size:14px;font-weight:400;color:#888;}
+    .ob-wifi-check{font-size:24px;color:#4ADE80;}
+    .ob-wifi-bottom{width:100%;display:flex;justify-content:center;gap:12px;padding-top:12px;}
+    .ob-pwd-overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:30;opacity:0;pointer-events:none;transition:opacity .3s;}
+    .ob-pwd-overlay.on{opacity:1;pointer-events:auto;}
+    .ob-pwd-box{background:#fff;border-radius:22px;padding:24px;width:420px;display:flex;flex-direction:column;gap:14px;}
+    .ob-pwd-title{font-size:20px;font-weight:700;color:#333;text-align:center;}
+    .ob-pwd-input{border:2px solid #E5E7EB;border-radius:14px;padding:14px 16px;font-family:inherit;font-size:16px;font-weight:400;outline:none;transition:border-color .2s;}
+    .ob-pwd-input:focus{border-color:#3B82F6;}
+    .ob-pwd-btns{display:flex;gap:12px;}
+    .ob-pwd-btn{flex:1;border:none;border-radius:14px;padding:14px;font-family:inherit;font-size:20px;font-weight:700;cursor:pointer;transition:transform .15s;}
+    .ob-pwd-btn:active{transform:scale(.95);}
+    .ob-pwd-cancel{background:#F3F4F6;color:#666;}
+    .ob-pwd-connect{background:linear-gradient(180deg,#FFD700,#FFB800);color:#333;}
+    .ob-bind-qr{width:180px;height:180px;background:#fff;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:100px;box-shadow:0 6px 24px rgba(0,0,0,.15);}
+    .ob-bind-title{font-size:24px;font-weight:700;color:#fff;margin-top:16px;text-shadow:0 2px 6px rgba(0,0,0,.2);}
+    .ob-bind-desc{font-size:16px;font-weight:400;color:rgba(255,255,255,.75);margin-top:6px;text-align:center;max-width:480px;line-height:1.5;}
+    .ob-bind-waiting{font-size:16px;font-weight:400;color:rgba(255,255,255,.5);margin-top:12px;}
+    .ob-done-icon{font-size:100px;filter:drop-shadow(0 6px 12px rgba(0,0,0,.1));}
+    .ob-done-title{font-size:24px;font-weight:700;color:#fff;margin-top:12px;text-shadow:0 2px 6px rgba(0,0,0,.15);}
+    .ob-done-desc{font-size:16px;font-weight:400;color:rgba(255,255,255,.8);margin-top:6px;}
   </style>
 </head>
 <body>
@@ -9515,15 +9560,15 @@
               <div class="ai-body-content active" data-content="0">
                 <div class="home-learn-content">
                   <div class="learn-card" onclick="hideHomeAIOverlay(); navigateTo('chat-page');">
-                    <div class="learn-icon">🐝</div>
+                    <div class="learn-icon">🪄</div>
                     <span class="learn-text">蜜蜂为什么会跳舞?</span>
                   </div>
                   <div class="learn-card" onclick="hideHomeAIOverlay(); navigateTo('chat-page');">
-                    <div class="learn-icon">🌻</div>
+                    <div class="learn-icon">🌈</div>
                     <span class="learn-text">向日葵真的会转吗?</span>
                   </div>
                   <div class="learn-card" onclick="hideHomeAIOverlay(); navigateTo('chat-page');">
-                    <div class="learn-icon">🍄</div>
+                    <div class="learn-icon">⭐</div>
                     <span class="learn-text">蘑菇是植物吗?</span>
                   </div>
                 </div>
@@ -9699,8 +9744,8 @@
                       <span class="prompt-text">它住在哪里?</span>
                     </div>
                     <div class="chat-prompt-card" onclick="hidePreviewAIOverlay(); navigateTo('chat-page');">
-                      <span class="prompt-icon">🎭</span>
-                      <span class="prompt-text">给我讲个故事</span>
+                      <span class="prompt-icon">🤔</span>
+                      <span class="prompt-text">它有什么特别的?</span>
                     </div>
                   </div>
                 </div>
@@ -9729,20 +9774,34 @@
                   </div>
                 </div>
                 
-                <!-- 内容4: 编故事 -->
+                <!-- 内容4: 讲故事 -->
                 <div class="ai-body-content" data-content="3">
-                  <div class="preview-chat-content">
-                    <div class="chat-prompt-card" onclick="hidePreviewAIOverlay(); startStoryGeneration('冒险故事')">
-                      <span class="prompt-icon">🏰</span>
-                      <span class="prompt-text">冒险故事</span>
+                  <!-- 故事加载中（识别成功后异步生成，大部分常见物种有缓存直接跳过此态） -->
+                  <div class="story-loading-content" id="story-loading" style="display: none;">
+                    <div style="text-align: center; padding: 16px;">
+                      <div style="font-size: 28px; margin-bottom: 8px;">📖</div>
+                      <div style="font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.6;">正在为「<span id="story-subject-name">蝴蝶</span>」讲故事…</div>
+                      <div style="margin-top: 10px; display: flex; justify-content: center; gap: 4px;">
+                        <span style="width:6px;height:6px;border-radius:50%;background:#A78BFA;display:inline-block;animation:dot-pulse 1.2s infinite;"></span>
+                        <span style="width:6px;height:6px;border-radius:50%;background:#A78BFA;display:inline-block;animation:dot-pulse 1.2s infinite 0.2s;"></span>
+                        <span style="width:6px;height:6px;border-radius:50%;background:#A78BFA;display:inline-block;animation:dot-pulse 1.2s infinite 0.4s;"></span>
+                      </div>
                     </div>
-                    <div class="chat-prompt-card" onclick="hidePreviewAIOverlay(); startStoryGeneration('童话故事')">
-                      <span class="prompt-icon">🧚</span>
-                      <span class="prompt-text">童话故事</span>
-                    </div>
-                    <div class="chat-prompt-card" onclick="hidePreviewAIOverlay(); startStoryGeneration('科普故事')">
-                      <span class="prompt-icon">🔬</span>
-                      <span class="prompt-text">科普故事</span>
+                  </div>
+                  <!-- 故事就绪（默认展示态，从缓存池随机取一个） -->
+                  <div class="story-ready-content" id="story-ready">
+                    <div style="padding: 4px; display: flex; gap: 12px; align-items: flex-start;">
+                      <div style="width: 88px; height: 88px; border-radius: 12px; overflow: hidden; flex-shrink: 0;">
+                        <img src="https://picsum.photos/200/200?random=story" alt="故事配图" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                      <div style="flex: 1; min-width: 0;">
+                        <div style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px;">勇敢的凤蝶历险记</div>
+                        <div style="font-size: 12px; color: rgba(255,255,255,0.65); line-height: 1.5; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">在一个阳光明媚的早晨，一只小凤蝶张开了翅膀，决定去寻找传说中的彩虹花园…</div>
+                        <button style="width: 100%; padding: 10px; border: none; border-radius: 12px; background: linear-gradient(135deg, #A78BFA, #8B5CF6); color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;" onclick="hidePreviewAIOverlay(); navigateTo('story-page');">
+                          <span>开始阅读</span>
+                          <span style="font-size: 16px;">→</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -9768,7 +9827,7 @@
                   </div>
                   <div class="ai-bar-tab" data-tab="3" onclick="switchPreviewAITab(3)">
                     <span class="tab-icon">📖</span>
-                    <span class="tab-text">编故事</span>
+                    <span class="tab-text">讲故事</span>
                   </div>
                 </div>
                 <div class="ai-bar-right">
@@ -10011,21 +10070,21 @@
                 <div class="ai-body-content active" data-content="0">
                   <div class="ai-task-grid">
                     <div class="ai-task-card" onclick="showTaskModal('flower'); hideMapAIOverlay();">
-                      <div class="card-image flower">🌸</div>
+                      <div class="card-image flower">🎯</div>
                       <span class="card-name">寻找花朵</span>
                       <span class="card-badge new">新</span>
                     </div>
                     <div class="ai-task-card" onclick="showTaskModal('butterfly'); hideMapAIOverlay();">
-                      <div class="card-image butterfly">🦋</div>
+                      <div class="card-image butterfly">🧩</div>
                       <span class="card-name">发现蝴蝶</span>
                     </div>
                     <div class="ai-task-card completed">
-                      <div class="card-image rock">🪨</div>
+                      <div class="card-image rock">🌀</div>
                       <span class="card-name">探索岩石</span>
                       <div class="card-done-mark">✓</div>
                     </div>
                     <div class="ai-task-card" onclick="showTaskModal('leaf'); hideMapAIOverlay();">
-                      <div class="card-image leaf">🍂</div>
+                      <div class="card-image leaf">🎁</div>
                       <span class="card-name">收集落叶</span>
                     </div>
                   </div>
@@ -12090,6 +12149,93 @@
           </div>
         </div>
 
+        <!-- ========== 开机引导页面 ========== -->
+
+        <!-- 步骤1：开机动画 -->
+        <div id="ob-boot-page" class="page" style="background:#e8f4fd;">
+          <img src="icons/start.png" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+
+        <!-- 步骤2：欢迎 -->
+        <div id="ob-welcome-page" class="page" style="background:linear-gradient(135deg,#4a4e78,#6b7ba8);">
+          <div class="ob-page" style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <div class="ob-welcome-icon">🌍</div>
+            <div class="ob-welcome-title">你好，小探险家！</div>
+            <div class="ob-welcome-desc">这是一台帮你探索大自然的神奇相机，让我们先做一点小准备吧</div>
+            <button class="ob-btn ob-btn-yellow" onclick="goTo('ob-wifi-page')">开始设置 →</button>
+          </div>
+        </div>
+
+        <!-- 步骤3：WiFi -->
+        <div id="ob-wifi-page" class="page" style="background:linear-gradient(135deg,#506a8e,#7b9eb8);">
+          <div class="ob-page ob-wifi-pg" style="width:100%;height:100%;">
+            <div class="ob-wifi-title">📶 连接网络</div>
+            <div class="ob-wifi-desc">选择一个 WiFi 让相机联网</div>
+            <div class="ob-wifi-list">
+              <div class="ob-wifi-item" id="obw-1" onclick="obWifiClick('obw-1','Home-WiFi')">
+                <div class="ob-wifi-icon">📶</div>
+                <div class="ob-wifi-name">Home-WiFi</div>
+                <div class="ob-wifi-signal">信号强</div>
+              </div>
+              <div class="ob-wifi-item" id="obw-2" onclick="obWifiClick('obw-2','HUAWEI-5G')">
+                <div class="ob-wifi-icon">📶</div>
+                <div class="ob-wifi-name">HUAWEI-5G</div>
+                <div class="ob-wifi-signal">信号强</div>
+              </div>
+              <div class="ob-wifi-item" id="obw-3" onclick="obWifiClick('obw-3','Neighbor')">
+                <div class="ob-wifi-icon">📶</div>
+                <div class="ob-wifi-name">Neighbor</div>
+                <div class="ob-wifi-signal">信号中</div>
+              </div>
+            </div>
+            <div class="ob-wifi-bottom">
+              <button class="ob-btn" style="background:rgba(255,255,255,.2);color:rgba(255,255,255,.7);font-size:16px;padding:10px 24px;" onclick="goTo('ob-download-page')">跳过</button>
+              <button class="ob-btn ob-btn-disabled" id="ob-wifi-next" onclick="goTo('ob-download-page')">下一步 →</button>
+            </div>
+            <!-- WiFi密码弹窗 -->
+            <div class="ob-pwd-overlay" id="ob-pwd-overlay">
+              <div class="ob-pwd-box">
+                <div class="ob-pwd-title" id="ob-pwd-title">连接 Home-WiFi</div>
+                <input class="ob-pwd-input" id="ob-pwd-input" type="password" placeholder="输入 WiFi 密码">
+                <div class="ob-pwd-btns">
+                  <button class="ob-pwd-btn ob-pwd-cancel" onclick="obPwdClose()">取消</button>
+                  <button class="ob-pwd-btn ob-pwd-connect" onclick="obPwdConnect()">连接</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 步骤4：下载App -->
+        <div id="ob-download-page" class="page" style="background:linear-gradient(135deg,#6b8fad,#9bbcd4);">
+          <div class="ob-page" style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <div class="ob-bind-qr">📲</div>
+            <div class="ob-bind-title">下载家长 App</div>
+            <div class="ob-bind-desc">请家长用手机扫描上方二维码，下载 QMox App 并完成注册</div>
+            <button class="ob-btn ob-btn-yellow" style="margin-top:20px;" onclick="goTo('ob-bind-page')">已下载，下一步 →</button>
+          </div>
+        </div>
+
+        <!-- 步骤5：扫码绑定 -->
+        <div id="ob-bind-page" class="page" style="background:linear-gradient(135deg,#7b9eb8,#b0cfe0);">
+          <div class="ob-page" style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <div class="ob-bind-qr">🔗</div>
+            <div class="ob-bind-title">绑定设备</div>
+            <div class="ob-bind-desc">打开 QMox App，扫描此二维码绑定设备</div>
+            <div class="ob-bind-waiting">⏳ 等待绑定…</div>
+            <button class="ob-btn ob-btn-yellow" style="position:absolute;bottom:16px;right:16px;font-size:16px;padding:8px 20px;margin:0;" onclick="goTo('ob-done-page')">模拟绑定成功</button>
+          </div>
+        </div>
+
+        <!-- 步骤6：绑定成功 -->
+        <div id="ob-done-page" class="page" style="background:linear-gradient(135deg,#5ba88c,#a3d4be);">
+          <div class="ob-page" style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <div class="ob-done-icon">✅</div>
+            <div class="ob-done-title">绑定成功！</div>
+            <div class="ob-done-desc">设备已准备好，即将开始探险之旅…</div>
+          </div>
+        </div>
+
         <!-- ========== AI 菜单浮层 ========== -->
         <div class="ai-overlay" id="ai-overlay">
           <!-- 顶部栏 -->
@@ -12601,6 +12747,19 @@
         <input type="checkbox" id="export-mode-checkbox" onchange="toggleExportMode()">
         <span>🎯 导出模式 (Figma切图用)</span>
       </label>
+
+      <!-- 开机引导 -->
+      <div class="nav-section">
+        <div class="nav-section-title">🚀 开机引导</div>
+        <div class="nav-items">
+          <div class="nav-item" onclick="goTo('ob-boot-page')"><span class="icon">📸</span><span>① 开机动画</span></div>
+          <div class="nav-item" onclick="goTo('ob-welcome-page')"><span class="icon">🌍</span><span>② 欢迎</span></div>
+          <div class="nav-item" onclick="goTo('ob-wifi-page')"><span class="icon">📶</span><span>③ 连接网络</span></div>
+          <div class="nav-item" onclick="goTo('ob-download-page')"><span class="icon">📲</span><span>④ 下载 App</span></div>
+          <div class="nav-item" onclick="goTo('ob-bind-page')"><span class="icon">🔗</span><span>⑤ 绑定设备</span></div>
+          <div class="nav-item" onclick="goTo('ob-done-page')"><span class="icon">✅</span><span>⑥ 绑定成功</span></div>
+        </div>
+      </div>
 
       <!-- 主页面 -->
       <div class="nav-section">
@@ -14102,6 +14261,41 @@
       }
     });
 
+    // ============ 开机引导 WiFi 交互 ============
+    let obConnectedWifi = '';
+
+    function obWifiClick(itemId, name) {
+      document.getElementById('ob-pwd-title').textContent = '连接 ' + name;
+      document.getElementById('ob-pwd-overlay').classList.add('on');
+      document.getElementById('ob-pwd-input').value = '';
+      document.getElementById('ob-pwd-input').focus();
+      obConnectedWifi = itemId;
+    }
+
+    function obPwdClose() {
+      document.getElementById('ob-pwd-overlay').classList.remove('on');
+    }
+
+    function obPwdConnect() {
+      document.getElementById('ob-pwd-overlay').classList.remove('on');
+      document.querySelectorAll('.ob-wifi-item').forEach(el => {
+        el.classList.remove('connected');
+        const old = el.querySelector('.ob-wifi-check');
+        if (old) old.remove();
+      });
+      const item = document.getElementById(obConnectedWifi);
+      if (item) {
+        item.classList.add('connected');
+        const check = document.createElement('div');
+        check.className = 'ob-wifi-check';
+        check.textContent = '✓';
+        item.appendChild(check);
+      }
+      const btn = document.getElementById('ob-wifi-next');
+      btn.classList.remove('ob-btn-disabled');
+      btn.classList.add('ob-btn-green');
+    }
+
     // ============ 页面状态 ============
     let currentPage = 'home-page';
     let currentAICharacter = '🤖';
@@ -14208,7 +14402,7 @@
           { icon: '🔍', label: '这是什么', color: 'purple', action: 'whatIsThis' },
           { icon: '💬', label: '聊聊它', color: 'blue', action: 'talkAboutIt' },
           { icon: '✨', label: '魔法创作', color: 'pink', action: 'magicArt' },
-          { icon: '📖', label: '编故事', color: 'green', action: 'tellStory' }
+          { icon: '📖', label: '讲故事', color: 'green', action: 'tellStory' }
         ]
       },
       'chat-page': {
@@ -16624,9 +16818,9 @@
     let previewAICurrentTab = 0;
     const previewAIVoiceContent = [
       '哇！你发现了凤蝶！这是一种美丽的蝴蝶，它的翅膀上有数千片鳞片呢！恭喜你收集到了新的自然之语！',
-      '想和我聊聊这只蝴蝶吗?你可以问我它吃什么、住在哪里,或者让我给你讲个故事!',
+      '想和我聊聊这只蝴蝶吗?你可以问我它吃什么、住在哪里,还有什么特别的地方!',
       '想把这张照片变成艺术作品吗?选择一种风格,开始魔法创作!',
-      '用这张照片编一个故事吧!选择冒险、童话还是科普,我来帮你创作!'
+      '已经为你准备好了一个故事,点击开始阅读吧!'
     ];
     
     function showPreviewAIOverlay() {
