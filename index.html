@@ -7561,7 +7561,31 @@
     }
 
     .journey-level-card.locked {
-      opacity: 0.5;
+      opacity: 1;
+    }
+
+    .journey-level-card.locked.level-7 {
+      background: linear-gradient(180deg, #FFF3E0 0%, #FFE0B2 100%);
+      border-color: #FF9800;
+    }
+    .journey-level-card.locked.level-7 .journey-level-num {
+      background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+    }
+
+    .journey-level-card.locked.level-8 {
+      background: linear-gradient(180deg, #E0F7FA 0%, #B2EBF2 100%);
+      border-color: #00BCD4;
+    }
+    .journey-level-card.locked.level-8 .journey-level-num {
+      background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+    }
+
+    .journey-level-card.locked.level-9 {
+      background: linear-gradient(180deg, #FCE4EC 0%, #F8BBD0 100%);
+      border-color: #E91E63;
+    }
+    .journey-level-card.locked.level-9 .journey-level-num {
+      background: linear-gradient(135deg, #E91E63 0%, #C2185B 100%);
     }
 
     .journey-level-card.legendary {
@@ -11238,7 +11262,7 @@
                 </div>
 
                 <!-- Lv7 精英猎人 -->
-                <div class="journey-level-card locked" onclick="speakLevelDetail(7)">
+                <div class="journey-level-card locked level-7" onclick="speakLevelDetail(7)">
                   <div class="journey-level-header">
                     <div class="journey-level-num">7</div>
                     <span class="journey-level-name">精英猎人</span>
@@ -11251,7 +11275,7 @@
                 </div>
 
                 <!-- Lv8 探险大师 -->
-                <div class="journey-level-card locked" onclick="speakLevelDetail(8)">
+                <div class="journey-level-card locked level-8" onclick="speakLevelDetail(8)">
                   <div class="journey-level-header">
                     <div class="journey-level-num">8</div>
                     <span class="journey-level-name">探险大师</span>
@@ -11265,7 +11289,7 @@
                 </div>
 
                 <!-- Lv9 自然守护者 -->
-                <div class="journey-level-card locked" onclick="speakLevelDetail(9)">
+                <div class="journey-level-card locked level-9" onclick="speakLevelDetail(9)">
                   <div class="journey-level-header">
                     <div class="journey-level-num">9</div>
                     <span class="journey-level-name">自然守护者</span>
