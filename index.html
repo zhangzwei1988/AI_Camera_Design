@@ -9588,11 +9588,6 @@
 
         <!-- ========== Home 页面 ========== -->
         <div id="home-page" class="page 进行中">
-          <!-- 通知铃铛 - 有未读消息时显示 -->
-          <div class="home-notification-bell" id="home-notification-bell" onclick="navigateTo('notifications-page')">
-            <span>🔔</span>
-            <div class="notification-dot"></div>
-          </div>
 
           <div class="carousel-container" id="carousel">
             <div class="card pos-left" data-page="settings-page" onclick="handleCardClick(0)">
@@ -10960,10 +10955,9 @@
             <!-- 分享按钮 -->
             <button class="passport-share-btn" onclick="showShareModal('explorer')">📤</button>
 
-            <!-- 通知按钮 -->
-            <button class="passport-notify-btn" onclick="navigateTo('notifications-page')">
-              🔔
-              <div class="notify-dot"></div>
+            <!-- 语音介绍按钮 -->
+            <button class="passport-notify-btn" onclick="speakExplorerSummary()">
+              🔊
             </button>
 
             <!-- 探险护照身份卡 -->
@@ -16326,10 +16320,10 @@
         console.log('📚 Species list page special handling');
         if (!speciesListAIOverlayVisible) {
           showSpeciesListAIOverlay();
+          loadQuizQuestion();
         } else {
-          speciesListAICurrentTab = (speciesListAICurrentTab + 1) % 1;
-          updateSpeciesListAIOverlayUI();
-          speakSpeciesListAIContent(speciesListAICurrentTab);
+          // 再次按AI键 → 刷新题目
+          refreshQuiz();
         }
         return;
       }
@@ -17073,30 +17067,104 @@
     }
     
     // 小测验选项点击
-    function selectQuizOption(element, isCorrect) {
-      const options = element.parentElement.querySelectorAll('.quiz-option');
-      options.forEach(opt => {
-        opt.classList.remove('correct', 'wrong');
-        opt.style.pointerEvents = 'none';
-      });
-      
-      if (isCorrect) {
-        element.classList.add('correct');
-        // 答对直接显示星星飘字
-        setTimeout(() => {
-          showStarFloat(5);
-        }, 300);
-      } else {
-        element.classList.add('wrong');
-        showToast('❌ 再想想!');
+    // ============ 护照页语音介绍 ============
+    function speakExplorerSummary() {
+      const text = '你现在是5级自然小侦探！已经拍了128张照片，发现了23种物种，获得了8枚勋章，完成了15个任务！连续探索7天了，继续加油，马上就能升到丛林游侠啦！';
+      speakText(text);
+    }
+    
+    // ============ 物种列表 知识挑战系统 ============
+    let quizDailyCount = 0;       // 今日已答题数
+    const QUIZ_DAILY_MAX = 3;     // 每天最多3题
+    let quizFirstAttempt = true;  // 当前题是否首次作答
+    let quizAnswered = false;     // 当前题是否已答对
+    
+    // 题库（demo用，实际从后端获取）
+    const quizBank = [
+      { q: '哪种花会跟着太阳转?', opts: ['🌸 樱花', '🌻 向日葵', '🌷 郁金香'], answer: 1 },
+      { q: '蒲公英的种子靠什么传播?', opts: ['🐝 蜜蜂', '🌬️ 风', '💧 水'], answer: 1 },
+      { q: '蘑菇属于哪一类?', opts: ['🌿 植物', '🍄 真菌', '🐛 动物'], answer: 1 },
+    ];
+    let currentQuizIndex = 0;
+    
+    function loadQuizQuestion() {
+      if (quizDailyCount >= QUIZ_DAILY_MAX) {
+        showGuguToast('今天的知识挑战都完成啦！明天再来试试吧～');
+        return;
       }
       
-      setTimeout(() => {
-        options.forEach(opt => {
-          opt.classList.remove('correct', 'wrong');
-          opt.style.pointerEvents = 'auto';
-        });
-      }, 2000);
+      const quiz = quizBank[currentQuizIndex % quizBank.length];
+      quizFirstAttempt = true;
+      quizAnswered = false;
+      
+      const container = document.querySelector('#species-list-ai-overlay .species-quiz-content');
+      if (!container) return;
+      
+      container.innerHTML = `
+        <div style="text-align: center; margin-bottom: 4px;">
+          <span style="font-size: 11px; background: linear-gradient(135deg, #FEF3C7, #FDE68A); padding: 4px 10px; border-radius: 10px; color: #92400E;">🌟 答对 +5⭐ · 第${quizDailyCount + 1}/${QUIZ_DAILY_MAX}题</span>
+        </div>
+        <div class="quiz-question">${quiz.q}</div>
+        <div class="quiz-options">
+          ${quiz.opts.map((opt, i) => `<div class="quiz-option" onclick="handleQuizAnswer(this, ${i === quiz.answer})">${opt}</div>`).join('')}
+        </div>
+      `;
+    }
+    
+    function handleQuizAnswer(element, isCorrect) {
+      if (quizAnswered) return; // 已答对，忽略
+      
+      const options = element.parentElement.querySelectorAll('.quiz-option');
+      
+      if (isCorrect) {
+        quizAnswered = true;
+        element.classList.add('correct');
+        options.forEach(opt => { opt.style.pointerEvents = 'none'; });
+        
+        if (quizFirstAttempt) {
+          // 首次答对，加分
+          setTimeout(() => showStarFloat(5), 300);
+          showGuguToast('答对啦！太厉害了！获得5颗星星⭐');
+        } else {
+          // 第二次答对，不加分
+          showGuguToast('答对啦！不过这次没有星星哦，下次加油！');
+        }
+        quizDailyCount++;
+      } else {
+        element.classList.add('wrong');
+        if (quizFirstAttempt) {
+          quizFirstAttempt = false;
+          showGuguToast('不对哦，再想想？再选一次试试！');
+          // 只禁用当前错误选项
+          element.style.pointerEvents = 'none';
+        } else {
+          // 第二次也答错，标记为已答，不加分
+          showGuguToast('没关系！多探索多学习，下次一定能答对！');
+          quizAnswered = true;
+          quizDailyCount++;
+          options.forEach(opt => { opt.style.pointerEvents = 'none'; });
+          // 显示正确答案
+          options.forEach(opt => {
+            if (opt !== element && !opt.classList.contains('wrong')) {
+              // 简单逻辑：这里demo中未选的可能是正确的
+            }
+          });
+        }
+      }
+    }
+    
+    function refreshQuiz() {
+      if (quizDailyCount >= QUIZ_DAILY_MAX) {
+        showGuguToast('今天的知识挑战都完成啦！明天再来试试吧～');
+        return;
+      }
+      currentQuizIndex++;
+      loadQuizQuestion();
+      speakText('新题目来啦！');
+    }
+    
+    function selectQuizOption(element, isCorrect) {
+      handleQuizAnswer(element, isCorrect);
     }
     
     // 点击浮层外区域关闭 - 物种列表
