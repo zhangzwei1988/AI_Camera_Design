@@ -9018,6 +9018,21 @@
       word-break: break-all;
     }
 
+    /* 恢复出厂设置 */
+    .factory-reset-link { margin-top: 20px; background: none; border: none; color: #333; font-size: 14px; cursor: pointer; padding: 8px 0; width: 100%; text-align: center; }
+    .reset-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 9998; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .reset-overlay.show { opacity: 1; pointer-events: auto; }
+    .reset-box { background: #fff; border-radius: 20px; padding: 24px 20px 20px; width: 340px; text-align: center; transform: scale(0.9); transition: transform 0.25s; }
+    .reset-overlay.show .reset-box { transform: scale(1); }
+    .reset-box-icon { font-size: 40px; margin-bottom: 10px; }
+    .reset-box-title { font-size: 17px; font-weight: 700; color: #333; margin-bottom: 8px; }
+    .reset-box-desc { font-size: 13px; color: #666; line-height: 1.6; margin-bottom: 20px; }
+    .reset-box-btns { display: flex; gap: 10px; }
+    .reset-btn-keep { flex: 1; padding: 12px; border: none; border-radius: 12px; background: linear-gradient(135deg, #FFD700, #FFB800); color: #333; font-size: 15px; font-weight: 700; cursor: pointer; }
+    .reset-btn-go { flex: 1; padding: 12px; border: none; border-radius: 12px; background: #F3F4F6; color: #999; font-size: 14px; font-weight: 500; cursor: pointer; }
+    .reset-btn-final { flex: 1; padding: 12px; border: none; border-radius: 12px; background: #DC2626; color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; }
+    .reset-btn-final:disabled { background: #ccc; color: #999; cursor: not-allowed; }
+
     /* ============ System Update页 ============ */
     .system-update-container {
       width: 100%;
@@ -12026,7 +12041,36 @@
                   <span class="about-device-value">865436077652634</span>
                 </div>
               </div>
+              <!-- 恢复出厂设置 -->
+              <button class="factory-reset-link" onclick="showResetStep1()">恢复出厂设置</button>
             </div>
+
+            <!-- 第一步确认弹窗 -->
+            <div class="reset-overlay" id="reset-step1" onclick="event.stopPropagation(); hideResetStep1()">
+              <div class="reset-box" onclick="event.stopPropagation()">
+                <div class="reset-box-icon">🦉</div>
+                <div class="reset-box-title">确定要重置吗？</div>
+                <div class="reset-box-desc">这会清除所有照片、作品、故事和探索记录，<br>咕咕也会忘记你哦…</div>
+                <div class="reset-box-btns">
+                  <button class="reset-btn-keep" onclick="hideResetStep1()">取消</button>
+                  <button class="reset-btn-go" onclick="hideResetStep1(); showResetStep2()">我确定要重置</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 第二步最终确认弹窗 -->
+            <div class="reset-overlay" id="reset-step2" onclick="event.stopPropagation(); hideResetStep2()">
+              <div class="reset-box" onclick="event.stopPropagation()">
+                <div class="reset-box-icon">⚠️</div>
+                <div class="reset-box-title">真的真的确定吗？</div>
+                <div class="reset-box-desc">这个操作无法撤回，所有数据将永久删除！</div>
+                <div class="reset-box-btns">
+                  <button class="reset-btn-keep" onclick="hideResetStep2()">再想想</button>
+                  <button class="reset-btn-final" id="reset-final-btn" disabled onclick="doFactoryReset()">确认重置 (3)</button>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -13896,6 +13940,42 @@
 
     function hideWifiPasswordModal() {
       document.getElementById('wifi-password-overlay').classList.remove('show');
+    }
+
+    // ============ 恢复出厂设置 ============
+    let resetTimer = null;
+    function showResetStep1() {
+      document.getElementById('reset-step1').classList.add('show');
+      speakText('这会清除所有照片、作品、故事和探索记录，咕咕也会忘记你哦…确定要这样做吗？');
+    }
+    function hideResetStep1() {
+      document.getElementById('reset-step1').classList.remove('show');
+      stopSpeaking();
+    }
+    function showResetStep2() {
+      var ov = document.getElementById('reset-step2');
+      var btn = document.getElementById('reset-final-btn');
+      ov.classList.add('show');
+      btn.disabled = true;
+      var count = 3;
+      btn.textContent = '确认重置 (' + count + ')';
+      if (resetTimer) clearInterval(resetTimer);
+      resetTimer = setInterval(function() {
+        count--;
+        if (count > 0) { btn.textContent = '确认重置 (' + count + ')'; }
+        else { btn.textContent = '确认重置'; btn.disabled = false; clearInterval(resetTimer); }
+      }, 1000);
+      speakText('真的真的确定吗？这个操作无法撤回哦！');
+    }
+    function hideResetStep2() {
+      document.getElementById('reset-step2').classList.remove('show');
+      if (resetTimer) clearInterval(resetTimer);
+      stopSpeaking();
+    }
+    function doFactoryReset() {
+      hideResetStep2();
+      showGuguToast('正在重置设备…咕咕会想你的…');
+      setTimeout(function() { showGuguToast('设备已重置（demo演示）'); }, 2000);
     }
 
     // ============ System Update ============
@@ -17361,6 +17441,8 @@
         { id: 'photo-viewer', hide: () => closePhotoViewer() },
         { id: 'settings-sheet-overlay', hide: () => hideSettingsSheet() },
         { id: 'wifi-password-overlay', hide: () => hideWifiPasswordModal() },
+        { id: 'reset-step2', hide: function() { hideResetStep2(); } },
+        { id: 'reset-step1', hide: function() { hideResetStep1(); } },
       ];
       for (const modal of modals) {
         const el = document.getElementById(modal.id);
