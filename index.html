@@ -2253,19 +2253,20 @@
       color: #333;
     }
 
-    /* MVP: 声波动画 (通用聊天) */
+    /* MVP: 声波动画 (通用聊天) - 内嵌在状态指示器中 */
     .general-chat-sound-wave {
       display: flex;
       align-items: center;
-      gap: 4px;
-      height: 32px;
+      gap: 3px;
+      height: 20px;
+      margin-left: 4px;
     }
 
     .general-chat-sound-wave .wave-bar {
-      width: 5px;
-      height: 10px;
+      width: 3px;
+      height: 8px;
       background: #3B82F6;
-      border-radius: 3px;
+      border-radius: 2px;
       animation: wave-bar 0.8s ease-in-out infinite;
     }
 
@@ -10055,20 +10056,18 @@
                 <div class="general-chat-ai-avatar-large" id="general-chat-ai-avatar">
                   🤖
                 </div>
-                
-                <!-- 声波动画 (说话时显示) -->
-                <div class="general-chat-sound-wave hidden" id="general-chat-sound-wave">
-                  <div class="wave-bar"></div>
-                  <div class="wave-bar"></div>
-                  <div class="wave-bar"></div>
-                  <div class="wave-bar"></div>
-                  <div class="wave-bar"></div>
-                </div>
-                
-                <!-- 状态指示器 -->
+
+                <!-- 状态指示器 (含声波) -->
                 <div class="general-chat-status-indicator">
                   <div class="general-chat-status-dot" id="general-chat-status-dot"></div>
                   <span class="general-chat-status-text" id="general-chat-status-text">等待中</span>
+                  <div class="general-chat-sound-wave hidden" id="general-chat-sound-wave">
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                  </div>
                 </div>
               </div>
               
@@ -10078,12 +10077,6 @@
               </button>
             </div>
             
-            <!-- 查看对话记录入口 -->
-            <button class="general-chat-transcript-btn" onclick="showComingSoon('对话记录')">
-              <span>📝</span>
-              <span>对话记录</span>
-            </button>
-
             <!-- 底部输入 -->
             <div class="general-chat-input-area">
               <button class="general-chat-speak-btn" id="general-chat-speak-btn" onmousedown="startChatRecordingMVP('general')" onmouseup="stopChatRecordingMVP('general')" ontouchstart="startChatRecordingMVP('general')" ontouchend="stopChatRecordingMVP('general')">
