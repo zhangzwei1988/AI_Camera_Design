@@ -3585,6 +3585,12 @@
       font-weight: 600;
       color: white;
     }
+    .identify-result-en {
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.6);
+      margin-left: 4px;
+    }
     .identify-result-sci {
       font-size: 11px;
       color: rgba(255, 255, 255, 0.5);
@@ -9613,19 +9619,23 @@
               <div class="card-icon"><img src="icons/Camera.png" alt="神奇相机"></div>
               <div class="card-label">相机</div>
             </div>
-            <div class="card pos-right" data-page="map-page" onclick="handleCardClick(2)">
+            <div class="card pos-right" data-page="general-chat-page" onclick="handleCardClick(2)">
+              <div class="card-icon"><img src="icons/mic.png" alt="AI聊天"></div>
+              <div class="card-label">AI聊天</div>
+            </div>
+            <div class="card pos-far-right" data-page="map-page" onclick="handleCardClick(3)">
               <div class="card-icon"><img src="icons/Map.png" alt="探索地图"></div>
               <div class="card-label">地图</div>
             </div>
-            <div class="card pos-far-right" data-page="workshop-page" onclick="handleCardClick(3)">
+            <div class="card pos-hidden" data-page="workshop-page" onclick="handleCardClick(4)">
               <div class="card-icon"><img src="icons/Workshop.png" alt="魔法工坊"></div>
               <div class="card-label">魔法工坊</div>
             </div>
-            <div class="card pos-hidden" data-page="backpack-page" onclick="handleCardClick(4)">
+            <div class="card pos-far-left" data-page="backpack-page" onclick="handleCardClick(5)">
               <div class="card-icon"><img src="icons/Backpack.png" alt="探险背包"></div>
               <div class="card-label">探险背包</div>
             </div>
-            <div class="card pos-far-left" data-page="explorer-page" onclick="handleCardClick(5)">
+            <div class="card pos-hidden" data-page="explorer-page" onclick="handleCardClick(6)">
               <div class="card-icon"><img src="icons/Passport.png" alt="探险护照"></div>
               <div class="card-label">护照</div>
             </div>
@@ -9780,8 +9790,8 @@
                     <div class="identify-result-card">
                       <div class="identify-result-icon">🦋</div>
                       <div class="identify-result-info">
-                        <span class="identify-result-name">凤蝶</span>
-                        <span class="identify-result-sci">Papilionidae · 昆虫</span>
+                        <span class="identify-result-name">凤蝶 <span class="identify-result-en">Swallowtail Butterfly</span></span>
+                        <span class="identify-result-sci">昆虫 · Papilionidae</span>
                       </div>
                       <span class="identify-badge new">🆕 新发现</span>
                     </div>
@@ -14327,7 +14337,7 @@
 
     // ============ 旋转木马状态 ============
     let currentIndex = 1; // 默认中间是 Camera (index 1)
-    const totalCards = 6;
+    const totalCards = 7;
     const positions = ['pos-far-left', 'pos-left', 'pos-center', 'pos-right', 'pos-far-right'];
     
     // 初始化旋转木马
