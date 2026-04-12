@@ -9820,6 +9820,47 @@
     .ob-done-icon{font-size:100px;filter:drop-shadow(0 6px 12px rgba(0,0,0,.1));}
     .ob-done-title{font-size:24px;font-weight:700;color:#fff;margin-top:12px;text-shadow:0 2px 6px rgba(0,0,0,.15);}
     .ob-done-desc{font-size:16px;font-weight:400;color:rgba(255,255,255,.8);margin-top:6px;}
+
+    /* 设备 UID 异常拦截页 */
+    .uid-error-icon {
+      font-size: 72px;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.2));
+    }
+    .uid-error-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 10px;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+      text-align: center;
+    }
+    .uid-error-desc {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.82);
+      margin-top: 8px;
+      text-align: center;
+      line-height: 1.6;
+      max-width: 480px;
+    }
+    .uid-error-qr {
+      width: 160px;
+      height: 160px;
+      background: #fff;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 90px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+      margin-top: 18px;
+    }
+    .uid-error-qr-label {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.75);
+      margin-top: 10px;
+      letter-spacing: 1px;
+    }
   </style>
 </head>
 <body>
@@ -12606,6 +12647,7 @@
             <div class="ob-bind-desc">打开 QMox App，扫描此二维码绑定设备</div>
             <div class="ob-bind-waiting">⏳ 等待绑定…</div>
             <button class="ob-btn ob-btn-yellow" style="position:absolute;bottom:16px;right:16px;font-size:16px;padding:8px 20px;margin:0;" onclick="goTo('ob-done-page')">模拟绑定成功</button>
+            <button class="ob-btn" style="position:absolute;bottom:16px;left:16px;font-size:14px;padding:8px 16px;margin:0;background:rgba(255,255,255,.2);color:#fff;" onclick="goTo('uid-error-page')">模拟 UID 不匹配</button>
           </div>
         </div>
 
@@ -12615,6 +12657,17 @@
             <div class="ob-done-icon">✅</div>
             <div class="ob-done-title">绑定成功！</div>
             <div class="ob-done-desc">设备已准备好，即将开始探险之旅…</div>
+          </div>
+        </div>
+
+        <!-- 设备 UID 异常拦截页 (绑定阶段未通过 / 绑定后被篡改) -->
+        <div id="uid-error-page" class="page" style="background:linear-gradient(135deg,#6b4d3a,#9b7860);">
+          <div class="ob-page" style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;">
+            <div class="uid-error-icon">🦉</div>
+            <div class="uid-error-title">咦？咕咕好像不认识这台相机</div>
+            <div class="uid-error-desc">系统中没有找到这台设备的信息<br>请扫描下方二维码联系客服</div>
+            <div class="uid-error-qr">📱</div>
+            <div class="uid-error-qr-label">扫码联系客服</div>
           </div>
         </div>
 
@@ -13148,6 +13201,7 @@
           <div class="nav-item" onclick="goTo('ob-download-page')"><span class="icon">📲</span><span>④ 下载 App</span></div>
           <div class="nav-item" onclick="goTo('ob-bind-page')"><span class="icon">🔗</span><span>⑤ 绑定设备</span></div>
           <div class="nav-item" onclick="goTo('ob-done-page')"><span class="icon">✅</span><span>⑥ 绑定成功</span></div>
+          <div class="nav-item sub" onclick="goTo('uid-error-page')"><span class="icon">🚫</span><span>设备 UID 异常拦截</span></div>
         </div>
       </div>
 
