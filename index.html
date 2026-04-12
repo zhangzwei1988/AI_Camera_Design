@@ -1181,7 +1181,7 @@
     .ptt-wave-bar:nth-child(5) { height: 12px; animation-delay: 0.2s; }
     .ptt-wave-bar:nth-child(6) { height: 16px; animation-delay: 0.1s; }
 
-    /* 底部提示区(居中) */
+    /* 底部按钮区 */
     .ptt-footer {
       display: flex;
       justify-content: center;
@@ -1189,6 +1189,40 @@
       margin-top: 14px;
       padding-top: 12px;
       border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* 按住说话按钮 (PTT浮层) */
+    .ptt-speak-btn {
+      width: 100%;
+      max-width: 320px;
+      padding: 12px 20px;
+      background: linear-gradient(180deg, #FFE135 0%, #FFD700 100%);
+      border: none;
+      border-radius: 24px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: #5D4E3A;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(255, 200, 0, 0.3);
+      transition: all 0.2s;
+    }
+    .ptt-speak-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(255, 200, 0, 0.4);
+    }
+    .ptt-speak-btn.recording {
+      transform: translateY(0);
+      background: linear-gradient(180deg, #EF4444 0%, #DC2626 100%);
+      color: white;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+    }
+    .ptt-speak-btn.recording .chat-speak-icon {
+      animation: pulse-mic 0.8s ease-in-out infinite;
     }
 
     /* 顶部区域 */
@@ -1575,13 +1609,13 @@
       position: absolute;
       bottom: 20px;
       left: 20px;
-      width: 48px;
-      height: 48px;
+      width: 72px;
+      height: 72px;
       background: rgba(0, 0, 0, 0.5);
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      border-radius: 12px;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-radius: 16px;
       color: white;
-      font-size: 20px;
+      font-size: 32px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -1857,6 +1891,23 @@
       gap: 12px;
     }
 
+    /* MVP: 横向行布局 [左按钮][AI][右按钮] */
+    .chat-ai-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    /* MVP: 中间AI区域(头像+状态) */
+    .chat-ai-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
     /* MVP: 查看对话记录按钮 */
     .chat-transcript-btn {
       position: absolute;
@@ -1881,20 +1932,20 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
     }
 
-    /* MVP: 上下角色切换按钮 */
+    /* MVP: 左右角色切换按钮 */
     .chat-char-switch {
-      width: 36px;
-      height: 28px;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.85);
+      width: 32px;
+      height: 40px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.9);
       border: none;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 14px;
       color: #666;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
       transition: all 0.2s;
     }
     .chat-char-switch:hover {
@@ -1984,17 +2035,18 @@
       color: #333;
     }
 
-    /* MVP: 声波动画 */
+    /* MVP: 声波动画 - 内嵌在状态指示器中 */
     .chat-sound-wave {
       display: flex;
       align-items: center;
       gap: 3px;
-      height: 24px;
+      height: 18px;
+      margin-left: 4px;
     }
 
     .chat-sound-wave .wave-bar {
-      width: 4px;
-      height: 8px;
+      width: 3px;
+      height: 7px;
       background: #3B82F6;
       border-radius: 2px;
       animation: wave-bar 0.8s ease-in-out infinite;
@@ -2638,6 +2690,50 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
+
+    /* 讲故事 tab - 保持最小高度,使加载态可以垂直居中 */
+    .story-tab-body.active {
+      min-height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .story-tab-body > div {
+      width: 100%;
+    }
+
+    /* 故事加载中 - 垂直居中 */
+    .story-loading-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px 16px;
+    }
+    .story-loading-icon {
+      font-size: 32px;
+    }
+    .story-loading-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.85);
+      text-align: center;
+    }
+    .story-loading-dots {
+      display: flex;
+      gap: 5px;
+      margin-top: 2px;
+    }
+    .story-loading-dots span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #A78BFA;
+      animation: dot-pulse 1.2s infinite;
+    }
+    .story-loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .story-loading-dots span:nth-child(3) { animation-delay: 0.4s; }
 
     /* ===== 底部栏右侧控制区 ===== */
     .ai-bar-right {
@@ -3713,7 +3809,9 @@
 
     /* 魔法创作 */
     .preview-magic-content {
-      padding: 16px 8px 12px;
+      padding: 4px 8px 12px;
+      display: flex;
+      flex-direction: column;
     }
     .magic-style-row {
       display: flex;
@@ -3731,6 +3829,70 @@
     }
     .magic-style-item:hover {
       transform: scale(1.05);
+    }
+    /* 配额耗尽时: icon 保持彩色,只是点击会触发提示 */
+    .magic-style-item.depleted {
+      cursor: pointer;
+    }
+
+    /* AIGC 配额提示 (照片预览魔法tab) - 紧凑小药丸,居中 */
+    .aigc-quota-banner {
+      display: inline-flex;
+      align-items: center;
+      align-self: center;
+      gap: 4px;
+      padding: 4px 12px;
+      background: rgba(167, 139, 250, 0.18);
+      border: 1px solid rgba(167, 139, 250, 0.3);
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 32px;
+    }
+    .aigc-quota-banner .aigc-quota-icon {
+      font-size: 11px;
+    }
+    .aigc-quota-banner .aigc-quota-count {
+      color: #FBBF24;
+      font-weight: 700;
+      font-size: 11px;
+      margin: 0 1px;
+    }
+    .aigc-quota-banner.depleted {
+      background: rgba(239, 68, 68, 0.18);
+      border-color: rgba(239, 68, 68, 0.4);
+    }
+    .aigc-quota-banner.depleted .aigc-quota-count {
+      color: #F87171;
+    }
+
+    /* 工坊页配额横幅 - 在白底页面上需要不同的色调 */
+    .workshop-quota-banner {
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      z-index: 5;
+      font-size: 13px;
+      padding: 9px 18px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(167, 139, 250, 0.4);
+      color: #6D28D9;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    }
+    .workshop-quota-banner .aigc-quota-count {
+      color: #7C3AED;
+      font-size: 15px;
+    }
+    .workshop-quota-banner.depleted {
+      background: rgba(254, 226, 226, 0.95);
+      border-color: rgba(239, 68, 68, 0.5);
+      color: #B91C1C;
+    }
+    .workshop-quota-banner.depleted .aigc-quota-count {
+      color: #DC2626;
     }
     .magic-style-icon {
       width: 100%;
@@ -4043,6 +4205,24 @@
       box-shadow: 0 16px 40px rgba(0,0,0,0.25);
     }
     .style-card:进行中 { transform: scale(0.97); }
+    /* 配额耗尽时: 图片保持彩色,只把"试试看"按钮变成不可点 */
+    .style-card.depleted {
+      cursor: default;
+    }
+    .style-card.depleted:hover {
+      transform: none;
+      box-shadow: 0 10px 32px rgba(0,0,0,0.2);
+    }
+    .style-card.depleted .style-try-btn {
+      background: #E5E7EB;
+      color: #9CA3AF;
+      cursor: not-allowed;
+      box-shadow: none;
+      pointer-events: none;
+    }
+    .style-card.depleted .style-try-btn:hover {
+      background: #E5E7EB;
+    }
 
     .style-preview {
       height: 240px;
@@ -9030,8 +9210,33 @@
       word-break: break-all;
     }
 
-    /* 恢复出厂设置 */
-    .factory-reset-link { margin-top: 20px; background: none; border: none; color: #333; font-size: 14px; cursor: pointer; padding: 8px 0; width: 100%; text-align: center; }
+    /* 恢复出厂设置 - 长条警示按钮 */
+    .factory-reset-link {
+      margin-top: 24px;
+      background: linear-gradient(180deg, #EF4444 0%, #DC2626 100%);
+      border: none;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 14px 24px;
+      width: 100%;
+      text-align: center;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .factory-reset-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(220, 38, 38, 0.4);
+    }
+    .factory-reset-link:active {
+      transform: translateY(0);
+    }
     .reset-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 9998; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
     .reset-overlay.show { opacity: 1; pointer-events: auto; }
     .reset-box { background: #fff; border-radius: 20px; padding: 24px 20px 20px; width: 340px; text-align: center; transform: scale(0.9); transition: transform 0.25s; }
@@ -9569,7 +9774,46 @@
     .ob-pwd-btn:active{transform:scale(.95);}
     .ob-pwd-cancel{background:#F3F4F6;color:#666;}
     .ob-pwd-connect{background:linear-gradient(180deg,#FFD700,#FFB800);color:#333;}
-    .ob-bind-qr{width:180px;height:180px;background:#fff;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:100px;box-shadow:0 6px 24px rgba(0,0,0,.15);}
+    .ob-bind-qr{width:260px;height:260px;background:#fff;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:140px;box-shadow:0 6px 24px rgba(0,0,0,.15);}
+
+    /* 欢迎页 4G 信号搜索进度 */
+    .ob-cellular-status {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-top: 24px;
+      margin-bottom: 16px;
+      width: 320px;
+    }
+    .ob-cellular-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 500;
+    }
+    .ob-cellular-row span:first-child {
+      font-size: 18px;
+    }
+    .ob-cellular-bar {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .ob-cellular-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #FFD700, #FFB800);
+      border-radius: 3px;
+      transition: width 5s linear;
+    }
+    .ob-cellular-bar-fill.connected {
+      background: linear-gradient(90deg, #34D399, #10B981);
+    }
     .ob-bind-title{font-size:24px;font-weight:700;color:#fff;margin-top:16px;text-shadow:0 2px 6px rgba(0,0,0,.2);}
     .ob-bind-desc{font-size:16px;font-weight:400;color:rgba(255,255,255,.75);margin-top:6px;text-align:center;max-width:480px;line-height:1.5;}
     .ob-bind-waiting{font-size:16px;font-weight:400;color:rgba(255,255,255,.5);margin-top:12px;}
@@ -9847,6 +10091,11 @@
                 <!-- 内容3: 魔法创作 -->
                 <div class="ai-body-content" data-content="2">
                   <div class="preview-magic-content">
+                    <!-- 每日配额提示 -->
+                    <div class="aigc-quota-banner">
+                      <span class="aigc-quota-icon">✨</span>
+                      <span>今天还能创作 <span class="aigc-quota-count">5</span> 次</span>
+                    </div>
                     <div class="magic-style-row">
                       <div class="magic-style-item" onclick="startMagicGeneration('皮克斯3D')">
                         <div class="magic-style-icon"><img src="icons/style_pixar.png" alt="皮克斯3D"></div>
@@ -9869,21 +10118,19 @@
                 </div>
                 
                 <!-- 内容4: 讲故事 -->
-                <div class="ai-body-content" data-content="3">
-                  <!-- 故事加载中（识别成功后异步生成，大部分常见物种有缓存直接跳过此态） -->
-                  <div class="story-loading-content" id="story-loading" style="display: none;">
-                    <div style="text-align: center; padding: 16px;">
-                      <div style="font-size: 28px; margin-bottom: 8px;">📖</div>
-                      <div style="font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.6;">正在为「<span id="story-subject-name">蝴蝶</span>」讲故事…</div>
-                      <div style="margin-top: 10px; display: flex; justify-content: center; gap: 4px;">
-                        <span style="width:6px;height:6px;border-radius:50%;background:#A78BFA;display:inline-block;animation:dot-pulse 1.2s infinite;"></span>
-                        <span style="width:6px;height:6px;border-radius:50%;background:#A78BFA;display:inline-block;animation:dot-pulse 1.2s infinite 0.2s;"></span>
-                        <span style="width:6px;height:6px;border-radius:50%;background:#A78BFA;display:inline-block;animation:dot-pulse 1.2s infinite 0.4s;"></span>
-                      </div>
+                <div class="ai-body-content story-tab-body" data-content="3">
+                  <!-- 故事加载中（默认态，识别成功后异步生成） -->
+                  <div class="story-loading-content" id="story-loading">
+                    <div class="story-loading-icon">📖</div>
+                    <div class="story-loading-text">故事正在生成中，请稍等…</div>
+                    <div class="story-loading-dots">
+                      <span></span>
+                      <span></span>
+                      <span></span>
                     </div>
                   </div>
-                  <!-- 故事就绪（默认展示态，从缓存池随机取一个） -->
-                  <div class="story-ready-content" id="story-ready">
+                  <!-- 故事就绪（从缓存池取一个） -->
+                  <div class="story-ready-content" id="story-ready" style="display: none;">
                     <div style="padding: 4px; display: flex; gap: 12px; align-items: stretch;">
                       <div style="width: 120px; height: 120px; border-radius: 12px; overflow: hidden; flex-shrink: 0;">
                         <img src="https://picsum.photos/200/200?random=story" alt="故事配图" style="width: 100%; height: 100%; object-fit: cover;">
@@ -9959,34 +10206,38 @@
               </button>
 
               <div class="chat-ai-persona">
-                <!-- 上切换按钮 -->
-                <button class="chat-char-switch chat-char-up" onclick="switchChatCharacter('chat', -1)">
-                  <span>▲</span>
-                </button>
-                
-                <!-- AI大头像 -->
-                <div class="chat-ai-avatar-large speaking" id="chat-ai-avatar">
-                  🤖
-                </div>
-                
-                <!-- 下切换按钮 -->
-                <button class="chat-char-switch chat-char-down" onclick="switchChatCharacter('chat', 1)">
-                  <span>▼</span>
-                </button>
-                
-                <!-- 声波动画 (说话时显示) -->
-                <div class="chat-sound-wave" id="chat-sound-wave">
-                  <div class="wave-bar"></div>
-                  <div class="wave-bar"></div>
-                  <div class="wave-bar"></div>
-                  <div class="wave-bar"></div>
-                  <div class="wave-bar"></div>
-                </div>
-                
-                <!-- 状态指示器 -->
-                <div class="chat-status-indicator">
-                  <div class="chat-status-dot speaking" id="chat-status-dot"></div>
-                  <span class="chat-status-text" id="chat-status-text">正在回答...</span>
+                <!-- 横向布局: [左切换][AI区域][右切换] -->
+                <div class="chat-ai-row">
+                  <!-- 左切换按钮 -->
+                  <button class="chat-char-switch chat-char-left" onclick="switchChatCharacter('chat', -1)">
+                    <span>◀</span>
+                  </button>
+
+                  <!-- 中间AI区域 -->
+                  <div class="chat-ai-inner">
+                    <!-- AI大头像 -->
+                    <div class="chat-ai-avatar-large" id="chat-ai-avatar">
+                      🤖
+                    </div>
+
+                    <!-- 状态指示器 (含声波) -->
+                    <div class="chat-status-indicator">
+                      <div class="chat-status-dot" id="chat-status-dot"></div>
+                      <span class="chat-status-text" id="chat-status-text">等待中</span>
+                      <div class="chat-sound-wave hidden" id="chat-sound-wave">
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 右切换按钮 -->
+                  <button class="chat-char-switch chat-char-right" onclick="switchChatCharacter('chat', 1)">
+                    <span>▶</span>
+                  </button>
                 </div>
               </div>
 
@@ -10266,6 +10517,12 @@
               <span>←</span>
               <span>返回</span>
             </button>
+
+            <!-- 每日配额提示 -->
+            <div class="aigc-quota-banner workshop-quota-banner">
+              <span class="aigc-quota-icon">✨</span>
+              <span>今天还能创作 <span class="aigc-quota-count">5</span> 次</span>
+            </div>
 
             <!-- 风格卡片 - 可横向滑动,一页3张 -->
             <div class="style-cards-container">
@@ -11837,7 +12094,7 @@
                       <div class="settings-icon orange">💾</div>
                       <div>
                         <div class="settings-label">存储空间</div>
-                        <div class="settings-value">12.3 GB / 32 GB</div>
+                        <div class="settings-value">已使用 38%</div>
                       </div>
                     </div>
                     <span class="settings-chevron">›</span>
@@ -11845,15 +12102,15 @@
                   <div class="settings-expand-content">
                     <div class="storage-detail">
                       <div class="storage-bar">
-                        <div class="storage-segment photos" style="width: 45%;"></div>
-                        <div class="storage-segment aigc" style="width: 25%;"></div>
-                        <div class="storage-segment system" style="width: 10%;"></div>
+                        <div class="storage-segment photos" style="width: 22%;"></div>
+                        <div class="storage-segment aigc" style="width: 12%;"></div>
+                        <div class="storage-segment system" style="width: 4%;"></div>
                       </div>
                       <div class="storage-legend">
-                        <div class="legend-item"><span class="legend-dot photos"></span>照片 (5.5 GB)</div>
-                        <div class="legend-item"><span class="legend-dot aigc"></span>作品 (3.1 GB)</div>
-                        <div class="legend-item"><span class="legend-dot system"></span>系统 (1.2 GB)</div>
-                        <div class="legend-item"><span class="legend-dot free"></span>可用 (22.2 GB)</div>
+                        <div class="legend-item"><span class="legend-dot photos"></span>照片 22%</div>
+                        <div class="legend-item"><span class="legend-dot aigc"></span>作品 12%</div>
+                        <div class="legend-item"><span class="legend-dot system"></span>系统 4%</div>
+                        <div class="legend-item"><span class="legend-dot free"></span>可用 62%</div>
                       </div>
                     </div>
                   </div>
@@ -12042,7 +12299,7 @@
                 </div>
                 <div class="about-device-row">
                   <span class="about-device-label">存储空间</span>
-                  <span class="about-device-value">12.3GB (32GB)</span>
+                  <span class="about-device-value">已使用 38%</span>
                 </div>
                 <div class="about-device-row">
                   <span class="about-device-label">IMEI</span>
@@ -12050,7 +12307,10 @@
                 </div>
               </div>
               <!-- 恢复出厂设置 -->
-              <button class="factory-reset-link" onclick="showResetStep1()">恢复出厂设置</button>
+              <button class="factory-reset-link" onclick="showResetStep1()">
+                <span>⚠️</span>
+                <span>恢复出厂设置</span>
+              </button>
             </div>
 
             <!-- 第一步确认弹窗 -->
@@ -12273,7 +12533,19 @@
             <div class="ob-welcome-icon">🌍</div>
             <div class="ob-welcome-title">你好，小探险家！</div>
             <div class="ob-welcome-desc">这是一台帮你探索大自然的神奇相机，让我们先做一点小准备吧</div>
-            <button class="ob-btn ob-btn-yellow" onclick="goTo('ob-wifi-page')">开始设置 →</button>
+
+            <!-- 4G 信号搜索进度 -->
+            <div class="ob-cellular-status">
+              <div class="ob-cellular-row">
+                <span id="ob-cellular-icon">📡</span>
+                <span id="ob-cellular-text">正在搜索 4G 信号...</span>
+              </div>
+              <div class="ob-cellular-bar">
+                <div class="ob-cellular-bar-fill" id="ob-cellular-progress-fill"></div>
+              </div>
+            </div>
+
+            <button class="ob-btn ob-btn-yellow" onclick="obWelcomeNext()">开始设置 →</button>
           </div>
         </div>
 
@@ -12300,7 +12572,6 @@
               </div>
             </div>
             <div class="ob-wifi-bottom">
-              <button class="ob-btn" style="background:rgba(255,255,255,.2);color:rgba(255,255,255,.7);font-size:16px;padding:10px 24px;" onclick="goTo('ob-download-page')">跳过</button>
               <button class="ob-btn ob-btn-disabled" id="ob-wifi-next" onclick="goTo('ob-download-page')">下一步 →</button>
             </div>
             <!-- WiFi密码弹窗 -->
@@ -12691,7 +12962,7 @@
             <div class="ptt-character-area">
               <button class="ptt-char-nav" onclick="switchPTTCharacter(-1)">◀</button>
               <div class="ptt-avatar-wrapper">
-                <div class="ptt-avatar listening" id="ptt-avatar">🦉</div>
+                <div class="ptt-avatar" id="ptt-avatar">🦉</div>
                 <div class="ptt-avatar-name" id="ptt-avatar-name">咕咕</div>
               </div>
               <button class="ptt-char-nav" onclick="switchPTTCharacter(1)">▶</button>
@@ -12701,9 +12972,9 @@
             <div class="ptt-status-area">
               <div class="ptt-status-row">
                 <div class="ptt-status-dot" id="ptt-status-dot"></div>
-                <span class="ptt-status-text" id="ptt-status-text">正在听...</span>
+                <span class="ptt-status-text" id="ptt-status-text">等待中</span>
               </div>
-              <div class="ptt-waveform listening" id="ptt-waveform">
+              <div class="ptt-waveform" id="ptt-waveform">
                 <div class="ptt-wave-bar"></div>
                 <div class="ptt-wave-bar"></div>
                 <div class="ptt-wave-bar"></div>
@@ -12714,9 +12985,17 @@
             </div>
           </div>
           
-          <!-- 底部提示(居中) -->
+          <!-- 底部按住说话按钮 -->
           <div class="ptt-footer">
-            <div class="ptt-hint" id="ptt-hint">按住说话 · 松开发送</div>
+            <button class="ptt-speak-btn" id="ptt-speak-btn"
+              onmousedown="startPTTButtonRecording()"
+              onmouseup="stopPTTButtonRecording()"
+              onmouseleave="cancelPTTButtonRecording()"
+              ontouchstart="startPTTButtonRecording()"
+              ontouchend="stopPTTButtonRecording()">
+              <span class="chat-speak-icon">🎤</span>
+              <span class="chat-speak-text">按住说话</span>
+            </button>
           </div>
         </div>
 
@@ -12934,6 +13213,9 @@
         <div class="nav-section-title">✨ AI菜单 v2</div>
         <div class="nav-items">
           <div class="nav-item" onclick="goTo('photo-preview-page', 'ai-menu')"><span class="icon">🖼️</span><span>照片预览 (4项·核心)</span></div>
+          <div class="nav-item sub" onclick="goTo('photo-preview-page', 'ai-menu-story-loading')"><span class="icon">⏳</span><span>讲故事·生成中</span></div>
+          <div class="nav-item sub" onclick="debugFillAigcQuota()"><span class="icon">🚫</span><span>用尽 AIGC 配额</span></div>
+          <div class="nav-item sub" onclick="debugResetAigcQuota()"><span class="icon">♻️</span><span>重置 AIGC 配额</span></div>
           <div class="nav-item" onclick="goTo('home-page', 'ai-menu')"><span class="icon">🏠</span><span>首页·今日发现</span></div>
           <div class="nav-item" onclick="goTo('map-page', 'ai-menu')"><span class="icon">🗺️</span><span>地图·带我探索</span></div>
           <div class="nav-item" onclick="goTo('workshop-page', 'ai-menu')"><span class="icon">🎨</span><span>工坊·随机惊喜</span></div>
@@ -13290,6 +13572,13 @@
             }
             console.log('✅ AI菜单已显示:', pageId);
           }, 100);
+        } else if (modal === 'ai-menu-story-loading') {
+          // 调试: 在故事"生成中"状态打开预览AI浮层并跳到讲故事tab
+          setTimeout(() => {
+            if (typeof showPreviewAIOverlayWithStoryLoading === 'function') {
+              showPreviewAIOverlayWithStoryLoading();
+            }
+          }, 100);
         } else if (modal === 'ptt') {
           const backdrop = document.getElementById('ptt-backdrop');
           const ptt = document.getElementById('ptt-overlay');
@@ -13303,9 +13592,19 @@
         }
       }
       
+      // 进入欢迎页时触发 4G 信号搜索
+      if (pageId === 'ob-welcome-page' && typeof startCellularSearch === 'function') {
+        setTimeout(startCellularSearch, 100);
+      }
+
+      // 进入工坊页时刷新 AIGC 配额 UI
+      if (pageId === 'workshop-page' && typeof refreshAigcQuotaUI === 'function') {
+        refreshAigcQuotaUI();
+      }
+
       // 更新导航高亮
       updateNavHighlight(pageId, modal);
-      
+
       // 如果是导出模式,延迟移除非活动元素
       if (exportMode) {
         console.log('⏳ 300ms后移除非活动页面...');
@@ -13663,6 +13962,11 @@
     let selectedPhoto = null;
 
     function selectStyle(name, icon) {
+      // 配额检查 - 工坊页风格卡片
+      if (getAigcRemaining() === 0) {
+        speakAigcDepleted();
+        return;
+      }
       selectedStyle = { name, icon };
       document.getElementById('workshop-style-icon').textContent = icon;
       document.getElementById('workshop-style-name').textContent = name;
@@ -13697,15 +14001,22 @@
     }
 
     function showAigcModal(source) {
+      // 配额检查 - 通用 AIGC 入口
+      if (getAigcRemaining() === 0) {
+        speakAigcDepleted();
+        return;
+      }
+      consumeAigcQuota();
+
       const overlay = document.getElementById('aigc-modal-overlay');
       const generating = document.getElementById('aigc-generating');
       const progressBar = document.getElementById('aigc-progress');
-      
+
       if (!overlay || !generating || !progressBar) {
         console.error('AIGC modal elements not found');
         return;
       }
-      
+
       overlay.classList.add('show');
       generating.style.display = 'block';
       progressBar.style.width = '0%';
@@ -14442,6 +14753,48 @@
       btn.classList.add('ob-btn-green');
     }
 
+    // ============ 欢迎页 4G 信号搜索 ============
+    let cellularConnected = false;
+    let cellularSearchTimer = null;
+
+    function startCellularSearch() {
+      cellularConnected = false;
+      const fill = document.getElementById('ob-cellular-progress-fill');
+      const text = document.getElementById('ob-cellular-text');
+      const icon = document.getElementById('ob-cellular-icon');
+      // 重置 UI
+      if (fill) {
+        fill.classList.remove('connected');
+        fill.style.transition = 'none';
+        fill.style.width = '0%';
+        // 强制重排,然后启动 5s 进度动画
+        void fill.offsetWidth;
+        fill.style.transition = 'width 5s linear';
+        fill.style.width = '100%';
+      }
+      if (text) text.textContent = '正在搜索 4G 信号...';
+      if (icon) icon.textContent = '📡';
+
+      if (cellularSearchTimer) clearTimeout(cellularSearchTimer);
+      cellularSearchTimer = setTimeout(() => {
+        cellularConnected = true;
+        if (text) text.textContent = '4G 已连接';
+        if (icon) icon.textContent = '✅';
+        if (fill) fill.classList.add('connected');
+        showToast('📶 4G 信号已连接');
+      }, 5000);
+    }
+
+    // 欢迎页"开始设置"按钮 - 根据 4G 状态分流
+    function obWelcomeNext() {
+      if (cellularConnected) {
+        showToast('✅ 已通过 4G 联网,跳过 WiFi 设置');
+        goTo('ob-download-page');
+      } else {
+        goTo('ob-wifi-page');
+      }
+    }
+
     // ============ 页面状态 ============
     let currentPage = 'home-page';
     let currentAICharacter = '🤖';
@@ -14479,6 +14832,10 @@
       currentPage = pageId;
       hideAI();
       hidePTT();
+      // 进入工坊页时刷新 AIGC 配额 UI
+      if (pageId === 'workshop-page' && typeof refreshAigcQuotaUI === 'function') {
+        refreshAigcQuotaUI();
+      }
       if (typeof hideMapAIOverlay === 'function') hideMapAIOverlay(); // 关闭地图AI浮层
       if (typeof hideWorkshopAIOverlay === 'function') hideWorkshopAIOverlay(); // 关闭工坊AI浮层
       if (typeof hideHomeAIOverlay === 'function') hideHomeAIOverlay(); // 关闭首页AI浮层
@@ -14936,7 +15293,105 @@
     
     let currentMagicStyle = '';
     
+    // ============ AIGC 每日配额 (5张/天) ============
+    const AIGC_DAILY_LIMIT = 5;
+
+    function getAigcQuotaUsed() {
+      try {
+        const today = new Date().toDateString();
+        const stored = localStorage.getItem('aigcQuota');
+        if (stored) {
+          const data = JSON.parse(stored);
+          if (data.date === today) return data.used || 0;
+        }
+      } catch (e) {}
+      return 0;
+    }
+
+    function getAigcRemaining() {
+      return Math.max(0, AIGC_DAILY_LIMIT - getAigcQuotaUsed());
+    }
+
+    function consumeAigcQuota() {
+      try {
+        const today = new Date().toDateString();
+        const used = getAigcQuotaUsed() + 1;
+        localStorage.setItem('aigcQuota', JSON.stringify({ date: today, used }));
+      } catch (e) {}
+      refreshAigcQuotaUI();
+    }
+
+    function refreshAigcQuotaUI() {
+      const remaining = getAigcRemaining();
+      const depleted = remaining === 0;
+      // 更新所有显示配额文本的元素
+      document.querySelectorAll('.aigc-quota-count').forEach(el => {
+        el.textContent = remaining;
+      });
+      document.querySelectorAll('.aigc-quota-banner').forEach(el => {
+        el.classList.toggle('depleted', depleted);
+      });
+      // 标记风格卡片状态(照片预览魔法tab + 工坊页) - 只标记不变灰
+      document.querySelectorAll('.magic-style-item, .style-card').forEach(el => {
+        el.classList.toggle('depleted', depleted);
+      });
+      // 工坊页"试试看"按钮文案: 耗尽时变成"今日已用完"
+      document.querySelectorAll('.style-card .style-try-btn').forEach(btn => {
+        btn.textContent = depleted ? '今日已用完' : '试试看 →';
+      });
+    }
+
+    function speakAigcDepleted() {
+      const text = '今天的创作次数用完啦,明天再来吧～';
+      if ('speechSynthesis' in window) {
+        try {
+          window.speechSynthesis.cancel();
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.lang = 'zh-CN';
+          utterance.rate = 0.85;
+          utterance.pitch = 1.15;
+          const voices = window.speechSynthesis.getVoices();
+          const zhVoice = voices.find(v => v.lang.includes('zh'));
+          if (zhVoice) utterance.voice = zhVoice;
+          window.speechSynthesis.speak(utterance);
+        } catch (e) {}
+      }
+      showToast('🎨 ' + text);
+    }
+
+    // 初始化时刷新一次UI
+    if (typeof window !== 'undefined') {
+      window.addEventListener('DOMContentLoaded', () => {
+        refreshAigcQuotaUI();
+      });
+    }
+
+    // 调试: 用尽配额
+    function debugFillAigcQuota() {
+      try {
+        const today = new Date().toDateString();
+        localStorage.setItem('aigcQuota', JSON.stringify({ date: today, used: AIGC_DAILY_LIMIT }));
+      } catch (e) {}
+      refreshAigcQuotaUI();
+      showToast('🚫 已用尽今日 AIGC 配额');
+    }
+
+    // 调试: 重置配额
+    function debugResetAigcQuota() {
+      try {
+        localStorage.removeItem('aigcQuota');
+      } catch (e) {}
+      refreshAigcQuotaUI();
+      showToast('♻️ AIGC 配额已重置 (5/5)');
+    }
+
     function startMagicGeneration(styleName) {
+      // 配额检查
+      if (getAigcRemaining() === 0) {
+        speakAigcDepleted();
+        return;
+      }
+      consumeAigcQuota();
       hidePreviewAIOverlay();
       currentMagicStyle = styleName;
       
@@ -16983,22 +17438,76 @@
     // ============ 照片预览页 AI 浮层 ============
     let previewAIOverlayVisible = false;
     let previewAICurrentTab = 0;
+    // 故事生成状态: 进入预览页后异步"生成",一段时间后 ready
+    let storyReady = false;
+    let storyGenerationTimer = null;
     const previewAIVoiceContent = [
       '哇！你发现了凤蝶！这是一种美丽的蝴蝶，它的翅膀上有数千片鳞片呢！恭喜你收集到了新的自然之语！',
       '想和我聊聊这只蝴蝶吗?你可以问我它吃什么、住在哪里,还有什么特别的地方!',
       '想把这张照片变成艺术作品吗?选择一种风格,开始魔法创作!',
       '已经为你准备好了一个故事,点击开始阅读吧!'
     ];
-    
+
+    // 更新故事tab UI: 根据 storyReady 切换加载态/就绪态
+    function updateStoryTabUI() {
+      const loading = document.getElementById('story-loading');
+      const ready = document.getElementById('story-ready');
+      if (!loading || !ready) return;
+      if (storyReady) {
+        loading.style.display = 'none';
+        ready.style.display = 'block';
+      } else {
+        loading.style.display = 'flex';
+        ready.style.display = 'none';
+      }
+    }
+
+    // 模拟故事异步生成
+    function startStoryGeneration() {
+      storyReady = false;
+      updateStoryTabUI();
+      if (storyGenerationTimer) clearTimeout(storyGenerationTimer);
+      storyGenerationTimer = setTimeout(() => {
+        storyReady = true;
+        updateStoryTabUI();
+        // 如果用户此时正在看讲故事tab,补播故事就绪的语音
+        if (previewAIOverlayVisible && previewAICurrentTab === 3) {
+          speakPreviewAIContent(3);
+        }
+      }, 10000);
+    }
+
     function showPreviewAIOverlay() {
       const overlay = document.getElementById('preview-ai-overlay');
       if (overlay) {
         overlay.classList.remove('hidden');
         previewAIOverlayVisible = true;
         previewAICurrentTab = 0;
+        // 每次打开预览浮层都重新"生成"故事,模拟异步延迟
+        startStoryGeneration();
+        // 刷新 AIGC 配额 UI
+        if (typeof refreshAigcQuotaUI === 'function') refreshAigcQuotaUI();
         updatePreviewAIOverlayUI();
         speakPreviewAIContent(0);
       }
+    }
+
+    // 调试入口: 直接打开预览浮层并定格在"故事生成中"状态
+    function showPreviewAIOverlayWithStoryLoading() {
+      const overlay = document.getElementById('preview-ai-overlay');
+      if (!overlay) return;
+      overlay.classList.remove('hidden');
+      previewAIOverlayVisible = true;
+      previewAICurrentTab = 3;
+      // 清掉可能正在跑的生成定时器,保持loading态
+      if (storyGenerationTimer) {
+        clearTimeout(storyGenerationTimer);
+        storyGenerationTimer = null;
+      }
+      storyReady = false;
+      updatePreviewAIOverlayUI();
+      updateStoryTabUI();
+      speakPreviewAIContent(3);
     }
     
     function hidePreviewAIOverlay() {
@@ -17013,6 +17522,10 @@
     function switchPreviewAITab(index) {
       previewAICurrentTab = index;
       updatePreviewAIOverlayUI();
+      // 切到讲故事tab时,根据当前状态显示加载态或就绪态
+      if (index === 3) {
+        updateStoryTabUI();
+      }
       speakPreviewAIContent(index);
     }
     
@@ -17030,7 +17543,16 @@
     }
     
     function speakPreviewAIContent(tabIndex) {
-      const text = previewAIVoiceContent[tabIndex];
+      // 讲故事tab: 根据故事是否就绪选择不同播报
+      // 魔法创作tab: 配额耗尽时换成提示语音
+      let text;
+      if (tabIndex === 3 && !storyReady) {
+        text = '故事正在生成中,请稍等一下～';
+      } else if (tabIndex === 2 && getAigcRemaining() === 0) {
+        text = '今天的创作次数用完啦,明天再来吧～';
+      } else {
+        text = previewAIVoiceContent[tabIndex];
+      }
       if (!text || !('speechSynthesis' in window)) return;
       
       currentSpeechId++;
@@ -17800,8 +18322,7 @@
       const waveform = document.getElementById('ptt-waveform');
       const statusDot = document.getElementById('ptt-status-dot');
       const statusText = document.getElementById('ptt-status-text');
-      const hint = document.getElementById('ptt-hint');
-      
+
       if (avatar) {
         avatar.className = 'ptt-avatar listening';
       }
@@ -17809,13 +18330,74 @@
         waveform.className = 'ptt-waveform listening';
       }
       if (statusDot) {
-        statusDot.className = 'ptt-status-dot';
+        statusDot.className = 'ptt-status-dot listening';
       }
       if (statusText) {
-        statusText.textContent = '正在听...';
+        statusText.textContent = '聆听中...';
       }
-      if (hint) {
-        hint.textContent = '按住说话 · 松开发送';
+    }
+
+    // PTT浮层: 按住说话按钮 - 按下
+    function startPTTButtonRecording() {
+      const btn = document.getElementById('ptt-speak-btn');
+      if (btn) {
+        btn.classList.add('recording');
+        const textEl = btn.querySelector('.chat-speak-text');
+        if (textEl) textEl.textContent = '松开发送';
+      }
+      // 设置为聆听状态
+      const avatar = document.getElementById('ptt-avatar');
+      const waveform = document.getElementById('ptt-waveform');
+      const statusDot = document.getElementById('ptt-status-dot');
+      const statusText = document.getElementById('ptt-status-text');
+      if (avatar) avatar.className = 'ptt-avatar listening';
+      if (waveform) waveform.className = 'ptt-waveform listening';
+      if (statusDot) statusDot.className = 'ptt-status-dot listening';
+      if (statusText) statusText.textContent = '聆听中...';
+    }
+
+    // PTT浮层: 按住说话按钮 - 松开(触发思考→回答流程)
+    function stopPTTButtonRecording() {
+      const btn = document.getElementById('ptt-speak-btn');
+      if (btn) {
+        btn.classList.remove('recording');
+        const textEl = btn.querySelector('.chat-speak-text');
+        if (textEl) textEl.textContent = '按住说话';
+      }
+
+      const avatar = document.getElementById('ptt-avatar');
+      const waveform = document.getElementById('ptt-waveform');
+      const statusDot = document.getElementById('ptt-status-dot');
+      const statusText = document.getElementById('ptt-status-text');
+
+      // 思考中
+      if (avatar) avatar.className = 'ptt-avatar thinking';
+      if (waveform) waveform.className = 'ptt-waveform thinking';
+      if (statusDot) statusDot.className = 'ptt-status-dot thinking';
+      if (statusText) statusText.textContent = '思考中...';
+
+      setTimeout(() => {
+        // 正在回答
+        if (avatar) avatar.className = 'ptt-avatar speaking';
+        if (waveform) waveform.className = 'ptt-waveform speaking';
+        if (statusDot) statusDot.className = 'ptt-status-dot speaking';
+        if (statusText) statusText.textContent = '正在回答...';
+
+        setTimeout(() => {
+          // 空闲
+          if (avatar) avatar.className = 'ptt-avatar';
+          if (waveform) waveform.className = 'ptt-waveform';
+          if (statusDot) statusDot.className = 'ptt-status-dot';
+          if (statusText) statusText.textContent = '等待中';
+        }, 3000);
+      }, 1000);
+    }
+
+    // PTT浮层: 鼠标离开按钮时取消录音(避免卡在recording态)
+    function cancelPTTButtonRecording() {
+      const btn = document.getElementById('ptt-speak-btn');
+      if (btn && btn.classList.contains('recording')) {
+        stopPTTButtonRecording();
       }
     }
 
@@ -17830,7 +18412,7 @@
       const waveform = document.getElementById('ptt-waveform');
       const statusDot = document.getElementById('ptt-status-dot');
       const statusText = document.getElementById('ptt-status-text');
-      
+
       // 模拟录音 2秒
       setTimeout(() => {
         // 切换到思考状态
@@ -17838,22 +18420,20 @@
         if (waveform) waveform.className = 'ptt-waveform thinking';
         if (statusDot) statusDot.className = 'ptt-status-dot thinking';
         if (statusText) statusText.textContent = '思考中...';
-        
+
         // 1秒后切换到回复状态
         setTimeout(() => {
           if (avatar) avatar.className = 'ptt-avatar speaking';
-          if (waveform) waveform.className = 'ptt-waveform';
+          if (waveform) waveform.className = 'ptt-waveform speaking';
           if (statusDot) statusDot.className = 'ptt-status-dot speaking';
-          if (statusText) statusText.textContent = '正在说...';
-          
+          if (statusText) statusText.textContent = '正在回答...';
+
           // 模拟语音播放 3秒后结束
           setTimeout(() => {
-            const hint = document.getElementById('ptt-hint');
-            if (hint) hint.textContent = '按住继续 · 点击外部关闭';
             if (avatar) avatar.className = 'ptt-avatar';
             if (waveform) waveform.className = 'ptt-waveform';
-            if (statusDot) statusDot.className = 'ptt-status-dot speaking';
-            if (statusText) statusText.textContent = '回答完成';
+            if (statusDot) statusDot.className = 'ptt-status-dot';
+            if (statusText) statusText.textContent = '等待中';
           }, 3000);
         }, 1000);
       }, 2000);
