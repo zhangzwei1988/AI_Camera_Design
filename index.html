@@ -12545,7 +12545,7 @@
               </div>
             </div>
 
-            <button class="ob-btn ob-btn-yellow" onclick="obWelcomeNext()">开始设置 →</button>
+            <button class="ob-btn ob-btn-yellow" onclick="obWelcomeNext()">开始设置 (<span id="ob-welcome-countdown">5</span>s)</button>
           </div>
         </div>
 
@@ -12594,7 +12594,7 @@
             <div class="ob-bind-qr">📲</div>
             <div class="ob-bind-title">下载家长 App</div>
             <div class="ob-bind-desc">请家长用手机扫描上方二维码，下载 QMox App 并完成注册</div>
-            <button class="ob-btn ob-btn-yellow" style="margin-top:20px;" onclick="goTo('ob-bind-page')">已下载，下一步 →</button>
+            <button class="ob-btn ob-btn-yellow" style="margin-top:20px;" onclick="goTo('ob-bind-page')">已下载，下一步</button>
           </div>
         </div>
 
@@ -14753,9 +14753,10 @@
       btn.classList.add('ob-btn-green');
     }
 
-    // ============ 欢迎页 4G 信号搜索 ============
+    // ============ 欢迎页 4G 信号搜索 + 倒计时 ============
     let cellularConnected = false;
     let cellularSearchTimer = null;
+    let welcomeCountdownTimer = null;
 
     function startCellularSearch() {
       cellularConnected = false;
@@ -14783,10 +14784,35 @@
         if (fill) fill.classList.add('connected');
         showToast('📶 4G 信号已连接');
       }, 5000);
+
+      // 启动按钮倒计时 - 5秒后自动跳转
+      startWelcomeCountdown(5);
+    }
+
+    function startWelcomeCountdown(seconds) {
+      if (welcomeCountdownTimer) clearInterval(welcomeCountdownTimer);
+      const countdownEl = document.getElementById('ob-welcome-countdown');
+      let remaining = seconds;
+      if (countdownEl) countdownEl.textContent = remaining;
+
+      welcomeCountdownTimer = setInterval(() => {
+        remaining--;
+        if (countdownEl) countdownEl.textContent = remaining;
+        if (remaining <= 0) {
+          clearInterval(welcomeCountdownTimer);
+          welcomeCountdownTimer = null;
+          obWelcomeNext();
+        }
+      }, 1000);
     }
 
     // 欢迎页"开始设置"按钮 - 根据 4G 状态分流
     function obWelcomeNext() {
+      // 清掉倒计时(用户手动点击或倒计时结束)
+      if (welcomeCountdownTimer) {
+        clearInterval(welcomeCountdownTimer);
+        welcomeCountdownTimer = null;
+      }
       if (cellularConnected) {
         showToast('✅ 已通过 4G 联网,跳过 WiFi 设置');
         goTo('ob-download-page');
