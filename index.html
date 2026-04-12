@@ -5782,12 +5782,13 @@
     .badge-grid .badge-item {
       background: linear-gradient(135deg, #FFD700 0%, #F59E0B 100%);
       border-radius: 16px;
-      padding: 18px 12px;
+      padding: 10px 8px 12px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      gap: 4px;
       box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
       transition: all 0.2s;
     }
@@ -5798,14 +5799,15 @@
       box-shadow: none;
     }
 
-    .badge-grid .badge-icon { font-size: 44px; }
+    .badge-grid .badge-icon { font-size: 80px; line-height: 1; }
     .badge-grid .badge-name {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
       color: #5D4E3A;
       text-align: center;
     }
     .badge-grid .badge-item.locked .badge-name { color: #444; }
+
 
     /* ============ Species List 图鉴列表页 ============ */
     #subcategory-list-page {
@@ -10901,31 +10903,32 @@
 
               <!-- 徽章 -->
               <div class="badge-grid" id="badges-content" style="display: none;">
-                <div class="badge-item">
+                <div class="badge-item" onclick="showBadgeDetail(0)">
                   <div class="badge-icon">⭐</div>
                   <div class="badge-name">初次发现</div>
                 </div>
-                <div class="badge-item">
+                <div class="badge-item" onclick="showBadgeDetail(1)">
                   <div class="badge-icon">🏆</div>
                   <div class="badge-name">探索者</div>
                 </div>
-                <div class="badge-item">
+                <div class="badge-item" onclick="showBadgeDetail(2)">
                   <div class="badge-icon">🎯</div>
                   <div class="badge-name">火眼金睛</div>
                 </div>
-                <div class="badge-item locked">
+                <div class="badge-item locked" onclick="showBadgeDetail(3)">
                   <div class="badge-icon">🔬</div>
                   <div class="badge-name">小科学家</div>
                 </div>
-                <div class="badge-item locked">
+                <div class="badge-item locked" onclick="showBadgeDetail(4)">
                   <div class="badge-icon">🎨</div>
                   <div class="badge-name">小艺术家</div>
                 </div>
-                <div class="badge-item locked">
+                <div class="badge-item locked" onclick="showBadgeDetail(5)">
                   <div class="badge-icon">📚</div>
                   <div class="badge-name">收藏家</div>
                 </div>
               </div>
+
             </div>
             
             <!-- 背包AI浮层 -->
@@ -17434,6 +17437,44 @@
       '这是你最近的精彩时刻!蝴蝶特写是你的最佳照片,已经连续探索7天了!'
     ];
     
+    // ============ 勋章语音播报 ============
+    const badgeData = [
+      { icon: '⭐', name: '初次发现', condition: '拍摄第一张自然照片', earned: true },
+      { icon: '🏆', name: '探索者', condition: '累计探索 7 天', earned: true },
+      { icon: '🎯', name: '火眼金睛', condition: '连续识别 5 种不同物种', earned: true },
+      { icon: '🔬', name: '小科学家', condition: '收集 20 种不同物种的资料', earned: false },
+      { icon: '🎨', name: '小艺术家', condition: '创作 10 张 AIGC 作品', earned: false },
+      { icon: '📚', name: '收藏家', condition: '收集 50 张自然照片', earned: false },
+    ];
+
+    function showBadgeDetail(index) {
+      const badge = badgeData[index];
+      if (!badge) return;
+
+      let text;
+      if (badge.earned) {
+        text = '你已经获得了' + badge.name + '勋章,好样的！';
+      } else {
+        text = badge.name + '勋章,获得条件是' + badge.condition;
+      }
+
+      showToast(badge.icon + ' ' + text);
+
+      if ('speechSynthesis' in window) {
+        try {
+          window.speechSynthesis.cancel();
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.lang = 'zh-CN';
+          utterance.rate = 0.85;
+          utterance.pitch = 1.15;
+          const voices = window.speechSynthesis.getVoices();
+          const zhVoice = voices.find(v => v.lang.includes('zh'));
+          if (zhVoice) utterance.voice = zhVoice;
+          window.speechSynthesis.speak(utterance);
+        } catch (e) {}
+      }
+    }
+
     function showBackpackAIOverlay() {
       const overlay = document.getElementById('backpack-ai-overlay');
       if (overlay) {
