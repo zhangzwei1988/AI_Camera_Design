@@ -4852,7 +4852,7 @@
       background: linear-gradient(180deg, #FFFEF8 0%, #FDF5E6 100%);
       border-radius: 20px;
       padding: 16px;
-      width: 300px;
+      width: 340px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.4);
       position: relative;
       transform: scale(0.9);
@@ -4884,70 +4884,73 @@
       gap: 12px;
     }
 
-    .qr-card-image {
-      position: relative;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    .qr-card-image img {
-      width: 100%;
-      height: 140px;
-      object-fit: cover;
-    }
-    .qr-card-badge {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: rgba(0,0,0,0.6);
-      color: white;
-      font-size: 10px;
-      font-weight: 600;
-      padding: 4px 8px;
-      border-radius: 8px;
-      backdrop-filter: blur(4px);
-    }
-
-    .qr-card-info {
-      text-align: center;
-    }
-
-    .qr-card-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: #5D4E3A;
-    }
-
-    .qr-card-explorer {
+    /* 照片分享：紧凑用户卡（头像 + 昵称/等级 + 时间） */
+    .qr-user-card {
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 12px;
+      padding: 8px 4px 2px;
+    }
+    .qr-avatar-gold {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      padding: 3px;
+      flex-shrink: 0;
+      background: conic-gradient(from 45deg,
+        #FFF2B4 0deg, #D4A130 60deg, #FFF6C8 120deg, #A97E16 180deg,
+        #FFE08A 240deg, #D4A130 300deg, #FFF2B4 360deg);
+      box-shadow: 0 3px 10px -3px rgba(169,126,22,.55);
+    }
+    .qr-avatar-gold > span {
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #fff;
+      font-size: 24px;
+      line-height: 1;
+      box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.75),
+                  inset 0 0 0 2.5px rgba(169,126,22,.3);
+    }
+    .qr-user-info {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .qr-user-name-row {
+      display: flex;
+      align-items: center;
       gap: 6px;
-      margin-top: 6px;
     }
-
-    .qr-explorer-avatar {
-      font-size: 18px;
-    }
-
-    .qr-explorer-name {
-      font-size: 13px;
-      font-weight: 600;
-      color: #666;
-    }
-
-    .qr-explorer-level {
-      font-size: 11px;
+    .qr-user-name {
+      font-size: 15px;
       font-weight: 700;
-      color: white;
-      background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
-      padding: 2px 6px;
-      border-radius: 6px;
+      color: #3D2F1F;
+      max-width: 7em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
-
-    .qr-card-date {
+    .qr-user-level-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      background: linear-gradient(135deg, #FFDF93, #F39A3C);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .3px;
+      border-radius: 999px;
+      box-shadow: 0 2px 6px -2px rgba(243,154,60,.55);
+    }
+    .qr-user-date {
       font-size: 11px;
-      color: #999;
-      margin-top: 4px;
+      color: #8A7557;
+      font-weight: 500;
     }
 
     .qr-code-section {
@@ -4960,11 +4963,11 @@
     }
 
     .qr-code-placeholder {
-      width: 80px;
-      height: 80px;
+      width: 200px;
+      height: 200px;
       background: white;
-      border-radius: 8px;
-      padding: 6px;
+      border-radius: 10px;
+      padding: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
@@ -4974,7 +4977,7 @@
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       grid-template-rows: repeat(7, 1fr);
-      gap: 2px;
+      gap: 3px;
     }
     .qr-code-grid div {
       background: #333;
@@ -5002,33 +5005,32 @@
       margin-top: 4px;
     }
 
+    /* H5 风格页脚（两个分享弹窗共用） */
     .qr-card-footer {
       text-align: center;
-      padding-top: 8px;
+      padding-top: 10px;
+      color: #8A7557;
+      font-size: 12px;
+      line-height: 1.6;
     }
-
-    .qr-card-brand {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      font-size: 14px;
+    .qr-card-footer b {
+      color: #3D2F1F;
       font-weight: 700;
-      color: #5D4E3A;
+      letter-spacing: .3px;
     }
 
     .qr-card-tagline {
-      font-size: 10px;
-      color: #999;
+      display: block;
       margin-top: 2px;
+      color: #B8A88A;
+      font-size: 10px;
     }
 
     /* 探险家卡片分享样式 */
     .qr-share-card.explorer-card {
       background: linear-gradient(180deg, #FFF8E7 0%, #FFE4B5 100%);
-      padding: 16px;
+      padding: 14px;
       position: relative;
-      max-height: 90%;
       overflow: visible;
     }
 
@@ -5055,7 +5057,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .explorer-card-header {
@@ -5067,20 +5069,41 @@
       color: #8B5A2B;
     }
 
+    /* 仪式感横排：头像 + 姓名/等级 */
+    .explorer-card-ceremony {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 2px 0 6px;
+    }
+
     .explorer-card-avatar {
       position: relative;
+      flex-shrink: 0;
     }
 
     .card-avatar-frame {
-      width: 56px;
-      height: 56px;
+      width: 64px;
+      height: 64px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-      box-shadow: 0 0 0 3px #FFD700, 0 4px 10px rgba(255,165,0,0.4);
+      padding: 4px;
+      background: conic-gradient(from 45deg,
+        #FFF2B4 0deg, #D4A130 60deg, #FFF6C8 120deg, #A97E16 180deg,
+        #FFE08A 240deg, #D4A130 300deg, #FFF2B4 360deg);
+      filter: drop-shadow(0 4px 10px rgba(169,126,22,.55))
+              drop-shadow(0 0 2px rgba(255,220,120,.6));
+    }
+    .card-avatar-frame > span {
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #fff;
+      font-size: 30px;
+      line-height: 1;
+      box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.75),
+                  inset 0 0 0 3px rgba(169,126,22,.3);
     }
 
     .card-streak-badge {
@@ -5096,69 +5119,26 @@
     }
 
     .explorer-card-identity {
-      text-align: center;
-    }
-
-    .card-title-badge {
-      display: inline-block;
-      background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
-      color: white;
-      font-size: 9px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 8px;
-      text-transform: uppercase;
+      text-align: left;
+      min-width: 0;
     }
 
     .card-name {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 700;
       color: #5D4E3A;
-      margin-top: 4px;
+      line-height: 1.1;
     }
 
     .card-level {
       font-size: 13px;
       color: #F59E0B;
       font-weight: 600;
-      margin-top: 2px;
-    }
-
-    .explorer-card-stats {
-      display: flex;
-      gap: 16px;
-      padding: 6px 0;
-    }
-
-    .card-stat {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .card-stat-value {
-      font-size: 18px;
-      font-weight: 700;
-      color: #5D4E3A;
-    }
-
-    .card-stat-label {
-      font-size: 9px;
-      color: #888;
-      text-transform: uppercase;
-    }
-
-    .explorer-card-badges {
-      display: flex;
-      gap: 6px;
-      font-size: 20px;
-      padding: 6px 12px;
-      background: rgba(255,255,255,0.5);
-      border-radius: 10px;
+      margin-top: 3px;
     }
 
     .qr-share-card.explorer-card .qr-code-section {
-      padding: 8px 0;
+      padding: 10px 0;
     }
 
     .qr-share-card.explorer-card .qr-card-footer {
@@ -5750,15 +5730,15 @@
     .guide-item:hover { transform: translateY(-3px); }
 
     .guide-icon {
-      width: 84px;
-      height: 84px;
+      width: 128px;
+      height: 128px;
       background: linear-gradient(135deg, #4ADE80 0%, #22C55E 100%);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 60px;
-      box-shadow: 0 3px 8px rgba(34, 197, 94, 0.3);
+      font-size: 100px;
+      box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
     }
 
     .guide-name {
@@ -5799,7 +5779,7 @@
       box-shadow: none;
     }
 
-    .badge-grid .badge-icon { font-size: 80px; line-height: 1; }
+    .badge-grid .badge-icon { font-size: 100px; line-height: 1; }
     .badge-grid .badge-name {
       font-size: 13px;
       font-weight: 600;
@@ -5846,11 +5826,11 @@
     .subcategory-list-header {
       background: linear-gradient(180deg, #FFFEF8 0%, #F5F0E6 100%);
       border-radius: 16px;
-      padding: 14px 18px;
+      padding: 10px 18px;
       display: flex;
       align-items: center;
       gap: 14px;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
       box-shadow: 0 4px 14px rgba(0,0,0,0.1);
     }
 
@@ -5898,16 +5878,17 @@
     .species-card:hover { transform: translateY(-3px); }
 
     .species-card-img {
-      height: 100px;
+      height: 120px;
       background: linear-gradient(135deg, #E0F2FE 0%, #DBEAFE 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 60px;
+      font-size: 100px;
+      line-height: 1;
     }
 
     .species-card-info {
-      padding: 10px;
+      padding: 6px 10px 8px;
       text-align: center;
     }
 
@@ -5915,12 +5896,14 @@
       font-size: 13px;
       font-weight: 700;
       color: #5D4E3A;
-      margin-bottom: 2px;
+      line-height: 1.2;
+      margin-bottom: 1px;
     }
 
     .species-card-date {
       font-size: 10px;
       color: #888;
+      line-height: 1.2;
     }
 
     /* ============ 小类详情页 (照片墙+知识栏分屏) ============ */
@@ -10821,15 +10804,15 @@
                   <button class="album-filter" onclick="filterAlbum('artworks', this)">🎨 作品</button>
                 </div>
                 <div class="album-grid">
-                  <div class="album-item photo" onclick="navigateTo('photo-preview-page')">🌻</div>
-                  <div class="album-item artwork" onclick="navigateTo('photo-preview-page')" style="position: relative;">🌻<div style="position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.5); border-radius: 4px; padding: 2px 4px; font-size: 8px; color: white;">🏔️</div></div>
-                  <div class="album-item photo" onclick="navigateTo('photo-preview-page')">🦎</div>
-                  <div class="album-item photo" onclick="navigateTo('photo-preview-page')">🪨</div>
-                  <div class="album-item artwork" onclick="navigateTo('photo-preview-page')" style="position: relative;">🦋<div style="position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.5); border-radius: 4px; padding: 2px 4px; font-size: 8px; color: white;">👾</div></div>
-                  <div class="album-item photo" onclick="navigateTo('photo-preview-page')">🍂</div>
-                  <div class="album-item photo" onclick="navigateTo('photo-preview-page')">🐛</div>
-                  <div class="album-item artwork" onclick="navigateTo('photo-preview-page')" style="position: relative;">🐞<div style="position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.5); border-radius: 4px; padding: 2px 4px; font-size: 8px; color: white;">🎨</div></div>
-                  <div class="album-item photo" onclick="navigateTo('photo-preview-page')">🦋</div>
+                  <div class="album-item photo" onclick="openPreview(false)">🌻</div>
+                  <div class="album-item artwork" onclick="openPreview(true)" style="position: relative;">🌻<div style="position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.5); border-radius: 4px; padding: 2px 4px; font-size: 8px; color: white;">🏔️</div></div>
+                  <div class="album-item photo" onclick="openPreview(false)">🦎</div>
+                  <div class="album-item photo" onclick="openPreview(false)">🪨</div>
+                  <div class="album-item artwork" onclick="openPreview(true)" style="position: relative;">🦋<div style="position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.5); border-radius: 4px; padding: 2px 4px; font-size: 8px; color: white;">👾</div></div>
+                  <div class="album-item photo" onclick="openPreview(false)">🍂</div>
+                  <div class="album-item photo" onclick="openPreview(false)">🐛</div>
+                  <div class="album-item artwork" onclick="openPreview(true)" style="position: relative;">🐞<div style="position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.5); border-radius: 4px; padding: 2px 4px; font-size: 8px; color: white;">🎨</div></div>
+                  <div class="album-item photo" onclick="openPreview(false)">🦋</div>
                 </div>
               </div>
 
@@ -12802,21 +12785,19 @@
             
             <!-- 分享卡片预览 -->
             <div class="qr-share-preview">
-              <div class="qr-card-image">
-                <img src="https://picsum.photos/200/150?random=20" alt="Shared">
-                <div class="qr-card-badge">🎨 吉卜力风格</div>
-              </div>
-              
-              <div class="qr-card-info">
-                <div class="qr-card-title">🦋 帝王蝶</div>
-                <div class="qr-card-explorer">
-                  <span class="qr-explorer-avatar">🧒</span>
-                  <span class="qr-explorer-name">小探险家</span>
-                  <span class="qr-explorer-level">5级</span>
+              <!-- 用户信息：头像 · 昵称 · 等级 · 拍摄时间 -->
+              <div class="qr-user-card">
+                <div class="qr-avatar-gold"><span>🧒</span></div>
+                <div class="qr-user-info">
+                  <div class="qr-user-name-row">
+                    <span class="qr-user-name">小探险家</span>
+                    <span class="qr-user-level-chip">Lv.5</span>
+                  </div>
+                  <div class="qr-user-date">2024-12-17 15:42</div>
                 </div>
-                <div class="qr-card-date">2024年12月17日</div>
               </div>
 
+              <!-- 二维码 -->
               <div class="qr-code-section">
                 <div class="qr-code-placeholder">
                   <div class="qr-code-grid">
@@ -12829,16 +12810,14 @@
                     <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
                   </div>
                 </div>
-                <div class="qr-code-hint">扫码查看并保存</div>
+                <div class="qr-code-hint">扫码查看并保存照片</div>
                 <div class="qr-code-expire">⏱️ 7天后失效</div>
               </div>
 
+              <!-- 页脚（H5 风格） -->
               <div class="qr-card-footer">
-                <div class="qr-card-brand">
-                  <span>🔭</span>
-                  <span>AI 探索者</span>
-                </div>
-                <div class="qr-card-tagline">专为小探险家设计的AI相机</div>
+                由 <b>Qmox AI Camera</b> 拍摄分享
+                <span class="qr-card-tagline">每一次好奇，都值得被记录</span>
               </div>
             </div>
           </div>
@@ -12851,47 +12830,25 @@
             
             <!-- 探险家卡片预览 -->
             <div class="explorer-share-preview">
+              <!-- 顶部仪式感 -->
               <div class="explorer-card-header">
                 <span>🏆</span>
                 <span>探险家卡片</span>
               </div>
-              
-              <div class="explorer-card-avatar">
-                <div class="card-avatar-frame">
-                  <span>🧒</span>
-                </div>
-                <div class="card-streak-badge">🔥 7</div>
-              </div>
 
-              <div class="explorer-card-identity">
-                <div class="card-title-badge">自然侦探</div>
-                <div class="card-name">小探险家</div>
-                <div class="card-level">⭐ 5级 ⭐</div>
-              </div>
-
-              <div class="explorer-card-stats">
-                <div class="card-stat">
-                  <span class="card-stat-value">128</span>
-                  <span class="card-stat-label">照片</span>
+              <!-- 头像 + 身份一排 -->
+              <div class="explorer-card-ceremony">
+                <div class="explorer-card-avatar">
+                  <div class="card-avatar-frame"><span>🧒</span></div>
+                  <div class="card-streak-badge">🔥 7</div>
                 </div>
-                <div class="card-stat">
-                  <span class="card-stat-value">23</span>
-                  <span class="card-stat-label">发现</span>
-                </div>
-                <div class="card-stat">
-                  <span class="card-stat-value">8</span>
-                  <span class="card-stat-label">勋章</span>
+                <div class="explorer-card-identity">
+                  <div class="card-name">小探险家</div>
+                  <div class="card-level">⭐ Lv.5 ⭐</div>
                 </div>
               </div>
 
-              <div class="explorer-card-badges">
-                <span>🌸</span>
-                <span>📸</span>
-                <span>🔥</span>
-                <span>🦋</span>
-                <span>⭐</span>
-              </div>
-
+              <!-- 二维码 -->
               <div class="qr-code-section">
                 <div class="qr-code-placeholder">
                   <div class="qr-code-grid">
@@ -12908,12 +12865,10 @@
                 <div class="qr-code-expire">⏱️ 7天后失效</div>
               </div>
 
+              <!-- 页脚（H5 风格） -->
               <div class="qr-card-footer">
-                <div class="qr-card-brand">
-                  <span>🔭</span>
-                  <span>AI 探索者</span>
-                </div>
-                <div class="qr-card-tagline">专为小探险家设计的AI相机</div>
+                这份护照由 <b>Qmox AI Camera</b> 见证
+                <span class="qr-card-tagline">每一次好奇，都值得被记录</span>
               </div>
             </div>
           </div>
@@ -13214,7 +13169,8 @@
         <div class="nav-items">
           <div class="nav-item 进行中" onclick="goTo('home-page')"><span class="icon">🏠</span><span>主页</span></div>
           <div class="nav-item" onclick="goTo('camera-page')"><span class="icon">📷</span><span>神奇相机</span></div>
-          <div class="nav-item" onclick="goTo('photo-preview-page')"><span class="icon">🖼️</span><span>照片预览</span></div>
+          <div class="nav-item" onclick="isViewingArtwork=false; goTo('photo-preview-page')"><span class="icon">🖼️</span><span>照片预览</span></div>
+          <div class="nav-item sub" onclick="isViewingArtwork=true; goTo('photo-preview-page')"><span class="icon">🎨</span><span>照片预览 (作品)</span></div>
           <div class="nav-item" onclick="goTo('chat-page')"><span class="icon">💬</span><span>照片聊天</span></div>
           <div class="nav-item" onclick="goTo('general-chat-page')"><span class="icon">🗣️</span><span>通用聊天</span></div>
           <div class="nav-item" onclick="goTo('story-page')"><span class="icon">📖</span><span>故事页</span></div>
@@ -13925,12 +13881,13 @@
     }
 
     function takePhoto() {
+      // 拍照进入预览 → 一定是原始照片
+      isViewingArtwork = false;
       // 闪光效果
       const flash = document.getElementById('camera-flash');
       flash.classList.add('进行中');
       setTimeout(() => {
         flash.classList.remove('进行中');
-        // 跳转到预览页(暂时跳回首页)
         navigateTo('photo-preview-page');
       }, 150);
     }
@@ -16629,8 +16586,12 @@
         showToast('🎤 拍照期间语音不可用');
         return;
       }
-      // 照片预览页长按直接跳转到聊天页
+      // 照片预览页长按直接跳转到聊天页(作品则拦截)
       if (currentPage === 'photo-preview-page') {
+        if (isViewingArtwork) {
+          speakArtworkNoAI();
+          return;
+        }
         hidePreviewAIOverlay();
         navigateTo('chat-page');
         return;
@@ -16929,6 +16890,11 @@
       
       // 照片预览页特殊处理 - AI浮层
       if (currentPage === 'photo-preview-page') {
+        // 作品不显示 AI 菜单,改为语音提醒
+        if (isViewingArtwork) {
+          speakArtworkNoAI();
+          return;
+        }
         console.log('🖼️ Photo preview page special handling');
         if (!previewAIOverlayVisible) {
           showPreviewAIOverlay();
@@ -17558,6 +17524,33 @@
     
     // ============ 照片预览页 AI 浮层 ============
     let previewAIOverlayVisible = false;
+
+    // 照片 vs 作品标记
+    let isViewingArtwork = false;
+
+    function openPreview(isArtwork) {
+      isViewingArtwork = isArtwork;
+      navigateTo('photo-preview-page');
+    }
+
+    // 作品按 AI 键时的语音提醒
+    function speakArtworkNoAI() {
+      const text = '这是一张AI创作的作品哦,不需要再用AI啦～';
+      showToast('🎨 ' + text);
+      if ('speechSynthesis' in window) {
+        try {
+          window.speechSynthesis.cancel();
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.lang = 'zh-CN';
+          utterance.rate = 0.85;
+          utterance.pitch = 1.15;
+          const voices = window.speechSynthesis.getVoices();
+          const zhVoice = voices.find(v => v.lang.includes('zh'));
+          if (zhVoice) utterance.voice = zhVoice;
+          window.speechSynthesis.speak(utterance);
+        } catch (e) {}
+      }
+    }
     let previewAICurrentTab = 0;
     // 故事生成状态: 进入预览页后异步"生成",一段时间后 ready
     let storyReady = false;
