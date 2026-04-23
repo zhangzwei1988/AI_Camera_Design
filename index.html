@@ -1015,30 +1015,38 @@
       transform: translateY(0);
     }
 
-    /* 主内容区 - 角色居中垂直布局 */
+    /* 主内容区 - 左右布局 */
     .ptt-main {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    /* 左侧角色区 */
+    .ptt-character-area {
+      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 14px;
-      padding: 8px 0;
+      gap: 8px;
     }
 
-    /* 角色选择区 - 水平居中 */
-    .ptt-character-area {
+    .ptt-char-row {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 14px;
     }
 
     .ptt-char-nav {
-      width: 32px;
-      height: 32px;
-      background: rgba(255,255,255,0.1);
+      width: 48px;
+      height: 48px;
+      background: rgba(255,255,255,0.12);
       border: none;
       border-radius: 50%;
-      color: rgba(255,255,255,0.5);
-      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      font-size: 18px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -1047,7 +1055,7 @@
     }
 
     .ptt-char-nav:hover {
-      background: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.25);
       color: white;
     }
 
@@ -1055,27 +1063,29 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .ptt-avatar {
-      width: 88px;
-      height: 88px;
+      width: 160px;
+      height: 160px;
       background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 44px;
-      box-shadow: 0 4px 20px rgba(255,165,0,0.5);
+      font-size: 80px;
+      box-shadow: 0 6px 28px rgba(255,165,0,0.5);
       position: relative;
       transition: transform 0.2s;
     }
 
     .ptt-avatar-name {
       color: white;
-      font-size: 15px;
-      font-weight: 600;
+      font-size: 16px;
+      font-weight: 700;
+      margin-top: 10px;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.3);
     }
 
     /* 状态指示环 - 动态光晕 */
@@ -1111,155 +1121,154 @@
       50% { opacity: 0.6; transform: scale(1.06); }
     }
 
-    /* 状态区 - 紧凑水平排列 */
+    /* 状态区 — 文字 + 波形一行，按钮下方居中 */
     .ptt-status-area {
       display: flex;
       align-items: center;
       gap: 10px;
+      margin-top: 12px;
     }
-
-    .ptt-status-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .ptt-status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #4ADE80;
-    }
-
-    .ptt-status-dot.listening { background: #4ADE80; }
-    .ptt-status-dot.thinking { background: #FBBF24; }
-    .ptt-status-dot.speaking { background: #60A5FA; }
 
     .ptt-status-text {
       color: rgba(255,255,255,0.7);
-      font-size: 13px;
+      font-size: 14px;
+      font-weight: 600;
     }
 
-    /* 迷你波形 - 仅作为状态辅助 */
+    /* ====== 统一波形动画（三个对话界面共用）====== */
     .ptt-waveform {
-      height: 16px;
+      height: 24px;
       display: flex;
       align-items: center;
-      gap: 2px;
+      gap: 3px;
     }
 
     .ptt-wave-bar {
-      width: 2px;
-      background: #4ADE80;
-      border-radius: 1px;
-      animation: wave 0.6s ease-in-out infinite;
+      width: 4px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.35);
+      transform-origin: center;
+      transition: background 0.3s;
+      filter: drop-shadow(0 0 2px rgba(0,0,0,0.25));
     }
 
+    /* 各 bar 不同高度，错落有致 */
+    .ptt-wave-bar:nth-child(1) { height: 8px; }
+    .ptt-wave-bar:nth-child(2) { height: 14px; }
+    .ptt-wave-bar:nth-child(3) { height: 20px; }
+    .ptt-wave-bar:nth-child(4) { height: 24px; }
+    .ptt-wave-bar:nth-child(5) { height: 18px; }
+    .ptt-wave-bar:nth-child(6) { height: 12px; }
+    .ptt-wave-bar:nth-child(7) { height: 22px; }
+    .ptt-wave-bar:nth-child(8) { height: 10px; }
+
+    /* 等待中：静止低矮 */
+    .ptt-waveform.idle .ptt-wave-bar {
+      background: rgba(255,255,255,0.35);
+      transform: scaleY(0.3);
+      animation: none;
+    }
+
+    /* 聆听中：绿色活泼跳动 */
     .ptt-waveform.listening .ptt-wave-bar {
       background: #4ADE80;
+      animation: wave-bounce 0.5s ease-in-out infinite alternate;
     }
+    .ptt-waveform.listening .ptt-wave-bar:nth-child(1) { animation-delay: 0s; }
+    .ptt-waveform.listening .ptt-wave-bar:nth-child(2) { animation-delay: 0.07s; }
+    .ptt-waveform.listening .ptt-wave-bar:nth-child(3) { animation-delay: 0.14s; }
+    .ptt-waveform.listening .ptt-wave-bar:nth-child(4) { animation-delay: 0.21s; }
+    .ptt-waveform.listening .ptt-wave-bar:nth-child(5) { animation-delay: 0.28s; }
+    .ptt-waveform.listening .ptt-wave-bar:nth-child(6) { animation-delay: 0.35s; }
+    .ptt-waveform.listening .ptt-wave-bar:nth-child(7) { animation-delay: 0.18s; }
+    .ptt-waveform.listening .ptt-wave-bar:nth-child(8) { animation-delay: 0.10s; }
 
-    .ptt-waveform.speaking .ptt-wave-bar {
-      background: #60A5FA;
-    }
-
+    /* 思考中：黄色柔和呼吸 */
     .ptt-waveform.thinking .ptt-wave-bar {
       background: #FBBF24;
-      animation: none;
-      transform: scaleY(0.3);
+      animation: wave-breathe 2s ease-in-out infinite;
+    }
+    .ptt-waveform.thinking .ptt-wave-bar:nth-child(odd) { animation-delay: 0.3s; }
+
+    /* 回答中：蓝色流畅波浪 */
+    .ptt-waveform.speaking .ptt-wave-bar {
+      background: #60A5FA;
+      animation: wave-bounce 0.4s ease-in-out infinite alternate;
+    }
+    .ptt-waveform.speaking .ptt-wave-bar:nth-child(1) { animation-delay: 0s; }
+    .ptt-waveform.speaking .ptt-wave-bar:nth-child(2) { animation-delay: 0.05s; }
+    .ptt-waveform.speaking .ptt-wave-bar:nth-child(3) { animation-delay: 0.10s; }
+    .ptt-waveform.speaking .ptt-wave-bar:nth-child(4) { animation-delay: 0.15s; }
+    .ptt-waveform.speaking .ptt-wave-bar:nth-child(5) { animation-delay: 0.20s; }
+    .ptt-waveform.speaking .ptt-wave-bar:nth-child(6) { animation-delay: 0.25s; }
+    .ptt-waveform.speaking .ptt-wave-bar:nth-child(7) { animation-delay: 0.12s; }
+    .ptt-waveform.speaking .ptt-wave-bar:nth-child(8) { animation-delay: 0.08s; }
+
+    @keyframes wave-bounce {
+      0% { transform: scaleY(0.3); }
+      100% { transform: scaleY(1); }
+    }
+    @keyframes wave-breathe {
+      0%, 100% { transform: scaleY(0.2); opacity: 0.5; }
+      50% { transform: scaleY(0.7); opacity: 1; }
     }
 
-    @keyframes wave {
-      0%, 100% { transform: scaleY(0.4); }
-      50% { transform: scaleY(1); }
-    }
-
-    .ptt-wave-bar:nth-child(1) { height: 6px; animation-delay: 0s; }
-    .ptt-wave-bar:nth-child(2) { height: 10px; animation-delay: 0.08s; }
-    .ptt-wave-bar:nth-child(3) { height: 14px; animation-delay: 0.16s; }
-    .ptt-wave-bar:nth-child(4) { height: 8px; animation-delay: 0.12s; }
-    .ptt-wave-bar:nth-child(5) { height: 12px; animation-delay: 0.2s; }
-    .ptt-wave-bar:nth-child(6) { height: 16px; animation-delay: 0.1s; }
-
-    /* 底部按钮区 */
+    /* 右侧按钮区 — 与左侧等分 */
     .ptt-footer {
+      flex: 1;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      margin-top: 14px;
-      padding-top: 12px;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      justify-content: center;
     }
 
-    /* 按住说话按钮 (PTT浮层) */
+    /* 按住说话按钮 - 超大圆形 */
     .ptt-speak-btn {
-      width: 100%;
-      max-width: 320px;
-      padding: 12px 20px;
+      width: 160px;
+      height: 160px;
       background: linear-gradient(180deg, #FFE135 0%, #FFD700 100%);
       border: none;
-      border-radius: 24px;
+      border-radius: 50%;
       font-family: inherit;
-      font-size: 14px;
-      font-weight: 600;
-      color: #5D4E3A;
       cursor: pointer;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      box-shadow: 0 4px 12px rgba(255, 200, 0, 0.3);
-      transition: all 0.2s;
+      gap: 6px;
+      box-shadow: 0 6px 24px rgba(255, 200, 0, 0.4), inset 0 2px 4px rgba(255,255,255,0.4);
+      transition: all 0.15s;
+      position: relative;
     }
-    .ptt-speak-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 16px rgba(255, 200, 0, 0.4);
+    .ptt-speak-btn .chat-speak-icon {
+      font-size: 40px;
+    }
+    .ptt-speak-btn .chat-speak-text {
+      font-size: 14px;
+      font-weight: 700;
+      color: #5D4E3A;
+    }
+    .ptt-speak-btn:active {
+      transform: scale(0.96);
     }
     .ptt-speak-btn.recording {
-      transform: translateY(0);
       background: linear-gradient(180deg, #EF4444 0%, #DC2626 100%);
+      transform: scale(1.06);
+      box-shadow: 0 0 0 8px rgba(239,68,68,0.2), 0 6px 24px rgba(239,68,68,0.5);
+      animation: recording-pulse 1.2s ease-in-out infinite;
+    }
+    .ptt-speak-btn.recording .chat-speak-text {
       color: white;
-      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
     }
     .ptt-speak-btn.recording .chat-speak-icon {
       animation: pulse-mic 0.8s ease-in-out infinite;
     }
-
-    /* 顶部区域 */
-    .ptt-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
+    @keyframes recording-pulse {
+      0%, 100% { box-shadow: 0 0 0 8px rgba(239,68,68,0.2), 0 6px 24px rgba(239,68,68,0.5); }
+      50% { box-shadow: 0 0 0 18px rgba(239,68,68,0.06), 0 6px 24px rgba(239,68,68,0.5); }
     }
 
-    .ptt-history-btn {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255,255,255,0.1);
-      border: none;
-      border-radius: 20px;
-      padding: 8px 14px;
-      color: rgba(255,255,255,0.7);
-      font-size: 12px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .ptt-history-btn:hover {
-      background: rgba(255,255,255,0.15);
-      color: white;
-    }
-
-    .ptt-history-badge {
-      background: #6366F1;
-      color: white;
-      font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 10px;
-      font-weight: 600;
-    }
+    /* （旧 ptt-header/history 已移除） */
 
     .ptt-hint {
       color: rgba(255,255,255,0.5);
@@ -1517,6 +1526,16 @@
       border: 3px solid rgba(255, 220, 120, 0.8);
       pointer-events: none;
       z-index: 10;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .viewfinder-corner.focused {
+      border-color: rgba(74, 222, 128, 0.95);
+      animation: focus-lock 0.3s ease-out;
+    }
+    @keyframes focus-lock {
+      0% { transform: scale(1.15); }
+      60% { transform: scale(0.95); }
+      100% { transform: scale(1); }
     }
     .viewfinder-corner.top-left { top: 60px; left: 160px; border-right: none; border-bottom: none; border-radius: 4px 0 0 0; }
     .viewfinder-corner.top-right { top: 60px; right: 160px; border-left: none; border-bottom: none; border-radius: 0 4px 0 0; }
@@ -1757,6 +1776,43 @@
       object-fit: contain;
     }
 
+    /* 照片预览页左右导航 */
+    .preview-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.25);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 15;
+      transition: background .2s;
+    }
+    .preview-nav:active { background: rgba(255,255,255,0.4); }
+    .preview-nav.prev { left: 12px; }
+    .preview-nav.next { right: 12px; }
+    .preview-nav.guide-pulse {
+      animation: nav-guide 1.8s ease-in-out 2;
+    }
+    .preview-swipe-hint {
+      position: absolute;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      z-index: 15;
+      transition: opacity 0.5s;
+      pointer-events: none;
+    }
+
     /* AI提示 */
     .preview-ai-hint {
       position: absolute;
@@ -1897,7 +1953,7 @@
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     /* MVP: 中间AI区域(头像+状态) */
@@ -1905,16 +1961,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
     }
 
-    /* MVP: 查看对话记录按钮 */
-    .chat-transcript-btn {
-      position: absolute;
-      top: 12px;
-      right: 20px;
-      width: 36px;
-      height: 36px;
+    /* 左右角色切换按钮 */
+    .chat-char-switch {
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.9);
       border: none;
@@ -1923,27 +1976,6 @@
       align-items: center;
       justify-content: center;
       font-size: 16px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-      transition: all 0.2s;
-      z-index: 20;
-    }
-    .chat-transcript-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
-    }
-
-    /* MVP: 左右角色切换按钮 */
-    .chat-char-switch {
-      width: 32px;
-      height: 40px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.9);
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
       color: #666;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
       transition: all 0.2s;
@@ -1972,135 +2004,78 @@
       transition: transform 0.3s ease;
     }
 
-    .chat-ai-avatar-large.speaking {
-      animation: avatar-pulse 1.5s ease-in-out infinite;
-    }
-
-    .chat-ai-avatar-large.thinking {
-      animation: avatar-think 2s ease-in-out infinite;
-    }
-
-    @keyframes avatar-pulse {
-      0%, 100% { transform: scale(1); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15); }
-      50% { transform: scale(1.05); box-shadow: 0 12px 40px rgba(59, 130, 246, 0.3); }
-    }
-
-    @keyframes avatar-think {
-      0%, 100% { transform: scale(1) rotate(0deg); }
-      25% { transform: scale(1.02) rotate(-2deg); }
-      75% { transform: scale(1.02) rotate(2deg); }
-    }
-
-    /* MVP: 状态指示器 */
-    .chat-status-indicator {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 20px;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 20px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    }
-
-    .chat-status-dot {
-      width: 10px;
-      height: 10px;
+    /* 三态光环（照片对话页头像） */
+    .chat-ai-avatar-large::after {
+      content: '';
+      position: absolute;
+      inset: -6px;
       border-radius: 50%;
-      background: #10B981;
+      border: 3px solid transparent;
+      transition: all 0.3s;
+    }
+    .chat-ai-avatar-large.listening::after {
+      border-color: #4ADE80;
+      box-shadow: 0 0 20px rgba(74, 222, 128, 0.4);
+      animation: pulse-ring 1.5s infinite;
+    }
+    .chat-ai-avatar-large.thinking::after {
+      border-color: #FBBF24;
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+      animation: pulse-ring 2s infinite;
+    }
+    .chat-ai-avatar-large.speaking::after {
+      border-color: #60A5FA;
+      box-shadow: 0 0 20px rgba(96, 165, 250, 0.4);
+      animation: pulse-ring 1s infinite;
     }
 
-    .chat-status-dot.listening {
-      background: #EF4444;
-      animation: status-blink 0.8s ease-in-out infinite;
-    }
+    /* （状态指示器已统一为 .ptt-status-area） */
 
-    .chat-status-dot.thinking {
-      background: #F59E0B;
-      animation: status-blink 1.2s ease-in-out infinite;
-    }
-
-    .chat-status-dot.speaking {
-      background: #3B82F6;
-      animation: status-blink 0.6s ease-in-out infinite;
-    }
-
-    @keyframes status-blink {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.2); }
-    }
+    /* （旧状态点已移除，统一使用波形） */
 
     .chat-status-text {
       font-size: 14px;
       font-weight: 600;
-      color: #333;
+      color: rgba(255,255,255,0.7);
+      text-shadow: 0 1px 4px rgba(0,0,0,0.3);
     }
 
-    /* MVP: 声波动画 - 内嵌在状态指示器中 */
-    .chat-sound-wave {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      height: 18px;
-      margin-left: 4px;
-    }
+    /* （旧声波 .chat-sound-wave 已移除，统一使用 .ptt-waveform） */
 
-    .chat-sound-wave .wave-bar {
-      width: 3px;
-      height: 7px;
-      background: #3B82F6;
-      border-radius: 2px;
-      animation: wave-bar 0.8s ease-in-out infinite;
-    }
-
-    .chat-sound-wave .wave-bar:nth-child(1) { animation-delay: 0s; }
-    .chat-sound-wave .wave-bar:nth-child(2) { animation-delay: 0.1s; }
-    .chat-sound-wave .wave-bar:nth-child(3) { animation-delay: 0.2s; }
-    .chat-sound-wave .wave-bar:nth-child(4) { animation-delay: 0.3s; }
-    .chat-sound-wave .wave-bar:nth-child(5) { animation-delay: 0.4s; }
-
-    @keyframes wave-bar {
-      0%, 100% { height: 8px; }
-      50% { height: 20px; }
-    }
-
-    .chat-sound-wave.hidden {
-      display: none;
-    }
-
-    /* 底部输入区 */
+    /* 按钮+状态区 - 照片对话页 */
     .chat-input-area {
-      margin-top: 12px;
-      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
     }
 
     .chat-speak-btn {
-      width: 100%;
-      padding: 12px 20px;
+      width: 120px;
+      height: 120px;
       background: linear-gradient(180deg, #FFE135 0%, #FFD700 100%);
       border: none;
-      border-radius: 24px;
+      border-radius: 50%;
       font-family: inherit;
-      font-size: 14px;
-      font-weight: 600;
-      color: #5D4E3A;
       cursor: pointer;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      box-shadow: 0 4px 12px rgba(255, 200, 0, 0.3);
-      transition: all 0.2s;
+      gap: 4px;
+      box-shadow: 0 6px 20px rgba(255, 200, 0, 0.4), inset 0 2px 4px rgba(255,255,255,0.4);
+      transition: all 0.15s;
     }
-    .chat-speak-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 16px rgba(255, 200, 0, 0.4);
-    }
-    .chat-speak-btn:进行中, .chat-speak-btn.recording {
-      transform: translateY(0);
+    .chat-speak-btn .chat-speak-icon { font-size: 32px; }
+    .chat-speak-btn .chat-speak-text { font-size: 12px; font-weight: 700; color: #5D4E3A; }
+    .chat-speak-btn:active { transform: scale(0.96); }
+    .chat-speak-btn.recording {
       background: linear-gradient(180deg, #EF4444 0%, #DC2626 100%);
-      color: white;
-      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+      transform: scale(1.08);
+      box-shadow: 0 0 0 6px rgba(239,68,68,0.2), 0 6px 20px rgba(239,68,68,0.5);
+      animation: recording-pulse 1.2s ease-in-out infinite;
     }
+    .chat-speak-btn.recording .chat-speak-text { color: white; }
     .chat-speak-btn.recording .chat-speak-icon {
       animation: pulse-mic 0.8s ease-in-out infinite;
     }
@@ -2138,7 +2113,7 @@
       width: 100%;
       height: 100%;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
       justify-content: center;
       padding: 50px 24px 16px;
@@ -2168,28 +2143,34 @@
     }
     .general-chat-back-btn:hover { background: rgba(0, 0, 0, 0.55); }
 
-    /* MVP: AI形象容器 (通用聊天) */
+    /* 左侧角色区 */
     .general-chat-ai-persona {
       flex: 1;
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 24px;
+      gap: 10px;
     }
 
-    /* MVP: 左右角色切换按钮 (通用聊天) */
+    .general-chat-char-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* 角色切换按钮 - 大 */
     .general-char-switch {
-      width: 40px;
+      width: 48px;
       height: 48px;
-      border-radius: 24px;
+      border-radius: 50%;
       background: rgba(255, 255, 255, 0.9);
       border: none;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 18px;
       color: #666;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
       transition: all 0.2s;
@@ -2204,34 +2185,7 @@
       transform: scale(0.95);
     }
 
-    /* MVP: 查看对话记录按钮 (通用聊天) */
-    .general-chat-transcript-btn {
-      position: absolute;
-      top: 12px;
-      right: 20px;
-      padding: 8px 14px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.9);
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-family: inherit;
-      font-size: 13px;
-      font-weight: 500;
-      color: #555;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      transition: all 0.2s;
-      z-index: 20;
-    }
-    .general-chat-transcript-btn:hover {
-      background: rgba(255, 255, 255, 1);
-      color: #333;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
-    }
-
-    /* MVP: 通用聊天内部布局调整 */
+    /* 通用聊天内部布局 */
     .general-chat-ai-inner {
       display: flex;
       flex-direction: column;
@@ -2239,7 +2193,7 @@
       gap: 20px;
     }
 
-    /* MVP: AI大头像 (通用聊天 - 更大) */
+    /* AI大头像 (通用聊天 - 与按钮等大) */
     .general-chat-ai-avatar-large {
       width: 160px;
       height: 160px;
@@ -2254,119 +2208,78 @@
       transition: transform 0.3s ease;
     }
 
-    .general-chat-ai-avatar-large.speaking {
-      animation: avatar-pulse 1.5s ease-in-out infinite;
-    }
-
-    .general-chat-ai-avatar-large.thinking {
-      animation: avatar-think 2s ease-in-out infinite;
-    }
-
-    .general-chat-ai-avatar-large.listening {
-      box-shadow: 0 12px 48px rgba(239, 68, 68, 0.3);
-    }
-
-    /* MVP: 状态指示器 (通用聊天 - 更大) */
-    .general-chat-status-indicator {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 24px;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 24px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
-    }
-
-    .general-chat-status-dot {
-      width: 12px;
-      height: 12px;
+    .general-chat-ai-avatar-large::after {
+      content: '';
+      position: absolute;
+      inset: -6px;
       border-radius: 50%;
-      background: #10B981;
+      border: 3px solid transparent;
+      transition: all 0.3s;
+    }
+    .general-chat-ai-avatar-large.listening::after {
+      border-color: #4ADE80;
+      box-shadow: 0 0 24px rgba(74, 222, 128, 0.4);
+      animation: pulse-ring 1.5s infinite;
+    }
+    .general-chat-ai-avatar-large.thinking::after {
+      border-color: #FBBF24;
+      box-shadow: 0 0 24px rgba(251, 191, 36, 0.4);
+      animation: pulse-ring 2s infinite;
+    }
+    .general-chat-ai-avatar-large.speaking::after {
+      border-color: #60A5FA;
+      box-shadow: 0 0 24px rgba(96, 165, 250, 0.4);
+      animation: pulse-ring 1s infinite;
     }
 
-    .general-chat-status-dot.listening {
-      background: #EF4444;
-      animation: status-blink 0.8s ease-in-out infinite;
-    }
+    /* （状态指示器已统一为 .ptt-status-area） */
 
-    .general-chat-status-dot.thinking {
-      background: #F59E0B;
-      animation: status-blink 1.2s ease-in-out infinite;
-    }
-
-    .general-chat-status-dot.speaking {
-      background: #3B82F6;
-      animation: status-blink 0.6s ease-in-out infinite;
-    }
+    /* （旧状态点已移除，统一使用波形） */
 
     .general-chat-status-text {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 600;
-      color: #333;
+      color: rgba(255,255,255,0.7);
+      text-shadow: 0 1px 4px rgba(0,0,0,0.3);
     }
 
-    /* MVP: 声波动画 (通用聊天) - 内嵌在状态指示器中 */
-    .general-chat-sound-wave {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      height: 20px;
-      margin-left: 4px;
-    }
+    /* （旧声波 .general-chat-sound-wave 已移除，统一使用 .ptt-waveform） */
 
-    .general-chat-sound-wave .wave-bar {
-      width: 3px;
-      height: 8px;
-      background: #3B82F6;
-      border-radius: 2px;
-      animation: wave-bar 0.8s ease-in-out infinite;
-    }
-
-    .general-chat-sound-wave .wave-bar:nth-child(1) { animation-delay: 0s; }
-    .general-chat-sound-wave .wave-bar:nth-child(2) { animation-delay: 0.1s; }
-    .general-chat-sound-wave .wave-bar:nth-child(3) { animation-delay: 0.2s; }
-    .general-chat-sound-wave .wave-bar:nth-child(4) { animation-delay: 0.3s; }
-    .general-chat-sound-wave .wave-bar:nth-child(5) { animation-delay: 0.4s; }
-
-    .general-chat-sound-wave.hidden {
-      display: none;
-    }
-
-    /* 底部输入区 */
+    /* 右侧按钮区 — 与左侧等分 */
     .general-chat-input-area {
-      margin-top: 12px;
-      width: 100%;
-      max-width: 400px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     .general-chat-speak-btn {
-      width: 100%;
-      padding: 14px 24px;
+      width: 160px;
+      height: 160px;
       background: linear-gradient(180deg, #FFE135 0%, #FFD700 100%);
       border: none;
-      border-radius: 28px;
+      border-radius: 50%;
       font-family: inherit;
-      font-size: 15px;
-      font-weight: 600;
-      color: #5D4E3A;
       cursor: pointer;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      box-shadow: 0 4px 14px rgba(255, 200, 0, 0.35);
-      transition: all 0.2s;
+      gap: 6px;
+      box-shadow: 0 6px 24px rgba(255, 200, 0, 0.4), inset 0 2px 4px rgba(255,255,255,0.4);
+      transition: all 0.15s;
     }
-    .general-chat-speak-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(255, 200, 0, 0.45);
-    }
-    .general-chat-speak-btn:进行中, .general-chat-speak-btn.recording {
-      transform: translateY(0);
+    .general-chat-speak-btn .chat-speak-icon { font-size: 40px; }
+    .general-chat-speak-btn .chat-speak-text { font-size: 14px; font-weight: 700; color: #5D4E3A; }
+    .general-chat-speak-btn:active { transform: scale(0.96); }
+    .general-chat-speak-btn.recording {
       background: linear-gradient(180deg, #EF4444 0%, #DC2626 100%);
-      color: white;
-      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+      transform: scale(1.06);
+      box-shadow: 0 0 0 8px rgba(239,68,68,0.2), 0 6px 24px rgba(239,68,68,0.5);
+      animation: recording-pulse 1.2s ease-in-out infinite;
     }
+    .general-chat-speak-btn.recording .chat-speak-text { color: white; }
     .general-chat-speak-btn.recording .chat-speak-icon {
       animation: pulse-mic 0.8s ease-in-out infinite;
     }
@@ -4884,82 +4797,13 @@
       gap: 12px;
     }
 
-    /* 照片分享：紧凑用户卡（头像 + 昵称/等级 + 时间） */
-    .qr-user-card {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 8px 4px 2px;
-    }
-    .qr-avatar-gold {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      padding: 3px;
-      flex-shrink: 0;
-      background: conic-gradient(from 45deg,
-        #FFF2B4 0deg, #D4A130 60deg, #FFF6C8 120deg, #A97E16 180deg,
-        #FFE08A 240deg, #D4A130 300deg, #FFF2B4 360deg);
-      box-shadow: 0 3px 10px -3px rgba(169,126,22,.55);
-    }
-    .qr-avatar-gold > span {
-      display: grid;
-      place-items: center;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: #fff;
-      font-size: 24px;
-      line-height: 1;
-      box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.75),
-                  inset 0 0 0 2.5px rgba(169,126,22,.3);
-    }
-    .qr-user-info {
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-    .qr-user-name-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .qr-user-name {
-      font-size: 15px;
-      font-weight: 700;
-      color: #3D2F1F;
-      max-width: 7em;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    .qr-user-level-chip {
-      display: inline-flex;
-      align-items: center;
-      padding: 2px 8px;
-      background: linear-gradient(135deg, #FFDF93, #F39A3C);
-      color: #fff;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: .3px;
-      border-radius: 999px;
-      box-shadow: 0 2px 6px -2px rgba(243,154,60,.55);
-    }
-    .qr-user-date {
-      font-size: 11px;
-      color: #8A7557;
-      font-weight: 500;
-    }
+    /* （用户卡片已移除，分享弹窗仅保留二维码） */
 
     .qr-code-section {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 12px 0;
-      border-top: 1px dashed #E5E7EB;
-      border-bottom: 1px dashed #E5E7EB;
+      padding: 16px 0 10px;
     }
 
     .qr-code-placeholder {
@@ -5026,124 +4870,7 @@
       font-size: 10px;
     }
 
-    /* 探险家卡片分享样式 */
-    .qr-share-card.explorer-card {
-      background: linear-gradient(180deg, #FFF8E7 0%, #FFE4B5 100%);
-      padding: 14px;
-      position: relative;
-      overflow: visible;
-    }
-
-    .explorer-card-close {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: rgba(139, 90, 43, 0.9);
-      border: none;
-      color: white;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      font-size: 14px;
-      cursor: pointer;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      line-height: 1;
-    }
-
-    .explorer-share-preview {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .explorer-card-header {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      font-weight: 700;
-      color: #8B5A2B;
-    }
-
-    /* 仪式感横排：头像 + 姓名/等级 */
-    .explorer-card-ceremony {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 2px 0 6px;
-    }
-
-    .explorer-card-avatar {
-      position: relative;
-      flex-shrink: 0;
-    }
-
-    .card-avatar-frame {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      padding: 4px;
-      background: conic-gradient(from 45deg,
-        #FFF2B4 0deg, #D4A130 60deg, #FFF6C8 120deg, #A97E16 180deg,
-        #FFE08A 240deg, #D4A130 300deg, #FFF2B4 360deg);
-      filter: drop-shadow(0 4px 10px rgba(169,126,22,.55))
-              drop-shadow(0 0 2px rgba(255,220,120,.6));
-    }
-    .card-avatar-frame > span {
-      display: grid;
-      place-items: center;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: #fff;
-      font-size: 30px;
-      line-height: 1;
-      box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.75),
-                  inset 0 0 0 3px rgba(169,126,22,.3);
-    }
-
-    .card-streak-badge {
-      position: absolute;
-      bottom: -2px;
-      right: -6px;
-      background: linear-gradient(135deg, #FF6B6B 0%, #EE5A24 100%);
-      color: white;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 6px;
-      border-radius: 10px;
-    }
-
-    .explorer-card-identity {
-      text-align: left;
-      min-width: 0;
-    }
-
-    .card-name {
-      font-size: 20px;
-      font-weight: 700;
-      color: #5D4E3A;
-      line-height: 1.1;
-    }
-
-    .card-level {
-      font-size: 13px;
-      color: #F59E0B;
-      font-weight: 600;
-      margin-top: 3px;
-    }
-
-    .qr-share-card.explorer-card .qr-code-section {
-      padding: 10px 0;
-    }
-
-    .qr-share-card.explorer-card .qr-card-footer {
-      padding-top: 8px;
-    }
+    /* （探险家卡片分享已合并为统一样式，无需额外 CSS） */
 
     /* ============ XP飘字动画 ============ */
     .xp-float {
@@ -6264,22 +5991,33 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 40px;
-      height: 40px;
-      background: rgba(255, 255, 255, 0.2);
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.25);
       border: none;
       border-radius: 50%;
       color: white;
-      font-size: 18px;
+      font-size: 22px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: background .2s;
     }
+    .photo-viewer-nav:active { background: rgba(255,255,255,0.4); }
 
     .photo-viewer-nav.prev { left: 10px; }
     .photo-viewer-nav.next { right: 10px; }
     .photo-viewer-nav:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    /* 首次打开呼吸动画引导 */
+    .photo-viewer-nav.guide-pulse {
+      animation: nav-guide 1.8s ease-in-out 2;
+    }
+    @keyframes nav-guide {
+      0%, 100% { background: rgba(255,255,255,0.2); transform: translateY(-50%) scale(1); }
+      50% { background: rgba(255,255,255,0.55); transform: translateY(-50%) scale(1.15); }
+    }
 
     .photo-viewer-info {
       position: absolute;
@@ -6297,6 +6035,13 @@
     .photo-viewer-counter {
       font-size: 12px;
       opacity: 0.7;
+    }
+
+    .photo-viewer-swipe-hint {
+      font-size: 11px;
+      color: rgba(255,255,255,0.45);
+      margin-top: 4px;
+      transition: opacity 0.5s;
     }
 
     /* ============ Explorer 探险家中心页 ============ */
@@ -9871,7 +9616,7 @@
           <div class="status-left">
             <span>10:30</span>
             <span>周四</span>
-            <span>Dec 25</span>
+            <span>12月25日</span>
           </div>
           <div class="status-right">
             <img class="status-icon" src="icons/WIFI.png" alt="WiFi">
@@ -10053,6 +9798,11 @@
             <!-- 全屏照片 -->
             <img class="preview-photo-fullscreen" src="https://picsum.photos/800/480?random=10" alt="Photo">
 
+            <!-- 左右导航 -->
+            <button class="preview-nav prev" id="preview-nav-prev" onclick="slidePreviewPhoto(-1)">‹</button>
+            <button class="preview-nav next" id="preview-nav-next" onclick="slidePreviewPhoto(1)">›</button>
+            <div class="preview-swipe-hint" id="preview-swipe-hint">← 左右滑动查看 →</div>
+
             <!-- AI提示 -->
             <div class="preview-ai-hint">✨ Press AI to explore</div>
             
@@ -10224,55 +9974,30 @@
               </div>
             </div>
 
-            <!-- 右侧AI形象 (MVP版本) -->
+            <!-- 右侧：角色 + 按钮（上下结构） -->
             <div class="chat-conversation-section">
-              <!-- 查看对话记录入口 -->
-              <button class="chat-transcript-btn" onclick="showComingSoon('对话记录')">
-                <span>📝</span>
-              </button>
-
+              <!-- 角色区：切换按钮 + 头像 + 名称 -->
               <div class="chat-ai-persona">
-                <!-- 横向布局: [左切换][AI区域][右切换] -->
                 <div class="chat-ai-row">
-                  <!-- 左切换按钮 -->
-                  <button class="chat-char-switch chat-char-left" onclick="switchChatCharacter('chat', -1)">
-                    <span>◀</span>
-                  </button>
-
-                  <!-- 中间AI区域 -->
-                  <div class="chat-ai-inner">
-                    <!-- AI大头像 -->
-                    <div class="chat-ai-avatar-large" id="chat-ai-avatar">
-                      🤖
-                    </div>
-
-                    <!-- 状态指示器 (含声波) -->
-                    <div class="chat-status-indicator">
-                      <div class="chat-status-dot" id="chat-status-dot"></div>
-                      <span class="chat-status-text" id="chat-status-text">等待中</span>
-                      <div class="chat-sound-wave hidden" id="chat-sound-wave">
-                        <div class="wave-bar"></div>
-                        <div class="wave-bar"></div>
-                        <div class="wave-bar"></div>
-                        <div class="wave-bar"></div>
-                        <div class="wave-bar"></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- 右切换按钮 -->
-                  <button class="chat-char-switch chat-char-right" onclick="switchChatCharacter('chat', 1)">
-                    <span>▶</span>
-                  </button>
+                  <button class="chat-char-switch" onclick="switchChatCharacter('chat', -1)"><span>◀</span></button>
+                  <div class="chat-ai-avatar-large" id="chat-ai-avatar">🤖</div>
+                  <button class="chat-char-switch" onclick="switchChatCharacter('chat', 1)"><span>▶</span></button>
                 </div>
+                <div class="ptt-avatar-name" id="chat-avatar-name">咕咕</div>
               </div>
 
-              <!-- 底部输入 -->
+              <!-- 按钮 + 状态 -->
               <div class="chat-input-area">
                 <button class="chat-speak-btn" id="chat-speak-btn" onmousedown="startChatRecordingMVP('chat')" onmouseup="stopChatRecordingMVP('chat')" ontouchstart="startChatRecordingMVP('chat')" ontouchend="stopChatRecordingMVP('chat')">
                   <span class="chat-speak-icon">🎤</span>
                   <span class="chat-speak-text">按住说话</span>
                 </button>
+                <div class="ptt-status-area">
+                  <span class="chat-status-text" id="chat-status-text">等待中</span>
+                  <div class="ptt-waveform idle" id="chat-waveform">
+                    <div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -10320,46 +10045,28 @@
               <span>返回</span>
             </button>
 
-            <!-- AI形象区域 (MVP版本) -->
+            <!-- 左侧：头像 + 角色名 -->
             <div class="general-chat-ai-persona">
-              <!-- 左切换按钮 -->
-              <button class="general-char-switch general-char-left" onclick="switchChatCharacter('general', -1)">
-                <span>◀</span>
-              </button>
-              
-              <!-- 中间AI区域 -->
-              <div class="general-chat-ai-inner">
-                <!-- AI大头像 -->
-                <div class="general-chat-ai-avatar-large" id="general-chat-ai-avatar">
-                  🤖
-                </div>
-
-                <!-- 状态指示器 (含声波) -->
-                <div class="general-chat-status-indicator">
-                  <div class="general-chat-status-dot" id="general-chat-status-dot"></div>
-                  <span class="general-chat-status-text" id="general-chat-status-text">等待中</span>
-                  <div class="general-chat-sound-wave hidden" id="general-chat-sound-wave">
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                  </div>
-                </div>
+              <div class="general-chat-char-row">
+                <button class="general-char-switch" onclick="switchChatCharacter('general', -1)"><span>◀</span></button>
+                <div class="general-chat-ai-avatar-large" id="general-chat-ai-avatar">🤖</div>
+                <button class="general-char-switch" onclick="switchChatCharacter('general', 1)"><span>▶</span></button>
               </div>
-              
-              <!-- 右切换按钮 -->
-              <button class="general-char-switch general-char-right" onclick="switchChatCharacter('general', 1)">
-                <span>▶</span>
-              </button>
+              <div class="ptt-avatar-name" id="general-chat-avatar-name">咕咕</div>
             </div>
-            
-            <!-- 底部输入 -->
+
+            <!-- 右侧：按钮 + 状态波形 -->
             <div class="general-chat-input-area">
               <button class="general-chat-speak-btn" id="general-chat-speak-btn" onmousedown="startChatRecordingMVP('general')" onmouseup="stopChatRecordingMVP('general')" ontouchstart="startChatRecordingMVP('general')" ontouchend="stopChatRecordingMVP('general')">
                 <span class="chat-speak-icon">🎤</span>
                 <span class="chat-speak-text">按住说话</span>
               </button>
+              <div class="ptt-status-area">
+                <span class="general-chat-status-text" id="general-chat-status-text">等待中</span>
+                <div class="ptt-waveform idle" id="general-chat-waveform">
+                  <div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -11204,6 +10911,7 @@
               <div class="photo-viewer-info">
                 <div class="photo-viewer-species" id="photo-viewer-species">蒲公英</div>
                 <div class="photo-viewer-counter" id="photo-viewer-counter">1 / 6</div>
+                <div class="photo-viewer-swipe-hint" id="photo-viewer-swipe-hint">← 左右滑动查看 →</div>
               </div>
             </div>
             
@@ -12778,26 +12486,11 @@
           </div>
         </div>
 
-        <!-- ========== QR分享卡片弹窗 ========== -->
+        <!-- ========== QR分享卡片弹窗（照片/护照统一） ========== -->
         <div class="qr-share-overlay" id="qr-share-overlay">
           <div class="qr-share-card">
             <button class="qr-share-close" onclick="hideQRShare()">✕</button>
-            
-            <!-- 分享卡片预览 -->
             <div class="qr-share-preview">
-              <!-- 用户信息：头像 · 昵称 · 等级 · 拍摄时间 -->
-              <div class="qr-user-card">
-                <div class="qr-avatar-gold"><span>🧒</span></div>
-                <div class="qr-user-info">
-                  <div class="qr-user-name-row">
-                    <span class="qr-user-name">小探险家</span>
-                    <span class="qr-user-level-chip">Lv.5</span>
-                  </div>
-                  <div class="qr-user-date">2024-12-17 15:42</div>
-                </div>
-              </div>
-
-              <!-- 二维码 -->
               <div class="qr-code-section">
                 <div class="qr-code-placeholder">
                   <div class="qr-code-grid">
@@ -12810,45 +12503,22 @@
                     <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
                   </div>
                 </div>
-                <div class="qr-code-hint">扫码查看并保存照片</div>
+                <div class="qr-code-hint" id="qr-code-hint">扫码查看并保存照片</div>
                 <div class="qr-code-expire">⏱️ 7天后失效</div>
               </div>
-
-              <!-- 页脚（H5 风格） -->
               <div class="qr-card-footer">
-                由 <b>Qmox AI Camera</b> 拍摄分享
+                由 <b>Qmox AI Camera</b> 分享
                 <span class="qr-card-tagline">每一次好奇，都值得被记录</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- ========== 探险家卡片分享弹窗 ========== -->
+        <!-- 探险家分享复用同一弹窗 -->
         <div class="qr-share-overlay" id="explorer-share-overlay">
-          <div class="qr-share-card explorer-card">
-            <button class="explorer-card-close" onclick="hideExplorerShare()">✕</button>
-            
-            <!-- 探险家卡片预览 -->
-            <div class="explorer-share-preview">
-              <!-- 顶部仪式感 -->
-              <div class="explorer-card-header">
-                <span>🏆</span>
-                <span>探险家卡片</span>
-              </div>
-
-              <!-- 头像 + 身份一排 -->
-              <div class="explorer-card-ceremony">
-                <div class="explorer-card-avatar">
-                  <div class="card-avatar-frame"><span>🧒</span></div>
-                  <div class="card-streak-badge">🔥 7</div>
-                </div>
-                <div class="explorer-card-identity">
-                  <div class="card-name">小探险家</div>
-                  <div class="card-level">⭐ Lv.5 ⭐</div>
-                </div>
-              </div>
-
-              <!-- 二维码 -->
+          <div class="qr-share-card">
+            <button class="qr-share-close" onclick="hideExplorerShare()">✕</button>
+            <div class="qr-share-preview">
               <div class="qr-code-section">
                 <div class="qr-code-placeholder">
                   <div class="qr-code-grid">
@@ -12861,13 +12531,11 @@
                     <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
                   </div>
                 </div>
-                <div class="qr-code-hint">扫码查看我的探索历程</div>
+                <div class="qr-code-hint">扫码查看探索历程</div>
                 <div class="qr-code-expire">⏱️ 7天后失效</div>
               </div>
-
-              <!-- 页脚（H5 风格） -->
               <div class="qr-card-footer">
-                这份护照由 <b>Qmox AI Camera</b> 见证
+                由 <b>Qmox AI Camera</b> 分享
                 <span class="qr-card-tagline">每一次好奇，都值得被记录</span>
               </div>
             </div>
@@ -12958,55 +12626,38 @@
         <!-- ========== AI 语音对话浮层(简化版 V2)========== -->
         <div class="ptt-backdrop" id="ptt-backdrop" onclick="hidePTT()"></div>
         <div class="ptt-overlay" id="ptt-overlay" onclick="event.stopPropagation()">
-          <!-- 顶部:聊天记录按钮(右上角) -->
-          <div class="ptt-header">
-            <div></div>
-            <button class="ptt-history-btn" onclick="openChatHistory()">
-              💬 聊天记录
-              <span class="ptt-history-badge" id="ptt-history-count">3</span>
-            </button>
-          </div>
-          
-          <!-- 主内容区 -->
+          <!-- 主内容区 - 左右对称布局 -->
           <div class="ptt-main">
-            <!-- 角色选择区(居中) -->
+            <!-- 左侧：头像 + 角色名 -->
             <div class="ptt-character-area">
-              <button class="ptt-char-nav" onclick="switchPTTCharacter(-1)">◀</button>
-              <div class="ptt-avatar-wrapper">
-                <div class="ptt-avatar" id="ptt-avatar">🦉</div>
-                <div class="ptt-avatar-name" id="ptt-avatar-name">咕咕</div>
+              <div class="ptt-char-row">
+                <button class="ptt-char-nav" onclick="switchPTTCharacter(-1)">◀</button>
+                <div class="ptt-avatar-wrapper">
+                  <div class="ptt-avatar" id="ptt-avatar">🦉</div>
+                </div>
+                <button class="ptt-char-nav" onclick="switchPTTCharacter(1)">▶</button>
               </div>
-              <button class="ptt-char-nav" onclick="switchPTTCharacter(1)">▶</button>
+              <div class="ptt-avatar-name" id="ptt-avatar-name">咕咕</div>
             </div>
-            
-            <!-- 状态区(角色下方) -->
-            <div class="ptt-status-area">
-              <div class="ptt-status-row">
-                <div class="ptt-status-dot" id="ptt-status-dot"></div>
+
+            <!-- 右侧：按钮 + 状态波形 -->
+            <div class="ptt-footer">
+              <button class="ptt-speak-btn" id="ptt-speak-btn"
+                onmousedown="startPTTButtonRecording()"
+                onmouseup="stopPTTButtonRecording()"
+                onmouseleave="cancelPTTButtonRecording()"
+                ontouchstart="startPTTButtonRecording()"
+                ontouchend="stopPTTButtonRecording()">
+                <span class="chat-speak-icon">🎤</span>
+                <span class="chat-speak-text">按住说话</span>
+              </button>
+              <div class="ptt-status-area">
                 <span class="ptt-status-text" id="ptt-status-text">等待中</span>
-              </div>
-              <div class="ptt-waveform" id="ptt-waveform">
-                <div class="ptt-wave-bar"></div>
-                <div class="ptt-wave-bar"></div>
-                <div class="ptt-wave-bar"></div>
-                <div class="ptt-wave-bar"></div>
-                <div class="ptt-wave-bar"></div>
-                <div class="ptt-wave-bar"></div>
+                <div class="ptt-waveform idle" id="ptt-waveform">
+                  <div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div>
+                </div>
               </div>
             </div>
-          </div>
-          
-          <!-- 底部按住说话按钮 -->
-          <div class="ptt-footer">
-            <button class="ptt-speak-btn" id="ptt-speak-btn"
-              onmousedown="startPTTButtonRecording()"
-              onmouseup="stopPTTButtonRecording()"
-              onmouseleave="cancelPTTButtonRecording()"
-              ontouchstart="startPTTButtonRecording()"
-              ontouchend="stopPTTButtonRecording()">
-              <span class="chat-speak-icon">🎤</span>
-              <span class="chat-speak-text">按住说话</span>
-            </button>
           </div>
         </div>
 
@@ -13474,6 +13125,11 @@
       currentPhotoIndex = index;
       updatePhotoViewer();
       document.getElementById('photo-viewer').classList.add('show');
+      // 首次打开引导动画
+      const navBtns = document.querySelectorAll('.photo-viewer-nav');
+      navBtns.forEach(b => { b.classList.remove('guide-pulse'); void b.offsetWidth; b.classList.add('guide-pulse'); });
+      const hint = document.getElementById('photo-viewer-swipe-hint');
+      if (hint) { hint.style.opacity = '1'; setTimeout(() => hint.style.opacity = '0', 3000); }
     }
 
     // 关闭全屏预览
@@ -13879,6 +13535,24 @@
       zoomLevel = zoomLevel === 1 ? 2 : (zoomLevel === 2 ? 3 : 1);
       document.getElementById('zoom-label').textContent = zoomLevel + '×';
     }
+
+    // ============ 对焦模拟 ============
+    let focusTimer = null;
+    function simulateFocus() {
+      clearTimeout(focusTimer);
+      const corners = document.querySelectorAll('.viewfinder-corner');
+      // 先移除再添加，触发动画重播
+      corners.forEach(c => { c.classList.remove('focused'); void c.offsetWidth; c.classList.add('focused'); });
+      focusTimer = setTimeout(() => corners.forEach(c => c.classList.remove('focused')), 2000);
+    }
+    // 点击相机画面触发对焦
+    document.addEventListener('DOMContentLoaded', () => {
+      const cam = document.querySelector('.camera-container');
+      if (cam) cam.addEventListener('click', e => {
+        if (e.target.closest('button') || e.target.closest('.camera-top-bar') || e.target.closest('.camera-bottom-bar')) return;
+        simulateFocus();
+      });
+    });
 
     function takePhoto() {
       // 拍照进入预览 → 一定是原始照片
@@ -17531,6 +17205,27 @@
     function openPreview(isArtwork) {
       isViewingArtwork = isArtwork;
       navigateTo('photo-preview-page');
+      // 显示左右导航引导
+      setTimeout(() => {
+        const navBtns = document.querySelectorAll('.preview-nav');
+        navBtns.forEach(b => { b.classList.remove('guide-pulse'); void b.offsetWidth; b.classList.add('guide-pulse'); });
+        const hint = document.getElementById('preview-swipe-hint');
+        if (hint) { hint.style.opacity = '1'; setTimeout(() => hint.style.opacity = '0', 3000); }
+      }, 300);
+    }
+
+    // 照片预览页切换（原型模拟）
+    const previewPhotos = [
+      'https://picsum.photos/800/480?random=10',
+      'https://picsum.photos/800/480?random=11',
+      'https://picsum.photos/800/480?random=12',
+      'https://picsum.photos/800/480?random=13',
+    ];
+    let previewIndex = 0;
+    function slidePreviewPhoto(dir) {
+      previewIndex = Math.max(0, Math.min(previewPhotos.length - 1, previewIndex + dir));
+      const img = document.querySelector('.preview-photo-fullscreen');
+      if (img) img.src = previewPhotos[previewIndex];
     }
 
     // 作品按 AI 键时的语音提醒
@@ -18266,33 +17961,26 @@
     function setChatStatus(type, status) {
       const prefix = type === 'chat' ? 'chat' : 'general-chat';
       const avatar = document.getElementById(`${prefix}-ai-avatar`);
-      const statusDot = document.getElementById(`${prefix}-status-dot`);
       const statusText = document.getElementById(`${prefix}-status-text`);
-      const soundWave = document.getElementById(`${prefix}-sound-wave`);
-      
-      // 清除所有状态类
-      if (avatar) {
-        avatar.classList.remove('speaking', 'thinking', 'listening');
-      }
-      if (statusDot) {
-        statusDot.classList.remove('speaking', 'thinking', 'listening');
-      }
-      
+      // 波形 ID：chat-waveform / general-chat-waveform
+      const waveform = document.getElementById(`${prefix}-waveform`);
+
+      // 清除头像状态类
+      if (avatar) avatar.classList.remove('speaking', 'thinking', 'listening');
+
       const statusConfig = {
-        idle: { text: '等待中', dotClass: '', avatarClass: '', showWave: false },
-        listening: { text: '聆听中...', dotClass: 'listening', avatarClass: 'listening', showWave: false },
-        thinking: { text: '思考中...', dotClass: 'thinking', avatarClass: 'thinking', showWave: false },
-        speaking: { text: '正在回答...', dotClass: 'speaking', avatarClass: 'speaking', showWave: true }
+        idle:      { text: '等待中',     avatarClass: '',          waveClass: 'idle' },
+        listening: { text: '聆听中...',  avatarClass: 'listening', waveClass: 'listening' },
+        thinking:  { text: '思考中...',  avatarClass: 'thinking',  waveClass: 'thinking' },
+        speaking:  { text: '正在回答...', avatarClass: 'speaking',  waveClass: 'speaking' }
       };
-      
+
       const config = statusConfig[status] || statusConfig.idle;
-      
+
       if (statusText) statusText.textContent = config.text;
-      if (statusDot && config.dotClass) statusDot.classList.add(config.dotClass);
       if (avatar && config.avatarClass) avatar.classList.add(config.avatarClass);
-      if (soundWave) {
-        soundWave.classList.toggle('hidden', !config.showWave);
-      }
+      // 切换波形状态 class
+      if (waveform) waveform.className = 'ptt-waveform ' + config.waveClass;
     }
     
     function startChatRecordingMVP(type) {
@@ -18459,14 +18147,11 @@
         const textEl = btn.querySelector('.chat-speak-text');
         if (textEl) textEl.textContent = '松开发送';
       }
-      // 设置为聆听状态
       const avatar = document.getElementById('ptt-avatar');
       const waveform = document.getElementById('ptt-waveform');
-      const statusDot = document.getElementById('ptt-status-dot');
       const statusText = document.getElementById('ptt-status-text');
       if (avatar) avatar.className = 'ptt-avatar listening';
       if (waveform) waveform.className = 'ptt-waveform listening';
-      if (statusDot) statusDot.className = 'ptt-status-dot listening';
       if (statusText) statusText.textContent = '聆听中...';
     }
 
@@ -18478,30 +18163,25 @@
         const textEl = btn.querySelector('.chat-speak-text');
         if (textEl) textEl.textContent = '按住说话';
       }
-
       const avatar = document.getElementById('ptt-avatar');
       const waveform = document.getElementById('ptt-waveform');
-      const statusDot = document.getElementById('ptt-status-dot');
       const statusText = document.getElementById('ptt-status-text');
 
       // 思考中
       if (avatar) avatar.className = 'ptt-avatar thinking';
       if (waveform) waveform.className = 'ptt-waveform thinking';
-      if (statusDot) statusDot.className = 'ptt-status-dot thinking';
       if (statusText) statusText.textContent = '思考中...';
 
       setTimeout(() => {
         // 正在回答
         if (avatar) avatar.className = 'ptt-avatar speaking';
         if (waveform) waveform.className = 'ptt-waveform speaking';
-        if (statusDot) statusDot.className = 'ptt-status-dot speaking';
         if (statusText) statusText.textContent = '正在回答...';
 
         setTimeout(() => {
-          // 空闲
+          // 回到等待
           if (avatar) avatar.className = 'ptt-avatar';
-          if (waveform) waveform.className = 'ptt-waveform';
-          if (statusDot) statusDot.className = 'ptt-status-dot';
+          if (waveform) waveform.className = 'ptt-waveform idle';
           if (statusText) statusText.textContent = '等待中';
         }, 3000);
       }, 1000);
