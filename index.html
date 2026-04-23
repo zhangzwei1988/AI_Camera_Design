@@ -1801,17 +1801,6 @@
     .preview-nav.guide-pulse {
       animation: nav-guide 1.8s ease-in-out 2;
     }
-    .preview-swipe-hint {
-      position: absolute;
-      bottom: 60px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 12px;
-      color: rgba(255,255,255,0.5);
-      z-index: 15;
-      transition: opacity 0.5s;
-      pointer-events: none;
-    }
 
     /* AI提示 */
     .preview-ai-hint {
@@ -6037,12 +6026,6 @@
       opacity: 0.7;
     }
 
-    .photo-viewer-swipe-hint {
-      font-size: 11px;
-      color: rgba(255,255,255,0.45);
-      margin-top: 4px;
-      transition: opacity 0.5s;
-    }
 
     /* ============ Explorer 探险家中心页 ============ */
     #explorer-page {
@@ -9801,8 +9784,6 @@
             <!-- 左右导航 -->
             <button class="preview-nav prev" id="preview-nav-prev" onclick="slidePreviewPhoto(-1)">‹</button>
             <button class="preview-nav next" id="preview-nav-next" onclick="slidePreviewPhoto(1)">›</button>
-            <div class="preview-swipe-hint" id="preview-swipe-hint">← 左右滑动查看 →</div>
-
             <!-- AI提示 -->
             <div class="preview-ai-hint">✨ Press AI to explore</div>
             
@@ -10911,7 +10892,6 @@
               <div class="photo-viewer-info">
                 <div class="photo-viewer-species" id="photo-viewer-species">蒲公英</div>
                 <div class="photo-viewer-counter" id="photo-viewer-counter">1 / 6</div>
-                <div class="photo-viewer-swipe-hint" id="photo-viewer-swipe-hint">← 左右滑动查看 →</div>
               </div>
             </div>
             
@@ -13128,8 +13108,6 @@
       // 首次打开引导动画
       const navBtns = document.querySelectorAll('.photo-viewer-nav');
       navBtns.forEach(b => { b.classList.remove('guide-pulse'); void b.offsetWidth; b.classList.add('guide-pulse'); });
-      const hint = document.getElementById('photo-viewer-swipe-hint');
-      if (hint) { hint.style.opacity = '1'; setTimeout(() => hint.style.opacity = '0', 3000); }
     }
 
     // 关闭全屏预览
@@ -17209,8 +17187,6 @@
       setTimeout(() => {
         const navBtns = document.querySelectorAll('.preview-nav');
         navBtns.forEach(b => { b.classList.remove('guide-pulse'); void b.offsetWidth; b.classList.add('guide-pulse'); });
-        const hint = document.getElementById('preview-swipe-hint');
-        if (hint) { hint.style.opacity = '1'; setTimeout(() => hint.style.opacity = '0', 3000); }
       }, 300);
     }
 
