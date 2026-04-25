@@ -1030,7 +1030,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
     }
 
     .ptt-char-row {
@@ -1121,96 +1120,63 @@
       50% { opacity: 0.6; transform: scale(1.06); }
     }
 
-    /* 状态区 — 文字 + 波形一行，按钮下方居中 */
-    .ptt-status-area {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 12px;
+    /* ====== 按钮内状态动画（三个对话界面共用）====== */
+    /* 聆听态：绿色 + 录音中（已有 .recording 样式覆盖） */
+
+    /* 思考态：按钮变黄橙呼吸 */
+    .ptt-speak-btn.state-thinking,
+    .general-chat-speak-btn.state-thinking,
+    .chat-speak-btn.state-thinking {
+      background: linear-gradient(180deg, #FBBF24 0%, #F59E0B 100%);
+      box-shadow: 0 0 0 6px rgba(251,191,36,0.2), 0 6px 24px rgba(251,191,36,0.4);
+      animation: btn-think-pulse 2s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .ptt-speak-btn.state-thinking .chat-speak-icon,
+    .general-chat-speak-btn.state-thinking .chat-speak-icon,
+    .chat-speak-btn.state-thinking .chat-speak-icon {
+      animation: anim-think 2s ease-in-out infinite;
     }
 
-    .ptt-status-text {
-      color: rgba(255,255,255,0.7);
-      font-size: 14px;
-      font-weight: 600;
+    /* 回答态：按钮变蓝 */
+    .ptt-speak-btn.state-speaking,
+    .general-chat-speak-btn.state-speaking,
+    .chat-speak-btn.state-speaking {
+      background: linear-gradient(180deg, #60A5FA 0%, #3B82F6 100%);
+      box-shadow: 0 0 0 6px rgba(96,165,250,0.2), 0 6px 24px rgba(96,165,250,0.4);
+      animation: btn-speak-pulse 1s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .ptt-speak-btn.state-speaking .chat-speak-icon,
+    .general-chat-speak-btn.state-speaking .chat-speak-icon,
+    .chat-speak-btn.state-speaking .chat-speak-icon {
+      animation: anim-speak 0.4s ease-in-out infinite alternate;
     }
 
-    /* ====== 统一波形动画（三个对话界面共用）====== */
-    .ptt-waveform {
-      height: 24px;
-      display: flex;
-      align-items: center;
-      gap: 3px;
+    .ptt-speak-btn.state-thinking .chat-speak-text,
+    .general-chat-speak-btn.state-thinking .chat-speak-text,
+    .chat-speak-btn.state-thinking .chat-speak-text,
+    .ptt-speak-btn.state-speaking .chat-speak-text,
+    .general-chat-speak-btn.state-speaking .chat-speak-text,
+    .chat-speak-btn.state-speaking .chat-speak-text {
+      color: white;
     }
 
-    .ptt-wave-bar {
-      width: 4px;
-      border-radius: 2px;
-      background: rgba(255,255,255,0.35);
-      transform-origin: center;
-      transition: background 0.3s;
-      filter: drop-shadow(0 0 2px rgba(0,0,0,0.25));
+    @keyframes btn-think-pulse {
+      0%, 100% { box-shadow: 0 0 0 6px rgba(251,191,36,0.2), 0 6px 24px rgba(251,191,36,0.4); }
+      50% { box-shadow: 0 0 0 14px rgba(251,191,36,0.06), 0 6px 24px rgba(251,191,36,0.4); }
     }
-
-    /* 各 bar 不同高度，错落有致 */
-    .ptt-wave-bar:nth-child(1) { height: 8px; }
-    .ptt-wave-bar:nth-child(2) { height: 14px; }
-    .ptt-wave-bar:nth-child(3) { height: 20px; }
-    .ptt-wave-bar:nth-child(4) { height: 24px; }
-    .ptt-wave-bar:nth-child(5) { height: 18px; }
-    .ptt-wave-bar:nth-child(6) { height: 12px; }
-    .ptt-wave-bar:nth-child(7) { height: 22px; }
-    .ptt-wave-bar:nth-child(8) { height: 10px; }
-
-    /* 等待中：静止低矮 */
-    .ptt-waveform.idle .ptt-wave-bar {
-      background: rgba(255,255,255,0.35);
-      transform: scaleY(0.3);
-      animation: none;
+    @keyframes btn-speak-pulse {
+      0%, 100% { box-shadow: 0 0 0 6px rgba(96,165,250,0.2), 0 6px 24px rgba(96,165,250,0.4); }
+      50% { box-shadow: 0 0 0 14px rgba(96,165,250,0.06), 0 6px 24px rgba(96,165,250,0.4); }
     }
-
-    /* 聆听中：绿色活泼跳动 */
-    .ptt-waveform.listening .ptt-wave-bar {
-      background: #4ADE80;
-      animation: wave-bounce 0.5s ease-in-out infinite alternate;
+    @keyframes anim-think {
+      0%, 100% { transform: scale(0.92); }
+      50% { transform: scale(1.08) rotate(5deg); }
     }
-    .ptt-waveform.listening .ptt-wave-bar:nth-child(1) { animation-delay: 0s; }
-    .ptt-waveform.listening .ptt-wave-bar:nth-child(2) { animation-delay: 0.07s; }
-    .ptt-waveform.listening .ptt-wave-bar:nth-child(3) { animation-delay: 0.14s; }
-    .ptt-waveform.listening .ptt-wave-bar:nth-child(4) { animation-delay: 0.21s; }
-    .ptt-waveform.listening .ptt-wave-bar:nth-child(5) { animation-delay: 0.28s; }
-    .ptt-waveform.listening .ptt-wave-bar:nth-child(6) { animation-delay: 0.35s; }
-    .ptt-waveform.listening .ptt-wave-bar:nth-child(7) { animation-delay: 0.18s; }
-    .ptt-waveform.listening .ptt-wave-bar:nth-child(8) { animation-delay: 0.10s; }
-
-    /* 思考中：黄色柔和呼吸 */
-    .ptt-waveform.thinking .ptt-wave-bar {
-      background: #FBBF24;
-      animation: wave-breathe 2s ease-in-out infinite;
-    }
-    .ptt-waveform.thinking .ptt-wave-bar:nth-child(odd) { animation-delay: 0.3s; }
-
-    /* 回答中：蓝色流畅波浪 */
-    .ptt-waveform.speaking .ptt-wave-bar {
-      background: #60A5FA;
-      animation: wave-bounce 0.4s ease-in-out infinite alternate;
-    }
-    .ptt-waveform.speaking .ptt-wave-bar:nth-child(1) { animation-delay: 0s; }
-    .ptt-waveform.speaking .ptt-wave-bar:nth-child(2) { animation-delay: 0.05s; }
-    .ptt-waveform.speaking .ptt-wave-bar:nth-child(3) { animation-delay: 0.10s; }
-    .ptt-waveform.speaking .ptt-wave-bar:nth-child(4) { animation-delay: 0.15s; }
-    .ptt-waveform.speaking .ptt-wave-bar:nth-child(5) { animation-delay: 0.20s; }
-    .ptt-waveform.speaking .ptt-wave-bar:nth-child(6) { animation-delay: 0.25s; }
-    .ptt-waveform.speaking .ptt-wave-bar:nth-child(7) { animation-delay: 0.12s; }
-    .ptt-waveform.speaking .ptt-wave-bar:nth-child(8) { animation-delay: 0.08s; }
-
-    @keyframes wave-bounce {
-      0% { transform: scaleY(0.3); }
-      100% { transform: scaleY(1); }
-    }
-    @keyframes wave-breathe {
-      0%, 100% { transform: scaleY(0.2); opacity: 0.5; }
-      50% { transform: scaleY(0.7); opacity: 1; }
+    @keyframes anim-speak {
+      0% { transform: scaleY(0.8) scaleX(1.05); }
+      100% { transform: scaleY(1.12) scaleX(0.95); }
     }
 
     /* 右侧按钮区 — 与左侧等分 */
@@ -1222,12 +1188,13 @@
       justify-content: center;
     }
 
-    /* 按住说话按钮 - 超大圆形 */
+    /* 按住说话按钮 - 超大圆形 3D 凸起 */
     .ptt-speak-btn {
       width: 160px;
       height: 160px;
-      background: linear-gradient(180deg, #FFE135 0%, #FFD700 100%);
-      border: none;
+      background: linear-gradient(180deg, #FFE85A 0%, #FFD700 40%, #E8B800 100%);
+      border: 3px solid rgba(255,255,255,0.3);
+      border-bottom-color: rgba(0,0,0,0.1);
       border-radius: 50%;
       font-family: inherit;
       cursor: pointer;
@@ -1235,21 +1202,34 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      box-shadow: 0 6px 24px rgba(255, 200, 0, 0.4), inset 0 2px 4px rgba(255,255,255,0.4);
+      box-shadow:
+        0 8px 20px -4px rgba(180,140,0,0.5),
+        0 4px 8px rgba(0,0,0,0.15),
+        inset 0 3px 6px rgba(255,255,255,0.5),
+        inset 0 -3px 6px rgba(0,0,0,0.08);
       transition: all 0.15s;
       position: relative;
+      animation: btn-idle-pulse 3s ease-in-out infinite;
     }
     .ptt-speak-btn .chat-speak-icon {
-      font-size: 40px;
+      font-size: 48px;
+      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15));
     }
     .ptt-speak-btn .chat-speak-text {
-      font-size: 14px;
-      font-weight: 700;
-      color: #5D4E3A;
+      display: none;
     }
     .ptt-speak-btn:active {
-      transform: scale(0.96);
+      transform: scale(0.94) translateY(2px);
+      box-shadow:
+        0 3px 10px -2px rgba(180,140,0,0.4),
+        0 2px 4px rgba(0,0,0,0.1),
+        inset 0 2px 4px rgba(0,0,0,0.1);
+      animation: none;
+    }
+    /* 空闲时微弱呼吸——暗示可点击 */
+    @keyframes btn-idle-pulse {
+      0%, 100% { box-shadow: 0 8px 20px -4px rgba(180,140,0,0.5), 0 4px 8px rgba(0,0,0,0.15), inset 0 3px 6px rgba(255,255,255,0.5), inset 0 -3px 6px rgba(0,0,0,0.08); }
+      50% { box-shadow: 0 8px 28px -2px rgba(180,140,0,0.65), 0 4px 8px rgba(0,0,0,0.15), inset 0 3px 6px rgba(255,255,255,0.5), inset 0 -3px 6px rgba(0,0,0,0.08); }
     }
     .ptt-speak-btn.recording {
       background: linear-gradient(180deg, #EF4444 0%, #DC2626 100%);
@@ -2022,12 +2002,7 @@
 
     /* （旧状态点已移除，统一使用波形） */
 
-    .chat-status-text {
-      font-size: 14px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.7);
-      text-shadow: 0 1px 4px rgba(0,0,0,0.3);
-    }
+    /* （旧状态文字已移除，改用 emoji 动画） */
 
     /* （旧声波 .chat-sound-wave 已移除，统一使用 .ptt-waveform） */
 
@@ -2042,8 +2017,9 @@
     .chat-speak-btn {
       width: 120px;
       height: 120px;
-      background: linear-gradient(180deg, #FFE135 0%, #FFD700 100%);
-      border: none;
+      background: linear-gradient(180deg, #FFE85A 0%, #FFD700 40%, #E8B800 100%);
+      border: 3px solid rgba(255,255,255,0.3);
+      border-bottom-color: rgba(0,0,0,0.1);
       border-radius: 50%;
       font-family: inherit;
       cursor: pointer;
@@ -2051,13 +2027,17 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 4px;
-      box-shadow: 0 6px 20px rgba(255, 200, 0, 0.4), inset 0 2px 4px rgba(255,255,255,0.4);
+      box-shadow:
+        0 8px 20px -4px rgba(180,140,0,0.5),
+        0 4px 8px rgba(0,0,0,0.15),
+        inset 0 3px 6px rgba(255,255,255,0.5),
+        inset 0 -3px 6px rgba(0,0,0,0.08);
       transition: all 0.15s;
+      animation: btn-idle-pulse 3s ease-in-out infinite;
     }
-    .chat-speak-btn .chat-speak-icon { font-size: 32px; }
-    .chat-speak-btn .chat-speak-text { font-size: 12px; font-weight: 700; color: #5D4E3A; }
-    .chat-speak-btn:active { transform: scale(0.96); }
+    .chat-speak-btn .chat-speak-icon { font-size: 36px; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15)); }
+    .chat-speak-btn .chat-speak-text { display: none; }
+    .chat-speak-btn:active { transform: scale(0.94) translateY(2px); box-shadow: 0 3px 10px -2px rgba(180,140,0,0.4), 0 2px 4px rgba(0,0,0,0.1), inset 0 2px 4px rgba(0,0,0,0.1); animation: none; }
     .chat-speak-btn.recording {
       background: linear-gradient(180deg, #EF4444 0%, #DC2626 100%);
       transform: scale(1.08);
@@ -2139,7 +2119,6 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 10px;
     }
 
     .general-chat-char-row {
@@ -2225,12 +2204,7 @@
 
     /* （旧状态点已移除，统一使用波形） */
 
-    .general-chat-status-text {
-      font-size: 14px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.7);
-      text-shadow: 0 1px 4px rgba(0,0,0,0.3);
-    }
+    /* （旧状态文字已移除，改用 emoji 动画） */
 
     /* （旧声波 .general-chat-sound-wave 已移除，统一使用 .ptt-waveform） */
 
@@ -2246,8 +2220,9 @@
     .general-chat-speak-btn {
       width: 160px;
       height: 160px;
-      background: linear-gradient(180deg, #FFE135 0%, #FFD700 100%);
-      border: none;
+      background: linear-gradient(180deg, #FFE85A 0%, #FFD700 40%, #E8B800 100%);
+      border: 3px solid rgba(255,255,255,0.3);
+      border-bottom-color: rgba(0,0,0,0.1);
       border-radius: 50%;
       font-family: inherit;
       cursor: pointer;
@@ -2255,13 +2230,17 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      box-shadow: 0 6px 24px rgba(255, 200, 0, 0.4), inset 0 2px 4px rgba(255,255,255,0.4);
+      box-shadow:
+        0 8px 20px -4px rgba(180,140,0,0.5),
+        0 4px 8px rgba(0,0,0,0.15),
+        inset 0 3px 6px rgba(255,255,255,0.5),
+        inset 0 -3px 6px rgba(0,0,0,0.08);
       transition: all 0.15s;
+      animation: btn-idle-pulse 3s ease-in-out infinite;
     }
-    .general-chat-speak-btn .chat-speak-icon { font-size: 40px; }
-    .general-chat-speak-btn .chat-speak-text { font-size: 14px; font-weight: 700; color: #5D4E3A; }
-    .general-chat-speak-btn:active { transform: scale(0.96); }
+    .general-chat-speak-btn .chat-speak-icon { font-size: 48px; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15)); }
+    .general-chat-speak-btn .chat-speak-text { display: none; }
+    .general-chat-speak-btn:active { transform: scale(0.94) translateY(2px); box-shadow: 0 3px 10px -2px rgba(180,140,0,0.4), 0 2px 4px rgba(0,0,0,0.1), inset 0 2px 4px rgba(0,0,0,0.1); animation: none; }
     .general-chat-speak-btn.recording {
       background: linear-gradient(180deg, #EF4444 0%, #DC2626 100%);
       transform: scale(1.06);
@@ -4353,47 +4332,49 @@
       backdrop-filter: blur(4px);
     }
 
-    /* 已选风格横幅 */
+    /* 右上角风格标签 */
     .selected-style-banner {
-      background: linear-gradient(180deg, #FFFEF8 0%, #F5F0E6 100%);
-      border-radius: 14px;
-      padding: 10px 16px;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.1);
-    }
-
-    .style-badge {
-      background: linear-gradient(135deg, #A67C52 0%, #8B5A2B 100%);
-      padding: 6px 12px;
-      border-radius: 10px;
-      font-size: 12px;
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(6px);
+      border-radius: 12px;
+      padding: 7px 14px;
+      z-index: 20;
+      font-size: 13px;
       font-weight: 600;
       color: white;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .style-badge-hint {
-      color: #888;
-      font-size: 13px;
     }
 
     /* 照片选择网格 */
     .photo-select-grid {
       flex: 1;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      overflow-y: auto;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      overflow-x: hidden;
+      overflow-y: scroll;
       margin-bottom: 12px;
+      padding-right: 4px;
+    }
+    .photo-select-grid::-webkit-scrollbar {
+      width: 18px;
+    }
+    .photo-select-grid::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.05);
+      border-radius: 9px;
+    }
+    .photo-select-grid::-webkit-scrollbar-thumb {
+      background: rgba(0,0,0,0.2);
+      border-radius: 9px;
+      border: 4px solid transparent;
+      background-clip: padding-box;
     }
 
     .photo-select-item {
-      aspect-ratio: 1;
+      width: 100%;
+      aspect-ratio: 5 / 3;
       background: linear-gradient(180deg, #FFFEF8 0%, #F0EBE3 100%);
       border-radius: 14px;
       display: flex;
@@ -4412,59 +4393,39 @@
       box-shadow: 0 0 0 3px #FFD700, 0 5px 16px rgba(0,0,0,0.15);
     }
 
-    .photo-select-item.take-new {
-      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
-      flex-direction: column;
-      gap: 4px;
-    }
-    .photo-select-item.take-new .take-new-label {
-      font-size: 11px;
-      font-weight: 600;
-      color: #92400E;
-    }
+    /* （拍摄新照片入口已移除） */
 
     /* 底部操作栏 */
     .photo-select-footer {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .aigc-agreement {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: #666;
-    }
-
-    .aigc-agreement input {
-      width: 18px;
-      height: 18px;
-      accent-color: #8B5A2B;
+      justify-content: center;
     }
 
     .create-btn {
+      width: 100%;
       background: linear-gradient(135deg, #FFD700 0%, #F59E0B 100%);
       color: #5D4E3A;
       border: none;
-      padding: 12px 24px;
-      border-radius: 16px;
+      padding: 16px 32px;
+      border-radius: 20px;
       font-family: inherit;
-      font-size: 14px;
-      font-weight: 700;
+      font-size: 18px;
+      font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(255, 200, 0, 0.35);
+      box-shadow: 0 6px 20px rgba(255, 200, 0, 0.45);
       transition: all 0.2s;
+      letter-spacing: 1px;
     }
     .create-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(255, 200, 0, 0.45);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(255, 200, 0, 0.55);
+    }
+    .create-btn:active {
+      transform: scale(0.98);
     }
     .create-btn:disabled {
-      background: #CCC;
-      color: #888;
+      background: linear-gradient(135deg, #D4D4D4 0%, #B8B8B8 100%);
+      color: #999;
       cursor: not-allowed;
       box-shadow: none;
     }
@@ -9967,18 +9928,13 @@
                 <div class="ptt-avatar-name" id="chat-avatar-name">咕咕</div>
               </div>
 
-              <!-- 按钮 + 状态 -->
+              <!-- 按钮 -->
               <div class="chat-input-area">
                 <button class="chat-speak-btn" id="chat-speak-btn" onmousedown="startChatRecordingMVP('chat')" onmouseup="stopChatRecordingMVP('chat')" ontouchstart="startChatRecordingMVP('chat')" ontouchend="stopChatRecordingMVP('chat')">
                   <span class="chat-speak-icon">🎤</span>
                   <span class="chat-speak-text">按住说话</span>
                 </button>
-                <div class="ptt-status-area">
-                  <span class="chat-status-text" id="chat-status-text">等待中</span>
-                  <div class="ptt-waveform idle" id="chat-waveform">
-                    <div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div>
-                  </div>
-                </div>
+                <div class="ptt-avatar-name" id="chat-btn-label">按住说话</div>
               </div>
             </div>
 
@@ -10036,18 +9992,13 @@
               <div class="ptt-avatar-name" id="general-chat-avatar-name">咕咕</div>
             </div>
 
-            <!-- 右侧：按钮 + 状态波形 -->
+            <!-- 右侧：按钮 -->
             <div class="general-chat-input-area">
               <button class="general-chat-speak-btn" id="general-chat-speak-btn" onmousedown="startChatRecordingMVP('general')" onmouseup="stopChatRecordingMVP('general')" ontouchstart="startChatRecordingMVP('general')" ontouchend="stopChatRecordingMVP('general')">
                 <span class="chat-speak-icon">🎤</span>
                 <span class="chat-speak-text">按住说话</span>
               </button>
-              <div class="ptt-status-area">
-                <span class="general-chat-status-text" id="general-chat-status-text">等待中</span>
-                <div class="ptt-waveform idle" id="general-chat-waveform">
-                  <div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div>
-                </div>
-              </div>
+              <div class="ptt-avatar-name" id="general-chat-btn-label">按住说话</div>
             </div>
           </div>
         </div>
@@ -10391,21 +10342,13 @@
               <span>返回</span>
             </button>
 
-            <!-- 已选风格 -->
+            <!-- 右上角风格标签 -->
             <div class="selected-style-banner">
-              <div class="style-badge" id="workshop-style-badge">
-                <span id="workshop-style-icon">🏔️</span>
-                <span id="workshop-style-name">吉卜力</span>
-              </div>
-              <span class="style-badge-hint">选择要转换的照片</span>
+              <span id="workshop-style-name">吉卜力</span>
             </div>
 
             <!-- 照片网格 -->
             <div class="photo-select-grid">
-              <div class="photo-select-item take-new" onclick="navigateTo('camera-page')">
-                <span>📸</span>
-                <span class="take-new-label">拍摄新照片</span>
-              </div>
               <div class="photo-select-item" onclick="selectPhotoItem(this)">🌻</div>
               <div class="photo-select-item" onclick="selectPhotoItem(this)">🦎</div>
               <div class="photo-select-item" onclick="selectPhotoItem(this)">🪨</div>
@@ -10417,11 +10360,7 @@
 
             <!-- 底部 -->
             <div class="photo-select-footer">
-              <label class="aigc-agreement">
-                <input type="checkbox" checked id="workshop-agree-checkbox" onchange="updateCreateBtn()">
-                <span>我同意AI创作条款</span>
-              </label>
-              <button class="create-btn" id="workshop-create-btn" disabled onclick="startWorkshopCreation()">✨ 开始创作</button>
+              <button class="create-btn" id="workshop-create-btn" disabled onclick="startWorkshopCreation()">开始创作</button>
             </div>
           </div>
         </div>
@@ -12620,7 +12559,7 @@
               <div class="ptt-avatar-name" id="ptt-avatar-name">咕咕</div>
             </div>
 
-            <!-- 右侧：按钮 + 状态波形 -->
+            <!-- 右侧：按钮 -->
             <div class="ptt-footer">
               <button class="ptt-speak-btn" id="ptt-speak-btn"
                 onmousedown="startPTTButtonRecording()"
@@ -12631,12 +12570,7 @@
                 <span class="chat-speak-icon">🎤</span>
                 <span class="chat-speak-text">按住说话</span>
               </button>
-              <div class="ptt-status-area">
-                <span class="ptt-status-text" id="ptt-status-text">等待中</span>
-                <div class="ptt-waveform idle" id="ptt-waveform">
-                  <div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div><div class="ptt-wave-bar"></div>
-                </div>
-              </div>
+              <div class="ptt-avatar-name" id="ptt-btn-label">按住说话</div>
             </div>
           </div>
         </div>
@@ -13634,7 +13568,6 @@
         return;
       }
       selectedStyle = { name, icon };
-      document.getElementById('workshop-style-icon').textContent = icon;
       document.getElementById('workshop-style-name').textContent = name;
       navigateTo('workshop-photo-page');
     }
@@ -13657,9 +13590,8 @@
     }
 
     function updateCreateBtn() {
-      const checkbox = document.getElementById('workshop-agree-checkbox');
       const btn = document.getElementById('workshop-create-btn');
-      btn.disabled = !(selectedPhoto && checkbox.checked);
+      btn.disabled = !selectedPhoto;
     }
 
     function startWorkshopCreation() {
@@ -17933,60 +17865,51 @@
       // 实际实现会调用TTS
     }
     
-    // MVP状态枚举: idle, listening, thinking, speaking
+    // 状态枚举: idle, listening, thinking, speaking
+    var STATUS_EMOJI = { listening: '👂', thinking: '🧠', speaking: '👄' };
+    var STATUS_LABEL = { idle: '按住说话', listening: '松开发送', thinking: '思考中...', speaking: '回答中...' };
+
+    function setBtnStatus(btn, labelEl, status) {
+      if (!btn) return;
+      btn.classList.remove('recording', 'state-thinking', 'state-speaking');
+      var iconEl = btn.querySelector('.chat-speak-icon');
+      if (status === 'idle') {
+        if (iconEl) iconEl.textContent = '🎤';
+      } else if (status === 'listening') {
+        btn.classList.add('recording');
+        if (iconEl) iconEl.textContent = '👂';
+      } else if (status === 'thinking') {
+        btn.classList.add('state-thinking');
+        if (iconEl) iconEl.textContent = '🧠';
+      } else if (status === 'speaking') {
+        btn.classList.add('state-speaking');
+        if (iconEl) iconEl.textContent = '👄';
+      }
+      if (labelEl) labelEl.textContent = STATUS_LABEL[status] || '按住说话';
+    }
+
     function setChatStatus(type, status) {
-      const prefix = type === 'chat' ? 'chat' : 'general-chat';
-      const avatar = document.getElementById(`${prefix}-ai-avatar`);
-      const statusText = document.getElementById(`${prefix}-status-text`);
-      // 波形 ID：chat-waveform / general-chat-waveform
-      const waveform = document.getElementById(`${prefix}-waveform`);
+      var prefix = type === 'chat' ? 'chat' : 'general-chat';
+      var avatar = document.getElementById(prefix + '-ai-avatar');
+      var btn = document.getElementById(type === 'chat' ? 'chat-speak-btn' : 'general-chat-speak-btn');
+      var label = document.getElementById(type === 'chat' ? 'chat-btn-label' : 'general-chat-btn-label');
 
-      // 清除头像状态类
-      if (avatar) avatar.classList.remove('speaking', 'thinking', 'listening');
-
-      const statusConfig = {
-        idle:      { text: '等待中',     avatarClass: '',          waveClass: 'idle' },
-        listening: { text: '聆听中...',  avatarClass: 'listening', waveClass: 'listening' },
-        thinking:  { text: '思考中...',  avatarClass: 'thinking',  waveClass: 'thinking' },
-        speaking:  { text: '正在回答...', avatarClass: 'speaking',  waveClass: 'speaking' }
-      };
-
-      const config = statusConfig[status] || statusConfig.idle;
-
-      if (statusText) statusText.textContent = config.text;
-      if (avatar && config.avatarClass) avatar.classList.add(config.avatarClass);
-      // 切换波形状态 class
-      if (waveform) waveform.className = 'ptt-waveform ' + config.waveClass;
+      if (avatar) {
+        avatar.classList.remove('speaking', 'thinking', 'listening');
+        if (status !== 'idle') avatar.classList.add(status);
+      }
+      setBtnStatus(btn, label, status);
     }
     
     function startChatRecordingMVP(type) {
-      const btn = type === 'chat' ? document.getElementById('chat-speak-btn') : document.getElementById('general-chat-speak-btn');
-      if (btn) {
-        btn.classList.add('recording');
-        const textEl = btn.querySelector('.chat-speak-text');
-        if (textEl) textEl.textContent = '松开发送';
-      }
       setChatStatus(type, 'listening');
     }
-    
+
     function stopChatRecordingMVP(type) {
-      const btn = type === 'chat' ? document.getElementById('chat-speak-btn') : document.getElementById('general-chat-speak-btn');
-      if (btn) {
-        btn.classList.remove('recording');
-        const textEl = btn.querySelector('.chat-speak-text');
-        if (textEl) textEl.textContent = '按住说话';
-      }
-      
-      // 模拟AI响应流程: listening -> thinking -> speaking -> idle
       setChatStatus(type, 'thinking');
-      
-      setTimeout(() => {
+      setTimeout(function() {
         setChatStatus(type, 'speaking');
-        
-        // 模拟说话3秒后结束
-        setTimeout(() => {
-          setChatStatus(type, 'idle');
-        }, 3000);
+        setTimeout(function() { setChatStatus(type, 'idle'); }, 3000);
       }, 1000);
     }
     
@@ -18094,72 +18017,32 @@
       if (nameEl) nameEl.textContent = char.name;
     }
 
-    function resetPTTToRecording() {
-      // 简化版 PTT 重置状态
-      const avatar = document.getElementById('ptt-avatar');
-      const waveform = document.getElementById('ptt-waveform');
-      const statusDot = document.getElementById('ptt-status-dot');
-      const statusText = document.getElementById('ptt-status-text');
-
+    function setPTTStatus(status) {
+      var avatar = document.getElementById('ptt-avatar');
+      var btn = document.getElementById('ptt-speak-btn');
+      var label = document.getElementById('ptt-btn-label');
       if (avatar) {
-        avatar.className = 'ptt-avatar listening';
+        avatar.classList.remove('speaking', 'thinking', 'listening');
+        if (status !== 'idle') avatar.classList.add(status);
       }
-      if (waveform) {
-        waveform.className = 'ptt-waveform listening';
-      }
-      if (statusDot) {
-        statusDot.className = 'ptt-status-dot listening';
-      }
-      if (statusText) {
-        statusText.textContent = '聆听中...';
-      }
+      setBtnStatus(btn, label, status);
+    }
+
+    function resetPTTToRecording() {
+      setPTTStatus('listening');
     }
 
     // PTT浮层: 按住说话按钮 - 按下
     function startPTTButtonRecording() {
-      const btn = document.getElementById('ptt-speak-btn');
-      if (btn) {
-        btn.classList.add('recording');
-        const textEl = btn.querySelector('.chat-speak-text');
-        if (textEl) textEl.textContent = '松开发送';
-      }
-      const avatar = document.getElementById('ptt-avatar');
-      const waveform = document.getElementById('ptt-waveform');
-      const statusText = document.getElementById('ptt-status-text');
-      if (avatar) avatar.className = 'ptt-avatar listening';
-      if (waveform) waveform.className = 'ptt-waveform listening';
-      if (statusText) statusText.textContent = '聆听中...';
+      setPTTStatus('listening');
     }
 
     // PTT浮层: 按住说话按钮 - 松开(触发思考→回答流程)
     function stopPTTButtonRecording() {
-      const btn = document.getElementById('ptt-speak-btn');
-      if (btn) {
-        btn.classList.remove('recording');
-        const textEl = btn.querySelector('.chat-speak-text');
-        if (textEl) textEl.textContent = '按住说话';
-      }
-      const avatar = document.getElementById('ptt-avatar');
-      const waveform = document.getElementById('ptt-waveform');
-      const statusText = document.getElementById('ptt-status-text');
-
-      // 思考中
-      if (avatar) avatar.className = 'ptt-avatar thinking';
-      if (waveform) waveform.className = 'ptt-waveform thinking';
-      if (statusText) statusText.textContent = '思考中...';
-
-      setTimeout(() => {
-        // 正在回答
-        if (avatar) avatar.className = 'ptt-avatar speaking';
-        if (waveform) waveform.className = 'ptt-waveform speaking';
-        if (statusText) statusText.textContent = '正在回答...';
-
-        setTimeout(() => {
-          // 回到等待
-          if (avatar) avatar.className = 'ptt-avatar';
-          if (waveform) waveform.className = 'ptt-waveform idle';
-          if (statusText) statusText.textContent = '等待中';
-        }, 3000);
+      setPTTStatus('thinking');
+      setTimeout(function() {
+        setPTTStatus('speaking');
+        setTimeout(function() { setPTTStatus('idle'); }, 3000);
       }, 1000);
     }
 
