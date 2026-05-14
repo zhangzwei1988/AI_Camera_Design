@@ -5465,6 +5465,251 @@
     }
     .badge-grid .badge-item.locked .badge-name { color: #444; }
 
+    /* 背包空状态 */
+    .backpack-empty-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 14px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .backpack-empty-hero {
+      background: linear-gradient(180deg, #FFFEF8 0%, #F5F0E6 100%);
+      border-radius: 20px;
+      padding: 18px 18px 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      margin-bottom: 12px;
+    }
+
+    .empty-bag-illustration {
+      width: 128px;
+      height: 116px;
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .empty-bag-body {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 0;
+      height: 82px;
+      border-radius: 26px 26px 20px 20px;
+      background: linear-gradient(180deg, #FBBF24 0%, #F59E0B 100%);
+      box-shadow: inset 0 -8px 0 rgba(145, 87, 20, 0.18), 0 8px 18px rgba(0,0,0,0.14);
+    }
+
+    .empty-bag-pocket {
+      position: absolute;
+      left: 36px;
+      right: 36px;
+      bottom: 18px;
+      height: 34px;
+      border-radius: 0 0 14px 14px;
+      background: rgba(255,255,255,0.34);
+      border-top: 3px solid rgba(93,78,58,0.22);
+    }
+
+    .empty-bag-handle {
+      position: absolute;
+      left: 40px;
+      top: 2px;
+      width: 48px;
+      height: 42px;
+      border: 9px solid #8B5A2B;
+      border-bottom: none;
+      border-radius: 26px 26px 0 0;
+    }
+
+    .empty-sparkle {
+      position: absolute;
+      font-size: 20px;
+      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.12));
+    }
+    .empty-sparkle.one { left: 0; top: 18px; }
+    .empty-sparkle.two { right: 2px; top: 28px; font-size: 16px; }
+    .empty-sparkle.three { right: 18px; bottom: 8px; font-size: 18px; }
+
+    .backpack-empty-copy {
+      flex: 1;
+      min-width: 0;
+    }
+    .backpack-empty-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #5D4E3A;
+      margin-bottom: 6px;
+    }
+    .backpack-empty-desc {
+      font-size: 13px;
+      font-weight: 600;
+      color: #8A7A65;
+      line-height: 1.45;
+    }
+
+    .empty-state-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .backpack-empty-panel {
+      display: none;
+    }
+
+    .backpack-empty-panel.进行中 {
+      display: block;
+    }
+
+    .empty-album-filters {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .empty-detail-card {
+      min-height: 238px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, #FFFEF8 0%, #F5F0E6 100%);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      padding: 22px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .empty-detail-visual {
+      width: 154px;
+      height: 154px;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 86px;
+      position: relative;
+      flex: 0 0 auto;
+      box-shadow: inset 0 -9px 0 rgba(0,0,0,0.08), 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    .empty-detail-visual::after {
+      content: '';
+      position: absolute;
+      inset: 18px;
+      border: 3px dashed rgba(255,255,255,0.72);
+      border-radius: 30px;
+    }
+
+    .empty-detail-card.photo .empty-detail-visual { background: linear-gradient(135deg, #93C5FD, #60A5FA); }
+    .empty-detail-card.artwork .empty-detail-visual { background: linear-gradient(135deg, #F9A8D4, #F472B6); }
+    .empty-detail-card.guide .empty-detail-visual { background: linear-gradient(135deg, #A7F3D0, #34D399); }
+    .empty-detail-card.story .empty-detail-visual { background: linear-gradient(135deg, #FDE68A, #F59E0B); }
+
+    .empty-detail-copy {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .empty-detail-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #5D4E3A;
+      margin-bottom: 8px;
+    }
+
+    .empty-detail-desc {
+      font-size: 14px;
+      font-weight: 600;
+      color: #8A7A65;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .empty-detail-tip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      background: rgba(255,216,77,0.35);
+      color: #6B5A32;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .empty-state-card {
+      min-height: 136px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #FFFEF8 0%, #F5F0E6 100%);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.11);
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .empty-state-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      margin-bottom: 9px;
+      box-shadow: inset 0 -4px 0 rgba(0,0,0,0.08);
+    }
+    .empty-state-card.photo .empty-state-icon { background: linear-gradient(135deg, #93C5FD, #60A5FA); }
+    .empty-state-card.artwork .empty-state-icon { background: linear-gradient(135deg, #F9A8D4, #F472B6); }
+    .empty-state-card.story .empty-state-icon { background: linear-gradient(135deg, #A7F3D0, #34D399); }
+
+    .empty-state-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #5D4E3A;
+      margin-bottom: 4px;
+    }
+    .empty-state-desc {
+      font-size: 11px;
+      font-weight: 600;
+      color: #8A7A65;
+      line-height: 1.35;
+    }
+
+    .backpack-empty-actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .backpack-empty-btn {
+      border: none;
+      border-radius: 16px;
+      padding: 10px 18px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+    .backpack-empty-btn.primary {
+      background: linear-gradient(180deg, #FFD84D, #FFB800);
+      color: #5D4E3A;
+    }
+    .backpack-empty-btn.secondary {
+      background: rgba(255,255,255,0.86);
+      color: #5D4E3A;
+    }
 
     /* ============ Species List 图鉴列表页 ============ */
     #subcategory-list-page {
@@ -9420,6 +9665,20 @@
     .ob-welcome-icon{font-size:100px;filter:drop-shadow(0 6px 12px rgba(0,0,0,.15));}
     .ob-welcome-title{font-size:24px;font-weight:700;color:#fff;margin-top:16px;text-shadow:0 2px 6px rgba(0,0,0,.2);}
     .ob-welcome-desc{font-size:16px;font-weight:400;color:rgba(255,255,255,.8);margin-top:8px;text-align:center;max-width:500px;line-height:1.5;}
+    .ob-language-wrap{width:100%;height:100%;padding:30px 54px 32px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+    .ob-language-icon{font-size:52px;line-height:1;filter:drop-shadow(0 6px 12px rgba(0,0,0,.15));margin-bottom:10px;}
+    .ob-language-title{display:flex;flex-direction:column;align-items:center;gap:2px;margin-bottom:28px;text-align:center;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.2);}
+    .ob-language-title strong{font-size:23px;line-height:1.14;}
+    .ob-language-title span{font-size:12px;line-height:1.22;color:rgba(255,255,255,.78);}
+    .ob-language-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;width:100%;max-width:650px;}
+    .ob-language-option{width:155px;flex:0 0 155px;height:70px;border:none;border-radius:18px;background:rgba(255,255,255,.86);display:flex;align-items:center;justify-content:space-between;padding:0 14px;font-family:inherit;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.10);transition:transform .15s, box-shadow .15s, background .15s;}
+    .ob-language-option:active{transform:scale(.97);}
+    .ob-language-option.selected{background:linear-gradient(180deg,#FFF7B8,#FFD34D);box-shadow:0 0 0 3px rgba(255,255,255,.55),0 6px 16px rgba(0,0,0,.18);}
+    .ob-language-name{font-size:18px;font-weight:700;color:#333;line-height:1.05;white-space:nowrap;}
+    .ob-language-native{font-size:10px;font-weight:600;color:rgba(51,51,51,.55);margin-top:5px;text-align:left;white-space:nowrap;}
+    .ob-language-check{font-size:18px;color:#3B7A57;opacity:0;transform:scale(.7);transition:opacity .15s, transform .15s;margin-left:6px;}
+    .ob-language-option.selected .ob-language-check{opacity:1;transform:scale(1);}
+    .ob-language-next{min-width:170px;margin-top:18px;font-size:22px;padding:12px 42px;}
     .ob-btn{border:none;border-radius:20px;padding:14px 48px;font-family:inherit;font-size:24px;font-weight:700;cursor:pointer;margin-top:20px;box-shadow:0 4px 14px rgba(0,0,0,.15);transition:transform .15s;}
     .ob-btn:active{transform:scale(.95);}
     .ob-btn-yellow{background:linear-gradient(180deg,#FFD700,#FFB800);color:#333;}
@@ -9488,6 +9747,38 @@
     .ob-cellular-bar-fill.connected {
       background: linear-gradient(90deg, #34D399, #10B981);
     }
+    .ob-cellular-action{margin-top:2px;border:none;background:transparent;color:rgba(255,255,255,.92);font-family:inherit;font-size:14px;font-weight:800;text-decoration:underline;text-underline-offset:4px;cursor:pointer;}
+
+    /* APN fallback page */
+    .apn-page{}
+    .apn-container{width:100%;height:100%;display:flex;flex-direction:column;padding:56px 24px 16px;position:relative;}
+    .apn-back-btn{position:absolute;top:14px;left:20px;background:rgba(0,0,0,.5);border:none;border-radius:18px;padding:8px 14px;font-family:inherit;font-size:13px;font-weight:600;color:white;cursor:pointer;display:flex;align-items:center;gap:5px;z-index:20;}
+    .apn-content{flex:1;display:flex;flex-direction:column;gap:16px;overflow-y:auto;scrollbar-width:none;}
+    .apn-content::-webkit-scrollbar{display:none;}
+    .apn-card{width:100%;max-width:none;margin:0;color:#27313a;}
+    .apn-header{display:flex;align-items:center;justify-content:center;gap:8px;font-size:18px;font-weight:700;color:white;margin-bottom:16px;text-shadow:0 2px 4px rgba(0,0,0,.3);}
+    .apn-form{display:flex;flex-direction:column;gap:12px;}
+    .apn-note{display:flex;align-items:flex-start;gap:8px;margin-bottom:12px;padding:10px 12px;border-radius:14px;background:rgba(255,216,77,.22);color:#6B5A32;font-size:12px;font-weight:700;line-height:1.35;}
+    .apn-note-icon{flex:0 0 auto;font-size:14px;line-height:1.2;}
+    .apn-field{background:linear-gradient(180deg,#FFFEF8 0%,#F5F0E6 100%);border-radius:18px;padding:14px 16px;box-shadow:0 4px 16px rgba(0,0,0,.1);}
+    .apn-field label{display:block;font-size:13px;font-weight:800;color:#516170;margin-bottom:6px;}
+    .apn-input{width:100%;height:44px;border:2px solid #D8E0E6;border-radius:14px;background:#fff;font-family:inherit;font-size:18px;font-weight:700;color:#27313a;padding:0 14px;outline:none;}
+    .apn-input:focus{border-color:#FFC43D;box-shadow:0 0 0 3px rgba(255,196,61,.26);}
+    .apn-advanced{border-radius:18px;background:linear-gradient(180deg,#FFFEF8 0%,#F5F0E6 100%);overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.1);}
+    .apn-advanced summary{list-style:none;padding:14px 16px;font-size:14px;font-weight:800;color:#40505c;cursor:pointer;display:flex;align-items:center;justify-content:space-between;}
+    .apn-advanced summary::-webkit-details-marker{display:none;}
+    .apn-advanced summary::after{content:'+';width:22px;height:22px;border-radius:50%;background:#DCE7ED;display:flex;align-items:center;justify-content:center;color:#40505c;}
+    .apn-advanced[open] summary::after{content:'-';}
+    .apn-advanced-body{padding:0 14px 14px;display:grid;grid-template-columns:1fr 1fr;gap:10px 12px;}
+    .apn-advanced-body .apn-field{background:transparent;border-radius:0;padding:0;box-shadow:none;}
+    .apn-auth{grid-column:1 / -1;}
+    .apn-auth-options{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+    .apn-auth-option{position:relative;min-height:40px;border:2px solid #D8E0E6;border-radius:13px;background:#fff;display:flex;align-items:center;justify-content:center;font-family:inherit;font-size:12px;font-weight:900;color:#40505c;cursor:pointer;}
+    .apn-auth-option.selected{border-color:#F0B900;background:linear-gradient(180deg,#FFF4B0,#FFD34D);color:#27313a;box-shadow:0 3px 10px rgba(240,185,0,.22);}
+    .apn-auth-option.selected::after{content:'✓';position:absolute;top:-7px;right:-6px;width:18px;height:18px;border-radius:50%;background:#2F855A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;}
+    .apn-test-btn{height:48px;border:none;border-radius:18px;background:linear-gradient(180deg,#FFD84D,#FFB800);color:#27313a;font-family:inherit;font-size:19px;font-weight:900;cursor:pointer;box-shadow:0 5px 14px rgba(0,0,0,.16);}
+    .apn-test-btn.testing{background:#D8E0E6;color:#65727d;pointer-events:none;}
+    .apn-result{min-height:20px;text-align:center;font-size:13px;font-weight:800;color:#5D4E3A;}
     .ob-bind-title{font-size:24px;font-weight:700;color:#fff;margin-top:16px;text-shadow:0 2px 6px rgba(0,0,0,.2);}
     .ob-bind-desc{font-size:16px;font-weight:400;color:rgba(255,255,255,.75);margin-top:6px;text-align:center;max-width:480px;line-height:1.5;}
     .ob-bind-waiting{font-size:16px;font-weight:400;color:rgba(255,255,255,.5);margin-top:12px;}
@@ -9556,7 +9847,7 @@
         </div>
 
         <!-- 状态栏 -->
-        <div class="status-bar">
+        <div class="status-bar" style="display:flex;">
           <div class="status-left">
             <span>10:30</span>
             <span>周四</span>
@@ -10587,6 +10878,110 @@
                   <button class="ai-replay-btn" onclick="replayBackpackAIVoice()">
                     <span class="replay-icon">🔊</span>
                   </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========== Backpack Empty 背包空状态页 ========== -->
+        <div id="backpack-empty-page" class="page page-blur-bg">
+          <div class="backpack-container">
+            <button class="backpack-back-btn" onclick="navigateTo('home-page')">
+              <span>←</span>
+              <span>返回</span>
+            </button>
+
+            <div class="backpack-empty-header">
+              <span>🎒</span>
+              <span>探险背包</span>
+            </div>
+
+            <div class="backpack-tabs">
+              <button class="backpack-tab 进行中" onclick="switchBackpackEmptyMainTab('album', this)">📷 探险记录</button>
+              <button class="backpack-tab" onclick="switchBackpackEmptyMainTab('guide', this)">🦋 我的发现</button>
+              <button class="backpack-tab" onclick="switchBackpackEmptyMainTab('badges', this)">🏅 勋章</button>
+              <button class="backpack-tab" onclick="switchBackpackEmptyMainTab('story', this)">📖 故事</button>
+            </div>
+
+            <div class="backpack-content">
+              <div class="backpack-empty-panel 进行中" id="empty-album-panel">
+                <div class="empty-album-filters">
+                  <button class="album-filter 进行中" onclick="switchBackpackEmptyAlbumFilter('all', this)">全部</button>
+                  <button class="album-filter" onclick="switchBackpackEmptyAlbumFilter('photo', this)">📷 照片</button>
+                  <button class="album-filter" onclick="switchBackpackEmptyAlbumFilter('artwork', this)">🎨 作品</button>
+                </div>
+
+                <div class="backpack-empty-panel 进行中" id="empty-album-all-panel">
+                  <div class="empty-detail-card photo">
+                    <div class="empty-detail-visual">🎒</div>
+                    <div class="empty-detail-copy">
+                      <div class="empty-detail-title">还没有探险记录</div>
+                      <div class="empty-detail-desc">照片和作品都会收在这里。先拍下第一个发现，背包就会慢慢装满。</div>
+                      <div class="empty-detail-tip">✨ 按快门键开始记录</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="backpack-empty-panel" id="empty-album-photo-panel">
+                  <div class="empty-detail-card photo">
+                    <div class="empty-detail-visual">📷</div>
+                    <div class="empty-detail-copy">
+                      <div class="empty-detail-title">还没有照片</div>
+                      <div class="empty-detail-desc">用相机拍下第一片叶子、第一朵花，照片就会出现在这里。</div>
+                      <div class="empty-detail-tip">📷 拍下第一个自然发现</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="backpack-empty-panel" id="empty-album-artwork-panel">
+                  <div class="empty-detail-card artwork">
+                    <div class="empty-detail-visual">🎨</div>
+                    <div class="empty-detail-copy">
+                      <div class="empty-detail-title">还没有作品</div>
+                      <div class="empty-detail-desc">把喜欢的照片带进魔法工坊，变成山海经、像素风或其他奇妙作品。</div>
+                      <div class="empty-detail-tip">🎨 从一张照片开始创作</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="backpack-empty-panel" id="empty-guide-panel">
+                <div class="empty-detail-card guide">
+                  <div class="empty-detail-visual">🦋</div>
+                  <div class="empty-detail-copy">
+                    <div class="empty-detail-title">图鉴还没有发现</div>
+                    <div class="empty-detail-desc">拍下自然里的植物、昆虫、石头或落叶，识别成功后会收进图鉴。</div>
+                    <div class="empty-detail-tip">🔍 发现越多，图鉴越丰富</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="backpack-empty-panel" id="empty-badges-panel">
+                <div class="badge-grid">
+                  <div class="badge-item" onclick="showBadgeDetail(0)">
+                    <div class="badge-icon">⭐</div>
+                    <div class="badge-name">初次发现</div>
+                  </div>
+                  <div class="badge-item locked" onclick="showBadgeDetail(3)">
+                    <div class="badge-icon">🔬</div>
+                    <div class="badge-name">小科学家</div>
+                  </div>
+                  <div class="badge-item locked" onclick="showBadgeDetail(4)">
+                    <div class="badge-icon">🎨</div>
+                    <div class="badge-name">小艺术家</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="backpack-empty-panel" id="empty-story-panel">
+                <div class="empty-detail-card story">
+                  <div class="empty-detail-visual">📖</div>
+                  <div class="empty-detail-copy">
+                    <div class="empty-detail-title">还没有故事</div>
+                    <div class="empty-detail-desc">和 AI 聊聊你拍到的照片，把一次发现变成属于你的探险故事。</div>
+                    <div class="empty-detail-tip">🦉 先保存一张照片再生成故事</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -11649,6 +12044,16 @@
                     </div>
                     <div class="toggle-switch 进行中" onclick="this.classList.toggle('进行中')"></div>
                   </div>
+                  <div class="settings-item" onclick="openApnSettings('settings')">
+                    <div class="settings-item-left">
+                      <div class="settings-icon orange">SIM</div>
+                      <div>
+                        <div class="settings-label">APN 配置</div>
+                        <div class="settings-value" id="current-apn">自动</div>
+                      </div>
+                    </div>
+                    <span class="settings-chevron">›</span>
+                  </div>
                 </div>
               </div>
 
@@ -11731,7 +12136,7 @@
                       <div class="settings-icon blue">🌐</div>
                       <div>
                         <div class="settings-label">语言</div>
-                        <div class="settings-value" id="current-language">简体中文</div>
+                        <div class="settings-value" id="current-language">English</div>
                       </div>
                     </div>
                     <span class="settings-chevron">›</span>
@@ -11897,6 +12302,69 @@
                       <span class="wifi-signal weak">📶</span>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========== APN 配置页 ========== -->
+        <div id="apn-page" class="page page-blur-bg apn-page">
+          <div class="apn-container">
+            <button class="apn-back-btn" onclick="goBackFromApn()">
+              <span>←</span>
+              <span>返回</span>
+            </button>
+
+            <div class="apn-content">
+              <div class="apn-card settings-group">
+                <div class="apn-header">
+                  <span>📡</span>
+                  <span>APN 配置</span>
+                </div>
+
+                <div class="apn-form">
+                  <div class="settings-group">
+                    <div class="settings-group-title">移动网络</div>
+                    <div class="settings-group-card apn-field">
+                      <div class="apn-note">
+                        <span class="apn-note-icon">ℹ️</span>
+                        <span>通常无需手动修改。仅在 4G 网络无法连接时，再考虑更改此配置。</span>
+                      </div>
+                      <label for="apn-name-input">APN</label>
+                      <input class="apn-input" id="apn-name-input" type="text" placeholder="internet" autocomplete="off">
+                    </div>
+                  </div>
+
+                  <div class="settings-group">
+                    <div class="settings-group-title">高级选项</div>
+                    <details class="apn-advanced" id="apn-advanced">
+                      <summary>展开高级选项</summary>
+                      <div class="apn-advanced-body">
+                        <div class="apn-field">
+                          <label for="apn-username-input">用户名</label>
+                          <input class="apn-input" id="apn-username-input" type="text" placeholder="选填" autocomplete="off">
+                        </div>
+                        <div class="apn-field">
+                          <label for="apn-password-input">密码</label>
+                          <input class="apn-input" id="apn-password-input" type="password" placeholder="选填" autocomplete="off">
+                        </div>
+                        <div class="apn-field apn-auth">
+                          <label>认证方式</label>
+                          <input type="hidden" id="apn-auth-value" value="auto">
+                          <div class="apn-auth-options" role="radiogroup" aria-label="认证方式">
+                            <button type="button" class="apn-auth-option selected" role="radio" aria-checked="true" onclick="selectApnAuth('auto', this)">自动</button>
+                            <button type="button" class="apn-auth-option" role="radio" aria-checked="false" onclick="selectApnAuth('pap', this)">PAP</button>
+                            <button type="button" class="apn-auth-option" role="radio" aria-checked="false" onclick="selectApnAuth('chap', this)">CHAP</button>
+                            <button type="button" class="apn-auth-option" role="radio" aria-checked="false" onclick="selectApnAuth('pap-chap', this)">PAP/CHAP</button>
+                          </div>
+                        </div>
+                      </div>
+                    </details>
+                  </div>
+
+                  <button class="apn-test-btn" id="apn-test-btn" onclick="testApnConnection()">测试连接</button>
+                  <div class="apn-result" id="apn-result"></div>
                 </div>
               </div>
             </div>
@@ -12113,17 +12581,10 @@
 
               <!-- Language选项 -->
               <div class="settings-sheet-options" id="language-options" style="display:none;">
-                <div class="sheet-option" onclick="selectOption('language', 'English', this)">
+                <div class="sheet-option selected" onclick="selectOption('language', 'English', this)">
                   <span class="option-icon">🇺🇸</span>
                   <div class="option-info">
                     <div class="option-name">English</div>
-                  </div>
-                  <span class="option-check">✓</span>
-                </div>
-                <div class="sheet-option" onclick="selectOption('language', 'Español', this)">
-                  <span class="option-icon">🇪🇸</span>
-                  <div class="option-info">
-                    <div class="option-name">Español</div>
                   </div>
                   <span class="option-check">✓</span>
                 </div>
@@ -12134,10 +12595,31 @@
                   </div>
                   <span class="option-check">✓</span>
                 </div>
-                <div class="sheet-option selected" onclick="selectOption('language', '简体中文', this)">
-                  <span class="option-icon">🇨🇳</span>
+                <div class="sheet-option" onclick="selectOption('language', 'Deutsch', this)">
+                  <span class="option-icon">🇩🇪</span>
                   <div class="option-info">
-                    <div class="option-name">简体中文</div>
+                    <div class="option-name">Deutsch</div>
+                  </div>
+                  <span class="option-check">✓</span>
+                </div>
+                <div class="sheet-option" onclick="selectOption('language', 'Español', this)">
+                  <span class="option-icon">🇪🇸</span>
+                  <div class="option-info">
+                    <div class="option-name">Español</div>
+                  </div>
+                  <span class="option-check">✓</span>
+                </div>
+                <div class="sheet-option" onclick="selectOption('language', 'Italiano', this)">
+                  <span class="option-icon">🇮🇹</span>
+                  <div class="option-info">
+                    <div class="option-name">Italiano</div>
+                  </div>
+                  <span class="option-check">✓</span>
+                </div>
+                <div class="sheet-option" onclick="selectOption('language', '日本語', this)">
+                  <span class="option-icon">🇯🇵</span>
+                  <div class="option-info">
+                    <div class="option-name">日本語</div>
                   </div>
                   <span class="option-check">✓</span>
                 </div>
@@ -12177,11 +12659,70 @@
         <!-- ========== 开机引导页面 ========== -->
 
         <!-- 步骤1：开机动画 -->
-        <div id="ob-boot-page" class="page" style="background:#e8f4fd;">
+        <div id="ob-boot-page" class="page" style="background:#e8f4fd;cursor:pointer;" onclick="goTo('ob-language-page')">
           <img src="icons/start.png" style="width:100%;height:100%;object-fit:cover;">
         </div>
 
-        <!-- 步骤2：欢迎 -->
+        <!-- 步骤2：语言选择 -->
+        <div id="ob-language-page" class="page" style="background:linear-gradient(135deg,#4a4e78,#6b7ba8);">
+          <div class="ob-language-wrap">
+            <div class="ob-language-icon">🌐</div>
+            <div class="ob-language-title">
+              <strong>Select Language</strong>
+              <span>Choose the language for this device</span>
+              <span>Deutsch · Français · Español · Italiano · 日本語</span>
+            </div>
+
+            <div class="ob-language-grid" aria-label="Language selection">
+              <button class="ob-language-option selected" data-lang="en" onclick="obSelectLanguage('en', this)">
+                <span>
+                  <span class="ob-language-name">English</span>
+                  <span class="ob-language-native">English</span>
+                </span>
+                <span class="ob-language-check">✓</span>
+              </button>
+              <button class="ob-language-option" data-lang="fr" onclick="obSelectLanguage('fr', this)">
+                <span>
+                  <span class="ob-language-name">Français</span>
+                  <span class="ob-language-native">French</span>
+                </span>
+                <span class="ob-language-check">✓</span>
+              </button>
+              <button class="ob-language-option" data-lang="de" onclick="obSelectLanguage('de', this)">
+                <span>
+                  <span class="ob-language-name">Deutsch</span>
+                  <span class="ob-language-native">German</span>
+                </span>
+                <span class="ob-language-check">✓</span>
+              </button>
+              <button class="ob-language-option" data-lang="es" onclick="obSelectLanguage('es', this)">
+                <span>
+                  <span class="ob-language-name">Español</span>
+                  <span class="ob-language-native">Spanish</span>
+                </span>
+                <span class="ob-language-check">✓</span>
+              </button>
+              <button class="ob-language-option" data-lang="it" onclick="obSelectLanguage('it', this)">
+                <span>
+                  <span class="ob-language-name">Italiano</span>
+                  <span class="ob-language-native">Italian</span>
+                </span>
+                <span class="ob-language-check">✓</span>
+              </button>
+              <button class="ob-language-option" data-lang="ja" onclick="obSelectLanguage('ja', this)">
+                <span>
+                  <span class="ob-language-name">日本語</span>
+                  <span class="ob-language-native">Japanese</span>
+                </span>
+                <span class="ob-language-check">✓</span>
+              </button>
+            </div>
+
+            <button class="ob-btn ob-btn-yellow ob-language-next" id="ob-language-next" onclick="obConfirmLanguage()">Continue</button>
+          </div>
+        </div>
+
+        <!-- 步骤3：欢迎 -->
         <div id="ob-welcome-page" class="page" style="background:linear-gradient(135deg,#4a4e78,#6b7ba8);">
           <div class="ob-page" style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;">
             <div class="ob-welcome-icon">🌍</div>
@@ -12197,13 +12738,14 @@
               <div class="ob-cellular-bar">
                 <div class="ob-cellular-bar-fill" id="ob-cellular-progress-fill"></div>
               </div>
+              <button class="ob-cellular-action" id="ob-apn-action" style="display:none;" onclick="openApnSettings('onboarding')">手动设置 APN</button>
             </div>
 
-            <button class="ob-btn ob-btn-yellow" onclick="obWelcomeNext()">开始设置 (<span id="ob-welcome-countdown">5</span>s)</button>
+            <button class="ob-btn ob-btn-yellow" id="ob-welcome-next-btn" onclick="obWelcomeNext()">开始设置 (<span id="ob-welcome-countdown">5</span>s)</button>
           </div>
         </div>
 
-        <!-- 步骤3：WiFi -->
+        <!-- 步骤4：WiFi -->
         <div id="ob-wifi-page" class="page" style="background:linear-gradient(135deg,#506a8e,#7b9eb8);">
           <div class="ob-page ob-wifi-pg" style="width:100%;height:100%;">
             <div class="ob-wifi-title">📶 连接网络</div>
@@ -12719,11 +13261,14 @@
         <div class="nav-section-title">🚀 开机引导</div>
         <div class="nav-items">
           <div class="nav-item" onclick="goTo('ob-boot-page')"><span class="icon">📸</span><span>① 开机动画</span></div>
-          <div class="nav-item" onclick="goTo('ob-welcome-page')"><span class="icon">🌍</span><span>② 欢迎</span></div>
-          <div class="nav-item" onclick="goTo('ob-wifi-page')"><span class="icon">📶</span><span>③ 连接网络</span></div>
-          <div class="nav-item" onclick="goTo('ob-download-page')"><span class="icon">📲</span><span>④ 下载 App</span></div>
-          <div class="nav-item" onclick="goTo('ob-bind-page')"><span class="icon">🔗</span><span>⑤ 绑定设备</span></div>
-          <div class="nav-item" onclick="goTo('ob-done-page')"><span class="icon">✅</span><span>⑥ 绑定成功</span></div>
+          <div class="nav-item" onclick="goTo('ob-language-page')"><span class="icon">🌐</span><span>② Language</span></div>
+          <div class="nav-item" onclick="goTo('ob-welcome-page')"><span class="icon">🌍</span><span>③ 欢迎</span></div>
+          <div class="nav-item" onclick="goTo('ob-wifi-page')"><span class="icon">📶</span><span>④ 连接网络</span></div>
+          <div class="nav-item sub" onclick="simulateOnboardingNoSignal()"><span class="icon">📡</span><span>无 4G 信号</span></div>
+          <div class="nav-item sub" onclick="simulateOnboardingApnError()"><span class="icon">⚠️</span><span>APN 配置异常</span></div>
+          <div class="nav-item" onclick="goTo('ob-download-page')"><span class="icon">📲</span><span>⑤ 下载 App</span></div>
+          <div class="nav-item" onclick="goTo('ob-bind-page')"><span class="icon">🔗</span><span>⑥ 绑定设备</span></div>
+          <div class="nav-item" onclick="goTo('ob-done-page')"><span class="icon">✅</span><span>⑦ 绑定成功</span></div>
           <div class="nav-item sub" onclick="goTo('uid-error-page')"><span class="icon">🚫</span><span>设备 UID 异常拦截</span></div>
         </div>
       </div>
@@ -12761,6 +13306,7 @@
           <div class="nav-item" onclick="goTo('explorer-page')"><span class="icon">🧭</span><span>探险家</span></div>
           <div class="nav-item sub" onclick="goTo('explorer-page', 'xp-detail')"><span class="icon">📊</span><span>今日XP</span></div>
           <div class="nav-item" onclick="goTo('backpack-page')"><span class="icon">🎒</span><span>探险背包</span></div>
+          <div class="nav-item sub" onclick="goTo('backpack-empty-page')"><span class="icon">🫙</span><span>背包空状态</span></div>
           <div class="nav-item" onclick="goTo('level-guide-page')"><span class="icon">🗺️</span><span>探险之路</span></div>
           <div class="nav-item" onclick="goTo('letters-page')"><span class="icon">📜</span><span>爷爷的信</span></div>
           <div class="nav-item" onclick="goTo('subcategory-list-page')"><span class="icon">📖</span><span>我的发现</span></div>
@@ -12777,6 +13323,7 @@
           <div class="nav-item sub" onclick="goTo('settings-page', 'language')"><span class="icon">🌐</span><span>语言弹窗</span></div>
           <div class="nav-item sub" onclick="goTo('settings-page', 'screen-timeout')"><span class="icon">⏱️</span><span>息屏时间</span></div>
           <div class="nav-item" onclick="goTo('wifi-page')"><span class="icon">📶</span><span>无线网络</span></div>
+          <div class="nav-item" onclick="openApnSettings('settings')"><span class="icon">📡</span><span>APN 配置</span></div>
           <div class="nav-item sub" onclick="goTo('wifi-page', 'password')"><span class="icon">🔑</span><span>密码输入</span></div>
           <div class="nav-item" onclick="goTo('about-device-page')"><span class="icon">ℹ️</span><span>关于本机</span></div>
           <div class="nav-item" onclick="goTo('system-update-page')"><span class="icon">🔄</span><span>系统更新</span></div>
@@ -14193,6 +14740,47 @@
       document.getElementById('guide-content').style.display = tab === 'guide' ? 'grid' : 'none';
       document.getElementById('badges-content').style.display = tab === 'badges' ? 'grid' : 'none';
     }
+
+    function switchBackpackEmptyMainTab(tab, btn) {
+      const page = document.getElementById('backpack-empty-page');
+      if (!page) return;
+      page.querySelectorAll('.backpack-tab').forEach(t => t.classList.remove('进行中'));
+      if (btn) btn.classList.add('进行中');
+
+      ['empty-album-panel', 'empty-guide-panel', 'empty-badges-panel', 'empty-story-panel'].forEach(id => {
+        const panel = document.getElementById(id);
+        if (panel) panel.classList.remove('进行中');
+      });
+      const target = document.getElementById('empty-' + tab + '-panel');
+      if (target) target.classList.add('进行中');
+    }
+
+    function switchBackpackEmptyAlbumFilter(type, btn) {
+      const page = document.getElementById('backpack-empty-page');
+      if (!page) return;
+      page.querySelectorAll('.album-filter').forEach(f => f.classList.remove('进行中'));
+      if (btn) btn.classList.add('进行中');
+
+      ['empty-album-all-panel', 'empty-album-photo-panel', 'empty-album-artwork-panel'].forEach(id => {
+        const panel = document.getElementById(id);
+        if (panel) panel.classList.remove('进行中');
+      });
+      const suffix = type === 'all' ? 'all' : type;
+      const target = document.getElementById('empty-album-' + suffix + '-panel');
+      if (target) target.classList.add('进行中');
+    }
+
+    function switchBackpackEmptyTab(tab, btn) {
+      switchBackpackEmptyMainTab(tab, btn);
+    }
+
+    function switchBackpackEmptyLegacyTab(tab, btn) {
+      document.querySelectorAll('.backpack-empty-panel').forEach(panel => {
+        panel.classList.remove('进行中');
+      });
+      const target = document.getElementById('empty-' + tab + '-panel');
+      if (target) target.classList.add('进行中');
+    }
     
     function filterAlbum(type, btn) {
       // 更新筛选按钮状态
@@ -14353,53 +14941,257 @@
 
     // ============ 欢迎页 4G 信号搜索 + 倒计时 ============
     let cellularConnected = false;
+    let cellularIssueDetected = false;
+    let cellularPhase = 'searching';
+    let cellularFailureType = null;
+    let cellularRequestedFailureType = null;
     let cellularSearchTimer = null;
+    let cellularStatusTimer = null;
     let welcomeCountdownTimer = null;
+    let apnEntrySource = 'settings';
+    let obSelectedLanguage = 'en';
+    const obLanguageCopy = {
+      en: { next: 'Continue', toast: 'English selected' },
+      fr: { next: 'Continuer', toast: 'Français sélectionné' },
+      de: { next: 'Weiter', toast: 'Deutsch ausgewählt' },
+      es: { next: 'Continuar', toast: 'Español seleccionado' },
+      it: { next: 'Continua', toast: 'Italiano selezionato' },
+      ja: { next: '続ける', toast: '日本語を選択しました' }
+    };
+
+    function obSelectLanguage(lang, el) {
+      obSelectedLanguage = lang;
+      document.querySelectorAll('.ob-language-option').forEach(option => {
+        option.classList.toggle('selected', option === el);
+      });
+      const nextBtn = document.getElementById('ob-language-next');
+      if (nextBtn && obLanguageCopy[lang]) {
+        nextBtn.textContent = obLanguageCopy[lang].next;
+      }
+    }
+
+    function obConfirmLanguage() {
+      const copy = obLanguageCopy[obSelectedLanguage] || obLanguageCopy.en;
+      const settingsLanguage = document.getElementById('current-language');
+      const selectedLabel = document.querySelector(`.ob-language-option[data-lang="${obSelectedLanguage}"] .ob-language-name`);
+      if (settingsLanguage && selectedLabel) {
+        settingsLanguage.textContent = selectedLabel.textContent;
+      }
+      showToast(`🌐 ${copy.toast}`);
+      goTo('ob-welcome-page');
+    }
 
     function startCellularSearch() {
       cellularConnected = false;
+      cellularIssueDetected = false;
+      cellularPhase = 'searching';
+      cellularFailureType = cellularRequestedFailureType;
+      cellularRequestedFailureType = null;
       const fill = document.getElementById('ob-cellular-progress-fill');
       const text = document.getElementById('ob-cellular-text');
       const icon = document.getElementById('ob-cellular-icon');
+      const apnAction = document.getElementById('ob-apn-action');
+      const welcomeBtn = document.getElementById('ob-welcome-next-btn');
+      if (welcomeBtn) welcomeBtn.innerHTML = '正在连接 (<span id="ob-welcome-countdown">10</span>s)';
       // 重置 UI
       if (fill) {
         fill.classList.remove('connected');
         fill.style.transition = 'none';
+        fill.style.background = '';
         fill.style.width = '0%';
-        // 强制重排,然后启动 5s 进度动画
+        // 强制重排,然后启动 10s 进度动画
         void fill.offsetWidth;
-        fill.style.transition = 'width 5s linear';
+        fill.style.transition = 'width 10s linear';
         fill.style.width = '100%';
       }
       if (text) text.textContent = '正在搜索 4G 信号...';
       if (icon) icon.textContent = '📡';
+      if (apnAction) apnAction.style.display = 'none';
 
       if (cellularSearchTimer) clearTimeout(cellularSearchTimer);
-      cellularSearchTimer = setTimeout(() => {
-        cellularConnected = true;
-        if (text) text.textContent = '4G 已连接';
-        if (icon) icon.textContent = '✅';
-        if (fill) fill.classList.add('connected');
-        showToast('📶 4G 信号已连接');
+      if (cellularStatusTimer) clearTimeout(cellularStatusTimer);
+      cellularStatusTimer = setTimeout(() => {
+        updateCellularAttachStatus();
       }, 5000);
+      cellularSearchTimer = setTimeout(() => {
+        finishCellularConnectionAttempt();
+      }, 10000);
 
-      // 启动按钮倒计时 - 5秒后自动跳转
+      // 单次倒计时:搜索并接入移动网络
+      startWelcomeCountdown(10);
+    }
+
+    function finishCellularConnectionAttempt() {
+      if (cellularFailureType === 'no-signal') {
+        showCellularNoSignal();
+      } else if (cellularFailureType === 'apn') {
+        showCellularApnError();
+      } else {
+        completeCellularConnection();
+      }
+    }
+
+    function updateCellularAttachStatus() {
+      cellularPhase = 'attaching';
+      const text = document.getElementById('ob-cellular-text');
+      const icon = document.getElementById('ob-cellular-icon');
+      const welcomeBtn = document.getElementById('ob-welcome-next-btn');
+      if (text) text.textContent = '正在接入移动网络...';
+      if (icon) icon.textContent = '📶';
+      if (welcomeBtn) welcomeBtn.innerHTML = '继续等待 (<span id="ob-welcome-countdown">5</span>s)';
+    }
+
+    function startCellularAttach() {
+      updateCellularAttachStatus();
+      if (cellularSearchTimer) {
+        clearTimeout(cellularSearchTimer);
+        cellularSearchTimer = null;
+      }
+      if (cellularStatusTimer) {
+        clearTimeout(cellularStatusTimer);
+        cellularStatusTimer = null;
+      }
+      cellularSearchTimer = setTimeout(() => {
+        finishCellularConnectionAttempt();
+      }, 5000);
       startWelcomeCountdown(5);
+    }
+
+    function completeCellularConnection() {
+      cellularConnected = true;
+      cellularIssueDetected = false;
+      cellularPhase = 'connected';
+      cellularFailureType = null;
+      if (cellularSearchTimer) {
+        clearTimeout(cellularSearchTimer);
+        cellularSearchTimer = null;
+      }
+      if (cellularStatusTimer) {
+        clearTimeout(cellularStatusTimer);
+        cellularStatusTimer = null;
+      }
+      if (welcomeCountdownTimer) {
+        clearInterval(welcomeCountdownTimer);
+        welcomeCountdownTimer = null;
+      }
+      const fill = document.getElementById('ob-cellular-progress-fill');
+      const text = document.getElementById('ob-cellular-text');
+      const icon = document.getElementById('ob-cellular-icon');
+      const apnAction = document.getElementById('ob-apn-action');
+      const welcomeBtn = document.getElementById('ob-welcome-next-btn');
+      if (text) text.textContent = '4G 已连接';
+      if (icon) icon.textContent = '✅';
+      if (fill) fill.classList.add('connected');
+      if (apnAction) apnAction.style.display = 'none';
+      if (welcomeBtn) welcomeBtn.textContent = '下一步';
+      showToast('📶 4G 信号已连接');
+      setTimeout(() => {
+        if (cellularPhase === 'connected') {
+          goTo('ob-download-page');
+        }
+      }, 650);
+    }
+
+    function showCellularNoSignal() {
+      cellularConnected = false;
+      cellularIssueDetected = true;
+      cellularPhase = 'no-signal';
+      if (cellularSearchTimer) {
+        clearTimeout(cellularSearchTimer);
+        cellularSearchTimer = null;
+      }
+      if (cellularStatusTimer) {
+        clearTimeout(cellularStatusTimer);
+        cellularStatusTimer = null;
+      }
+      if (welcomeCountdownTimer) {
+        clearInterval(welcomeCountdownTimer);
+        welcomeCountdownTimer = null;
+      }
+      const fill = document.getElementById('ob-cellular-progress-fill');
+      const text = document.getElementById('ob-cellular-text');
+      const icon = document.getElementById('ob-cellular-icon');
+      const apnAction = document.getElementById('ob-apn-action');
+      const welcomeBtn = document.getElementById('ob-welcome-next-btn');
+      if (fill) {
+        fill.classList.remove('connected');
+        fill.style.transition = 'width .25s ease';
+        fill.style.width = '100%';
+        fill.style.background = 'linear-gradient(90deg,#F97316,#FECACA)';
+      }
+      if (text) text.textContent = '暂未搜索到 4G 信号';
+      if (icon) icon.textContent = '⚠️';
+      if (apnAction) apnAction.style.display = 'none';
+      if (welcomeBtn) welcomeBtn.textContent = '连接 Wi-Fi';
+      const countdownEl = document.getElementById('ob-welcome-countdown');
+      if (countdownEl) countdownEl.textContent = 'Wi-Fi';
+      showToast('📶 请连接 Wi-Fi 继续设置');
+    }
+
+    function showCellularApnError() {
+      cellularConnected = false;
+      cellularIssueDetected = true;
+      cellularPhase = 'apn-error';
+      if (cellularSearchTimer) {
+        clearTimeout(cellularSearchTimer);
+        cellularSearchTimer = null;
+      }
+      if (cellularStatusTimer) {
+        clearTimeout(cellularStatusTimer);
+        cellularStatusTimer = null;
+      }
+      if (welcomeCountdownTimer) {
+        clearInterval(welcomeCountdownTimer);
+        welcomeCountdownTimer = null;
+      }
+      const fill = document.getElementById('ob-cellular-progress-fill');
+      const text = document.getElementById('ob-cellular-text');
+      const icon = document.getElementById('ob-cellular-icon');
+      const apnAction = document.getElementById('ob-apn-action');
+      const welcomeBtn = document.getElementById('ob-welcome-next-btn');
+      if (fill) {
+        fill.classList.remove('connected');
+        fill.style.transition = 'width .25s ease';
+        fill.style.width = '100%';
+        fill.style.background = 'linear-gradient(90deg,#F97316,#FECACA)';
+      }
+      if (text) text.textContent = '移动网络需要 APN 配置';
+      if (icon) icon.textContent = '⚠️';
+      if (apnAction) apnAction.style.display = 'inline-flex';
+      if (welcomeBtn) welcomeBtn.textContent = '连接 Wi-Fi';
+      const countdownEl = document.getElementById('ob-welcome-countdown');
+      if (countdownEl) countdownEl.textContent = 'Wi-Fi';
+      showToast('📡 可以手动设置 APN');
+    }
+
+    function simulateOnboardingNoSignal() {
+      cellularRequestedFailureType = 'no-signal';
+      goTo('ob-welcome-page');
+    }
+
+    function simulateOnboardingApnError() {
+      cellularRequestedFailureType = 'apn';
+      goTo('ob-welcome-page');
     }
 
     function startWelcomeCountdown(seconds) {
       if (welcomeCountdownTimer) clearInterval(welcomeCountdownTimer);
-      const countdownEl = document.getElementById('ob-welcome-countdown');
       let remaining = seconds;
-      if (countdownEl) countdownEl.textContent = remaining;
+      const setCountdownText = () => {
+        const countdownEl = document.getElementById('ob-welcome-countdown');
+        if (countdownEl) countdownEl.textContent = remaining;
+      };
+      setCountdownText();
 
       welcomeCountdownTimer = setInterval(() => {
         remaining--;
-        if (countdownEl) countdownEl.textContent = remaining;
+        setCountdownText();
         if (remaining <= 0) {
           clearInterval(welcomeCountdownTimer);
           welcomeCountdownTimer = null;
-          obWelcomeNext();
+          if (cellularPhase === 'no-signal' || cellularPhase === 'apn-error') {
+            obWelcomeNext();
+          }
         }
       }, 1000);
     }
@@ -14411,12 +15203,107 @@
         clearInterval(welcomeCountdownTimer);
         welcomeCountdownTimer = null;
       }
+      if (cellularIssueDetected) {
+        cellularFailureType = null;
+        goTo('ob-wifi-page');
+        return;
+      }
+      if (cellularPhase === 'searching') {
+        startCellularAttach();
+        return;
+      }
+      if (cellularPhase === 'attaching') {
+        if (cellularFailureType === 'no-signal') {
+          showCellularNoSignal();
+        } else if (cellularFailureType === 'apn') {
+          showCellularApnError();
+        } else {
+          completeCellularConnection();
+        }
+        return;
+      }
       if (cellularConnected) {
         showToast('✅ 已通过 4G 联网,跳过 WiFi 设置');
         goTo('ob-download-page');
       } else {
         goTo('ob-wifi-page');
       }
+    }
+
+    function openApnSettings(source = 'settings') {
+      apnEntrySource = source;
+      const result = document.getElementById('apn-result');
+      const btn = document.getElementById('apn-test-btn');
+      if (result) result.textContent = '';
+      if (btn) {
+        btn.classList.remove('testing');
+        btn.textContent = '测试连接';
+      }
+      goTo('apn-page');
+    }
+
+    function goBackFromApn() {
+      if (apnEntrySource === 'onboarding') {
+        goTo('ob-welcome-page');
+      } else {
+        goTo('settings-page');
+      }
+    }
+
+    function selectApnAuth(value, el) {
+      const authValue = document.getElementById('apn-auth-value');
+      if (authValue) authValue.value = value;
+      document.querySelectorAll('.apn-auth-option').forEach(option => {
+        const selected = option === el;
+        option.classList.toggle('selected', selected);
+        option.setAttribute('aria-checked', selected ? 'true' : 'false');
+      });
+    }
+
+    function testApnConnection() {
+      const apnInput = document.getElementById('apn-name-input');
+      const result = document.getElementById('apn-result');
+      const btn = document.getElementById('apn-test-btn');
+      const apnValue = apnInput ? apnInput.value.trim() : '';
+      if (!apnValue) {
+        if (result) {
+          result.style.color = '#B45309';
+          result.textContent = '请输入 APN，例如：internet';
+        }
+        if (apnInput) apnInput.focus();
+        return;
+      }
+      if (btn) {
+        btn.classList.add('testing');
+        btn.textContent = '正在测试...';
+      }
+      if (result) {
+        result.style.color = '#516170';
+        result.textContent = '正在检查移动网络连接...';
+      }
+      setTimeout(() => {
+        const currentApn = document.getElementById('current-apn');
+        if (currentApn) currentApn.textContent = apnValue;
+        cellularConnected = true;
+        cellularIssueDetected = false;
+        cellularFailureType = null;
+        if (btn) {
+          btn.classList.remove('testing');
+          btn.textContent = '测试连接';
+        }
+        if (result) {
+          result.style.color = '#2F855A';
+          result.textContent = '连接成功，APN 已自动保存。';
+        }
+        showToast('✅ APN 已保存');
+        setTimeout(() => {
+          if (apnEntrySource === 'onboarding') {
+            goTo('ob-download-page');
+          } else {
+            goTo('settings-page');
+          }
+        }, 850);
+      }, 1200);
     }
 
     // ============ 页面状态 ============
@@ -17667,6 +18554,10 @@
     
     // 返回键逻辑
     function goBack() {
+      if (currentPage === 'apn-page') {
+        goBackFromApn();
+        return;
+      }
       // ===== 层级1: 关闭咕咕Toast =====
       const guguToast = document.getElementById('gugu-toast');
       if (guguToast && guguToast.classList.contains('show')) {
@@ -17729,6 +18620,7 @@
         'map-page': 'home-page',
         'workshop-page': 'home-page',
         'backpack-page': 'home-page',
+        'backpack-empty-page': 'home-page',
         'settings-page': 'home-page',
         'species-list-page': 'backpack-page',
         'species-detail-page': 'species-list-page',
