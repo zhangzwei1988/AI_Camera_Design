@@ -4496,6 +4496,22 @@
       backdrop-filter: blur(4px);
       z-index: 10;
     }
+    .aigc-result-saved-tag {
+      position: absolute;
+      top: 56px;
+      right: 14px;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 8px 14px;
+      border-radius: 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(4px);
+      z-index: 10;
+    }
     .aigc-result-actions-bar {
       position: absolute;
       bottom: 0;
@@ -4530,16 +4546,6 @@
     .aigc-action-btn.compare:进行中 {
       background: rgba(255, 255, 255, 0.35);
     }
-    .aigc-action-btn.save {
-      background: linear-gradient(135deg, #FFD700 0%, #F59E0B 100%);
-      color: #5D4E3A;
-      box-shadow: 0 4px 12px rgba(255, 200, 0, 0.3);
-    }
-    .aigc-action-btn.save:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 16px rgba(255, 200, 0, 0.4);
-    }
-
     .aigc-action-btn.share {
       background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
       color: white;
@@ -10676,16 +10682,16 @@
               <span>🏔️</span>
               <span>吉卜力风格</span>
             </div>
+            <div class="aigc-result-saved-tag" id="aigc-result-saved-tag">
+              <span>✅</span>
+              <span>已自动保存</span>
+            </div>
 
             <!-- 底部操作栏 -->
             <div class="aigc-result-actions-bar">
               <button class="aigc-action-btn compare" onmousedown="showOriginal()" onmouseup="hideOriginal()" ontouchstart="showOriginal()" ontouchend="hideOriginal()">
                 <span>🔄</span>
                 <span>对比</span>
-              </button>
-              <button class="aigc-action-btn save" onclick="saveAigcToGallery()">
-                <span>💾</span>
-                <span>保存</span>
               </button>
               <button class="aigc-action-btn share" onclick="showShareModal()">
                 <span>📤</span>
@@ -14177,6 +14183,7 @@
             hideAigcModal();
             // 跳转到结果页
             navigateTo('aigc-result-page');
+            autoSaveAigcToGallery();
           }, 300);
         }
         progressBar.style.width = progress + '%';
@@ -14196,6 +14203,10 @@
       navigateTo('backpack-page');
     }
 
+    function autoSaveAigcToGallery() {
+      showToast('✅ 作品已自动保存到背包');
+    }
+
     // AIGC结果页函数 - 只切换图片可见性,不影响其他元素
     function showOriginal() {
       const resultImg = document.getElementById('aigc-result-img');
@@ -14212,8 +14223,7 @@
     }
     
     function saveAigcToGallery() {
-      alert('作品已保存到背包! 🎨');
-      // 停留在当前页面,等待用户主动操作
+      autoSaveAigcToGallery();
     }
 
     // ============ 分享功能 ============
