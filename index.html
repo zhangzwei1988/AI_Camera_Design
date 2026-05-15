@@ -5443,7 +5443,7 @@
     }
 
     .badge-grid .badge-item {
-      background: linear-gradient(135deg, #FFD700 0%, #F59E0B 100%);
+      background: linear-gradient(180deg, #FFFEF8 0%, #F0EBE3 100%);
       border-radius: 16px;
       padding: 10px 8px 12px;
       cursor: pointer;
@@ -5452,24 +5452,25 @@
       align-items: center;
       justify-content: center;
       gap: 4px;
-      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       transition: all 0.2s;
     }
     .badge-grid .badge-item:hover { transform: scale(1.03); }
     .badge-grid .badge-item.locked {
-      background: linear-gradient(135deg, #9CA3AF 0%, #6B7280 100%);
-      opacity: 0.6;
-      box-shadow: none;
+      background: linear-gradient(180deg, #FFFEF8 0%, #F0EBE3 100%);
+      opacity: 1;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
-    .badge-grid .badge-icon { font-size: 100px; line-height: 1; }
+    .badge-grid .badge-icon { font-size: 100px; line-height: 1; filter:none; opacity:1; transition:filter .2s, opacity .2s, transform .2s; }
+    .badge-grid .badge-item.locked .badge-icon { filter: grayscale(1) saturate(0); opacity: .42; }
     .badge-grid .badge-name {
       font-size: 13px;
       font-weight: 600;
       color: #5D4E3A;
       text-align: center;
     }
-    .badge-grid .badge-item.locked .badge-name { color: #444; }
+    .badge-grid .badge-item.locked .badge-name { color: #9B8E7A; }
 
     /* 背包空状态 */
     .backpack-empty-header {
