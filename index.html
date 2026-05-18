@@ -9765,6 +9765,9 @@
     .apn-card{width:100%;max-width:none;margin:0;color:#27313a;}
     .apn-header{display:flex;align-items:center;justify-content:center;gap:8px;font-size:18px;font-weight:700;color:white;margin-bottom:16px;text-shadow:0 2px 4px rgba(0,0,0,.3);}
     .apn-form{display:flex;flex-direction:column;gap:12px;}
+    .mobile-network-row{display:flex;align-items:center;justify-content:space-between;gap:14px;}
+    .mobile-network-title{font-size:14px;font-weight:800;color:#5D4E3A;margin-bottom:2px;}
+    .mobile-network-desc{font-size:12px;font-weight:600;color:#8A7A65;}
     .apn-note{display:flex;align-items:flex-start;gap:8px;margin-bottom:12px;padding:10px 12px;border-radius:14px;background:rgba(255,216,77,.22);color:#6B5A32;font-size:12px;font-weight:700;line-height:1.35;}
     .apn-note-icon{flex:0 0 auto;font-size:14px;line-height:1.2;}
     .apn-field{background:linear-gradient(180deg,#FFFEF8 0%,#F5F0E6 100%);border-radius:18px;padding:14px 16px;box-shadow:0 4px 16px rgba(0,0,0,.1);}
@@ -12044,19 +12047,12 @@
                     </div>
                     <span class="settings-chevron">›</span>
                   </div>
-                  <div class="settings-item">
-                    <div class="settings-item-left">
-                      <div class="settings-icon green">📡</div>
-                      <div class="settings-label">移动数据</div>
-                    </div>
-                    <div class="toggle-switch 进行中" onclick="this.classList.toggle('进行中')"></div>
-                  </div>
                   <div class="settings-item" onclick="openApnSettings('settings')">
                     <div class="settings-item-left">
-                      <div class="settings-icon orange">SIM</div>
+                      <div class="settings-icon green">📡</div>
                       <div>
-                        <div class="settings-label">APN 配置</div>
-                        <div class="settings-value" id="current-apn">自动</div>
+                        <div class="settings-label">移动网络</div>
+                        <div class="settings-value" id="current-mobile-network">已开启 · APN 自动</div>
                       </div>
                     </div>
                     <span class="settings-chevron">›</span>
@@ -12315,7 +12311,7 @@
           </div>
         </div>
 
-        <!-- ========== APN 配置页 ========== -->
+        <!-- ========== 移动网络页 ========== -->
         <div id="apn-page" class="page page-blur-bg apn-page">
           <div class="apn-container">
             <button class="apn-back-btn" onclick="goBackFromApn()">
@@ -12327,12 +12323,25 @@
               <div class="apn-card settings-group">
                 <div class="apn-header">
                   <span>📡</span>
-                  <span>APN 配置</span>
+                  <span>移动网络</span>
                 </div>
 
                 <div class="apn-form">
                   <div class="settings-group">
                     <div class="settings-group-title">移动网络</div>
+                    <div class="settings-group-card apn-field">
+                      <div class="mobile-network-row">
+                        <div>
+                          <div class="mobile-network-title">4G 移动网络</div>
+                          <div class="mobile-network-desc">开启后，设备可通过 SIM 卡联网。</div>
+                        </div>
+                        <div class="toggle-switch 进行中" onclick="this.classList.toggle('进行中')"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="settings-group">
+                    <div class="settings-group-title">APN 配置</div>
                     <div class="settings-group-card apn-field">
                       <div class="apn-note">
                         <span class="apn-note-icon">ℹ️</span>
@@ -12340,6 +12349,7 @@
                       </div>
                       <label for="apn-name-input">APN</label>
                       <input class="apn-input" id="apn-name-input" type="text" placeholder="internet" autocomplete="off">
+                      <div class="settings-value" id="current-apn" style="margin-top:6px;">当前：自动</div>
                     </div>
                   </div>
 
@@ -13330,7 +13340,7 @@
           <div class="nav-item sub" onclick="goTo('settings-page', 'language')"><span class="icon">🌐</span><span>语言弹窗</span></div>
           <div class="nav-item sub" onclick="goTo('settings-page', 'screen-timeout')"><span class="icon">⏱️</span><span>息屏时间</span></div>
           <div class="nav-item" onclick="goTo('wifi-page')"><span class="icon">📶</span><span>无线网络</span></div>
-          <div class="nav-item" onclick="openApnSettings('settings')"><span class="icon">📡</span><span>APN 配置</span></div>
+          <div class="nav-item" onclick="openApnSettings('settings')"><span class="icon">📡</span><span>移动网络</span></div>
           <div class="nav-item sub" onclick="goTo('wifi-page', 'password')"><span class="icon">🔑</span><span>密码输入</span></div>
           <div class="nav-item" onclick="goTo('about-device-page')"><span class="icon">ℹ️</span><span>关于本机</span></div>
           <div class="nav-item" onclick="goTo('system-update-page')"><span class="icon">🔄</span><span>系统更新</span></div>
@@ -15294,7 +15304,9 @@
       }
       setTimeout(() => {
         const currentApn = document.getElementById('current-apn');
-        if (currentApn) currentApn.textContent = apnValue;
+        const currentMobileNetwork = document.getElementById('current-mobile-network');
+        if (currentApn) currentApn.textContent = '当前：' + apnValue;
+        if (currentMobileNetwork) currentMobileNetwork.textContent = '已开启 · APN ' + apnValue;
         cellularConnected = true;
         cellularIssueDetected = false;
         cellularFailureType = null;
