@@ -2447,6 +2447,10 @@
       transform: scale(0.9);
       transition: transform 0.25s;
     }
+    .task-modal.completed {
+      background: linear-gradient(180deg, #FFFEF8 0%, #F3F9E8 100%);
+      border: 2px solid rgba(74, 222, 128, 0.45);
+    }
     .task-modal-overlay.show .task-modal {
       transform: scale(1);
     }
@@ -2480,6 +2484,22 @@
       color: #888;
       margin-top: 2px;
     }
+    .task-modal-status {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      margin-top: 5px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.14);
+      color: #15803D;
+      font-size: 12px;
+      font-weight: 700;
+      width: fit-content;
+    }
+    .task-modal.completed .task-modal-status {
+      display: inline-flex;
+    }
 
     .task-modal-desc {
       font-size: 14px;
@@ -2498,6 +2518,11 @@
       margin-bottom: 18px;
       font-size: 13px;
       color: #92400E;
+    }
+    .task-modal.completed .task-modal-reward {
+      background: rgba(34, 197, 94, 0.14);
+      color: #15803D;
+      font-weight: 700;
     }
 
     .task-modal-actions {
@@ -10330,11 +10355,11 @@
             </div>
 
             <div class="map-pin" style="left: 520px; top: 310px;" onclick="showTaskModal('butterfly')">
-              <div class="pin-label">观察天空的云</div>
+              <div class="pin-label">发现蝴蝶</div>
               <div class="pin-marker gold"></div>
             </div>
 
-            <div class="map-pin" style="left: 555px; top: 185px;" onclick="showTaskModal('leaf')">
+            <div class="map-pin" style="left: 555px; top: 185px;" onclick="showTaskModal('rock')">
               <div class="pin-label">收集不同的石头</div>
               <div class="pin-marker blue"></div>
             </div>
@@ -10343,22 +10368,23 @@
 
             <!-- 任务弹窗 -->
             <div class="task-modal-overlay" id="task-modal-overlay" onclick="event.stopPropagation(); hideTaskModal()">
-              <div class="task-modal" onclick="event.stopPropagation()">
+              <div class="task-modal" id="task-modal" onclick="event.stopPropagation()">
                 <div class="task-modal-header">
                   <div class="task-modal-icon" id="task-modal-icon" style="background: linear-gradient(135deg, #FF6B6B 0%, #E74C3C 100%);">🌸</div>
                   <div>
                     <div class="task-modal-title" id="task-modal-title">寻找花朵</div>
-                    <div class="task-modal-difficulty">⭐ 简单 • 约5分钟</div>
+                    <div class="task-modal-difficulty" id="task-modal-difficulty">⭐ 简单 • 约5分钟</div>
+                    <div class="task-modal-status" id="task-modal-status">✓ 已完成</div>
                   </div>
                 </div>
                 <div class="task-modal-desc" id="task-modal-desc">
                   在周围寻找美丽的花朵吧!找到后拍一张照片。你能发现多少种颜色? 🌈
                 </div>
-                <div class="task-modal-reward">
-                  <span>🏆</span>
-                  <span>奖励:+10 经验 & 花朵勋章</span>
+                <div class="task-modal-reward" id="task-modal-reward">
+                  <span id="task-modal-reward-icon">🏆</span>
+                  <span id="task-modal-reward-text">奖励:+10 星星</span>
                 </div>
-                <div class="task-modal-actions">
+                <div class="task-modal-actions" id="task-modal-actions">
                   <button class="task-btn task-btn-decline" onclick="hideTaskModal()">稍后再说</button>
                   <button class="task-btn task-btn-accept" onclick="acceptTask()">出发!🚀</button>
                 </div>
@@ -14079,36 +14105,65 @@
         icon: '🌸',
         color: 'linear-gradient(135deg, #FF6B6B 0%, #E74C3C 100%)',
         title: '寻找花朵',
-        desc: '在周围寻找美丽的花朵吧!找到后拍一张照片。你能发现多少种颜色?🌈'
+        difficulty: '⭐ 简单 • 约5分钟',
+        stars: 15,
+        completed: false,
+        desc: '在周围寻找美丽的花朵吧!找到后拍一张照片。你能发现多少种颜色?🌈',
+        completedDesc: '你已经完成了“寻找花朵”任务，发现了身边漂亮的颜色。好样的，小探险家!'
       },
       butterfly: {
         icon: '🦋',
         color: 'linear-gradient(135deg, #FFD700 0%, #F59E0B 100%)',
         title: '发现蝴蝶',
-        desc: '蝴蝶喜欢阳光明媚的地方和花朵。慢慢移动,保持安静,才能拍到好照片!🌻'
+        difficulty: '⭐ 中等 • 约8分钟',
+        stars: 20,
+        completed: false,
+        desc: '蝴蝶喜欢阳光明媚的地方和花朵。慢慢移动,保持安静,才能拍到好照片!🌻',
+        completedDesc: '你已经完成了“发现蝴蝶”任务，还记得它飞起来像不像一片会动的花瓣?'
       },
       rock: {
         icon: '🪨',
         color: 'linear-gradient(135deg, #4ADE80 0%, #22C55E 100%)',
         title: '探索岩石',
-        desc: '找一块有独特颜色或图案的有趣岩石。是什么让它与众不同?🔍'
+        difficulty: '⭐ 简单 • 约5分钟',
+        stars: 10,
+        completed: true,
+        desc: '找一块有独特颜色或图案的有趣岩石。是什么让它与众不同?🔍',
+        completedDesc: '你已经完成了“探索岩石”任务，找到了一块有自己小秘密的石头。观察得真仔细!'
       },
       leaf: {
         icon: '🍂',
         color: 'linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%)',
         title: '收集落叶',
-        desc: '寻找不同形状和大小的落叶。你能识别出多少种不同的树木?🌳'
+        difficulty: '⭐ 简单 • 约6分钟',
+        stars: 15,
+        completed: false,
+        desc: '寻找不同形状和大小的落叶。你能识别出多少种不同的树木?🌳',
+        completedDesc: '你已经完成了“收集落叶”任务，发现了叶子的不同形状。你的眼睛越来越会找线索啦!'
       }
     };
+    let activeTaskType = null;
 
     function showTaskModal(taskType) {
       const task = taskData[taskType];
       if (!task) return;
-      
+
+      activeTaskType = taskType;
+      const modal = document.getElementById('task-modal');
+      const rewardIcon = document.getElementById('task-modal-reward-icon');
+      const rewardText = document.getElementById('task-modal-reward-text');
+      const actions = document.getElementById('task-modal-actions');
+      modal.classList.toggle('completed', task.completed);
       document.getElementById('task-modal-icon').style.background = task.color;
       document.getElementById('task-modal-icon').textContent = task.icon;
       document.getElementById('task-modal-title').textContent = task.title;
-      document.getElementById('task-modal-desc').textContent = task.desc;
+      document.getElementById('task-modal-difficulty').textContent = task.completed ? `⭐ 获得 +${task.stars} 星星` : task.difficulty;
+      document.getElementById('task-modal-desc').textContent = task.completed ? task.completedDesc : task.desc;
+      rewardIcon.textContent = task.completed ? '✅' : '🏆';
+      rewardText.textContent = task.completed ? `任务已完成，已获得 +${task.stars} 星星` : `奖励:+${task.stars} 星星`;
+      actions.innerHTML = task.completed
+        ? '<button class="task-btn task-btn-decline" onclick="hideTaskModal()">知道啦</button><button class="task-btn task-btn-accept" onclick="hideTaskModal()">继续探索</button>'
+        : '<button class="task-btn task-btn-decline" onclick="hideTaskModal()">稍后再说</button><button class="task-btn task-btn-accept" onclick="acceptTask()">出发!🚀</button>';
       document.getElementById('task-modal-overlay').classList.add('show');
     }
 
@@ -14117,6 +14172,11 @@
     }
 
     function acceptTask() {
+      const task = taskData[activeTaskType];
+      if (task && task.completed) {
+        hideTaskModal();
+        return;
+      }
       hideTaskModal();
       navigateTo('camera-page');
     }
