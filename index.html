@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI 探索者 - V10 中文版</title>
+  <title>AI 探索者 - 订阅体验 V6 中文版</title>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -2447,10 +2447,6 @@
       transform: scale(0.9);
       transition: transform 0.25s;
     }
-    .task-modal.completed {
-      background: linear-gradient(180deg, #FFFEF8 0%, #F3F9E8 100%);
-      border: 2px solid rgba(74, 222, 128, 0.45);
-    }
     .task-modal-overlay.show .task-modal {
       transform: scale(1);
     }
@@ -2484,22 +2480,6 @@
       color: #888;
       margin-top: 2px;
     }
-    .task-modal-status {
-      display: none;
-      align-items: center;
-      gap: 4px;
-      margin-top: 5px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: rgba(34, 197, 94, 0.14);
-      color: #15803D;
-      font-size: 12px;
-      font-weight: 700;
-      width: fit-content;
-    }
-    .task-modal.completed .task-modal-status {
-      display: inline-flex;
-    }
 
     .task-modal-desc {
       font-size: 14px;
@@ -2518,11 +2498,6 @@
       margin-bottom: 18px;
       font-size: 13px;
       color: #92400E;
-    }
-    .task-modal.completed .task-modal-reward {
-      background: rgba(34, 197, 94, 0.14);
-      color: #15803D;
-      font-weight: 700;
     }
 
     .task-modal-actions {
@@ -8192,6 +8167,7 @@
     .settings-icon.blue { background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%); }
     .settings-icon.green { background: linear-gradient(135deg, #4ADE80 0%, #22C55E 100%); }
     .settings-icon.orange { background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%); }
+    .settings-icon.yellow { background: linear-gradient(135deg, #FFD93D 0%, #FF9500 100%); }
     .settings-icon.purple { background: linear-gradient(135deg, #A78BFA 0%, #8B5CF6 100%); }
     .settings-icon.gray { background: linear-gradient(135deg, #9CA3AF 0%, #6B7280 100%); }
     .settings-icon.red { background: linear-gradient(135deg, #F87171 0%, #EF4444 100%); }
@@ -9861,6 +9837,422 @@
       margin-top: 10px;
       letter-spacing: 1px;
     }
+
+    /* ========== AI 服务提醒：全屏儿童友好场景 ========== */
+    .sub-page-shell {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: linear-gradient(135deg, #F8F1DF 0%, #DDEFE8 100%);
+    }
+    .sub-page-shell::before,
+    .sub-page-shell::after {
+      content: '';
+      position: absolute;
+      pointer-events: none;
+    }
+    .sub-page-shell::before {
+      display: none;
+    }
+    .sub-page-shell::after {
+      display: none;
+    }
+    .sub-page-shell.locked {
+      background: linear-gradient(135deg, #F5E7D2 0%, #D7E8EA 100%);
+    }
+    .sub-page-shell.quota {
+      background: linear-gradient(135deg, #F7E4C6 0%, #E4F0DC 100%);
+    }
+    .sub-back-btn {
+      position: absolute;
+      left: 18px;
+      top: 18px;
+      z-index: 4;
+      height: 44px;
+      min-width: 84px;
+      border: 0;
+      border-radius: 18px;
+      background: rgba(255,255,255,.86);
+      color: #5d4327;
+      font-size: 17px;
+      font-weight: 800;
+      box-shadow: 0 8px 20px rgba(77, 56, 28, .16);
+      cursor: pointer;
+    }
+    .sub-story-panel {
+      position: absolute;
+      left: 42px;
+      top: 76px;
+      width: 404px;
+      z-index: 2;
+    }
+    .sub-companion-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .sub-companion-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #f7d58a, #b9793f);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      box-shadow: 0 6px 14px rgba(110, 74, 30, 0.24);
+    }
+    .sub-scene-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255, 248, 222, .9);
+      color: #8a5b22;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(122, 83, 34, .12);
+    }
+    .sub-companion-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--wood-primary);
+    }
+    .sub-companion-state {
+      font-size: 12px;
+      color: #8a6c48;
+      margin-top: 2px;
+    }
+    .sub-kid-title {
+      width: 360px;
+      font-size: 31px;
+      line-height: 1.12;
+      color: #4a321c;
+      font-weight: 900;
+      text-shadow: 0 3px 0 rgba(255,255,255,.5);
+      margin: 8px 0 12px;
+    }
+    .sub-speech {
+      width: 386px;
+      padding: 14px 16px;
+      border-radius: 20px;
+      background: rgba(255, 254, 248, 0.94);
+      box-shadow: 0 12px 28px rgba(72, 52, 32, 0.16);
+      border: 2px solid rgba(255, 255, 255, 0.72);
+      font-size: 17px;
+      line-height: 1.5;
+      color: #4c3824;
+      font-weight: 600;
+    }
+    .sub-speech small {
+      display: block;
+      margin-top: 8px;
+      font-size: 13px;
+      line-height: 1.45;
+      color: #7c6346;
+      font-weight: 500;
+    }
+    .sub-hero-icon {
+      position: absolute;
+      left: 42px;
+      bottom: 34px;
+      width: 100px;
+      height: 100px;
+      border-radius: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #fff2a8 0%, #ffb84b 100%);
+      font-size: 54px;
+      box-shadow: 0 14px 26px rgba(111, 71, 24, .24);
+      z-index: 2;
+    }
+    .sub-parent-card {
+      position: absolute;
+      right: 38px;
+      top: 70px;
+      width: 252px;
+      min-height: 318px;
+      padding: 16px;
+      border-radius: 26px;
+      background: rgba(255,254,248,.95);
+      box-shadow: 0 16px 34px rgba(80, 53, 25, .2);
+      border: 2px solid rgba(255,255,255,.82);
+      z-index: 2;
+      text-align: center;
+    }
+    .sub-parent-title {
+      font-size: 18px;
+      font-weight: 900;
+      color: #4f3521;
+      margin-bottom: 4px;
+    }
+    .sub-parent-desc {
+      font-size: 13px;
+      line-height: 1.4;
+      color: #7a6042;
+      margin-bottom: 10px;
+    }
+    .sub-qr-card {
+      width: 138px;
+      height: 138px;
+      margin: 4px auto 10px;
+      border-radius: 20px;
+      background:
+        linear-gradient(90deg, #273447 10px, transparent 10px) 0 0 / 20px 20px,
+        linear-gradient(#273447 10px, transparent 10px) 0 0 / 20px 20px,
+        #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 0 0 10px #fff, inset 0 0 0 13px #f2e9d9, 0 8px 18px rgba(0,0,0,.12);
+    }
+    .sub-qr-card span {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: #fff7df;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.12);
+    }
+    .sub-parent-note {
+      font-size: 12px;
+      line-height: 1.38;
+      color: #8a6a43;
+    }
+    .sub-child-actions {
+      position: absolute;
+      left: 162px;
+      bottom: 38px;
+      display: flex;
+      gap: 12px;
+      z-index: 3;
+    }
+    .sub-action-btn {
+      min-width: 148px;
+      height: 54px;
+      border: 0;
+      border-radius: 22px;
+      padding: 0 18px;
+      color: #5a3a18;
+      background: rgba(255,255,255,.92);
+      font-size: 17px;
+      font-weight: 800;
+      box-shadow: 0 10px 20px rgba(75, 52, 28, .18);
+      cursor: pointer;
+    }
+    .sub-action-btn.primary {
+      background: linear-gradient(135deg, #ffd95a 0%, #ff9f2f 100%);
+      color: #56330f;
+    }
+    .sub-status-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .sub-status-chip {
+      border-radius: 15px;
+      padding: 10px;
+      background: rgba(255, 249, 230, .9);
+      color: #6a4c2a;
+      text-align: left;
+      font-size: 12px;
+    }
+    .sub-status-chip b {
+      display: block;
+      font-size: 17px;
+      color: #4c321b;
+      margin-top: 3px;
+    }
+    .sub-mini-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+      text-align: left;
+    }
+    .sub-mini-item {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 9px 10px;
+      border-radius: 14px;
+      background: rgba(255, 248, 225, .9);
+      color: #644628;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .sub-service-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(84, 160, 116, .14);
+      color: #2f805b;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .sub-service-badge.warning {
+      background: rgba(236, 155, 45, .16);
+      color: #a46416;
+    }
+    .sub-service-meter {
+      margin-top: 10px;
+      height: 8px;
+      border-radius: 999px;
+      background: #eadfcf;
+      overflow: hidden;
+    }
+    .sub-service-meter span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #54a074, #f0c451);
+    }
+    .sub-settings-note {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #fff6df;
+      color: #7b5527;
+      font-size: 13px;
+      line-height: 1.45;
+      margin-bottom: 12px;
+    }
+    .sub-page-shell .sub-back-btn {
+      top: 14px;
+      left: 18px;
+      height: 38px;
+      min-width: 74px;
+      border-radius: 16px;
+      font-size: 14px;
+    }
+    .sub-page-shell .sub-story-panel {
+      left: 44px;
+      top: 84px;
+      width: 348px;
+      text-align: center;
+    }
+    .sub-page-shell .sub-companion-row {
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .sub-page-shell .sub-companion-avatar {
+      width: 92px;
+      height: 92px;
+      border-radius: 28px;
+      font-size: 52px;
+      box-shadow: 0 12px 24px rgba(110, 74, 30, 0.22);
+    }
+    .sub-page-shell .sub-companion-name {
+      font-size: 21px;
+      line-height: 1;
+    }
+    .sub-page-shell .sub-companion-state {
+      display: none;
+    }
+    .sub-page-shell .sub-scene-kicker {
+      display: none;
+    }
+    .sub-page-shell .sub-kid-title {
+      width: auto;
+      font-size: 25px;
+      line-height: 1.18;
+      margin: 9px 0 16px;
+      text-align: center;
+    }
+    .sub-page-shell .sub-speech {
+      width: auto;
+      min-height: 76px;
+      padding: 12px 15px;
+      font-size: 16px;
+      line-height: 1.42;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 2px;
+    }
+    .sub-page-shell .sub-function-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, #FFF7D6 0%, #FFD36A 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+      flex-shrink: 0;
+      box-shadow: 0 6px 14px rgba(123, 83, 31, .16);
+    }
+    .sub-page-shell .sub-speech-main {
+      flex: 1;
+      text-align: left;
+    }
+    .sub-page-shell .sub-speech small {
+      display: none;
+    }
+    .sub-page-shell .sub-hero-icon {
+      display: none;
+    }
+    .sub-page-shell .sub-parent-card {
+      right: 44px;
+      top: 76px;
+      width: 300px;
+      min-height: 0;
+      padding: 18px 18px 16px;
+      border-radius: 28px;
+    }
+    .sub-page-shell .sub-parent-title {
+      font-size: 24px;
+    }
+    .sub-page-shell .sub-parent-desc {
+      font-size: 16px;
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+    .sub-page-shell .sub-qr-card {
+      width: 178px;
+      height: 178px;
+      margin-bottom: 10px;
+      border-radius: 26px;
+      background:
+        linear-gradient(90deg, #273447 14px, transparent 14px) 0 0 / 28px 28px,
+        linear-gradient(#273447 14px, transparent 14px) 0 0 / 28px 28px,
+        #fff;
+    }
+    .sub-page-shell .sub-parent-note {
+      display: none;
+    }
+    .sub-page-shell .sub-qr-card span {
+      width: 68px;
+      height: 68px;
+      border-radius: 20px;
+      font-size: 38px;
+    }
+    .sub-page-shell .sub-mini-list {
+      display: none;
+    }
+    .sub-page-shell .sub-child-actions {
+      left: 44px;
+      bottom: 28px;
+      gap: 14px;
+    }
+    .sub-page-shell .sub-action-btn {
+      min-width: 154px;
+      height: 56px;
+      border-radius: 22px;
+      font-size: 18px;
+    }
   </style>
 </head>
 <body>
@@ -10355,11 +10747,11 @@
             </div>
 
             <div class="map-pin" style="left: 520px; top: 310px;" onclick="showTaskModal('butterfly')">
-              <div class="pin-label">发现蝴蝶</div>
+              <div class="pin-label">观察天空的云</div>
               <div class="pin-marker gold"></div>
             </div>
 
-            <div class="map-pin" style="left: 555px; top: 185px;" onclick="showTaskModal('rock')">
+            <div class="map-pin" style="left: 555px; top: 185px;" onclick="showTaskModal('leaf')">
               <div class="pin-label">收集不同的石头</div>
               <div class="pin-marker blue"></div>
             </div>
@@ -10368,23 +10760,22 @@
 
             <!-- 任务弹窗 -->
             <div class="task-modal-overlay" id="task-modal-overlay" onclick="event.stopPropagation(); hideTaskModal()">
-              <div class="task-modal" id="task-modal" onclick="event.stopPropagation()">
+              <div class="task-modal" onclick="event.stopPropagation()">
                 <div class="task-modal-header">
                   <div class="task-modal-icon" id="task-modal-icon" style="background: linear-gradient(135deg, #FF6B6B 0%, #E74C3C 100%);">🌸</div>
                   <div>
                     <div class="task-modal-title" id="task-modal-title">寻找花朵</div>
-                    <div class="task-modal-difficulty" id="task-modal-difficulty">⭐ 简单 • 约5分钟</div>
-                    <div class="task-modal-status" id="task-modal-status">✓ 已完成</div>
+                    <div class="task-modal-difficulty">⭐ 简单 • 约5分钟</div>
                   </div>
                 </div>
                 <div class="task-modal-desc" id="task-modal-desc">
                   在周围寻找美丽的花朵吧!找到后拍一张照片。你能发现多少种颜色? 🌈
                 </div>
-                <div class="task-modal-reward" id="task-modal-reward">
-                  <span id="task-modal-reward-icon">🏆</span>
-                  <span id="task-modal-reward-text">奖励:+10 星星</span>
+                <div class="task-modal-reward">
+                  <span>🏆</span>
+                  <span>奖励:+10 经验 & 花朵勋章</span>
                 </div>
-                <div class="task-modal-actions" id="task-modal-actions">
+                <div class="task-modal-actions">
                   <button class="task-btn task-btn-decline" onclick="hideTaskModal()">稍后再说</button>
                   <button class="task-btn task-btn-accept" onclick="acceptTask()">出发!🚀</button>
                 </div>
@@ -12170,6 +12561,16 @@
                     </div>
                     <span class="settings-chevron">›</span>
                   </div>
+                  <div class="settings-item" onclick="navigateTo('subscription-settings-page')">
+                    <div class="settings-item-left">
+                      <div class="settings-icon yellow">🔋</div>
+                      <div>
+                        <div class="settings-label">AI 服务</div>
+                        <div class="settings-value">还剩 2 天 · 给家长看</div>
+                      </div>
+                    </div>
+                    <span class="settings-chevron">›</span>
+                  </div>
                 </div>
               </div>
 
@@ -12869,6 +13270,204 @@
           </div>
         </div>
 
+        <!-- ========== AI 服务：到期前轻提醒（低频、儿童友好） ========== -->
+        <div id="subscription-reminder-page" class="page">
+          <div class="sub-page-shell">
+            <button class="sub-back-btn" onclick="goTo('home-page')">← 返回</button>
+            <div class="sub-story-panel">
+              <div class="sub-companion-row">
+                <div class="sub-companion-avatar" id="sub-reminder-avatar">🦉</div>
+                <div>
+                  <div class="sub-companion-name" id="sub-reminder-name">咕咕</div>
+                  <div class="sub-companion-state" id="sub-reminder-state">能量灯变小前的小提醒</div>
+                </div>
+              </div>
+              <div class="sub-scene-kicker" id="sub-reminder-kicker">爷爷的小信号</div>
+              <div class="sub-kid-title" id="sub-reminder-title">咕咕快没能量啦</div>
+              <div class="sub-speech" id="sub-reminder-speech">
+                <span class="sub-function-icon" id="sub-reminder-function-icon">🔋</span>
+                <span class="sub-speech-main" id="sub-reminder-main">我的 AI 小灯快暗啦，咕咕想补点能量，请爸爸妈妈帮我充充电。</span>
+                <small id="sub-reminder-small">再过一阵子，我需要爸爸妈妈在 App 里帮我补一补能量。你不用处理，给他们看看这张卡就好。</small>
+              </div>
+            </div>
+            <div class="sub-hero-icon">🔋</div>
+            <div class="sub-parent-card">
+              <div class="sub-parent-title">给爸爸妈妈看</div>
+              <div class="sub-parent-desc">扫码打开 AI 探索者服务</div>
+              <div class="sub-qr-card"><span>📱</span></div>
+              <div class="sub-parent-note">扫码打开父母端 App 的 AI 服务页，查看设备状态和后续权益。</div>
+              <div class="sub-mini-list">
+                <div class="sub-mini-item"><span>📷</span><span>拍照和相册仍可继续使用</span></div>
+                <div class="sub-mini-item"><span>🦉</span><span>AI 能力由家长统一管理</span></div>
+              </div>
+            </div>
+            <div class="sub-child-actions">
+              <button class="sub-action-btn" onclick="goTo('camera-page')">继续探索</button>
+              <button class="sub-action-btn primary" onclick="goTo('subscription-lock-page')">给家长看</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========== AI 服务：能力暂不可用 / 二维码给家长 ========== -->
+        <div id="subscription-lock-page" class="page">
+          <div class="sub-page-shell locked">
+            <button class="sub-back-btn" onclick="goTo('home-page')">← 返回</button>
+            <div class="sub-story-panel">
+              <div class="sub-companion-row">
+                <div class="sub-companion-avatar" id="sub-lock-avatar">🦉</div>
+                <div>
+                  <div class="sub-companion-name" id="sub-lock-name">咕咕</div>
+                  <div class="sub-companion-state" id="sub-lock-state">我先收起魔法小翅膀</div>
+                </div>
+              </div>
+              <div class="sub-scene-kicker" id="sub-lock-kicker">AI 伙伴暂时休息</div>
+              <div class="sub-kid-title" id="sub-lock-title">咕咕没能量啦</div>
+              <div class="sub-speech" id="sub-lock-speech">
+                <span class="sub-function-icon" id="sub-lock-function-icon">🔋</span>
+                <span class="sub-speech-main" id="sub-lock-main">我的 AI 小灯暂时灭啦，咕咕需要补点能量，请爸爸妈妈帮我充充电。</span>
+                <small id="sub-lock-small">拍照、看相册、看已经保存的作品还可以继续。请爸爸妈妈扫码，在 App 里帮我打开 AI 服务。</small>
+              </div>
+            </div>
+            <div class="sub-hero-icon">🦉</div>
+            <div class="sub-parent-card">
+              <div class="sub-parent-title">家长扫码查看</div>
+              <div class="sub-parent-desc">扫码打开 AI 探索者服务</div>
+              <div class="sub-qr-card"><span>📱</span></div>
+              <div class="sub-parent-note">设备编号 AE-2026-8821<br>AI 识别、语音对话、魔法画笔将由 App 统一管理。</div>
+              <div class="sub-mini-list">
+                <div class="sub-mini-item"><span>✅</span><span>本地照片和作品不会消失</span></div>
+                <div class="sub-mini-item"><span>📷</span><span>孩子仍可当普通相机使用</span></div>
+              </div>
+            </div>
+            <div class="sub-child-actions">
+              <button class="sub-action-btn" onclick="goTo('camera-page')">我先去拍照</button>
+              <button class="sub-action-btn primary" onclick="showToast('二维码准备好啦，给爸爸妈妈看就可以')">给家长看</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========== AI 服务：设置页订阅状态 ========== -->
+        <div id="subscription-settings-page" class="page page-blur-bg">
+          <div class="settings-container">
+            <button class="settings-back-btn" onclick="goTo('settings-page')">
+              <span>←</span>
+              <span>返回</span>
+            </button>
+
+            <div class="settings-list">
+              <div class="settings-group">
+                <div class="settings-group-title">AI 服务</div>
+                <div class="settings-group-card">
+                  <div class="sub-settings-note">
+                    AI 服务从设备首次激活开始体验 3 天。恢复出厂、换绑家庭或转让设备都不会重新开始。
+                  </div>
+                  <div class="settings-item">
+                    <div class="settings-item-left">
+                      <div class="settings-icon yellow">🔋</div>
+                      <div>
+                        <div class="settings-label">咕咕能量灯</div>
+                        <div class="settings-value">还剩 2 天 · 请家长在 App 查看</div>
+                      </div>
+                    </div>
+                    <span class="sub-service-badge warning">即将充能</span>
+                  </div>
+                  <div style="padding:0 16px 14px;">
+                    <div class="sub-service-meter"><span style="width:8%;"></span></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="settings-group">
+                <div class="settings-group-title">今天用到的 AI</div>
+                <div class="settings-group-card">
+                  <div class="settings-item">
+                    <div class="settings-item-left">
+                      <div class="settings-icon green">📷</div>
+                      <div>
+                        <div class="settings-label">拍照识别</div>
+                        <div class="settings-value">今天已认 18 次</div>
+                      </div>
+                    </div>
+                    <span class="sub-service-badge">可用</span>
+                  </div>
+                  <div class="settings-item">
+                    <div class="settings-item-left">
+                      <div class="settings-icon purple">🎙️</div>
+                      <div>
+                        <div class="settings-label">语音对话</div>
+                        <div class="settings-value">今天已聊 9 轮</div>
+                      </div>
+                    </div>
+                    <span class="sub-service-badge">可用</span>
+                  </div>
+                  <div class="settings-item">
+                    <div class="settings-item-left">
+                      <div class="settings-icon yellow">🎨</div>
+                      <div>
+                        <div class="settings-label">魔法创作</div>
+                        <div class="settings-value">今天已画 4 次</div>
+                      </div>
+                    </div>
+                    <span class="sub-service-badge">可用</span>
+                  </div>
+                  <div class="settings-item" onclick="goTo('subscription-lock-page')">
+                    <div class="settings-item-left">
+                      <div class="settings-icon blue">📱</div>
+                      <div>
+                        <div class="settings-label">给爸爸妈妈看</div>
+                        <div class="settings-value">扫码打开父母端 AI 服务页</div>
+                      </div>
+                    </div>
+                    <span class="settings-chevron">›</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========== AI 服务：魔法画笔额度用完 ========== -->
+        <div id="subscription-quota-page" class="page">
+          <div class="sub-page-shell quota">
+            <button class="sub-back-btn" onclick="goTo('workshop-page')">← 返回</button>
+            <div class="sub-story-panel">
+              <div class="sub-companion-row">
+                <div class="sub-companion-avatar">🎨</div>
+                <div>
+                  <div class="sub-companion-name">魔法画笔</div>
+                  <div class="sub-companion-state">今天已经画得很努力</div>
+                </div>
+              </div>
+              <div class="sub-scene-kicker">今天的创作收尾</div>
+              <div class="sub-kid-title">魔法画笔睡觉啦</div>
+              <div class="sub-speech">
+                你今天已经创作了好多作品，画笔要休息到明天。
+                <small>保存好的照片和作品都还在。现在去现实世界找一个新灵感，明天再把它变成魔法画吧。</small>
+              </div>
+              <div class="sub-status-row">
+                <div class="sub-status-chip">今日画笔<b>10/10</b></div>
+                <div class="sub-status-chip">明天醒来<b>06:00</b></div>
+                <div class="sub-status-chip">下一步<b>去探索</b></div>
+              </div>
+            </div>
+            <div class="sub-hero-icon">🎨</div>
+            <div class="sub-parent-card">
+              <div class="sub-parent-title">今天作品已保存</div>
+              <div class="sub-parent-desc">孩子已达到今日魔法画笔次数，建议正向收尾，不引导加购。</div>
+              <div class="sub-qr-card"><span>🖼️</span></div>
+              <div class="sub-parent-note">可去工坊查看作品，也可以继续拍照收集明天的创作素材。</div>
+              <div class="sub-mini-list">
+                <div class="sub-mini-item"><span>🖼️</span><span>查看今天做好的作品</span></div>
+                <div class="sub-mini-item"><span>🌿</span><span>去外面找新的图案和颜色</span></div>
+              </div>
+            </div>
+            <div class="sub-child-actions">
+              <button class="sub-action-btn" onclick="goTo('workshop-page')">看看作品</button>
+              <button class="sub-action-btn primary" onclick="goTo('camera-page')">去拍照探索</button>
+            </div>
+          </div>
+        </div>
+
         <!-- ========== AI 菜单浮层 ========== -->
         <div class="ai-overlay" id="ai-overlay">
           <!-- 顶部栏 -->
@@ -13327,6 +13926,21 @@
           <div class="nav-item" onclick="goTo('chat-page')"><span class="icon">💬</span><span>照片聊天</span></div>
           <div class="nav-item" onclick="goTo('general-chat-page')"><span class="icon">🗣️</span><span>通用聊天</span></div>
           <div class="nav-item" onclick="goTo('story-page')"><span class="icon">📖</span><span>故事页</span></div>
+        </div>
+      </div>
+
+      <!-- AI 服务 / 订阅 -->
+      <div class="nav-section">
+        <div class="nav-section-title">💫 AI 服务</div>
+        <div class="nav-items">
+          <div class="nav-item" onclick="showSubscriptionScene('identify')"><span class="icon">📷</span><span>识别快到期</span></div>
+          <div class="nav-item" onclick="showSubscriptionScene('chat', 'ribbit')"><span class="icon">🎙️</span><span>对话快到期</span></div>
+          <div class="nav-item" onclick="showSubscriptionScene('magic', 'belle')"><span class="icon">🎨</span><span>生图快到期</span></div>
+          <div class="nav-item sub" onclick="showSubscriptionScene('identifyLocked')"><span class="icon">📷</span><span>识别已到期</span></div>
+          <div class="nav-item sub" onclick="showSubscriptionScene('chatLocked', 'ribbit')"><span class="icon">🎙️</span><span>对话已到期</span></div>
+          <div class="nav-item sub" onclick="showSubscriptionScene('magicLocked', 'belle')"><span class="icon">🎨</span><span>生图已到期</span></div>
+          <div class="nav-item sub" onclick="showSubscriptionScene('magicQuota')"><span class="icon">✨</span><span>生图次数用完</span></div>
+          <div class="nav-item" onclick="goTo('subscription-settings-page')"><span class="icon">⚙️</span><span>设置页 AI 服务</span></div>
         </div>
       </div>
 
@@ -13930,6 +14544,20 @@
 
     // 页面加载时读取hash
     function loadFromHash() {
+      const params = new URLSearchParams(window.location.search);
+      const subscriptionScene = params.get('subscriptionScene');
+      const subscriptionRole = params.get('subscriptionRole');
+      if (subscriptionScene) {
+        if (!exportMode) {
+          exportMode = true;
+          document.body.classList.add('export-mode');
+          document.getElementById('export-mode-checkbox').checked = true;
+          document.getElementById('export-mode-toggle').classList.add('进行中');
+        }
+        setTimeout(() => showSubscriptionScene(subscriptionScene, subscriptionRole), 50);
+        return;
+      }
+
       const hash = window.location.hash.slice(1);
       if (hash) {
         const parts = hash.split('/');
@@ -14105,65 +14733,36 @@
         icon: '🌸',
         color: 'linear-gradient(135deg, #FF6B6B 0%, #E74C3C 100%)',
         title: '寻找花朵',
-        difficulty: '⭐ 简单 • 约5分钟',
-        stars: 15,
-        completed: false,
-        desc: '在周围寻找美丽的花朵吧!找到后拍一张照片。你能发现多少种颜色?🌈',
-        completedDesc: '你已经完成了“寻找花朵”任务，发现了身边漂亮的颜色。好样的，小探险家!'
+        desc: '在周围寻找美丽的花朵吧!找到后拍一张照片。你能发现多少种颜色?🌈'
       },
       butterfly: {
         icon: '🦋',
         color: 'linear-gradient(135deg, #FFD700 0%, #F59E0B 100%)',
         title: '发现蝴蝶',
-        difficulty: '⭐ 中等 • 约8分钟',
-        stars: 20,
-        completed: false,
-        desc: '蝴蝶喜欢阳光明媚的地方和花朵。慢慢移动,保持安静,才能拍到好照片!🌻',
-        completedDesc: '你已经完成了“发现蝴蝶”任务，还记得它飞起来像不像一片会动的花瓣?'
+        desc: '蝴蝶喜欢阳光明媚的地方和花朵。慢慢移动,保持安静,才能拍到好照片!🌻'
       },
       rock: {
         icon: '🪨',
         color: 'linear-gradient(135deg, #4ADE80 0%, #22C55E 100%)',
         title: '探索岩石',
-        difficulty: '⭐ 简单 • 约5分钟',
-        stars: 10,
-        completed: true,
-        desc: '找一块有独特颜色或图案的有趣岩石。是什么让它与众不同?🔍',
-        completedDesc: '你已经完成了“探索岩石”任务，找到了一块有自己小秘密的石头。观察得真仔细!'
+        desc: '找一块有独特颜色或图案的有趣岩石。是什么让它与众不同?🔍'
       },
       leaf: {
         icon: '🍂',
         color: 'linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%)',
         title: '收集落叶',
-        difficulty: '⭐ 简单 • 约6分钟',
-        stars: 15,
-        completed: false,
-        desc: '寻找不同形状和大小的落叶。你能识别出多少种不同的树木?🌳',
-        completedDesc: '你已经完成了“收集落叶”任务，发现了叶子的不同形状。你的眼睛越来越会找线索啦!'
+        desc: '寻找不同形状和大小的落叶。你能识别出多少种不同的树木?🌳'
       }
     };
-    let activeTaskType = null;
 
     function showTaskModal(taskType) {
       const task = taskData[taskType];
       if (!task) return;
-
-      activeTaskType = taskType;
-      const modal = document.getElementById('task-modal');
-      const rewardIcon = document.getElementById('task-modal-reward-icon');
-      const rewardText = document.getElementById('task-modal-reward-text');
-      const actions = document.getElementById('task-modal-actions');
-      modal.classList.toggle('completed', task.completed);
+      
       document.getElementById('task-modal-icon').style.background = task.color;
       document.getElementById('task-modal-icon').textContent = task.icon;
       document.getElementById('task-modal-title').textContent = task.title;
-      document.getElementById('task-modal-difficulty').textContent = task.completed ? `⭐ 获得 +${task.stars} 星星` : task.difficulty;
-      document.getElementById('task-modal-desc').textContent = task.completed ? task.completedDesc : task.desc;
-      rewardIcon.textContent = task.completed ? '✅' : '🏆';
-      rewardText.textContent = task.completed ? `任务已完成，已获得 +${task.stars} 星星` : `奖励:+${task.stars} 星星`;
-      actions.innerHTML = task.completed
-        ? '<button class="task-btn task-btn-decline" onclick="hideTaskModal()">知道啦</button><button class="task-btn task-btn-accept" onclick="hideTaskModal()">继续探索</button>'
-        : '<button class="task-btn task-btn-decline" onclick="hideTaskModal()">稍后再说</button><button class="task-btn task-btn-accept" onclick="acceptTask()">出发!🚀</button>';
+      document.getElementById('task-modal-desc').textContent = task.desc;
       document.getElementById('task-modal-overlay').classList.add('show');
     }
 
@@ -14172,11 +14771,6 @@
     }
 
     function acceptTask() {
-      const task = taskData[activeTaskType];
-      if (task && task.completed) {
-        hideTaskModal();
-        return;
-      }
       hideTaskModal();
       navigateTo('camera-page');
     }
@@ -15454,6 +16048,138 @@
       if (statusBar) {
         statusBar.style.display = (pageId === 'home-page') ? 'flex' : 'none';
       }
+    }
+
+    const subscriptionCompanions = {
+      hootie: { emoji: '🦉', name: '咕咕', rest: '我先收起魔法小翅膀' },
+      rusty: { emoji: '🤖', name: '锈锈', rest: '我的小齿轮需要重新转起来' },
+      zip: { emoji: '🐰', name: '闪电兔', rest: '我的闪电脚步先停一下' },
+      bubbles: { emoji: '🧚', name: '泡泡精灵', rest: '故事泡泡暂时飘不出来' },
+      riddle: { emoji: '🦊', name: '捣蛋狐', rest: '我的谜题袋先系起来' },
+      ribbit: { emoji: '🐸', name: '话唠蛙', rest: '我的小喇叭要先充能' },
+      belle: { emoji: '🦋', name: '臭美蝶', rest: '我的彩色翅膀先休息一下' },
+      dozy: { emoji: '🐉', name: '瞌睡龙', rest: '我先打个古老的小盹' }
+    };
+
+    const subscriptionSceneCopy = {
+      general: {
+        icon: '🔋',
+        kicker: 'AI 服务快到期',
+        title: '{name}想补点能量',
+        reminder: '我的 AI 小灯快暗啦，{name}想补点能量，请爸爸妈妈帮我充充电。',
+        reminderSmall: '',
+        lockTitle: '{name}需要充充电',
+        lock: '我的 AI 小灯暂时灭啦，{name}需要补点能量，请爸爸妈妈帮我充充电。',
+        lockSmall: '拍照、看相册、看已经保存的作品还可以继续。请爸爸妈妈扫码，在 App 里帮我打开 AI 服务。'
+      },
+      chat: {
+        icon: '🎙️',
+        kicker: '语音对话快到期',
+        title: '{name}的小喇叭要休息啦',
+        reminder: '我快接不上语音聊天啦，{name}的小喇叭需要能量，请爸爸妈妈帮我充充电。',
+        reminderSmall: '',
+        lockTitle: '{name}的小喇叭在休息',
+        lock: '我现在接不上语音聊天啦，{name}的小喇叭没能量了，请爸爸妈妈帮我充充电。',
+        lockSmall: '请爸爸妈妈扫码，在 App 里帮我打开 AI 服务。拍照和相册还可以继续用。'
+      },
+      identify: {
+        icon: '📷',
+        kicker: '拍照识别快到期',
+        title: '{name}的小眼睛要休息啦',
+        reminder: '我快认不出新照片啦，{name}的小眼睛需要能量，请爸爸妈妈帮我充充电。',
+        reminderSmall: '',
+        lockTitle: '{name}的小眼睛在休息',
+        lock: '我现在认不出新照片啦，{name}的小眼睛没能量了，请爸爸妈妈帮我充充电。',
+        lockSmall: '请爸爸妈妈扫码，在 App 里帮我打开 AI 服务。照片可以先保存起来。'
+      },
+      magic: {
+        icon: '🎨',
+        kicker: '魔法创作快到期',
+        title: '魔法画笔要休息啦',
+        reminder: '魔法画笔快挥不动啦，它需要一点能量，请爸爸妈妈帮我充充电。',
+        reminderSmall: '',
+        lockTitle: '魔法画笔在休息',
+        lock: '魔法画笔现在挥不动啦，它的能量用完了，请爸爸妈妈帮我充充电。',
+        lockSmall: '请爸爸妈妈扫码，在 App 里帮我打开 AI 服务。已经做好的作品还可以继续看。'
+      }
+    };
+
+    const subscriptionScenePages = {
+      expiring: 'subscription-reminder-page',
+      reminder: 'subscription-reminder-page',
+      chat: 'subscription-reminder-page',
+      identify: 'subscription-reminder-page',
+      magic: 'subscription-reminder-page',
+      locked: 'subscription-lock-page',
+      aiLocked: 'subscription-lock-page',
+      parentQr: 'subscription-lock-page',
+      chatLocked: 'subscription-lock-page',
+      identifyLocked: 'subscription-lock-page',
+      magicLocked: 'subscription-lock-page',
+      settings: 'subscription-settings-page'
+    };
+
+    function resolveSubscriptionRole(role) {
+      if (role && subscriptionCompanions[role]) return subscriptionCompanions[role];
+      const nameMap = {
+        '咕咕': 'hootie', '锈锈': 'rusty', '闪电兔': 'zip', '泡泡精灵': 'bubbles',
+        '捣蛋狐': 'riddle', '话唠蛙': 'ribbit', '臭美蝶': 'belle', '瞌睡龙': 'dozy'
+      };
+      if (!role) {
+        const nameSources = ['chat-avatar-name', 'general-chat-avatar-name', 'ptt-avatar-name'];
+        for (const id of nameSources) {
+          const el = document.getElementById(id);
+          const name = el && el.textContent && el.textContent.trim();
+          if (name && nameMap[name]) {
+            role = name;
+            break;
+          }
+        }
+        if (!role && currentAICharacter) {
+          const emojiMap = { '🦉': 'hootie', '🤖': 'rusty', '🐰': 'zip', '🧚': 'bubbles', '🦊': 'riddle', '🐸': 'ribbit', '🦋': 'belle', '🐉': 'dozy' };
+          if (emojiMap[currentAICharacter]) return subscriptionCompanions[emojiMap[currentAICharacter]];
+        }
+      }
+      const fromName = role && nameMap[role];
+      if (fromName) return subscriptionCompanions[fromName];
+      return subscriptionCompanions.hootie;
+    }
+
+    function resolveSubscriptionCopy(scene) {
+      if (scene && scene.includes('chat')) return subscriptionSceneCopy.chat;
+      if (scene && scene.includes('identify')) return subscriptionSceneCopy.identify;
+      if (scene && scene.includes('magic')) return subscriptionSceneCopy.magic;
+      return subscriptionSceneCopy.general;
+    }
+
+    function applySubscriptionSceneCopy(pageId, scene, role) {
+      const companion = resolveSubscriptionRole(role);
+      const copy = resolveSubscriptionCopy(scene);
+      const prefix = pageId === 'subscription-lock-page' ? 'sub-lock' : 'sub-reminder';
+      const setText = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text.replaceAll('{name}', companion.name);
+      };
+      setText(`${prefix}-avatar`, companion.emoji);
+      setText(`${prefix}-name`, companion.name);
+      setText(`${prefix}-state`, pageId === 'subscription-lock-page' ? companion.rest : '能量灯变小前的小提醒');
+      setText(`${prefix}-kicker`, copy.kicker);
+      setText(`${prefix}-title`, pageId === 'subscription-lock-page' ? copy.lockTitle : copy.title);
+      setText(`${prefix}-function-icon`, copy.icon || '🔋');
+      setText(`${prefix}-main`, pageId === 'subscription-lock-page' ? copy.lock : copy.reminder);
+      const smallEl = document.getElementById(`${prefix}-small`);
+      if (smallEl) smallEl.textContent = pageId === 'subscription-lock-page' ? copy.lockSmall : copy.reminderSmall;
+    }
+
+    function showSubscriptionScene(scene = 'locked', role = null) {
+      if (scene === 'quota' || scene === 'magicQuota') {
+        showToast('今天的魔法画笔休息啦，明天再继续创作');
+        goTo('workshop-page');
+        return;
+      }
+      const pageId = subscriptionScenePages[scene] || subscriptionScenePages.locked;
+      applySubscriptionSceneCopy(pageId, scene, role);
+      goTo(pageId);
     }
 
     // AI 菜单
@@ -18705,6 +19431,10 @@
         'backpack-page': 'home-page',
         'backpack-empty-page': 'home-page',
         'settings-page': 'home-page',
+        'subscription-reminder-page': 'home-page',
+        'subscription-lock-page': 'home-page',
+        'subscription-settings-page': 'settings-page',
+        'subscription-quota-page': 'workshop-page',
         'species-list-page': 'backpack-page',
         'species-detail-page': 'species-list-page',
         'story-page': 'chat-page',
