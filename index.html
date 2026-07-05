@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI 探索者 - 订阅体验 V6 中文版</title>
+  <title>AI 探索者 - 通知中心体验 V7 中文版</title>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -8019,6 +8019,9 @@
     .notification-icon.level {
       background: linear-gradient(135deg, #E9D5FF 0%, #DDD6FE 100%);
     }
+    .notification-icon.species {
+      background: linear-gradient(135deg, #DCFCE7 0%, #BBF7D0 100%);
+    }
     .notification-icon.system {
       background: linear-gradient(135deg, #F3F4F6 0%, #E5E7EB 100%);
     }
@@ -8066,6 +8069,20 @@
       font-size: 18px;
       color: #CCC;
       align-self: center;
+    }
+
+    .notification-empty {
+      margin-top: 46px;
+      text-align: center;
+      color: #7c6346;
+      font-size: 14px;
+      line-height: 1.6;
+      font-weight: 600;
+    }
+
+    .notification-empty-icon {
+      font-size: 42px;
+      margin-bottom: 8px;
     }
 
     /* ============ Settings 设置页 ============ */
@@ -10292,6 +10309,10 @@
 
         <!-- ========== Home 页面 ========== -->
         <div id="home-page" class="page 进行中">
+          <button class="home-notification-bell" id="home-notification-bell" onclick="navigateTo('notifications-page')" aria-label="通知">
+            <span>🔔</span>
+            <span class="notification-dot" id="home-notification-dot"></span>
+          </button>
 
           <div class="carousel-container" id="carousel">
             <div class="card pos-left" data-page="settings-page" onclick="handleCardClick(0)">
@@ -12351,93 +12372,7 @@
               <span>通知</span>
             </div>
 
-            <div class="notifications-list">
-              <!-- 今天 -->
-              <div class="notifications-date-group">
-                <div class="notifications-date">今天</div>
-                
-                <div class="notification-item unread" onclick="expandNotification(this)">
-                  <div class="notification-icon parent">💌</div>
-                  <div class="notification-content">
-                    <div class="notification-header">
-                      <span class="notification-sender">妈妈</span>
-                      <span class="notification-time">10:30</span>
-                    </div>
-                    <div class="notification-preview">今天做得太棒了!我看到你发现了蝴蝶 🎉</div>
-                    <div class="notification-full">今天做得太棒了!我看到你发现了蝴蝶 and I'm so proud of you! Keep exploring and learning new things. Love you! 🎉❤️</div>
-                  </div>
-                </div>
-
-                <div class="notification-item unread" onclick="handleNotificationClick('map-page')">
-                  <div class="notification-icon quest">🗺️</div>
-                  <div class="notification-content">
-                    <div class="notification-header">
-                      <span class="notification-sender">新任务</span>
-                      <span class="notification-time">09:15</span>
-                    </div>
-                    <div class="notification-preview">找到3种不同的叶子</div>
-                  </div>
-                  <span class="notification-arrow">›</span>
-                </div>
-              </div>
-
-              <!-- 昨天 -->
-              <div class="notifications-date-group">
-                <div class="notifications-date">昨天</div>
-                
-                <div class="notification-item" onclick="handleNotificationClick('backpack-page')">
-                  <div class="notification-icon badge">🏆</div>
-                  <div class="notification-content">
-                    <div class="notification-header">
-                      <span class="notification-sender">勋章解锁!</span>
-                      <span class="notification-time">16:42</span>
-                    </div>
-                    <div class="notification-preview">你获得了花卉专家勋章 🌸</div>
-                  </div>
-                  <span class="notification-arrow">›</span>
-                </div>
-
-                <div class="notification-item" onclick="expandNotification(this)">
-                  <div class="notification-icon parent">💌</div>
-                  <div class="notification-content">
-                    <div class="notification-header">
-                      <span class="notification-sender">爸爸</span>
-                      <span class="notification-time">12:20</span>
-                    </div>
-                    <div class="notification-preview">这周末我们一起去公园探索吧!</div>
-                    <div class="notification-full">Can't wait to explore the park together this weekend! Maybe we can find some interesting insects. What do you think? 🐛🔍</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 更早 -->
-              <div class="notifications-date-group">
-                <div class="notifications-date">本周</div>
-                
-                <div class="notification-item" onclick="handleNotificationClick('explorer-page')">
-                  <div class="notification-icon level">⭐</div>
-                  <div class="notification-content">
-                    <div class="notification-header">
-                      <span class="notification-sender">升级!</span>
-                      <span class="notification-time">周一</span>
-                    </div>
-                    <div class="notification-preview">恭喜!你达到了5级</div>
-                  </div>
-                  <span class="notification-arrow">›</span>
-                </div>
-
-                <div class="notification-item">
-                  <div class="notification-icon system">📢</div>
-                  <div class="notification-content">
-                    <div class="notification-header">
-                      <span class="notification-sender">AI Explorer</span>
-                      <span class="notification-time">周日</span>
-                    </div>
-                    <div class="notification-preview">新功能:夜间探索模式上线了!</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div class="notifications-list" id="notifications-list"></div>
           </div>
         </div>
 
@@ -13359,7 +13294,7 @@
                 <div class="settings-group-title">AI 服务</div>
                 <div class="settings-group-card">
                   <div class="sub-settings-note">
-                    AI 服务从设备首次激活开始体验 3 天。恢复出厂、换绑家庭或转让设备都不会重新开始。
+                    AI 服务从设备首次激活开始体验 3 天。恢复出厂、换绑或重新绑定都不会重新开始。
                   </div>
                   <div class="settings-item">
                     <div class="settings-item-left">
@@ -14026,10 +13961,10 @@
         <div class="nav-section-title">🎉 激励反馈演示</div>
         <div class="nav-items">
           <div class="nav-item demo-item" onclick="demoStar()"><span class="icon">⭐</span><span>星星+5</span></div>
-          <div class="nav-item demo-item" onclick="demoNewSpecies()"><span class="icon">🦋</span><span>发现新物种</span></div>
-          <div class="nav-item demo-item" onclick="demoLevelUp()"><span class="icon">🎊</span><span>升级弹窗</span></div>
-          <div class="nav-item demo-item" onclick="demoBadge()"><span class="icon">🏆</span><span>勋章解锁</span></div>
-          <div class="nav-item demo-item" onclick="demoSequence()"><span class="icon">🎬</span><span>完整流程</span></div>
+          <div class="nav-item demo-item" onclick="demoNewSpecies()"><span class="icon">🦋</span><span>新物种通知</span></div>
+          <div class="nav-item demo-item" onclick="demoLevelUp()"><span class="icon">🎊</span><span>升级通知</span></div>
+          <div class="nav-item demo-item" onclick="demoBadge()"><span class="icon">🏆</span><span>勋章通知</span></div>
+          <div class="nav-item demo-item" onclick="demoSequence()"><span class="icon">🎬</span><span>奖励进通知</span></div>
           <div class="nav-item demo-item" onclick="demoScreenTimeBanner()"><span class="icon">⏰</span><span>时间快到</span></div>
           <div class="nav-item demo-item" onclick="demoScreenTimeEnd()"><span class="icon">🌙</span><span>时间结束</span></div>
           <div class="nav-item demo-item" onclick="demoUpdateNotify()"><span class="icon">🚀</span><span>版本更新通知</span></div>
@@ -14932,30 +14867,161 @@
 
     // ============ 通知功能 ============
     let previousPage = 'home-page';
+    const notificationPriority = {
+      level_up: 90,
+      badge: 80,
+      new_species: 70
+    };
+    const notificationMeta = {
+      level_up: { icon: '⭐', iconClass: 'level', title: '倾听者等级提升' },
+      badge: { icon: '🏆', iconClass: 'badge', title: '获得新勋章' },
+      new_species: { icon: '🦋', iconClass: 'species', title: '发现新物种' }
+    };
+    let rewardNotifications = [
+      {
+        id: 'level-up-6',
+        type: 'level_up',
+        time: '10:30',
+        unread: true,
+        createdAt: 300,
+        preview: '你升级为 Lv.6 丛林游侠',
+        payload: {
+          levels: 'Lv.5 自然小侦探 → Lv.6 丛林游侠'
+        }
+      },
+      {
+        id: 'badge-flower',
+        type: 'badge',
+        time: '10:18',
+        unread: true,
+        createdAt: 260,
+        preview: '你获得了「花卉专家」勋章',
+        payload: {
+          name: '花卉专家',
+          rarity: '⭐ 稀有',
+          description: '发现了10种不同的花卉',
+          icon: '🌸'
+        }
+      },
+      {
+        id: 'species-swallowtail',
+        type: 'new_species',
+        time: '09:45',
+        unread: true,
+        createdAt: 220,
+        preview: '《万物之书》收录了凤蝶',
+        payload: {
+          speciesName: '凤蝶',
+          speciesIcon: '🦋',
+          reward: 15
+        }
+      }
+    ];
 
     function goBackFromNotifications() {
       navigateTo(previousPage);
     }
 
-    function expandNotification(el) {
-      el.classList.toggle('expanded');
-      el.classList.remove('unread');
+    function getSortedNotifications() {
+      return [...rewardNotifications].sort((a, b) => {
+        const readA = a.unread ? 1 : 0;
+        const readB = b.unread ? 1 : 0;
+        if (readA !== readB) return readB - readA;
+        const priorityA = notificationPriority[a.type] || 0;
+        const priorityB = notificationPriority[b.type] || 0;
+        if (priorityA !== priorityB) return priorityB - priorityA;
+        return (b.createdAt || 0) - (a.createdAt || 0);
+      });
+    }
+
+    function renderNotifications() {
+      const list = document.getElementById('notifications-list');
+      if (!list) return;
+      const sorted = getSortedNotifications();
+      if (!sorted.length) {
+        list.innerHTML = `
+          <div class="notification-empty">
+            <div class="notification-empty-icon">🔔</div>
+            <div>暂时没有新的发现。</div>
+            <div>去外面拍一拍，爷爷的老朋友会告诉你新消息。</div>
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = `
+        <div class="notifications-date-group">
+          <div class="notifications-date">按重要程度</div>
+          ${sorted.map(item => {
+            const meta = notificationMeta[item.type] || notificationMeta.new_species;
+            return `
+              <div class="notification-item ${item.unread ? 'unread' : ''}" onclick="openRewardNotification('${item.id}')">
+                <div class="notification-icon ${meta.iconClass}">${meta.icon}</div>
+                <div class="notification-content">
+                  <div class="notification-header">
+                    <span class="notification-sender">${meta.title}</span>
+                    <span class="notification-time">${item.time || ''}</span>
+                  </div>
+                  <div class="notification-preview">${item.preview}</div>
+                </div>
+                <span class="notification-arrow">›</span>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    function addRewardNotification(type, payload = {}) {
+      const meta = notificationMeta[type] || notificationMeta.new_species;
+      const id = payload.id || `${type}-${Date.now()}`;
+      const previewMap = {
+        level_up: payload.preview || `你升级为 ${payload.levels || '新的倾听者等级'}`,
+        badge: payload.preview || `你获得了「${payload.name || '新勋章'}」勋章`,
+        new_species: payload.preview || `《万物之书》收录了${payload.speciesName || '新的发现'}`
+      };
+      const notification = {
+        id,
+        type,
+        time: payload.time || '刚刚',
+        unread: true,
+        createdAt: Date.now(),
+        preview: previewMap[type] || meta.title,
+        payload
+      };
+      rewardNotifications = rewardNotifications.filter(item => item.id !== id);
+      rewardNotifications.unshift(notification);
+      renderNotifications();
       updateNotificationDots();
     }
 
-    function handleNotificationClick(targetPage) {
-      navigateTo(targetPage);
-      event.target.closest('.notification-item').classList.remove('unread');
+    function openRewardNotification(id) {
+      const item = rewardNotifications.find(notification => notification.id === id);
+      if (!item) return;
+      item.unread = false;
+      renderNotifications();
       updateNotificationDots();
+
+      if (item.type === 'level_up') {
+        showLevelUpModal(item.payload);
+      } else if (item.type === 'badge') {
+        showBadgeModal(item.payload);
+      } else if (item.type === 'new_species') {
+        showDiscoveryModal(item.payload.speciesName, item.payload.speciesIcon, item.payload.reward);
+      }
     }
 
     function updateNotificationDots() {
-      const hasUnread = document.querySelectorAll('.notification-item.unread').length > 0;
+      const hasUnread = rewardNotifications.some(item => item.unread);
       const homeBell = document.getElementById('home-notification-bell');
+      const homeDot = document.getElementById('home-notification-dot');
       const explorerDot = document.getElementById('explorer-notification-dot');
       
       if (homeBell) {
-        homeBell.style.display = hasUnread ? 'flex' : 'none';
+        homeBell.style.display = 'flex';
+      }
+      if (homeDot) {
+        homeDot.style.display = hasUnread ? 'block' : 'none';
       }
       if (explorerDot) {
         explorerDot.style.display = hasUnread ? 'block' : 'none';
@@ -14980,7 +15046,9 @@
       showStarFloat(amount);
     }
 
-    function showLevelUpModal() {
+    function showLevelUpModal(data = {}) {
+      const levelsEl = document.querySelector('#levelup-modal .levelup-levels');
+      if (levelsEl && data.levels) levelsEl.textContent = data.levels;
       document.getElementById('levelup-modal').classList.add('show');
     }
 
@@ -14988,7 +15056,15 @@
       document.getElementById('levelup-modal').classList.remove('show');
     }
 
-    function showBadgeModal() {
+    function showBadgeModal(data = {}) {
+      const iconEl = document.querySelector('#badge-modal .badge-icon-large');
+      const nameEl = document.querySelector('#badge-modal .badge-name');
+      const rarityEl = document.querySelector('#badge-modal .badge-rarity');
+      const descEl = document.querySelector('#badge-modal .badge-description');
+      if (iconEl && data.icon) iconEl.textContent = data.icon;
+      if (nameEl && data.name) nameEl.textContent = data.name;
+      if (rarityEl && data.rarity) rarityEl.textContent = data.rarity;
+      if (descEl && data.description) descEl.textContent = '"' + data.description + '"';
       document.getElementById('badge-modal').classList.add('show');
     }
 
@@ -14996,7 +15072,7 @@
       document.getElementById('badge-modal').classList.remove('show');
     }
 
-    // 演示:依次触发反馈队列(XP → 徽章 → 升级)
+    // 演示:识别后只即时显示自然之语,成长反馈进入通知
     // 空状态预览切换
     function toggleEmptyState() {
       const toggle = document.getElementById('empty-state-toggle');
@@ -15010,17 +15086,19 @@
     }
 
     function demoRewardSequence() {
-      showLevelUpAfterBadge = true;
-      
-      // 1. 星星飘字
       showStarFloat(5);
-      
-      // 2. 1.5秒后显示徽章弹窗
-      setTimeout(() => {
-        showBadgeModal();
-      }, 1600);
-      
-      // 徽章弹窗关闭后显示升级弹窗(通过triggerBadgeClose触发)
+      addRewardNotification('badge', {
+        id: 'badge-demo-' + Date.now(),
+        name: '花卉专家',
+        rarity: '⭐ 稀有',
+        description: '发现了10种不同的花卉',
+        icon: '🌸'
+      });
+      addRewardNotification('level_up', {
+        id: 'level-demo-' + Date.now(),
+        levels: 'Lv.5 自然小侦探 → Lv.6 丛林游侠'
+      });
+      showToast('🔔 新奖励已放进通知');
     }
 
     // 徽章弹窗关闭后的回调
@@ -19834,15 +19912,16 @@
       if (modal) modal.classList.remove('show');
     }
     
-    // 演示完整的新物种发现流程（语音播报完成后触发）
+    // 演示新物种发现流程:识别当下不弹窗,只新增通知
     function demoNewSpeciesFlow() {
-      // 1. 先显示星星飘字（使用现有的showStarFloat）
       showStarFloat(15);
-      
-      // 2. 1.5秒后显示发现弹窗
-      setTimeout(() => {
-        showDiscoveryModal('凤蝶', '🦋', 15);
-      }, 1600);
+      addRewardNotification('new_species', {
+        id: 'species-demo-' + Date.now(),
+        speciesName: '凤蝶',
+        speciesIcon: '🦋',
+        reward: 15
+      });
+      showToast('🔔 新发现已放进通知');
     }
     
     // 演示已收录物种流程（只弹小星星）
@@ -19854,13 +19933,29 @@
     // 页面加载完成后初始化
     document.addEventListener('DOMContentLoaded', function() {
       initCarousel();
+      renderNotifications();
       updateNotificationDots();
     });
 
     // 演示功能 - 在控制台可用
     window.demoStar = () => showStarFloat(5);
-    window.demoLevelUp = () => showLevelUpModal();
-    window.demoBadge = () => showBadgeModal();
+    window.demoLevelUp = () => {
+      addRewardNotification('level_up', {
+        id: 'level-demo-' + Date.now(),
+        levels: 'Lv.5 自然小侦探 → Lv.6 丛林游侠'
+      });
+      showToast('🔔 升级消息已放进通知');
+    };
+    window.demoBadge = () => {
+      addRewardNotification('badge', {
+        id: 'badge-demo-' + Date.now(),
+        name: '花卉专家',
+        rarity: '⭐ 稀有',
+        description: '发现了10种不同的花卉',
+        icon: '🌸'
+      });
+      showToast('🔔 勋章消息已放进通知');
+    };
     window.demoSequence = () => demoRewardSequence();
     window.demoNewSpecies = () => demoNewSpeciesFlow();
     window.demoOldSpecies = () => demoOldSpeciesFlow();
