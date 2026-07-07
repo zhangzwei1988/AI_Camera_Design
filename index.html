@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI 探索者 - AI 服务卡片体验 V17 中文版</title>
+  <title>AI 探索者 - AI 服务卡片体验 V21 中文版</title>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -9937,7 +9937,7 @@
       letter-spacing: 1px;
     }
 
-    /* ========== AI 服务：3.97 寸设备卡片交互 V17 / 方案 A 晴天草地 ========== */
+    /* ========== AI 服务：3.97 寸设备卡片交互 V21 / 方案 A 晴天草地 ========== */
     .sub-page-shell {
       --sub-bg-a: #EAF8EF;
       --sub-bg-b: #DDECFF;
@@ -10428,6 +10428,246 @@
       line-height: 1.22;
       color: var(--sub-muted);
       font-weight: 800;
+    }
+    .sub-page-shell.active {
+      background: linear-gradient(135deg, #EAF8EF 0%, #FFF4C9 45%, #DDECFF 100%);
+    }
+    .sub-active-board {
+      position: absolute;
+      left: 34px;
+      right: 34px;
+      top: 62px;
+      bottom: 24px;
+      display: grid;
+      grid-template-columns: 292px 1fr;
+      gap: 16px;
+      z-index: 2;
+    }
+    .sub-active-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 26px;
+      border: 2px solid rgba(255,255,255,.82);
+      background: rgba(255,255,255,.78);
+      box-shadow: 0 12px 24px var(--sub-shadow), inset 0 0 0 2px rgba(255,255,255,.42);
+      color: var(--sub-ink);
+    }
+    .sub-active-hero {
+      padding: 18px 16px;
+      background: linear-gradient(145deg, #FFF8E8 0%, #FFE28C 48%, #A8E7C1 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .sub-active-status {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .sub-active-label {
+      min-height: 28px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.78);
+      color: #245437;
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .sub-active-days {
+      min-height: 28px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.58);
+      color: var(--sub-muted);
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .sub-active-companion {
+      display: grid;
+      grid-template-columns: 86px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+      margin-top: 12px;
+    }
+    .sub-active-avatar {
+      width: 86px;
+      height: 86px;
+      border-radius: 0;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+      box-shadow: none;
+    }
+    .sub-active-title {
+      margin: 0;
+      color: var(--sub-ink);
+      font-size: 27px;
+      line-height: 1.08;
+      font-weight: 900;
+      letter-spacing: 0;
+      text-shadow: 0 2px 0 rgba(255,255,255,.5);
+    }
+    .sub-active-copy {
+      margin-top: 8px;
+      color: var(--sub-muted);
+      font-size: 14px;
+      line-height: 1.3;
+      font-weight: 800;
+    }
+    .sub-active-parent {
+      min-height: 178px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.74);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px;
+      text-align: center;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.72);
+    }
+    .sub-active-mini-qr {
+      width: 82px;
+      height: 82px;
+      border-radius: 20px;
+      background:
+        linear-gradient(90deg, #273447 7px, transparent 7px) 0 0 / 14px 14px,
+        linear-gradient(#273447 7px, transparent 7px) 0 0 / 14px 14px,
+        #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 0 0 7px #fff, inset 0 0 0 10px #f2e9d9, 0 7px 14px rgba(0,0,0,.10);
+    }
+    .sub-active-mini-qr span {
+      width: 34px;
+      height: 34px;
+      border-radius: 11px;
+      background: #fff7df;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+    .sub-active-parent-title {
+      font-size: 15px;
+      line-height: 1.1;
+      font-weight: 900;
+      color: var(--sub-ink);
+    }
+    .sub-active-parent-copy {
+      font-size: 11px;
+      line-height: 1.2;
+      font-weight: 800;
+      color: var(--sub-muted);
+    }
+    .sub-active-device-code {
+      min-height: 24px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.7);
+      font-size: 11px;
+      line-height: 1;
+      font-weight: 900;
+      color: var(--sub-muted);
+      white-space: nowrap;
+    }
+    .sub-active-progress {
+      padding: 14px;
+      background: rgba(255,255,255,.62);
+      display: flex;
+      flex-direction: column;
+    }
+    .sub-active-progress-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .sub-active-progress-title {
+      font-size: 20px;
+      line-height: 1;
+      font-weight: 900;
+      color: var(--sub-ink);
+    }
+    .sub-active-progress-note {
+      min-height: 25px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(168,231,193,.58);
+      color: #245437;
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .sub-active-stats {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-template-rows: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .sub-active-stat {
+      grid-column: span 2;
+      min-height: 0;
+      border: 0;
+      border-radius: 22px;
+      padding: 11px 10px 10px;
+      background: linear-gradient(145deg, #F3FFF4 0%, #A8E7C1 58%, #E8F6FF 100%);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.7), 0 8px 16px rgba(74,50,28,.12);
+      color: var(--sub-ink);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .sub-active-stat.wide {
+      grid-column: span 2;
+    }
+    .sub-active-stat.yellow {
+      background: linear-gradient(145deg, #FFF8E8 0%, #FFE28C 58%, #F3FFF4 100%);
+    }
+    .sub-active-stat.blue {
+      background: linear-gradient(145deg, #F5F1FF 0%, #C9D6FF 58%, #EEF5FF 100%);
+    }
+    .sub-active-stat.peach {
+      background: linear-gradient(145deg, #FFF8E8 0%, #FFBCA9 58%, #FFF1D0 100%);
+    }
+    .sub-active-stat-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 15px;
+      background: rgba(255,255,255,.72);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 27px;
+      box-shadow: 0 6px 12px rgba(74,50,28,.10);
+    }
+    .sub-active-stat-value {
+      margin-top: 8px;
+      font-size: 27px;
+      line-height: 1;
+      font-weight: 900;
+      color: var(--sub-ink);
+      white-space: nowrap;
+    }
+    .sub-active-stat-title {
+      margin-top: 6px;
+      font-size: 14px;
+      line-height: 1.05;
+      font-weight: 900;
+      color: var(--sub-muted);
+      white-space: nowrap;
     }
   </style>
 </head>
@@ -13480,11 +13720,91 @@
                   <div class="sub-settings-tile-title">魔法创作</div>
                   <div class="sub-settings-tile-copy">今天已画 4 次</div>
                 </button>
-                <button class="sub-settings-tile parent" onclick="goTo('subscription-lock-page')">
-                  <div class="sub-settings-tile-icon">📱</div>
-                  <div class="sub-settings-tile-title">家长扫码</div>
-                  <div class="sub-settings-tile-copy">打开 AI 服务页</div>
+                <button class="sub-settings-tile parent" onclick="showSubscriptionScene('active')">
+                  <div class="sub-settings-tile-icon">✨</div>
+                  <div class="sub-settings-tile-title">AI 服务卡</div>
+                  <div class="sub-settings-tile-copy">查看探索收获</div>
                 </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========== AI 服务：正常可用 / 探索收获 ========== -->
+        <div id="subscription-active-page" class="page">
+          <div class="sub-page-shell active">
+            <button class="sub-back-btn" onclick="goTo('subscription-settings-page')">← 返回</button>
+            <div class="sub-active-board">
+              <div class="sub-active-card sub-active-hero">
+                <div>
+                  <div class="sub-active-status">
+                    <div class="sub-active-label">AI 服务正常</div>
+                    <div class="sub-active-days">还剩 326 天</div>
+                  </div>
+                  <div class="sub-active-companion">
+                    <div class="sub-active-avatar">🦉</div>
+                    <div>
+                      <h2 class="sub-active-title">AI 正在陪你探索</h2>
+                      <div class="sub-active-copy">小伙伴们都准备好了。</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="sub-active-parent">
+                  <div class="sub-active-parent-title">家长查看详情</div>
+                  <div class="sub-active-mini-qr"><span>📱</span></div>
+                  <div class="sub-active-parent-copy">扫码查看 AI 服务</div>
+                  <div class="sub-active-device-code">设备编号 AE-2026-8821</div>
+                </div>
+              </div>
+              <div class="sub-active-card sub-active-progress">
+                <div class="sub-active-progress-head">
+                  <div class="sub-active-progress-title">我的探索收获</div>
+                  <div class="sub-active-progress-note">累计</div>
+                </div>
+                <div class="sub-active-stats">
+                  <div class="sub-active-stat yellow">
+                    <div class="sub-active-stat-icon">📷</div>
+                    <div>
+                      <div class="sub-active-stat-value">128</div>
+                      <div class="sub-active-stat-title">拍照张数</div>
+                    </div>
+                  </div>
+                  <div class="sub-active-stat">
+                    <div class="sub-active-stat-icon">🔍</div>
+                    <div>
+                      <div class="sub-active-stat-value">46</div>
+                      <div class="sub-active-stat-title">识别次数</div>
+                    </div>
+                  </div>
+                  <div class="sub-active-stat blue">
+                    <div class="sub-active-stat-icon">🎨</div>
+                    <div>
+                      <div class="sub-active-stat-value">28</div>
+                      <div class="sub-active-stat-title">创作作品</div>
+                    </div>
+                  </div>
+                  <div class="sub-active-stat peach">
+                    <div class="sub-active-stat-icon">🏅</div>
+                    <div>
+                      <div class="sub-active-stat-value">7</div>
+                      <div class="sub-active-stat-title">点亮徽章</div>
+                    </div>
+                  </div>
+                  <div class="sub-active-stat wide">
+                    <div class="sub-active-stat-icon">🎯</div>
+                    <div>
+                      <div class="sub-active-stat-value">12</div>
+                      <div class="sub-active-stat-title">完成任务</div>
+                    </div>
+                  </div>
+                  <div class="sub-active-stat wide blue">
+                    <div class="sub-active-stat-icon">⚡</div>
+                    <div>
+                      <div class="sub-active-stat-value">5</div>
+                      <div class="sub-active-stat-title">完成挑战</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -14009,6 +14329,8 @@
           <div class="nav-item sub" onclick="showSubscriptionScene('magicLocked', 'belle')"><span class="icon">🎨</span><span>生图已到期</span></div>
           <div class="nav-item sub" onclick="showSubscriptionScene('magicQuota')"><span class="icon">✨</span><span>生图次数用完</span></div>
           <div class="nav-item" onclick="goTo('subscription-settings-page')"><span class="icon">⚙️</span><span>设置页 AI 服务</span></div>
+          <div class="nav-item" onclick="showSubscriptionScene('active')"><span class="icon">🌟</span><span>已购买：AI 服务卡</span></div>
+          <div class="nav-item" onclick="showSubscriptionScene('notPurchased')"><span class="icon">📱</span><span>未购买：家长扫码</span></div>
         </div>
       </div>
 
@@ -16441,7 +16763,7 @@
 	        reminder: 'AI 快睡着了，拍照和作品还在。',
 	        reminderSmall: '',
 	        lockTitle: '{name}睡着了',
-	        lock: 'AI 睡着了，拍照和作品还在。',
+	        lock: '识别、聊天和魔法画暂时不能用。请爸爸妈妈扫码查看，拍照和作品还在。',
 	        lockSmall: ''
 	      },
 	      chat: {
@@ -16485,6 +16807,13 @@
       locked: 'subscription-lock-page',
       aiLocked: 'subscription-lock-page',
       parentQr: 'subscription-lock-page',
+      notPurchased: 'subscription-lock-page',
+      noService: 'subscription-lock-page',
+      unsubscribed: 'subscription-lock-page',
+      inactive: 'subscription-lock-page',
+      active: 'subscription-active-page',
+      paidActive: 'subscription-active-page',
+      trialActive: 'subscription-active-page',
       chatLocked: 'subscription-lock-page',
       identifyLocked: 'subscription-lock-page',
       magicLocked: 'subscription-lock-page',
@@ -16549,7 +16878,9 @@
         return;
       }
       const pageId = subscriptionScenePages[scene] || subscriptionScenePages.locked;
-      applySubscriptionSceneCopy(pageId, scene, role);
+      if (pageId === 'subscription-reminder-page' || pageId === 'subscription-lock-page') {
+        applySubscriptionSceneCopy(pageId, scene, role);
+      }
       goTo(pageId);
     }
 
@@ -19805,6 +20136,7 @@
         'subscription-reminder-page': 'home-page',
         'subscription-lock-page': 'home-page',
         'subscription-settings-page': 'settings-page',
+        'subscription-active-page': 'subscription-settings-page',
         'subscription-quota-page': 'workshop-page',
         'species-list-page': 'backpack-page',
         'species-detail-page': 'species-list-page',
